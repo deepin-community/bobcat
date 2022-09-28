@@ -1,0 +1,8 @@
+#include "pipe"
+
+#include <unistd.h>
+#include "../redirector/redirector"
+#include "../exception/exception"
+
+
+using namespace FBB;

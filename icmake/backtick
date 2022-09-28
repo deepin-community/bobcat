@@ -1,0 +1,15 @@
+list backtick(string arg)
+{
+    list empty;
+    list ret;
+
+    echo(OFF);
+    ret = `arg`;
+
+    if (listlen(ret) == 1 && !ret[0])       // no output: clear the list
+        ret = empty;
+
+    echo(g_echo);
+    return ret;
+}
+

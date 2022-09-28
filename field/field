@@ -1,0 +1,40 @@
+#ifndef INCLUDED_BOBCAT_FIELD_
+#define INCLUDED_BOBCAT_FIELD_
+
+#include <cstddef>
+#include <cstdint>
+
+namespace FBB
+{
+
+template <size_t base, size_t end, size_t begin>
+struct Field
+{
+    static_assert(base >= 2,
+                "Field<base, end, begin>: 'base' must be >= 2");
+    static_assert(begin < end,
+                "Field<base, end, begin>: 'end' must be > 'begin'");
+
+    static constexpr uint64_t set(uint64_t src, uint64_t value);
+    static constexpr uint64_t get(uint64_t value);
+};
+
+
+#include "fieldtype.f"
+
+#include "get.f"
+#include "set.f"
+
+#include "exp1.f"
+#include "exp2.f"
+
+#include "get0.f"
+#include "set0.f"
+
+#include "get1.f"
+#include "set1.f"
+
+
+} // FBB
+
+#endif

@@ -1,0 +1,741 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::DateTime)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (Date and Time)
+
+manpagename(FBB::DateTime)(Performs Date and Time Computations)
+
+manpagesynopsis()
+    bf(#include <bobcat/datetime>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+
+    bf(FBB::DateTime) objects contain and represent date and time
+values. Individual date and time fields can be requested or modified,
+returning `sanitized' times (e.g., a date like March 33 or a time like 56
+hours are never returned; instead the next month or day is returned). Times
+may be specified in local time (according to the computer's idea of what the
+local time is), in em(Universal Time Coordinated) (tt(UTC)) time values, as a
+time in a named timezone, or as a time in a user-defined timezone. Refer to
+the section bf(TIMEZONES) below for a detailed description of how timezones
+can be specified.
+
+Dates/times represented by tt(DateTime) objects may be modified by adding,
+subtracting, or setting (tt(std::chrono)) seconds, minutes, or hours, or by
+specifying (a selection of) fields of tt(tm structs).
+
+Date/time modificationsthese are always performed relative to the tt(DateTime)
+object's current timezone (which may be tt(UTC), local or another
+timezone). Conversions between timezones (including the tt(UTC) `timezone')
+are also supported.
+
+tt(DateTime) objects can be constructed in many ways. Dates and times may be
+specified as UTC time, as local time, as (tt(std::chrono::minutes)) shifts
+with respect to UTC time, or as a date and time in other (user defined) time
+zones. Negative time offsets refer to timezones West of Greenwich, and
+positive offsets refer to timezones East of Greenwich: these offsets represent
+the zones' local time differences with UTC time. Timezone offsets are always
+computed modulo 12 hours, as timezones may at most differ 12 hours from UTC.
+
+tt(DateTime) objects always contain date and time points in seconds since the
+beginning of the `epoch' (midnight Jan 1, 1970 UTC). The bf(C) function
+bf(time)(2) returns this value for the current date and time (assuming that
+the computer's clock has properly been synchronized).
+
+Daylight Saving Time (DST), when defined for tt(DateTime) objects' zones is
+automatically applied when DST is active. E.g., when a tt(DateTime) object's
+time represents 12:00 hr., and it zone's DST (using a standard +1 hour shift)
+becomes active tomorrow, then the object's time shows 13:00 hr. when 1 day is
+added to its current date/time.
+
+Handling time is complex. The bf(C) function bf(time)(2) returns the time in
+seconds since the beginning of the epoch. Beyond that, simplicity ends, and
+the reader is referred to Eric S. Raymond's (2007) coverage of the
+complexities of handling time: see
+lurl(http://www.catb.org/esr/time-programming) (this document is also
+included in bobcat's repository).
+
+manpagesection(TIMEZONES)
+
+tt(DateTime's) nested class tt(Zone) is used to specify time zones. Time zones
+have various configurable components:
+    itemization(
+    it() The time shift itself. E.g., Central European Time (CET) uses a shift
+        of one hour: when UTC time is noon, then it's 13:00 h. CET. The time
+        shift doesn't have to be multiples of full hours. E.g., India uses a
+        time shift of +5:30 h relative to UTC.
+    it() Maybe a Daylight Saving Time. Most timezones use a +1 hour DST shift:
+        when in the previous example DST is active then CET's local time is
+        14:00 h. Some countries do not use DST shifts. E.g., Afghanistan
+        doesn't use a DST shift.
+    it() A date-interval in which the DST is used may be standard. E.g., it
+        starts at 02:00 h. (local time, becoming 03:00 DST), the last Sunday
+        in March, and ends at 02:00 h. (local time, resetting DST 03:00 to
+        02:00) the last Sunday in October.
+    it() Other calendar intervals may apply. E.g., in 2019 New Zealand's DST
+        starts September 29, and ends April 7th.
+    it() In practice, DST shifts are equal to 1 hour, although there's no
+        formal requirement for that.
+    )
+
+tt(DataTime::Zone's) class offers a variety of means for specifying time zones
+with or without support for DST. Time shifts can be positive or negative and
+are specified in hours and optionally minutes. E.g., -8 or -8:00 for a
+timezone 8 hours earlier than UTC (noon at UTC becomes 04:00 in this timezone)
+or +5:30 for a time zone later than UTC (noon at UTC becomes 17:30 in that
+timezone). Timezones can be given names (which may or may not be the names of
+the `standard' time zones like CET or PST) but can also be constructed by
+providing 
+    itemization(
+    it() a mere shift relative to UTC, no DST.        
+    it() a shift relative to UTC, using a standard DST (1 hour) time shift. In
+        this case the computer's idea of the calendar interval in which DST is
+        active is used;
+    it() a shift relative to UTC, using a specified DST time shift as well as
+        a specified calendar interval, optionally specifying the time when
+        the DST calendar interval starts and/or ends.
+    )
+    
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)    
+    -
+
+manpagesection(ENUMS)
+
+    The class tt(DateTime) defines the following enums:
+
+     bf(DateTime::Month)nl()
+    This enumeration has the following values which are ordered using the
+default bf(C++) tt(enum) values:
+    itemization(
+    it() bf(JANUARY),
+    it() bf(FEBRUARY),
+    it() bf(MARCH),
+    it() bf(APRIL),
+    it() bf(MAY),
+    it() bf(JUNE),
+    it() bf(JULY),
+    it() bf(AUGUST),
+    it() bf(SEPTEMBER),
+    it() bf(OCTOBER),
+    it() bf(NOVEMBER),
+    it() bf(DECEMBER).
+    )
+
+    Standard 3-letter abbreviations can also be used (e.g.,
+    tt(DateTime::Jul)):
+    itemization(
+    it() bf(Jan),
+    it() bf(Feb),
+    it() bf(Mar),
+    it() bf(Apr),
+    it() bf(May ),
+    it() bf(Jun),
+    it() bf(Jul),
+    it() bf(Aug),
+    it() bf(Sep),
+    it() bf(Oct),
+    it() bf(Nov),
+    it() bf(Dec).
+    )
+
+
+    bf(DateTime::Relative)nl()
+    This enumeration is used with the tt(setMonth()) member (see below).
+    It has the following values:
+    itemization(
+    it() bf(THIS_WEEK),
+    it() bf(THIS_YEAR),
+    it() bf(LAST),
+    it() bf(NEXT)
+    )
+
+    bf(DateTime::TimeFields)nl()
+    This enumeration has the following values which can be tt(bit_or)-ed
+    when calling the member tt(setFields()):
+    itemization(
+    it() bf(SECONDS)
+    it() bf(MINUTES)
+    it() bf(HOURS)
+    it() bf(MONTHDAY)
+    it() bf(MONTH)
+    it() bf(YEAR)
+    )
+
+    bf(DateTime::TimeType)nl()
+    This enumeration has the following values:
+    itemization(
+    it() bf(LOCALTIME): the tt(DateTime) object's date and time use a shift
+        relative to UTC according to the object's configured time zone.
+    it() bf(UTC): the object's date and time represent the Universal Time
+        Coordinated. 
+    )
+
+    bf(DateTime::Weekday)nl()
+    This enumeration has the following values which are ordered using the
+default bf(C++) tt(enum) values:
+
+    itemization(
+    it() bf(SUNDAY),
+    it() bf(MONDAY),
+    it() bf(TUESDAY),
+    it() bf(WEDNESDAY),
+    it() bf(THURSDAY),
+    it() bf(FRIDAY),
+    it() bf(SATURDAY).
+    )
+
+    Standard 3-letter abbreviations can also be used (e.g.,
+    tt(DateTime::Wed)):
+    itemization(
+    it() bf(Sun),
+    it() bf(Mon),
+    it() bf(Tue),
+    it() bf(Wed),
+    it() bf(Thu),
+    it() bf(Fri),
+    it() bf(Sat).
+    )
+
+manpagesection(TEXTUAL TIME REPRESENTATIONS)
+
+    tt(DateTime) objects may also be defined using textual
+time-representations. In addition, the date/time represented by tt(DateTime)
+objects may be altered using textual time representations extracted from
+tt(istreams).
+
+    The following time formats (shown by example) are recognized:
+    itemization(
+    itt(Mon Dec 3 13:29:11 2018), as displayed by tt(put_time(..., "%c"));
+
+    itt(Mon Dec 3 13:29:11 CET 2018), as displayed by the bf(date)(1)
+        program. When this format is used the specified zone name must have
+        been defined. tt(CET) is defined by default, other time zones can
+        easily be defined using, e.g., the member tt(DateTime::Zone::read)
+        (see section bf(ZONE MEMBERS)).
+
+    itt(Mon, 03 Dec 2018 13:29:11 +0100), as displayed by the tt(date -R)
+        command (and the tt(rfc2822()) member, see below);
+
+    itt(2018-12-03 13:29:11+01:00), as displayed by the tt(date
+        --rfc-3339=seconds) command.
+    )
+
+manpagesection(ZONE CONSTRUCTORS)
+
+    The class tt(DateTime::Zone) defines how time zones can be defined and
+used. Time zone objects are expected by several tt(DateTime) constructors and
+by the tt(DateTime::setZone) member. The class tt(DateTime::Zone) supports the
+following constructors:
+
+    itemization(
+    itb(Zone(std::string const &name))
+       The argument tt(name) refers to a predefined zone name. By default the
+        zone tt(CET) is available. Other zone names can be defined using the
+        members tt(DateTime::Zone::read) and tt(DateTime::Zone::store);
+
+    itb(Zone(std::string const &specification))
+       The argument tt(specification) refers to a zone specification that's
+        available under the directory referred to by tt(/etc/localtime) (e.g.,
+        tt(/usr/share/zoneinfo)). The specification must start with a colon,
+        followed by the name of an entry that is found below
+        tt(/usr/share/zoneinfo). E.g, to specify the tt(Europe/Amsterdam) zone
+        use tt(DateTime::Zone{ ":Europe/Amsterdam" }). If the specified zone
+        uses DST then a +1 hour DST shift is used;
+
+    itb(Zone(std::string const &shift))
+       The argument tt(shift) defines the zone's shift in hours and minutes
+        relative to UTC. Shift's format is tt([+-]hh[:mm]), where negative
+        time shifts refer to time zones West of Greenwich and positive time
+        shifts to time zones East of Greenwich. No DST is used;
+
+    itb(Zone(std::string const &shift, string const &dstSpec))
+       The argument tt(shift) defines the zone's shift in hours and minutes
+        relative to UTC. Shift's format is tt([+-]hh[:mm]), where negative
+        time shifts refer to time zones West of Greenwich and positive time
+        shifts to time zones East of Greenwich. The tt(dstSpec) argument
+        defines the time shift to use when DST is active. It uses the same
+        format as tt(shift), or tt(=) may be specified, in which case the
+        (standard) DST shift of +1:00 hour is used;
+
+    itb(Zone(std::string const &shift, std::string const &dstSpec, 
+             std::string const &beginDST, std::string const &endDST))
+       Like the previous constructor, but in addition tt(beginDST) and
+        tt(endDST) are used to define the date/time interval in which the DST
+        is active. These arguments use the following format:
+            verb(
+    Mon, weekSpec Day [hh[:mm]]
+            )
+       For tt(Mon) a standard 3-letter month specification is used, like
+        tt("Jan") for January, for tt(Day) a standard 3-letter day
+        specification is used, like tt("Sun") for Sunday (cf. the standard
+        3-letter abbreviations listed in the section tt(ENUMS)).
+
+       The tt(weekSpec) defines the number of the week of the month containing
+        tt(Day). Use tt(1st, 2nd, 3rd, 4th, 5th) or tt(last). Here, tt(1st)
+        refers to the first week having day tt(Day), while tt(last) and
+        tt(5th) refer to the last week (so not necessarily the 5th week)
+        having day tt(Day). 
+
+       The time specification defines the time when the DST starts or ends.
+        Some examples:
+    verb(
+    Mar, last Sunday 02:00
+    Oct, 1st Monday 03:00
+    )
+        )
+
+    Copy and move constructors as well as assignment operators are available.
+        
+manpagesection(ZONE MEMBERS)
+    itemization(
+    itb(std::string const &spec() const)
+       The constructors' zone specifications are converted to a form
+        recognized by the function bf(tzset)(3). This member returns the
+        converted string;
+
+    itb(int dstSeconds() const)
+       If DST is active for a local date/time point then the DST shift in
+        seconds is returned by this member. Use the member tt(DateTime::dst())
+        to determine whether or not DST is active.
+
+    itb(int zoneSeconds() const)
+       The zone's time shift relative to UTC in seconds. Negative values
+        represent zone shifts West of Greenwich, positive values represent
+        zone shifts East of Greenwich.
+    )
+
+manpagesection(ZONE STATIC MEMBERS)
+    
+    itemization(
+    itb(DateTime::Zone const &DateTime::Zone::get(std::string const &name))
+        The time zone object named tt(name) is returned. E.g., to retrieve the
+        time zone object for tt(CET) use tt(DateTime::Zone::get("CET")).
+        If the named zone has not been defined an tt(std::exception) is
+        thrown;
+    
+    itb(DateTime::Zone const &DateTime::Zone::store(std::string const &name,
+        ...))
+       A time zone object is defined and stored as zone tt(name). Zone names
+        must consists of (at least three) letters. The ellipsis should be
+        replaced by the arguments of the tt(Zone) constructors (except for the
+        arguments of the first, copy, and move constructors).  A reference to
+        the newly defined tt(Zone) object is returned;
+
+    itb(std::string const &DateTime::Zone::defaultTZ())
+       The TZ specification that is active when the program using tt(DateTime)
+        objects starts. It returns the return value of tt(getenv("TZ")) or an
+        empty string if the tt(TZ) environment variable was not defined;
+
+    itb(void DateTime::Zone::read(std::string const &fname))
+       Time zone specifications as expected by the above tt(store) member are
+        read from the file named tt(fname) (one specification per line, using
+        blanks between the elements, and inserting tt(until) between the
+        tt(dstBegin) and tt(dstEnd) specifications (if provided)). For
+        cosmetic reasons a colon may be appended to zone names. Examples:
+       verb(
+    ccu:   +5:50
+    nyc:   -5:00 +1:00
+    cal:   -8:00 =
+    eet:   +2:00 +1:00 Mar, last Sun 02:00 until Oct, last Sun 02:00
+    same:  +2:00 =     Mar, last Sun 02:00 until Oct, last Sun 02:00
+       )
+       If the first character on a line is a hash-tag (tt(#)) or if a line
+        only contains blanks it is ignored;
+
+    itb(time_t DateTime::Zone::thisZoneShift())
+       Returns this computer's zone shift in seconds.
+    )
+
+manpagesection(DATETIME CONSTRUCTORS)
+
+    itemization(
+    itb(DateTime(TimeType type = UTC))
+       The object's date/time is initialized to the current date and time. By
+        default UTC time (no zone-shift or dst correction) is used. When
+        specifying tt(LOCALTIME), the computer's timezone and DST correction
+        are used;
+
+    itb(DateTime(std::chrono::minutes zoneMinutes))
+       The object's local time is initialized to the current UTC time to which
+        a zone shift of zoneMinutes minutes is added. DST is not used. Note
+        that by specifying a zone shift in, e.g., tt(std::chrono::hours) a
+        conversion to minutes is automatically applied;
+
+    itb(DateTime(Datetime::Zone const &zone))
+       The object's local time is initialized to the the current UTC time to
+        which a zone shift defined by the tt(Zone) argument is added;
+
+    itb(DateTime(time_t time, TimeType type = UTC))
+       The object uses tt(time) to set its UTC time in seconds since the
+        epoch. When tt(LOCALTIME) is specified its local time is obtained by
+        applying the computer's timezone and DST correction;
+
+    itb(DateTime(time_t time, std::chrono::minutes zoneMinutes))
+       The object's uses tt(time) to set its UTC time in seconds since the
+        epoch. Its local time is then obtained by adding a zone shift of
+        zoneMinutes minutes. DST is not used.;
+
+    itb(DateTime(time_t time, Datetime::Zone const &zone))
+       The object's uses tt(time) to set its UTC time in seconds
+        since the epoch. Its local time is then obtained by adding a zone
+        shift as defined by the tt(Zone) argument.
+
+    itb(DateTime(tm const &ts, TimeType type = UTC))
+       The tt(tm) argument is a struct defined as:
+        verb(
+    struct tm 
+    {
+        int tm_sec;     // seconds          0..59, or 60: leap second
+        int tm_min;     // minutes          0..59
+        int tm_hour;    // hours            0..23
+        int tm_mday;    // day of the month 1..31
+        int tm_mon;     // month            0..11
+        int tm_year;    // year                     see below!!
+        int tm_wday;    // day of the week  0..6
+        int tm_yday;    // day in the year  0..365
+        int tm_isdst;   // daylight saving time
+                        // > 0: yes, 0: no, < 0: unknown
+    };
+        )
+       Values outside of these ranges may be specified to compute points in
+        time in the future or in the past. E.g., tt(tm_hour == 30) is
+        normalized to tt(tm_hour == 6) of the next day.  
+
+       Note that functions like bf(mktime)(3) expect tt(tm_year) to be
+        specified relative to 1900. The tt(DateTime) constructor does em(not)
+        expect this: the tt(tm_year) field should be the specified as the
+        (calendar) year, e.g., 2019.
+
+       Using tt(tm's) fields the object's date/time is initialized to either
+        UTC or LOCALTIME. The DST, day of the year, and day of the week fields
+        of the tt(tm) argument are ignored;
+
+    itb(DateTime(tm const &ts, Datetime::Zone const &zone))
+       The fields of tt(ts) (see the previous constructor) define a
+        tt(LOCALTIME) time point in the specified tt(Zone).
+
+    itb(DateTime(std::string const &timeStr, TimeType type = UTC))
+       The object's date/time is initialized to either UTC or LOCALTIME using
+        tt(DateTime's) supported textual time representations.  The time
+        representation without explicit timezone shift (e.g., tt(Mon Dec 3
+        13:29:11 2018) is interpreted as UTC time when tt(type == UTC) is
+        specified, otherwise as local time (tt(type == LOCALTIME)), using the
+        computer's time zone and DST correction). The other textual time
+        representations provide zone specifications which are used to obtain
+        the requested time representation (e.g., when UTC is requested, and
+        the textual time specification contains tt(13:29:11 +0100) then the
+        object's (UTC) time is set to tt(12:29:11)). DST specifications are
+        ignored, except when named time zones are used, as in tt(on Dec 3
+        13:29:11 CET 2018);
+
+    itb(DateTime(std::istream &in, TimeType type = UTC))
+       The object's date/time is initialized to either UTC or LOCALTIME
+        extracting a supported textual time representation from tt(in) as
+        destribed at the tt(DateTime(std::string const &timeStr, ...))
+        constructor. The tt(std::istream &in) stream may also be a rvalue
+        reference.
+    )
+
+Copy and move constructors are available.
+
+manpagesection(OVERLOADED OPERATORS)
+
+All class-less overloaded operators are defined in the tt(FBB) namespace.  All
+overloaded operators modifying tt(DateTime) objects support `commit or
+roll-back': if the operation cannot be performed an exception is thrown,
+without modifying the destination object.
+
+    itemization(
+    itb(std::ostream &std::operator<<(std::ostream &str, DateTime const
+        &dt)) 
+       Inserts tt(dt's) date/time into tt(str) using the zone-less supported
+        textual time representation (e.g., tt(Mon Dec 3 13:29:11 2018));
+
+    itb(std::istream &std::operator>>(std::istream &str, DateTime &dt))
+       Extracts a supported  textual time representation from tt(str) and
+        assigns the implied date/time point to tt(dt);
+
+    itb(bool operator==(DateTime const &left, DateTime const &right))
+       Returns tt(true) if tt(left) represents the same UTC time as tt(right);
+
+    itb(bool operator!=(DateTime const &left, DateTime const &right))
+       Returns tt(true) if tt(left) represents a different UTC time as
+        tt(right);
+
+    itb(bool operator<(DateTime const &left, DateTime const &right))
+       Returns tt(true) if tt(left) represents an earlier UTC time as
+        tt(right);
+
+    itb(bool operator<=(DateTime const &left, DateTime const &right))
+       Returns tt(true) if tt(left) represents an earlier or equal UTC time as
+        tt(right);
+
+    itb(bool operator>(DateTime const &left, DateTime const &right))
+       Returns tt(true) if tt(left) represents a later UTC time as
+        tt(right);
+
+    itb(bool operator>=(DateTime const &left, DateTime const &right))
+       Returns tt(true) if tt(left) represents a later or equal UTC time as
+        tt(right).
+
+    itb(DateTime operator+(DateTime const &obj, std::chrono::seconds 
+        seconds))
+       Returns a copy of tt(obj) to which tt(seconds) were added;
+
+    itb(DateTime operator+(DateTime const &obj, tm const &ts))
+       Returns a copy of tt(obj) to which the tt(tm_sec, tm_min, tm_hour,
+        tm_mday, tm_mon) and tt(tm_year) fields of tt(ts) were added;
+
+        Caveat: note that this is an em(addition) operation: if you want to
+        add 1 year specify tt(ts.tm_year = 1), and not the finally expected
+        calendar year!
+
+    itb(DateTime &operator+=(std::chrono::seconds seconds))
+       Adds tt(seconds) to the time represented by the current object;
+
+    itb(DateTime &operator+=(tm const &ts))
+        Adds the tt(tm_sec, tm_min, tm_hour, tm_mday, tm_mon) and tt(tm_year)
+        fields of tt(ts) to the time represented by the current object.
+
+        Caveat: note that this is an em(addition) operation: if you want to
+        add 1 year specify tt(ts.tm_year = 1), and not the finally expected
+        calendar year!
+
+
+    itb(DateTime operator-(DateTime const &obj, std::chrono::seconds 
+        seconds))
+       Returns a copy of tt(obj) to which tt(seconds) were subtracted;
+
+    itb(DateTime operator-(DateTime const &obj, tm const &ts))
+       Returns a copy of tt(obj) to which the tt(tm_sec, tm_min, tm_hour,
+        tm_mday, tm_mon) and tt(tm_year) fields of tt(ts) were subtracted. 
+
+        Caveat: note that this is an em(addition) operation: if you want to
+        subtract 1 year specify tt(ts.tm_year = 1), and not the finally
+        expected calendar year!
+
+    itb(DateTime &operator-=(std::chrono::seconds seconds))
+       Subtracts tt(seconds) from the time represented by the current object;
+
+    itb(DateTime &operator-=(tm const &ts)) Subtracts the tt(tm_sec, tm_min,
+        tm_hour, tm_mday, tm_mon) and tt(tm_year) fields of tt(ts) from the
+        time represented by the current object.
+
+        Caveat: note that this is an em(addition) operation: if you want to
+        subtract 1 year specify tt(ts.tm_year = 1), and not the finally
+        expected calendar year!
+
+        E.g., the following program fragment displays midnight,
+        December 31, 1969: 
+            verbinsert(//info ../../datetime/driver/midnight.cc)
+    )
+
+Copy and move assignment operators are available.
+
+manpagesection(MEMBER FUNCTIONS)
+
+All members returning a time-element do so according to the latest
+time-representation (i.e., tt(UTC), tt(LOCALTIME), or using an explicitly set
+display zone shift value). All members returning numeric values use 0 as
+their smallest return value, except for the bf(...Nr()) members, which start
+at 1.
+
+    itemization(
+    itb(bool dst() const)
+       Returns tt(true) if the current object's time includes a DST shift,
+        otherwise tt(false) is returned.
+
+    itb(unsigned hours() const)
+       Returns the number of hours represented by the current object's time
+        (0-23);
+
+    itb(unsigned minutes() const)
+       Returns the number of minutes represented by the current object (0-59);
+
+    itb(DateTime::Month month() const)
+       Returns the tt(Month) represented by the current object;
+
+    itb(unsigned monthDayNr() const)
+       Returns the day number of the month represented by the current
+        object's date (1-31);
+
+    itb(string rfc2822() const)
+       Returns the current object's date/time displayed according to the RFC
+        2822 format. This format is used, e.g., by the tt(date -R) command
+        (cf. bf(date)(1)). For example:
+       verb(
+    Mon,  3 Dec 2018 13:49:10 +0100
+       )
+
+    itb(string rfc3339() const)
+       Returns the current object's date/time displayed according to the the
+        RFC 3339 format. This format is used, e.g., by the tt(date
+        --rfc-3339=seconds) command (cf. bf(date)(1)). For example:
+       verb(
+    2018-12-03 13:29:11+01:00
+       )
+
+    itb(unsigned seconds() const)
+       Returns the number of seconds represented by the current object's time
+        (0-59, but 60 and 61 may occur at leap seconds). Note that this member
+        does not return the current UTC time in seconds (since the epoch): if
+        that's required use the member tt(utcSeconds);
+
+    itb(void setDay(int dayNr))
+       Assigns tt(dayNr) to the day number of the object's current
+        month. 
+
+       Caveat: since day numbers start at 1, passing 0 or negative values to
+        tt(setDay) results in resetting the objects date to an earlier month;
+
+    itb(void setFields(tm const &ts, DateTime::TimeFields fields))
+       Assigns the fields of tt(ts) indicated by a tt(bit_or) combination of
+        tt(TimeFields fields') value to the corresponding current
+        object's date/time tt(tm) fields;
+
+    itb(void setHours(int hours))
+       Assigns tt(hours) to the number of hours of the current object's
+        time; 
+
+    itb(void setMinutes(int minutes))
+       Assigns tt(minutes) to the number of minutes of the current object's
+        time; 
+
+   itb(void setMonth(int month)) 
+       Assigns tt(month) to the current object's month. January is
+        represented by 0, December by 11. Smaller or larger values refer to
+        previous or future years; 
+
+    itb(void setMonth(DateTime::Month month)) 
+       Assigns tt(month) to the current object's month;
+
+    itb(void setMonth(DateTime::Month month, DateTime::Relative where =
+            THIS_YEAR)) 
+       Assigns tt(month) to the current object's month. By default the month
+        of the current year is updated (tt(where == THIS_YEAR)). Use
+        tt(LAST) to ensure that the month is set before the current
+        object's month (e.g., if the current month is tt(JUNE), then
+        requesting tt(AUGUST, LAST) will decrement the object's year, but
+        requesting tt(MAY, LAST) won't). Analogously, when specifying
+        tt(DateTime::NEXT) the resulting month is set after the current
+        object's month.
+
+       Caveat: If the day number of the current month exceeds the number of
+        days in the requested month, the object's month and day number are
+        updated to the next month. E.g., if the current day number equals 31,
+        and tt(NOVEMBER) is requested, then the object's date is updated to
+        December 1;
+
+    itb(void setSeconds(int seconds))
+       Assigns tt(seconds) to the number of seconds of the current object's
+        time; 
+
+    itb(void setUTCseconds(time_t utcSeconds))
+       Assigns tt(utcSeconds) as the number of seconds since the epoch 
+        to the current object's UTC time;
+
+    itb(void setWeekday(Weekday day, Relative where = NEXT))
+       Assigns tt(day) to the current object's day of the week. By default
+        (tt(where == NEXT)) the day will be the next occurrence of tt(day)
+        (maybe the current week, maybe in the next week: if the current day
+        equals Monday and Friday is specified, the current week is used. If
+        the current day equals Friday and Monday is requested the next week is
+        used). By specifying tt(where = LAST) the day will be most recent
+        occurrence of tt(day): if the current day equals Friday and Monday is
+        requested, the current week is used). By specifying tt(where =
+        THIS_WEEK) then tt(day) is selected in the current week;
+
+    itb(void setYear(unsigned year))
+       Assigns tt(year) to the current object's date. Note that tt(year) is
+        the actual calendar year, and not, e.g., the year relative to the
+        beginning of the epoch or 1900;
+
+    itb(void setZone(Datetime::Zone const &zone))
+       The current object's time zone is set to tt(zone). This does not alter
+        the object's UTC time, but merely its time zone. If the object
+        represented UTC time before calling tt(setZone) it will represent a
+        local time after calling tt(setZone);
+
+    itb(void swap(DateTime &other))
+       Swaps the current and other tt(DateTime) object;
+
+    itb(DateTime thisTime() const)
+       Returns a tt(DateTime) object using the current object's UTC time,
+        applying the computer's default time zone;
+
+    itb(tm const *timeStruct() const)
+       Returns a pointer to the object's current tt(tm) representing its
+        object's broken down time elements. If the object holds a local time
+        the tt(tm) struct represents the local time (if applicable: including
+        a DST shift), otherwise it represents UTC;
+
+    itb(DateTime utc() const)
+       Returns a copy of the current object representing its UTC time;
+
+    itb(time_t utcSeconds() const)
+       Returns the current object's (UTC) time in seconds since the epoch;
+
+    itb(DateTime::Weekday weekday() const)
+       Returns the current object's tt(Weekday) value;
+
+    itb(unsigned weekNr() const)
+       Returns the week number of the current object's date. Week numbers are
+        numbers of complete weeks. If Jan 1st is a Sunday then the week
+        numbers of Jan 1st through Jan 6th are returned as 1, otherwise the
+        week numbers of Jan 1st through the date of the first Saturday of the
+        year (which could very well be Jan 1st) are returned as 52;
+
+    itb(unsigned year() const)
+       Returns the year of the current object's date (note: this is the actual
+        calendar year, not the year since the epoch or relative to 1900);
+
+    itb(unsigned yearDay() const)
+       Returns the day in the year of the current object's date. January 1st
+        is returned as 0;
+
+    itb(unsigned yearDayNr() const)
+       Returns the day in the year of the current object's date. January 1
+        is returned as 1;
+
+    itb(DateTime::Zone const &zone() const)
+       Returns the current object's tt(Zone) object.
+    )
+
+manpagesection(STATIC MEMBER)
+
+    itemization(
+    itb(void tm2cout(char const *label, TM const &ts))
+       This static member is primarily used for debugging purposes. It
+        displays the values of tt(ts's) fields, preceded by tt(label) and
+        tt(": ").
+    )
+
+manpagesection(EXAMPLES)
+    
+    Many examples illustrating the use of tt(DateTime) objects are provided in
+the source archive's tt(bobcat/datetime/driver) directory. Here is an
+example:
+        verbinclude(../../datetime/driver/accessors.cc)
+
+manpagefiles()
+    em(bobcat/datetime) defines the class interface.
+
+manpageseealso()
+        bf(bobcat)(7), bf(Exception)(3bobcat), 
+        bf(gmtime_r)(3), bf(localtime_r)(3), bf(mktime)(3), bf(time)(2),
+        bf(tzset)(3),nl()
+        bf(http://www.catb.org/esr/time-programming),nl()
+        bf(https://www.timeanddate.com/time/dst/events.html)
+
+manpagebugs()
+    See bobcat's changelog file for an overview of members that were
+        discontinued at release 5.00.00.nl()
+    The class tt(DateTime) assumes that bf(time)(2) returns the time in
+    UTC.nl()
+    English is used/expected when specifying named date components.
+
+includefile(include/trailer)

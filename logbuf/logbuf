@@ -1,0 +1,77 @@
+#ifndef INCLUDED_BOBCAT_LOGBUF_
+#define INCLUDED_BOBCAT_LOGBUF_
+
+#include <streambuf>
+#include <ostream>
+#include <string>
+
+namespace FBB
+{
+
+enum TimeStamps
+{
+    NOTIMESTAMPS,
+    TIMESTAMPS,
+    UTCTIMESTAMPS
+};
+
+class LogBuf: public std::streambuf
+{
+    std::ostream *d_stream; // the stream to insert info to
+    TimeStamps d_timestamps;// what timestamp to use?
+    uint8_t d_active;       // actually write information or not
+    bool d_empty;           // set to true at the beginning, after writing \n
+    std::string d_delim;    // delimiter following time stamps
+
+    public:
+        enum Active
+        {
+            OFF,
+            NOT_ACTIVE,
+            ACTIVE,
+        };
+
+        LogBuf(LogBuf const &other) = delete;
+
+        explicit LogBuf(         // output to cerr
+                TimeStamps timestamps = TIMESTAMPS,  
+                bool active = true,
+                char const *delim = " ");
+        explicit LogBuf(std::ostream &stream, 
+                TimeStamps timestamps = TIMESTAMPS,
+                bool active = true,
+                char const *delim = " ");
+
+        void setStream(std::ostream &stream);               // .f
+        bool empty() const;                                 // .f
+
+        bool active() const;                                // .f
+
+        void settimestamp(TimeStamps timestamps, char const *delim = " ");
+
+        void setEmpty(bool empty);                          // .f
+
+        void setActive(bool active);                        // 1.f
+        void setActive(Active active);                      // 2.f
+
+    private:
+        int sync() override;
+        int overflow(int c) override;
+        std::streamsize xsputn(char const *buffer, std::streamsize n) 
+                                                                override;
+
+        size_t newLine(char const *buffer, size_t begin, size_t n) const;
+        void checkTimestamp();
+        void insertTimestamp();
+};
+
+#include "empty.f"
+#include "setactive1.f"
+#include "setactive2.f"
+#include "active.f"
+#include "setempty.f"
+#include "setstream.f"
+
+} // FBB
+        
+#endif

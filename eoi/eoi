@@ -1,0 +1,30 @@
+#ifndef INCLUDED_BOBCAT_EOI_
+#define INCLUDED_BOBCAT_EOI_
+
+#include <streambuf>
+#include <string>
+#include <ostream>
+
+namespace FBB
+{
+
+class Eoi: public std::streambuf
+{
+    friend std::ostream &eoi(std::ostream &out);
+
+    protected:
+        Eoi() = default;
+
+    private:
+        virtual void eoi_(); // this function implements the actions    //  1
+                // of the eoi-manipulator in derived classes. This allows the
+                // eoi-manipulator to perform only one check, after which it
+                // can call eoi_ to perform the correct eoi actions.
+                // By default it performs no actions at all
+};
+
+std::ostream &eoi(std::ostream &out);                                   // 2
+
+
+} // FBB        
+#endif

@@ -1,0 +1,37 @@
+#ifndef _INCLUDED_OFILTERBUF_
+#define _INCLUDED_OFILTERBUF_
+
+#include <fstream>
+#include <bobcat/eoi>
+
+namespace FBB
+{
+
+class OFilterBuf: public Eoi
+{
+    typedef std::ios::openmode openmode;
+    std::ofstream d_dest;
+
+    std::ostream *d_out;
+
+    protected:
+        OFilterBuf();                                 // 1.f
+        OFilterBuf(std::string const &fname,          // 2.cc
+                         openmode mode = std::ios::out);
+        OFilterBuf(std::ostream &out);                // 3.f
+
+        void reset(std::string const &fname,                // 1.cc
+                  openmode mode = std::ios::out);
+        void reset(std::ostream &out);                      // 2.cc
+
+        std::ostream &out() const;                          // .f
+};
+
+#include "ofilterbuf1.f"
+#include "ofilterbuf3.f"
+
+#include "out.f"
+
+} // FBB
+        
+#endif

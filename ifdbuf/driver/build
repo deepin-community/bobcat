@@ -1,0 +1,22 @@
+#!/bin/sh
+
+
+# 
+# g++ -I. --std=c++2a -O2 -Wall -o driver driver.cc -lssl -lbobcat \
+#     -L../../ohexbuf/tmp -L../tmp -lhmacbuf   -lohexbuf
+# 
+
+tput clear
+
+GPP="g++ --std=c++2a"
+
+#   Using tmp libraries and bobcat
+CMD="$GPP -o driver -Wall -I../tmp driver.cc \
+    -L../tmp -lifdbuf \
+    -L../../eoibuf/tmp -leoibuf \
+    -L../../eoi/tmp -leoi \
+    -lbobcat -s"
+
+echo ${CMD}
+${CMD}
+

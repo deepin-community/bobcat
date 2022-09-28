@@ -1,0 +1,124 @@
+#ifndef INCLUDED_BOBCAT_EXCEPTION_
+#define INCLUDED_BOBCAT_EXCEPTION_
+
+#include <string>
+#include <sstream>
+#include <exception>
+#include <thread>
+#include <iosfwd>
+
+namespace FBB
+{
+
+extern thread_local int g_errno;
+
+class Exception: public std::exception
+{
+    template <typename Type>
+    friend Exception &&operator<<(Exception &&tmp, Type const &value);
+
+    std::string d_what;
+    
+    public:
+        enum 
+        {
+            STRERROR_BUFSIZE = 100
+        };
+
+        enum Protection
+        {
+            ANY,
+            EQUAL
+        };
+
+        Exception();                                        // exception.f
+        explicit Exception(int errnoValue);                 // exception1.cc
+
+        ~Exception() noexcept(true) override;
+
+        static size_t protection(std::string const &name, size_t protect, 
+                          Protection type = EQUAL);
+
+        template <typename StreamType>
+        static StreamType factory(std::string const &name);     // factory1.f
+
+        template <typename StreamType>
+        static StreamType factory(int errnoValue,               // factory2.f
+                                  std::string const &name);     
+
+        template <typename StreamType>
+        static StreamType factory(std::string const &name,      // factory3.f
+                                std::ios::openmode mode);
+
+        template <typename StreamType>
+        static StreamType factory(int errnoValue,               // factory4.f
+                                std::string const &name,
+                                std::ios::openmode mode);
+
+        template <typename StreamType>
+        static StreamType factory(std::string const &name,      // factory5.f
+                                std::ios::openmode mode1,
+                                std::ios::openmode mode2);
+
+        template <typename StreamType>
+        static StreamType factory(int errnoValue,               // factory6.f
+                                std::string const &name,      
+                                std::ios::openmode mode1,
+                                std::ios::openmode mode2);
+
+        template <typename StreamType>
+        static void open(StreamType &stream,                    // open1.f
+                         std::string const &name);
+
+        template <typename StreamType>
+        static void open(int errnoValue, StreamType &stream,    // open2.f
+                         std::string const &name);
+
+        template <typename StreamType>
+        static void open(StreamType &stream,                    // open3.f
+                            std::string const &name, std::ios::openmode mode);
+
+        template <typename StreamType>
+        static void open(int errnoValue, StreamType &stream,    // open4.f
+                            std::string const &name, std::ios::openmode mode);
+
+        template <typename StreamType>
+        static void open(StreamType &stream,                    // open5.f
+                         std::string const &name,
+                         std::ios::openmode mode1, std::ios::openmode mode2);
+
+        template <typename StreamType>
+        static void open(int errnoValue, StreamType &stream,    // open6.f
+                         std::string const &name,
+                         std::ios::openmode mode1, std::ios::openmode mode2);
+
+    private:
+        char const *what() const noexcept(true) override;
+};
+
+#include "exception.f"
+#include "open1.f"
+#include "open2.f"
+#include "open3.f"
+#include "open4.f"
+#include "open5.f"
+#include "open6.f"
+
+#include "factory1.f"
+#include "factory2.f"
+#include "factory3.f"
+#include "factory4.f"
+#include "factory5.f"
+#include "factory6.f"
+
+    // Free functions
+
+std::ostream &errnodescr(std::ostream &out);
+
+#include "opinsert.f"           // Exception << Type
+
+} // FBB
+
+   
+#endif
+

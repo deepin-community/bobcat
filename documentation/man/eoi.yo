@@ -1,0 +1,78 @@
+includefile(include/header)
+
+COMMENT(replace 'classname' by the name of the new class)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::Eoi)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (End-Of-Information Base class)
+
+manpagename(FBB::Eoi)(std::streambuf class offering an eoi manipulator)
+
+manpagesynopsis()
+    bf(#include <bobcat/eoi>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+    The class tt(Eoi) inherits from tt(std::streambuf) and may therefore be
+used as a base class of classes specializing tt(std::streambuf). It is
+particularly useful for classes implementing output operations, as it can be
+used to specify the `true end' of the generated output. E.g., an
+tt(std::istream in) object may insert its content into a tt(std::ostream out)
+object using the familiar tt(out << in.rdbuf()) expression, but that doesn't
+allow tt(out) to conclude that it has received all of its information.
+Sometimes additional actions are required to complete the output (this happens
+with, e.g., tt(EncryptBuf) objects (cf. bf(encryptbuf)(3bobcat)) where after
+encrypting all input padding characters may have to be added to the encrypted
+document). If tt(out) is initialized with the address of an tt(EncryptBuf
+std::streambuf) then the true end of the input can be indicated by inserting
+the tt(eoi) manipulator. The resulting expression becomes tt(std::cout <<
+in.rdbuf() << eoi), and the manipulator ensures that the correct padding is
+handled. 
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    tt(std::streambuf)
+
+manpagesection(PROTECTED CONSTRUCTOR)
+    itemization(
+    itb(Eoi())
+        Analogously to tt(std::streambuf) only a default protected constructor
+        is available.
+    )
+
+    Copy and move constructors (and assignment operators) are not available.
+
+manpagesection(MEMBER FUNCTIONS)
+     All members of tt(std:streambuf) are available, as bf(FBB::Eoi) inherits
+    from these classes.
+
+manpagesection(VIRTUAL MEMBER FUNCTION)
+
+    itemization(
+    itb(virtual void eoi_())
+       The virtual member function tt(eoi_) is a private member that can be
+        overridden by derived classes. By default it performs no actions.
+    )
+
+manpagesection(MANIPULATORS)
+    itemization(
+    itb(std::ostream &FBB::eoi(std::ostream &out))
+       If the tt(ostream out's streambuf's) address can be downcasted to an
+        tt(Eoi *) then its tt(eoi_) member is called. Otherwise the
+        manipulator performs no actions, and merely returns tt(out).
+    )
+
+manpagesection(EXAMPLE)
+    See the example provided in the tt(encryptbuf)(3bobcat) man-page
+
+manpagefiles()
+    em(bobcat/eoi) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(eoibuf)(3bobcat)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

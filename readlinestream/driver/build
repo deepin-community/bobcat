@@ -1,0 +1,8 @@
+#!/bin/bash
+
+CMD="g++ `cat ../../c++std` -o driver -Wall -I../../tmp driver.cc -L../../tmp/lib \
+                                                    -lreadline -lbobcat -s"
+
+CMD="g++ `cat ../../c++std` -o driver -Wall driver.cc -lbobcat -s"
+echo $CMD
+$CMD

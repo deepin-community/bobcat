@@ -1,0 +1,70 @@
+includefile(include/header)
+
+COMMENT(replace 'classname' by the name of the new class)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::CryptBuf)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (Base class for DecryptBuf and EncryptBuf)
+
+manpagename(FBB::CryptBuf)(std::streambuf derived base class for DecryptBuf
+            and EncryptBuf) 
+
+manpagesynopsis()
+    bf(#include <bobcat/cryptbuf>)nl()
+    Linking option: tt(-lbobcat -lcrypto) 
+
+manpagedescription()
+    The class tt(CryptBuf) inherits from tt(EoiBuf) and may therefore be
+used as a base class of classes specializing tt(std::streambuf). It is used as
+base class for the classes tt(DecryptBuf) and tt(EncryptBuf), offering a
+protected member for accessing cipher information.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    tt(EoiBuf) (and thus from: tt(std::streambuf))
+
+manpagesection(PROTECTED CONSTRUCTOR)
+
+    Analogously to tt(std::streambuf) only a protected constructor is
+        available.
+
+    itemization(
+    itb(CryptBuf(char const *type, size_t bufSize))
+       The type is a null-terminated byte string specifying the de/encryption
+        method. E.g., tt(aes-128-cbc). For an overview see the
+        bf(encryptbuf)(3bobcat) man-page. The tt(bufSize) parameter defines
+        the initial size of the internally used buffer (defined by
+        tt(EoiBuf)). 
+    )
+
+    Copy and move constructors (and assignment operators) are not available.
+
+
+manpagesection(PROTECTED MEMBER FUNCTION) 
+
+   All members of tt(std:streambuf) and tt(EoiBuf) are available, as
+    bf(FBB::CryptBuf) inherits from these classes.
+
+    itemization(
+    itb(EVP_CIPHER const *md() const)
+       A pointer to the cipher information is returned.
+    )
+
+manpagesection(EXAMPLE)
+    Here is an example from the implementation of tt(EncryptBuf's)
+        constructor:
+
+    verbinclude(../../encryptbuf/encryptbuf1.cc)
+
+manpagefiles()
+    em(bobcat/cryptbuf) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(decryptbuf)(3bobcat), bf(encryptbuf)(3bobcat),
+        bf(eoibuf)(3bobcat), bf(eoi)(3bobcat)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

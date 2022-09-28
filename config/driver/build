@@ -1,0 +1,35 @@
+#!/bin/bash
+
+ln -sf .. configdir
+
+case $1 in
+    (b)
+        rm config config.ih
+        g++ -DBOBCAT --static --std=c++2a -I../../tmp driver.cc \
+            -L../../tmp/lib  -lbobcat -s
+    ;;
+    (o)
+        g++ --std=c++2a *.cc ../tmp/o/*.o -lbobcat -s
+    ;;
+    (c)
+        g++ --std=c++2a *.cc -lbobcat -s
+    ;;
+    (l)
+        g++ --std=c++2a -Iconfigdir *.cc \
+                            -L../tmp -lconfig -lbobcat  -s
+    ;;
+    (*)
+    echo $0 b links to bobcat built by 'build libraries all'
+    echo $0 o links to the files in ../tmp/o
+    echo $0 c links to the files in the current dir only
+    echo $0 l links to \*.cc, ../libconfig.a and std bobcat 
+    rm -f driver
+    ;;
+esac
+
+rm -f configdir
+
+
+
+
+

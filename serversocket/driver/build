@@ -1,0 +1,10 @@
+#!/bin/bash
+
+tput clear
+
+GPP="g++ `cat ../../c++std`"
+
+CMD="$GPP -o server -Wall  server.cc -lbobcat -s"
+
+echo $CMD
+$CMD

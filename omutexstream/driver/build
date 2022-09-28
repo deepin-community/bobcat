@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -eq 1 ] ; then
+    sed 's?<bobcat/omutexstream>?"../omutexstream"?' driver.cc > main.cc
+else
+    cp driver.cc main.cc
+fi
+
+g++ -pthread --std=c++2a -o driver -Wall -I../ main.cc  -L../tmp -lomutexstream -s
+
+rm main.cc

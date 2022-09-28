@@ -1,0 +1,70 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::level)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (Log-manipulator)
+
+manpagename(FBB::level)
+            (Manipulator setting the log-level of bf(FBB::Log) objects)
+
+manpagesynopsis()
+    bf(#include <bobcat/level>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+    An bf(FBB::level) object is used to specify insertion `forces' of
+information that is inserted into bf(FBB::Log) objects. When inserted into
+tt(Log) objects it defines the `force' of subsequent insertions (or tt(write)
+calls) into those tt(Log) objects. 
+
+Conversely, tt(Log) objects may specify insertion `resistances' through their
+tt(setLevel) members. If the tt(level's) `force' is equal to or exceeds the
+tt(Log) object's `resistance' then the insertion is performed, otherwise the
+insertion is ignored. A single insertion statement may contain multiple
+tt(level) calls. If so, then each tt(level) call updates the `force' of
+insertions following the tt(level) call.
+
+By default insertions into tt(Log) objects not preceded by tt(level)
+insertions are completed.
+
+When a tt(level) object is inserted into another kind of tt(std::ostream)
+object the tt(level) object performs no actions.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(level(size_t force))
+        This constructor is used in insertion statements, usually inserting it
+as anonymous object into an tt(FBB::Log) object. 
+    )
+
+    Copy and move constructors (and assignment operators) are available.
+
+manpagesection(OVERLOADED OPERATOR)
+    itemization(
+    itb(std::ostream &::operator<<(std::ostream &ostr, 
+            FBB::level const &force))  
+        If the tt(ostr) can be downcasted to an tt(FBB::Log) object then
+subsequent insertions are performed if tt(force) exceeds the tt(Log) object's
+`resistance' as specified by its tt(setLevel) member.  If tt(ostr) does not
+actually refer to a tt(Log) object then tt(ostr) is returned without any
+further action, and tt(ostr) handles subsequent insertions in its default way.
+    )
+
+manpagesection(EXAMPLE)
+    verbinclude(../../log/driver/driver.cc)
+
+manpagefiles()
+    em(bobcat/level) - defines the class interface.
+
+manpageseealso()
+    bf(bobcat)(7), bf(log)(3bobcat)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

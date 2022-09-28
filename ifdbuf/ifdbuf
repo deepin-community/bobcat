@@ -1,0 +1,62 @@
+#ifndef INCLUDED_BOBCAT_IFDBUF_
+#define INCLUDED_BOBCAT_IFDBUF_
+
+#include <bobcat/eoibuf>
+
+namespace FBB
+{    
+
+class IFdBuf: public EoiBuf
+{
+    public:
+            // Mode defines what to do with the file descriptor at
+            // destruction-time or when the default open is
+            // called. CLOSE_FD will close the fd, KEEP_FD will leave the
+            // fd as-is. When open is called with a Mode argument, then
+            // the provided argument is used for the actual fd. The Mode
+            // specified at the constructor is therefore only used for the
+            // mode-less open() call and for the destructor.
+        enum Mode
+        {
+            CLOSE_FD,
+            KEEP_FD,
+        };
+
+    private:
+        Mode        d_mode;
+        int         d_fd = -1;
+
+    public:
+        IFdBuf();                                     // 1
+        IFdBuf(IFdBuf const &other) = delete;
+
+        explicit IFdBuf(Mode mode);                   // 2
+        explicit IFdBuf(int fd, size_t size = 1);     // 3
+        IFdBuf(int fd, Mode mode, size_t size = 1);   // 4
+
+        ~IFdBuf() override;
+
+        IFdBuf &operator=(IFdBuf const &other) = delete;
+
+        void reset(int xfd, Mode mode, size_t size = 1);        // .cc
+        void reset(int xfd, size_t size = 1);                   // .f
+
+        void close();                                           // .f
+        
+        int fd() const;                                         // .f
+
+    private:
+        int underflow() override;
+        std::streamsize xsgetn(char *dest, std::streamsize n) override;
+
+        void cleanup(Mode mode);
+};
+
+#include "reset.f"
+#include "close.f"
+#include "fd.f"
+
+} // FBB
+
+#endif
+

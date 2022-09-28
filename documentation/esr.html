@@ -1,0 +1,2877 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.9" />
+<title>Time, Clock, and Calendar Programming In C</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Time, Clock, and Calendar Programming In C</h1>
+<span id="author">Eric S. Raymond</span><br />
+<span id="email"><code>&lt;<a href="mailto:esr@thyrsus.com">esr@thyrsus.com</a>&gt;</code></span><br />
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_motivation">Motivation</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The C/Unix time- and date-handling API is a confusing jungle full of
+the corpses of failed experiments and various other traps for the
+unwary, many of them resulting from design decisions that may have been
+defensible when the originals were written but appear at best puzzling
+today.</p></div>
+<div class="paragraph"><p>The purpose of this document is to help C programmers develop a clear
+mental model of how it all works so they can step lightly over the
+corpses and avoid the traps.  In the process it also explains,
+historically, why things are the way they are - because in this case
+it&#8217;s much easier to understand the mess we&#8217;re in when you know how it
+got that way.</p></div>
+<div class="paragraph"><p>This document is intended to supplement rather than replace your
+system manual pages. Accordingly, some details - notably, feature
+macros you might have to enable for certain functions to be visible to
+your program - are omitted.  Our hope is that this document will
+enable you to read the relevant Unix manual pages with better
+understanding and less tendency to feel smothered under details.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scope">Scope</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The functions we will cover are the following:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>int adjtimex(struct timex *);
+int adjtime(const struct timeval *, struct timeval *);
+unsigned int alarm(unsigned int);
+char *asctime(const struct tm *);
+char *asctime_r(const struct tm *, char *);
+clock_t clock(void);
+int clock_getres(clockid_t, struct timespec *);
+int clock_gettime(clockid_t, struct timespec *);
+int clock_settime(clockid_t, const struct timespec *);
+char *ctime(const time_t *);
+char *ctime_r(const time_t *, char *);
+char *ctime_rz(timezone_t restrict tz, const time_t *clock, char *buf)
+int ftime(struct timeb *tp);
+double difftime(time_t, time_t);
+struct tm *getdate(const char *);
+int gettimeofday(struct timeval *tv, struct timezone *tz);
+struct tm *gmtime(const time_t *);
+struct tm *gmtime_r(const time_t *, struct tm *);
+struct tm *localtime(const time_t *);
+struct tm *localtime_r(const time_t *, struct tm *);
+struct tm *localtime_rz(timezone_t tz, const time_t * restrict clock, struct tm *result);
+time_t mktime(struct tm *);
+time_t mktime_z(timezone_t, struct tm *);
+int nanosleep(const struct timespec *, struct timespec *);
+int settimeofday(const struct timeval *tv, const struct timezone *tz);
+unsigned int sleep(unsigned int);
+size_t strftime(char *, size_t, const char *, const struct tm *);
+char *strptime(const char *, const char *, struct tm *);
+time_t time(time_t *);
+time_t timegm(struct tm *tm);
+time_t timelocal(struct tm *tm);
+int timer_create(clockid_t, struct sigevent *, timer_t *);
+int timer_delete(timer_t);
+int timer_gettime(timer_t, struct itimerspec *);
+int timer_getoverrun(timer_t);
+int timer_settime(timer_t, int, const struct itimerspec *, struct itimerspec *);
+void tzset(void);
+useconds_t ualarm(useconds_t, useconds_t);
+int usleep(useconds_t);
+timezone_t tzalloc(const char *zone);
+void tzfree(timezone_t restrict tz);
+const char *tzgetname(timezone_t restrict tz, int isdst);
+long tzgetgmtoff(timezone_t restrict tz, int isdst);</code></pre>
+</div></div>
+<div class="paragraph"><p>Most of these functions are declared in the system header <code>time.h</code> and
+are portable across all modern Unix-like systems.  Exceptions to
+this general rule will be noted.</p></div>
+<div class="paragraph"><p>The following summary table may prove useful as a quick reference:</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="hsides"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 1. Summary of functions</caption>
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<thead>
+<tr>
+<th align="left" valign="top">Function name    </th>
+<th align="left" valign="top">Group </th>
+<th align="left" valign="top">Data structure    </th>
+<th align="left" valign="top">#include      </th>
+<th align="left" valign="top">Standard     </th>
+<th align="left" valign="top">Obsoleted   </th>
+<th align="left" valign="top">Removed     </th>
+<th align="left" valign="top">Replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">sleep</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">int seconds</p></td>
+<td align="left" valign="top"><p class="table">unistd.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1988</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">usleep</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">useconds_t</p></td>
+<td align="left" valign="top"><p class="table">unistd.h</p></td>
+<td align="left" valign="top"><p class="table">SUSv1</p></td>
+<td align="left" valign="top"><p class="table">POSIX-1.2001</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table">nanosleep</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">nanosleep</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">struct timespec</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">alarm</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">int seconds</p></td>
+<td align="left" valign="top"><p class="table">unistd.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1998</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ualarm</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">useconds_t</p></td>
+<td align="left" valign="top"><p class="table">unistd.h</p></td>
+<td align="left" valign="top"><p class="table">SUSv1</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2001</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table">timer_settime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">getitimer</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">struct itimerval</p></td>
+<td align="left" valign="top"><p class="table">sys/time.h</p></td>
+<td align="left" valign="top"><p class="table">SUSv1</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">timer_gettime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">setitimer</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">struct itimerval</p></td>
+<td align="left" valign="top"><p class="table">sys/time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">timer_settime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timer_create</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">timer_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timer_delete</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">timer_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timer_getoverrun</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">timer_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timer_gettime</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">timer_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timer_settime</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">timer_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timerfd_create</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">sys/timerfd.h</p></td>
+<td align="left" valign="top"><p class="table">Linux only</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timerfd_settime</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">struct itimerspec</p></td>
+<td align="left" valign="top"><p class="table">sys/timerfd.h</p></td>
+<td align="left" valign="top"><p class="table">Linux only</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timerfd_gettime</p></td>
+<td align="left" valign="top"><p class="table">Delay</p></td>
+<td align="left" valign="top"><p class="table">struct itimerspec</p></td>
+<td align="left" valign="top"><p class="table">sys/timerfd.h</p></td>
+<td align="left" valign="top"><p class="table">Linux only</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">time</p></td>
+<td align="left" valign="top"><p class="table">Clock</p></td>
+<td align="left" valign="top"><p class="table">time_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1988</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">difftime</p></td>
+<td align="left" valign="top"><p class="table">Clock</p></td>
+<td align="left" valign="top"><p class="table">time_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">C89</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">clock</p></td>
+<td align="left" valign="top"><p class="table">Clock</p></td>
+<td align="left" valign="top"><p class="table">clock_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">C89</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">gettimeofday</p></td>
+<td align="left" valign="top"><p class="table">Clock</p></td>
+<td align="left" valign="top"><p class="table">struct timeval</p></td>
+<td align="left" valign="top"><p class="table">sys/time.h</p></td>
+<td align="left" valign="top"><p class="table">SUSv1</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">clock_gettime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">settimeofday</p></td>
+<td align="left" valign="top"><p class="table">Clock</p></td>
+<td align="left" valign="top"><p class="table">struct timeval</p></td>
+<td align="left" valign="top"><p class="table">sys/time.h</p></td>
+<td align="left" valign="top"><p class="table">4.3BSD/SVr4</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">clock_settime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">clock_gettime</p></td>
+<td align="left" valign="top"><p class="table">Clock</p></td>
+<td align="left" valign="top"><p class="table">struct timespec</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">clock_settime</p></td>
+<td align="left" valign="top"><p class="table">Clock</p></td>
+<td align="left" valign="top"><p class="table">struct timespec</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">clock_getres</p></td>
+<td align="left" valign="top"><p class="table">Clock</p></td>
+<td align="left" valign="top"><p class="table">struct timespec</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1b-1993</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">tzset</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1998</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ftime</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct timeb</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">SUSv1</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2001</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table">clock_gettime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">gmtime</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm, time_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1988</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">gmtime_r</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm, time_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1c-1995</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">gmtime_rz</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm, time_t,timezone_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">4.xBSD</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">localtime</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm, time_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1988</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">localtime_r</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm, time_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1c-1995</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">gmtime_rz</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm, time_t,timezone_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">4.xBSD</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">mktime</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1988</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">mktime_rz</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm, time_t,timezone_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">4.xBSD</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timelocal</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">GNU only</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">timegm</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">GNU only</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">asctime</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1988</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">strftime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">asctime_r</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1c-1995</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">strftime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ctime</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">time_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1988</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">strftime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ctime_r</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">time_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1c-1995</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-2008</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">strftime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">strftime</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">POSIX.1-1988</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">strptime</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">SUSv1</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">getdate</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">SUSv1</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">getdate_r</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">struct tm</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">GNU only</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">tzalloc</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">timezone_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">4.xBSD</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">tzfree</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">timezone_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">4.xBSD</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">tzgetname</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">timezone_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">4.xBSD</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">tzgetgmtoff</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">timezone_t</p></td>
+<td align="left" valign="top"><p class="table">time.h</p></td>
+<td align="left" valign="top"><p class="table">4.xBSD</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>The "Standards" column shows the oldest standard that describes the
+call, otherwise the earliest (non-standardized) implementation.
+Some relevant abbreviations:</p></div>
+<div class="tableblock">
+<table rules="all"
+style="margin-left:auto; margin-right:auto;"
+width="50%"
+frame="hsides"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 2. Standards and origins</caption>
+<col width="50%" />
+<col width="50%" />
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">C89</p></td>
+<td align="left" valign="top"><p class="table">ANSI X3.159-1989 "Programming Language C."</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">POSIX</p></td>
+<td align="left" valign="top"><p class="table">IEEE 1003, aka ISO/IEC 9945.  Development began in 1988,
+           with significant revisions in 1996, 2001, and 2008.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">SUS</p></td>
+<td align="left" valign="top"><p class="table">Single UNIX Specification. Merged with POSIX in 2001.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GNU</p></td>
+<td align="left" valign="top"><p class="table">Unstandardized calls in the very widely used GNU C Library.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">4.xBSD</p></td>
+<td align="left" valign="top"><p class="table">The 4.2 (1983) and 4.3 (1986) versions of BSD Unix invented
+           some API elements still in occasional use.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">SVr4</p></td>
+<td align="left" valign="top"><p class="table">System V Release 4 (1988). Basis for later Unix standards.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>A manual page reference with the section part "(2|3)" means you may
+find pages with the identified name in both sections 2 or 3; usually
+this happens because there is both native system-call documentation
+in section 2 and a POSIX page in Section 3.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_unix_time_and_utc_gmt_zulu">Unix time and UTC/GMT/Zulu</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Internally, Unix time is represented as SI (<em>Syst&egrave;me International</em>)
+seconds since midnight of January 1st 1970 at the Greenwich meridian,
+without leap-second correction. This is time counted in seconds as
+though it had been incremented every second in constant-length days of
+86400 seconds each since then.</p></div>
+<div class="paragraph"><p>This is sometimes described as "UTC time" or "UTC seconds" because it
+is based on the same zero meridian and uses the same SI second as
+Coordinated Universal Time (abbreviated UTC to be neutral between this
+and the French 'Temps Universel Coordonn&eacute;'<span class="footnote"><br />[It has been
+alleged that "CUT" was avoided in part because it sounds like a rude
+word in Dutch]<br /></span>), the modern standard <a href="#UTC">[UTC]</a>.</p></div>
+<div class="paragraph"><p>The detailed history of UTC and its antecedents is out of scope for
+this document (a summary is as <a href="#TIMESCALES">[TIMESCALES]</a>), but a few points about
+it are relevant.  One is that leap seconds were not introduced into
+UTC until 1972.  Another is that UTC was then and still is
+occasionally confused with a previous international time standard,
+Greenwich Mean Time (GMT) <a href="#GMT">[GMT]</a>. This is why one of the principal
+Unix time functions is named <code>gmtime(3)</code>.</p></div>
+<div class="paragraph"><p>There is one subtle but important difference between Unix UTC and the
+official UTC standard time. Official UTC time is by definition solar
+calendar time (year/month/day/hour/minute/second) rather than a
+seconds counter from an epoch like Unix UTC time.  The difference
+becomes, as we shall shortly see, significant near leap seconds.  But
+the relationship with solar UTC time remains close, and in the rest of
+this document we shall continue to speak of Unix UTC.</p></div>
+<div class="paragraph"><p>In U.S. military usage dating back to WWII GMT/UTC is referred to as
+"Zulu" time; the word "Zulu" means nothing in this context but was
+chosen to abbreviate to "Z" in order to avoid colliding with any
+existing timezone designation. Use of the "Zulu" designation spread to
+international aviation and has left a mark on the ISO-8601
+international standard for representing calendar time and date, which
+uses Z as a suffix to indicate UTC rather than local time.  Thus, the
+Unix epoch (zero second) is formally represented as
+1970-01-01T00:00:00Z.</p></div>
+<div class="paragraph"><p>The standard Unix type for holding this UTC/GMT/Zulu seconds counter
+is <code>time_t</code>.  It is integral and signed, and negative values designate
+seconds <em>before</em> 1970-01-01T00:00:00Z.  The current <code>time_t</code> value is
+returned by the <code>time(3)</code> function.  (Note that ANSI C allows for
+<code>time_t</code> to be a float value, but this choice seems never to have been
+made in a real operating system <span class="footnote"><br />[It is rumored that early
+versions of BeOS used float time, but the experiment was quickly
+abandoned.]<br /></span> and is excluded in later POSIX revisions. There have been
+a few approximately Unix-like systems on which <code>time_t</code> was unsigned
+and could not represent dates before 1970, notably QNX.)</p></div>
+<div class="paragraph"><p>The absence of leap-second correction means that occasionally, in order
+to stay synchronized with solar time, the Unix time counter has to
+skip or duplicate a second when it crosses UTC midnight during a
+leap-second insertion or deletion. A very detailed explanation of
+these discontinuities can be found at the Wikipedia page on Unix time
+<a href="#UNIX-TIME">[UNIX-TIME]</a>.  The rationale for excluding leap-seconds can be found
+at <a href="#POSIX-TIME">[POSIX-TIME]</a>.footnote[Note however that one major assertion in
+<a href="#POSIX-TIME">[POSIX-TIME]</a>, "most systems are probably not synchronized to any
+standard time", is now incorrect; synchronization to Internet time via
+NTP became routine within a few years after it was written in 1996.]</p></div>
+<div class="paragraph"><p>In practice, almost the only way these discontinuities could be an issue is
+if you are computing with differences in timestamps taken on opposite
+sides of one or more leap-second insertion or deletions. In that case
+actual elapsed time could be a second or more different than the
+result of subtracting the older Unix timestamp from the newer.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_unix_time_and_ntp_correction">Unix time and NTP correction</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Most Unix systems rely on Network Time Protocol servers to correct
+their timebase so that the computer&#8217;s top-of-second closely matches
+that of atomic-clock UTC time - usually as defined by the U.S. Naval
+observatory, but there are other national time authorities which
+all try to stay in synchronization with each other.</p></div>
+<div class="paragraph"><p>Periodic NTP adjustments are required because the clock oscillators in
+individual computers are subject to frequency drift due to thermal
+and other physical effects.</p></div>
+<div class="paragraph"><p>A detailed description of the adjustment process is beyond the
+scope of this document. The main thing for programmers to know is
+that NTP almost always tells your local clock to resynchronize by
+minutely speeding it up or slowing it down until it matches NTP
+time (rather than skipping or inserting clock increments). In
+rare situations, like after prolonged network outages or CPU
+sleep periods, NTP may skip or repeat clock increments.</p></div>
+<div class="paragraph"><p>Thus, in the presence of NTP correction, Unix seconds are of slightly
+variable width in real time.  The maximum divergence is very small (at
+most a few microseconds) and the typical variation is smaller than
+that.</p></div>
+<div class="paragraph"><p>Thus, the variability should have no effect except in hard real-time
+situations. In those, you shouldn&#8217;t be using an NTP-corrected clock
+but a native monotonic timer designed for real-time use; we&#8217;ll see
+later that the time API provides flexible ways to do this.</p></div>
+<div class="paragraph"><p>Unix kernels have provided NTP with a system call to use in adjusting
+clock frequency since 4.3BSD; it is <code>adjtime(3)</code>.  This call is not
+formally standardized. There is a native Linux variant, <code>adjtimex(2)</code>.
+These are both intended solely for NTP&#8217;s use, and that is all we
+will have to say about them in this document.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_unix_time_and_machine_word_length">Unix time and machine word length</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>During the evolution of the Unix time API from 1968 onwards, typical
+machine word lengths have changed twice - from 16 to 32 and then to
+64 bits, which is typical today (in 2017) and seems unlikely to change
+in the foreseeable future.</p></div>
+<div class="paragraph"><p>The changes in word lengths have left some scars in the Unix API.  At
+the very beginning <code>time_t</code> was defined as a signed 32-bit quantity,
+so it couldn&#8217;t be held in the 18-bit registers of the PDP-7 or the
+16-bit registers of the later PDP-11.  This is why many of the Unix
+time calls take a pointer to <code>time_t</code> rather than a <code>time_t</code>; by
+passing the address of a 32-bit span in memory the design could get
+around the narrowness of the register width.  This interface glitch
+was not fixed when word lengths went to 32 bits.</p></div>
+<div class="paragraph"><p>A more serious problem is that 32-bit Unix <code>time_t</code> counters will turn
+over just after 2038-01-19T03:14:07Z.  This is expected to cause
+problems for embedded Unix systems; it is difficult to anticipate
+their magnitude, but we can only hope the event will be the same sort
+of damp squib that the Year 2000 rollover turned out to be.</p></div>
+<div class="paragraph"><p>Modern Unix systems use a signed 64-bit <code>time_t</code>. These counters will
+turn over approximately 292 billion years from now, at 15:30:08 on
+Sunday, 4 December 292,277,026,596. No problems with this are presently
+anticipated.</p></div>
+<div class="paragraph"><p>Register length limits have also affected the representation of time
+at subsecond precision.  As a workaround against them, and to avoid
+floating-point roundoff and comparison issues, the C API traditionally
+avoided representing fractional-second times as a scalar float or
+double quantity. The reason had to do with the precision offered by
+different float formats:</p></div>
+<div class="tableblock">
+<table rules="all"
+width="50%"
+frame="hsides"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 3. Float precision</caption>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<thead>
+<tr>
+<th align="left" valign="top"> Word size     </th>
+<th align="left" valign="top"> Mantissa </th>
+<th align="left" valign="top"> Exponent </th>
+<th align="left" valign="top"> Historical name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">32-bit float</p></td>
+<td align="left" valign="top"><p class="table">23</p></td>
+<td align="left" valign="top"><p class="table">8</p></td>
+<td align="left" valign="top"><p class="table">Single precision</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">64-bit float</p></td>
+<td align="left" valign="top"><p class="table">52</p></td>
+<td align="left" valign="top"><p class="table">11</p></td>
+<td align="left" valign="top"><p class="table">Double precision</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">128-bit float</p></td>
+<td align="left" valign="top"><p class="table">112</p></td>
+<td align="left" valign="top"><p class="table">15</p></td>
+<td align="left" valign="top"><p class="table">Quad precision</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>(The sums look off-by-one because of the sign bit.  You can learn more
+about the IEEE754 floating-point formats that give rise to these
+numbers at <a href="#FP">[FP]</a>.  They originated on the VAXen that were the
+workhorse machines of Unix in the early 1980s and are now implemented
+in hardware on Intel and ARM architectures, among many other places.)</p></div>
+<div class="paragraph"><p>When the Unix time API first had to represent subsecond precision,
+microsecond resolution was required to represent times comparable
+to a machine cycle.</p></div>
+<div class="paragraph"><p>The problem was that a microsecond count requires 20 bits.  A
+microsecond-precision time with 32 bits of integer part is on the far
+edge of what a double-precision float can hold:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>seconds:       32 bits
+microseconds:  20 bits
+               --------
+total:         52 bits</code></pre>
+</div></div>
+<div class="paragraph"><p>That would barely have fit and seemed likely to be a bit flaky in
+actual use due to floating point rounding.  Doing any math with it
+would lose precision quickly.  Trying to go finer-grained to nanosecond
+resolution would have required 11 more bits that weren&#8217;t there in
+double precision.</p></div>
+<div class="paragraph"><p>Thus, quad-precision floating point would have been required for even
+32-bit times. Given the high cost of FPU computation at the time
+and the near-waste of 64 bits of expensive storage, this took float
+representation out of the running.</p></div>
+<div class="paragraph"><p>This is why fractional times are normally represented by two-element
+structures in which the first member is seconds since the epoch and
+the second is an integral offset in sub-second units - originally
+microseconds.</p></div>
+<div class="paragraph"><p>The original subsecond-precision time structure was associated with
+the <code>gettimeofday(2)</code> system call in 4.2BSD Unix, dating from the
+1980s.  It looks like this:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>struct timeval {
+   time_t      tv_sec;     /* seconds */
+   suseconds_t tv_usec;    /* microseconds */
+};</code></pre>
+</div></div>
+<div class="paragraph"><p>Note the microsecond resolution.  The newer POSIX time functions use this:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>struct timespec {
+   time_t      tv_sec;     /* seconds */
+   long        tv_nsec;    /* nanoseconds */
+};</code></pre>
+</div></div>
+<div class="paragraph"><p>(No, that&#8217;s not a paste error.  The struct timespec members really
+do have tv_ prefixes on their names.  This seems to have been
+someone&#8217;s attempt to reduces required code changes.  It was
+probably a bad idea.)</p></div>
+<div class="paragraph"><p>This has nanosecond resolution. The change is related to the
+tremendous increase in machine speeds since the 1980s, and the
+correspondingly increased resolution of hardware clocks.  While
+it is conceivable that in the future we may see further
+generations of these structures in which the subsecond offset is
+in picoseconds or smaller units, some breakthrough in fundamental
+physics would be required first - at time of writing in 2014
+processor cycle times seem to be topping out in the roughly 0.1ns
+range due to quantum-mechanical limits on the construction of
+electron logic.</p></div>
+<div class="paragraph"><p>Although the timeval and timespec structures are very useful for
+manipulating high-precision timestamps, there are unfortunately no
+standard functions for performing even the most basic arithmetic on
+them, so you&#8217;re often left to roll your own.</p></div>
+<div class="paragraph"><p>Another structure, used for interval timers and describing a time interval
+with nanosecond precision, looks like this:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>struct itimerspec
+{
+    struct timespec it_interval;
+    struct timespec it_value;
+};</code></pre>
+</div></div>
+<div class="paragraph"><p>While the C time API tends to shape the time APIs presented by
+higher-level languages implemented in C, these subsecond-precision
+structures are one area where signs of revolt are visible.  Python has
+chosen to instead accept the minor problems of using a floating-point
+scalar representation; Ruby uses integral nanoseconds since the Unix
+epoch. Perl uses a mixture, a BSD-like seconds/microseconds pair in
+some functions and floating-point time since the Unix epoch in others.</p></div>
+<div class="paragraph"><p>On today&#8217;s true 64-bit machines with relatively inexpensive floating
+point the natural float representation of time would look like this:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>seconds:            64 bits
+fractional seconds: 48 bits
+                    --------
+total:              112 bits</code></pre>
+</div></div>
+<div class="paragraph"><p>offering sub-picosecond resolution with plenty of headroom to avoid
+serious roundoff issues.  So the scripting languages are heading in a
+direction that the C API could in theory eventually follow.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_delay_and_interval_timing_functions">Delay  and interval-timing functions</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The simplest portions of the Unix time API are clock and delay
+functions that only deal with the basic second- and
+fractional-second-oriented time structures.</p></div>
+<div class="paragraph"><p>First we&#8217;ll survey the delay and interval-timing functions, then the clock
+functions. If you are mainly interested in clock/calendar/timezone
+issues, you can safely skip this section.</p></div>
+<div class="sect2">
+<h3 id="_sleep_3_usleep_3_and_nanosleep_3">sleep(3), usleep(3), and nanosleep(3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;unistd.h&gt;
+
+unsigned int sleep(unsigned int seconds);
+int usleep(useconds_t usec);
+
+#include &lt;time.h&gt;
+
+int nanosleep(const struct timespec *rqtp, struct timespec *rmtp);</code></pre>
+</div></div>
+<div class="paragraph"><p>These functions are the poster children for the mess created by having
+multiple time representations.  All three simply delay execution of
+the calling program for some span of time; what differs is how that
+time is specified.</p></div>
+<div class="paragraph"><p>The oldest, <code>sleep(3)</code>, takes an integer argument in seconds; <code>usleep(3)</code>
+takes microseconds, and <code>nanosleep(3)</code> takes a <code>struct timespec</code> with
+nanosecond resolution. All three may be interrupted by an unignored
+signal. The <code>nanosleep(2)</code> function takes a second timespec which is
+filled with time remaining if it was interrupted.</p></div>
+<div class="paragraph"><p>The <code>usleep(3)</code> call originated in BSD Unix and, though it was carried
+forward in POSIX, was deprecated in favor of <code>nanosleep(2)</code> in
+POSIX.1-2001/SUSv3 and then removed entirely in POSIX.1-2008/SUSv4.
+It&#8217;s probably best not to count on it being portable.</p></div>
+<div class="paragraph"><p>Of these three functions, only <code>nanosleep(3)</code> is guaranteed not to
+have any interaction with signals (the other two may be implemented
+using some signal and a hidden handler). It is is thread- and
+signal-safe.</p></div>
+<div class="paragraph"><p>The <code>sleep(3)</code> function is required by POSIX to be async-signal-safe
+and thread-safe.  The thread-safe requirement means <code>sleep(3)</code> can&#8217;t be
+signal-based in multithreaded programs, but can be in single-threaded
+programs.</p></div>
+<div class="paragraph"><p>These functions should not be mixed with the ones in the next group.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_alarm_2_3_ualarm_3_getitimer_2_3_and_setitimer_2_3">alarm(2|3), ualarm(3), getitimer(2|3), and setitimer(2|3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;unistd.h&gt;
+
+unsigned alarm(unsigned seconds);
+useconds_t ualarm(useconds_t usecs, useconds_t interval);
+
+#include &lt;sys/time.h&gt;
+
+int getitimer(int which, struct itimerval *value);
+int setitimer(int which, const struct itimerval *restrict value,
+              struct itimerval *restrict ovalue);</code></pre>
+</div></div>
+<div class="paragraph"><p>The alarm functions are another case of call proliferation due
+to multiple time units.  The oldest, <code>alarm(2|3)</code>, sends SIGALRM after a
+specified number of seconds; <code>ualarm(3)</code> sends SIGALRM after a
+specified number of microseconds (and a second argument, if nonzero,
+causes SIGALRM to be sent at regular intervals afterwards).</p></div>
+<div class="paragraph"><p>The <code>getitimer()</code> and <code>setitimer()</code> functions come from the Single
+UNIX Specification before 1996, when SUSv2 was merged with
+POSIX.1-1996 to develop POSIX.1-2001/SUSv3. They are now
+deprecated in favor of the POSIX timer_* calls in the next section.</p></div>
+<div class="paragraph"><p>These have three advantages over the traditional alarm calls: (1) they
+use timeval structures, so have microsecond resolution; (2) they can
+trigger the sending not just of SIGALRM but of more specialized
+profiling signals; and (3) they give you options about what derivative
+of the system hardware clock you want to use.</p></div>
+<div class="paragraph"><p>The gory details about the interval timer functions are best
+learned from their manual pages.  For our purposes, the
+important thing to cover is how they fit with the rest of the
+time and calendar API. Bluntly, that is not very well.</p></div>
+<div class="paragraph"><p>The manual pages are full of ominous "unspecified behavior"
+warnings if you mix uses of the sleep group, the alarm group, and
+the itimer group in the same program.  The reason for this is
+historical.</p></div>
+<div class="paragraph"><p>The sleep and alarm function groups developed by accretion in early
+Unixes.  The <code>sleep(3)</code> group was often implemented with <code>alarm(3)</code>
+and a specialized SIGALRM handler; likewise for <code>usleep(3)</code> and
+<code>ualarm(3)</code>.</p></div>
+<div class="paragraph"><p>The itimer functions were the result of a later effort to specify a
+more general facility that could subsume these, starting from a clean
+sheet of paper.  They were declared obsolete in POSIX.1-2001/SUSv3
+in favor of the timer_* group.</p></div>
+<div class="paragraph"><p>Thus, it is possible that your system&#8217;s implementation of sleep and
+alarm functions is a thin layer over POSIX itimer calls (or, possibly,
+the timer_* group documented next) using the ITIMER_REAL clock.  When
+that isn&#8217;t the case, legacy implementations of the sleep and alarm
+calls won&#8217;t necessarily play well with interval timers - in particular
+SIGALRMs might be flying around when you don&#8217;t expect it, or setting
+an implied signal handler through the sleep functions might be
+interfered with by <code>setitimer(2|3)</code>.</p></div>
+<div class="paragraph"><p>It&#8217;s best not to go there.  Heed the warnings and don&#8217;t mix up
+these function groups.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_the_posix_timer__group">The POSIX timer_* group</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;signal.h&gt;
+#include &lt;time.h&gt;
+
+int timer_create(clockid_t clockid, struct sigevent *restrict evp,
+                 timer_t *restrict timerid);
+int timer_delete(timer_t timerid);
+int timer_getoverrun(timer_t timerid);
+int timer_gettime(timer_t timerid, struct itimerspec *value);
+int timer_settime(timer_t timerid, int flags,
+                  const struct itimerspec *restrict value,
+                  struct itimerspec *restrict ovalue);</code></pre>
+</div></div>
+<div class="paragraph"><p>There is a group of POSIX functions <code>timer_create(2|3)</code>,
+<code>timer_delete(2|3)</code>, <code>timer_settime(2|3)</code>, <code>timer_gettime(2|3)</code>,
+and <code>timer_getoverrun(2|3)</code> that can be used to set per-process
+interval timers even more flexibly than the itimer group.  In particular,
+they allow setting a function-call hook to be called directly
+at the end of an interval without going through either an
+explicit or implicit signal.</p></div>
+<div class="paragraph"><p>These functions were introduced in POSIX.1b-1993.  After POSIX and
+SUSv2 merged in 2001 <code>getitimer(2|3)</code> and <code>setitimer(2|3)</code> were
+declared obsolete.</p></div>
+<div class="paragraph"><p>Neither the native Linux nor POSIX man pages document interactions
+with the older calls. A prudent programmer should assume that the
+alarm and sleep group is implemented in terms of one of the two groups
+of newer POSIX interval-timer functions, and not mix any of them.</p></div>
+<div class="paragraph"><p>If you want to avoid interval variability due to NTP frequency
+adjustments, you probably want to use these with CLOCK_MONOTONIC.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_the_linux_timerfd__group">The Linux timerfd_* group</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;sys/timerfd.h&gt;
+
+int timerfd_create(int clockid, int flags);
+int timerfd_settime(int fd, int flags,
+               const struct itimerspec *new_value,
+               struct itimerspec *old_value);
+int timerfd_gettime(int fd, struct itimerspec *curr_value);</code></pre>
+</div></div>
+<div class="paragraph"><p>These functions are Linux-specific (not standardized), offering a way
+to monitor timer expiration via selecting or polling on a file
+descriptor rather than via signal handler.</p></div>
+<div class="paragraph"><p>They are mentioned here for completeness, but should be avoided in
+code intended for portability. Consult the Linux manual pages for
+details.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_other_delay_related_functions">Other delay-related functions</h3>
+<div class="paragraph"><p>A full discussion of the <code>select(2)</code> and <code>pselect(2)</code> system calls would
+be beyond the scope of this document, as they are not used for
+time/calendar programming.  We mention them only to note two points:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+<code>select(2)</code> takes a <code>struct timeval</code> argument, reflecting its
+origins in BSD Unix.  The resolution to which you can specify a
+timeout is thus limited to a microsecond.
+</p>
+</li>
+<li>
+<p>
+The later <code>pselect(2)</code> call takes a <code>struct timespec</code>.
+</p>
+</li>
+</ol></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clock_and_time_of_day_functions">Clock and time-of-day functions</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>These are functions for interacting with the system clock that
+avoid timezone issues by returning time in seconds since the Unix epoch.</p></div>
+<div class="sect2">
+<h3 id="_time_3">time(3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+time_t time(time_t *tloc);</code></pre>
+</div></div>
+<div class="paragraph"><p>The most basic function is <code>time(3)</code>, which returns the current Unix
+second.  All the previous caveats about leap-second discontinuities
+and tiny variabilities due to NTP correction apply.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_difftime_3">difftime(3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+double difftime(time_t time1, time_t time0);</code></pre>
+</div></div>
+<div class="paragraph"><p>The function <code>difftime(3)</code> attempts to return the elapsed time between
+two <code>time_t</code> counters as a double - however, it is not aware of
+leap-second discontinuities (a fact the man page does not document!).</p></div>
+<div class="paragraph"><p>This call was added in C89 as a way to
+encapsulate time arithmetic on operating systems where <code>time_t</code> is not
+a normally encoded integral or float type; it is possible (even
+likely) that no such environments actually exist.</p></div>
+<div class="paragraph"><p>While on POSIX systems where <code>time_t</code> is required to be an integral
+type holding a count of seconds it might appear equivalent to just
+subtracting the first argument from the second, it is not quite
+superfluous.  It is defined to handle correctly some edge cases where
+naive subtraction would cause an integer overflow.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_clock_3">clock(3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+clock_t clock(void);</code></pre>
+</div></div>
+<div class="paragraph"><p>We mention the function <code>clock(3)</code> here only for completeness, because
+it is declared in <code>time.h</code>. It is little used, returning an
+approximation of processor time used by the running program.  This
+return is <strong>not</strong> a <code>time_t</code>, but an integer in microseconds *
+CLOCKS_PER_SEC (the latter being a constant in &lt;time.h&gt;)</p></div>
+<div class="paragraph"><p>This function is very portable, but you probably want the
+finer-grained statistics from <code>getrusage(2)</code> instead.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_gettimeofday_2_3_settimeofday_2">gettimeofday(2|3)/settimeofday(2)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;sys/time.h&gt;
+
+int gettimeofday(struct timeval *restrict tp, void *restrict tzp);
+int settimeofday(const struct timeval *tv, const struct timezone *tz);</code></pre>
+</div></div>
+<div class="paragraph"><p>This is the two oldest Unix interface that deals with subsecond time,
+dating from 4.2BSD (the other being <code>ftime(3)</code>).  With it you can get
+time since the epoch to microsecond precision (it uses a <code>struct
+timeval</code>, not the newer <code>struct timespec</code>), or (with root permissions)
+set the system clock to microsecond precision.</p></div>
+<div class="paragraph"><p>Though restricted versions were carried forward in POSIX, these calls
+are obsolete, and are documented here mainly so you&#8217;ll understand how
+they fit in when reading old code.  It is best to use <code>clock_gettime(2)</code> and
+<code>clock_settime(2)</code> (which support nanosecond precision) instead
+of these.</p></div>
+<div class="paragraph"><p>(Some systems may still require you to use <code>gettimeofday(3)</code>; notably
+this is true of Mac OS X up to and including 10.9.5 Mavericks, which
+conforms to POSIX.1-2001/SUSv3 rather than the POSIX.1-2008/SuSv4 in
+which <code>clock_gettime(3)</code> became mandatory.)</p></div>
+<div class="paragraph"><p>In the POSIX documentation, behavior if the <code>gettimeofday(3)</code>
+historical second argument is non-null is undefined. The Linux native
+<code>gettimeofday(2)</code> (and possibly other implementations) attempts to preserve
+more of the original BSD semantics, returning some timezone-related
+information; however, this feature is marked obsolete and should
+not be relied on.</p></div>
+<div class="paragraph"><p>The <code>settimeofday(2)</code> call was never standardized at all, though
+it was carried forward in System V Release 4 and de-facto standard
+for some time.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_clock_gettime_2_clock_settime_2_clock_getres_2">clock_gettime(2), clock_settime(2), clock_getres(2)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+int clock_getres(clockid_t clk_id, struct timespec *res);
+int clock_gettime(clockid_t clk_id, struct timespec *tp);
+int clock_settime(clockid_t clk_id, const struct timespec *tp);</code></pre>
+</div></div>
+<div class="paragraph"><p>These are the modern, POSIX-standardized functions for
+interacting with the system clock at subsecond precision. They
+use the nanosecond-precision <code>struct timespec</code> and allow working
+with multiple clocks.</p></div>
+<div class="paragraph"><p>The most interesting (and only portable) clocks are identified as
+CLOCK_REALTIME and CLOCK_MONOTONIC.  CLOCK_REALTIME is the familiar
+UNIX time since the epoch, with leapsecond discontinuities and NTP
+adjustments.  CLOCK_MONOTONIC is a monotonically increasing
+nanoseconds and seconds counter that cannot be set; note that unlike
+an interval timer it <strong>is</strong> subject to leapsecond discontinuities and
+NTP adjustments.</p></div>
+<div class="paragraph"><p>The call <code>clock_getres(2)</code> is available to query the actual resolution
+of the system clock.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_date_and_timezone_aware_functions">Date and timezone-aware functions</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Now we come to the part that is the most interesting to application
+programmers and (probably) the most confusing.  Unfortunately,
+most of the difficulties here cannot readily be solved in software.</p></div>
+<div class="paragraph"><p>The calendaring parts are not problematic. The Unix time API supports
+the Gregorian calendar, which is well standardized and now in
+sufficiently universal use worldwide that any conversion problems
+to local standards can be handled locally.</p></div>
+<div class="paragraph"><p>The real difficulties arise from timezones, especially when a program
+must deal with or report times from a zone other than the one
+configured as local on the machine where it is running.</p></div>
+<div class="sect2">
+<h3 id="_the_tragedy_of_timezones">The tragedy of timezones</h3>
+<div class="paragraph"><p>Before the mid-19th century, clocks were set (more or less
+haphazardly) to indicate local solar time. The goal was essentially
+for noon to coincide with the average time of the Sun&#8217;s maximum
+declination.  Humans moving by foot, horse, or ship did not move
+quickly enough to make time synchronization between regions with
+different mean solar times a problem (with a very limited technical
+exception for marine navigation).</p></div>
+<div class="paragraph"><p>The impetus for standard time came from rail travel. The railroads
+needed standardized time in order to set and publish precise
+schedules <span class="footnote"><br />[In the mid-19th-century British clocks were
+sometimes made with two sets of hands, one for mean solar time and the
+other for railroad time.]<br /></span>. While there were significant commercial
+advantages to adopting railroad time as a civil standard wherever it
+reached, human beings did not want to give up rough synchronization of
+their clocks and watches to local mean solar time.</p></div>
+<div class="paragraph"><p>Time zones developed as a compromise.  By partitioning the globe into
+hour-wide longitudinal bands with a fixed time offset from one
+world reference time, two desirable properties could be achieved.
+First, rough synchronization with mean solar time would be maintained
+everywhere.  Second, the relationship between standard time
+and any local time would remain easy to compute.</p></div>
+<div class="paragraph"><p>The actual time zone system never approximated this ideal very
+closely.  Adoption was slow and patchy after the development of
+the first railroad standard time system  (in 1847 in Great Britain)
+and was not roughly complete until the early 20th century.</p></div>
+<div class="paragraph"><p>From the beginning, various time authorities showed a tendency to move
+timezone borders to avoid putting regions they were closely tied to
+off into a different timezone, even if that meant accepting large
+clock deviations from mean solar time in outlying regions. Some
+regions adopted half-hour or even quarter-hour offsets.  These meant,
+unhappily for computer programs and programmers, that the time
+offset of a location is not a simple function of its longitude.</p></div>
+<div class="paragraph"><p>Worse, the time zone system has been unstable over time as the
+political and commercial pressures on it resulted in frequent changes
+to the definitions of zones.  And still worse than that was the
+partial and unstable adoption of Daylight Saving Time, aka DST, aka
+Summer Time, in which the time definition within a zone endures
+further changes, by another hour twice a year, so people get up an
+hour earlier and thus get an extra hour of daylight in the evening.</p></div>
+<div class="paragraph"><p>As a final wrinkle, some jurisdictions use different timezone names
+when DST is in effect; this is common in the U.S. where, for example,
+the Eastern timezone uses Eastern Standard Time (EST) as its basic
+designator but Eastern Daylight Time (EDT) during summer months. But
+this is not necessarily true everywhere.</p></div>
+<div class="paragraph"><p>More historical details can be found at <a href="#TIME-ZONE">[TIME-ZONE]</a>. The result of
+this mess is the following:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Every computer has to be configured with (at least) a local time
+offset - that is, the difference between its local time and UTC.
+</p>
+</li>
+<li>
+<p>
+In order to display and/or interpret local times from other (named)
+timezones, any computer that wants to do it needs a database of
+named-timezone-to-offset mappings and DST start/end times for each
+zone. Each zone may in fact require a <strong>series</strong> of such mappings
+spanning different historical and future ranges of UTC time; the
+database needs to be updated whenever a zone changes its rules.
+</p>
+</li>
+<li>
+<p>
+There was a lot of pressure from early on in the development of
+software standards to abandon named timezones in computer date formats
+in favor of transmitting dates as local time plus the originating
+location&#8217;s numeric offset from meridian time, usually in the form
+<strong>+hhmm</strong> or <strong>-hhmm</strong>.  While this still required every computer to
+configure the local offset (and perhaps change it twice a year for
+DST) it at least removed the requirement for a timezone database.
+</p>
+</li>
+<li>
+<p>
+Past timestamps using named time zones have to be interpreted with
+caution, in particular because it may not be evident whether DST
+was in effect or not.
+</p>
+</li>
+<li>
+<p>
+Embedded systems often evade the whole issue by wiring themselves
+to Zulu time no matter where they&#8217;re deployed.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>For an entertaining video lecture about the messy consequences of this
+history, see <a href="#COMPUTERPHILE">[COMPUTERPHILE]</a>.  As he says near the end, your only
+sane option (assuming you don&#8217;t go the everything-is-UTC route) is to
+trust that tzdata or whatever other timezone history your operating
+system subscribes to is properly maintained and then simply refuse to
+worry about that level of the problem, because you&#8217;d go mad if you
+tried.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_timezone_selection_and_representation_on_unix">Timezone selection and representation on Unix</h3>
+<div class="paragraph"><p>In the earliest Unixes, a machine could handle exactly one timezone
+other than UTC.  A timezone offset and name string (actually, a pair
+of name strings, one for summer and one for winter time) were
+configured into the kernel and available to C programs.</p></div>
+<div class="paragraph"><p>Later (by System III in 1982) it became possible to set a login
+session&#8217;s notion of the local time zone by modifying an environment
+variable named TZ and calling a function <code>tzset(3)</code>. The rules for
+interpreting the zone specification in the value of TZ became part of
+the POSIX standard. They were complex <a href="#OLDTZ">[OLDTZ]</a> and now mainly of
+historical interest. We mention this history mainly because it
+has left remnants in the manual pages - notably of <code>tzset(3)</code> - that
+may confuse the uninformed reader about what is going on.</p></div>
+<div class="paragraph"><p>V7 and older BSD Unixes had various other methods for configuring the
+local timezone that didn&#8217;t involve using or interpreting TZ.  These
+have left no traces on modern Unixes.  They shared a fatal flaw with
+POSIX TZ interpretation, which was that they weren&#8217;t designed to cope
+with the historical instability of the timezone system.  They could
+not express an entire set of historical offset/DST rules in order to
+get past local times as well as present ones correct.</p></div>
+<div class="paragraph"><p>On modern Unix systems the TZ variable might not be set at all, but
+the system default timezone can be overridden by explicitly setting TZ
+in any process. The timezone designator configured at boot time, or
+via an overriding value of TZ, is a geographical location (usually but
+not always an area/major-city pair) such as "America/New_York", or
+"Europe/Vienna" or "Asia/Taipei".  If the designator is set via TZ it
+may need to be preceded by a colon; this is for
+backwards-compatibility with the POSIX standard, to distinguish it
+from an old-style timezone specification. (Not all implementations
+enforce this.)</p></div>
+<div class="paragraph"><p>The location-based zone naming scheme <a href="#IANA-ZONES">[IANA-ZONES]</a> is managed by
+IANA, the Internet Assigned Numbers Authority.  It is intended to
+supersede (in computing, anyway) the system of customary names we&#8217;ll
+refer to later in this document as "civil timezone names".</p></div>
+<div class="paragraph"><p>Civil timezone names such as EST/EDT are ambiguous: they have name
+collisions in different countries, and some civil zones have multiple
+names. They tend to be short (at least under Unix/Linux, though not
+necessarily under Windows).  They may change without notice.  Some of
+them are official (in that they appear in officially-approved
+legislative documents in the jurisdictions where they apply), but many
+of them reflect mere ad-hoc conventions.</p></div>
+<div class="paragraph"><p>The IANA names, on the other hand, are intended to be unique,
+future-proof, and for use by system administrators and knowledgeable
+users to <strong>set</strong> the time zone they wish to apply.</p></div>
+<div class="paragraph"><p>IANA timezone designators are looked up through a locally-installed copy
+<span class="footnote"><br />[The IETF is working on a protocol for pushing updates of the
+databases over the Internet.]<br /></span> of a time zone database ("tzdata")
+maintained by IANA, the Internet Assigned Numbers Authority
+<a href="#TZSOURCES">[TZSOURCES]</a>, <a href="#TZDATA">[TZDATA]</a>.  You may hear the name "Arthur David Olson"
+used in connection with this database; he was the founding
+contributor.</p></div>
+<div class="paragraph"><p>The contents of the database entry for the designator describe the
+history of the zone name, zone offset and the DST start/end times (if
+any) for the location, as those have changed over time since 1970
+<span class="footnote"><br />[The IANA database used to try to cover pre-1970 history as
+well, though some of this is being phased out since they have learned
+that their primary source for very old time zone history - a book on
+astrology - just made some stuff up.]<br /></span>. The timezone system is
+sufficiently chaotic in ways previously noted that some of the
+comments on this history make entertaining reading.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_unix_date_formats">Unix date formats</h3>
+<div class="paragraph"><p>The Unix time API evolved when many system designers and software
+standardizers were still trying to hang on to named timezones, which
+were thought to be more human-friendly.  Internet protocols evolving
+around the same time, however, abandoned named timezones early.</p></div>
+<div class="paragraph"><p>The results of this history are visible as a plethora of different
+date presentation formats.  Thus, for example, the output of the
+<code>date(1)</code> command looks like this: "Wed Sep 24 15:32:27 EDT 2014"
+(with named timezone), while a date in an SMTP mail header is more
+likely to look like this: "Wed, 24 Sep 2014 15:32:27 -0400" with an
+<strong>hhmm</strong> numeric offset.</p></div>
+<div class="paragraph"><p>Here is a table duplicating this example in a number of presentation
+formats commonly found on Unix systems:</p></div>
+<div class="tableblock">
+<table rules="all"
+style="margin-left:auto; margin-right:auto;"
+width="50%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 4. Date formats</caption>
+<col width="50%" />
+<col width="50%" />
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">1414179147</p></td>
+<td align="left" valign="top"><p class="table">Unix UTC seconds</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Fri Oct 24 15:32:27 EDT 2014</p></td>
+<td align="left" valign="top"><p class="table"><code>date(1)</code> output</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">2014-10-24 15:32:27-0400</p></td>
+<td align="left" valign="top"><p class="table"><code>date(1)</code> output with -rfc-3339 option</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Fri, 24 Oct 2014 15:32:27 -0400</p></td>
+<td align="left" valign="top"><p class="table">e-mail RFC-822/RFC-2822 format</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Fri, 24 Oct 2014 19:32:27 GMT</p></td>
+<td align="left" valign="top"><p class="table">HTTP (RFC-2616/RFC-7231) format</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">20141024192327.000000Z</p></td>
+<td align="left" valign="top"><p class="table">LDAP (RFC-2252/X.680/X.208) format</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">2014-10-24 15:32:27</p></td>
+<td align="left" valign="top"><p class="table">Modified ISO-8601 local time</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">2014-10-24T15:32:27</p></td>
+<td align="left" valign="top"><p class="table">Strict ISO-8601 local time</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">2014-10-24T19:32:27Z</p></td>
+<td align="left" valign="top"><p class="table">RFC-3339 time, always UTC and marked Z</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>Of these, the last is the most recent and (so far) least widely
+adopted presentation format; ISO-8601 was not promulgated until 1988
+and RFC-3339 not published until 2002 <a href="#ISO-8601">[ISO-8601]</a>, <a href="#RFC-3339">[RFC-3339]</a>.
+However, it has the best properties of any (human readability,
+non-ambiguity, compactness, fixed length, single token, string sort
+order matches time order) and we strongly recommend it.</p></div>
+<div class="paragraph"><p>All of these presentation formats are straightforwardly constructible
+using the strftime(3) function which we&#8217;ll be meeting in a few
+paragraphs (although parsing them can be trickier).</p></div>
+<div class="paragraph"><p>(See also Randall Munroe&#8217;s <a href="https://xkcd.com/1179/">ISO 8601</a> and
+<a href="https://xkcd.com/1883/">Supervillain Plan</a>.)</p></div>
+<div class="paragraph"><p>Some Unix time API functions deal in numeric zone offsets, others in
+named timezone and DST.  Still others (generally older ones) evade
+the whole issue by not reporting timezone at all. We will be more
+specific when we discuss individual calls.</p></div>
+<div class="paragraph"><p>Just to add to the hilarity, the IANA database, RFC-822/RFC-2822
+dates, and Unix <code>date(1)</code> consider offsets east of Greenwich to be
+positive and west of it to be negative, but POSIX time-zone formats
+inexplicably reversed this.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>$ TZ=MST+7 date +%z
+-0700</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_broken_down_time">Broken-down time</h3>
+<div class="paragraph"><p>Unix represents calendar time using the following structure, which
+is consumed or emitted by several key functions:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>struct tm
+{
+    int    tm_sec;   /* seconds [0,60] (60 for + leap second) */
+    int    tm_min;   /* minutes [0,59] */
+    int    tm_hour;  /* hour [0,23] */
+    int    tm_mday;  /* day of month [1,31] */
+    int    tm_mon ;  /* month of year [0,11] */
+    int    tm_year;  /* years since 1900 */
+    int    tm_wday;  /* day of week [0,6] (Sunday = 0) */
+    int    tm_yday;  /* day of year [0,365] */
+    int    tm_isdst; /* daylight saving flag */
+};</code></pre>
+</div></div>
+<div class="paragraph"><p>Many of the most common problems with using the Unix time API can be
+traced to the rather confused and inadequate design of this
+structure. In what is probably unintentional humor, various manual
+pages and standards documents refer to it as "broken-down time".</p></div>
+<div class="paragraph"><p>The most notable pain points include:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>tm_isdst</code> is easily misinterpreted as a flag when it&#8217;s actually
+  three-valued: 0 = DST off, 1 = DST on, -1 = DST status unknown.
+  (Actually, values &lt; -1 are usually treated as -1 and values &gt; 1 treated
+  as 1 - but do not count on this, as buggy implementations may treat
+  values outside this range as offsets in hours.)
+</p>
+</li>
+<li>
+<p>
+The <code>tm_year</code> base value of 1900 rather than zero - easily forgotten
+  and confusing, especially when interpreting negative values.
+</p>
+</li>
+<li>
+<p>
+Inconsistency about 0- vs. 1-origin in month and day numbers.
+  The number of programmers who have gotten tm_mon wrong as a result
+  is staggering.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>and, worst of all,</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+No timezone offset!
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>There is a potential overflow problem with <code>tm_year</code> on systems where
+sizeof(int) &lt; sizeof(time_t); historically this was often true on
+32-bit systems and may remain a hidden problem in embedded deployments.
+The year derived from a <code>time_t</code> can be so large that it won&#8217;t fit in
+an <code>int</code>, which means <code>localtime(3)</code> and <code>gmtime(3)</code> could silently fail on
+valid time stamps in the far past or far future.  A subtler problem is
+that when <code>tm_year</code> &gt; INT_MAX - 1900 the Gregorian year doesn&#8217;t fit in
+an <code>int</code>; a lot of code gets this wrong.  Because INT_MAX on a 32-bit
+system is 2^31 = 2,147,483,647 this is unlikely to be a problem
+for normal historical dates.</p></div>
+<div class="paragraph"><p>Some versions of BSD remedied the last and most serious problem by
+adding two additional fields specifying the timezone used to generate
+the instance:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>    long int tm_gmtoff;  /* time offset in seconds east of UTC/GMT */
+    const char *tm_zone; /* name of timezone */</code></pre>
+</div></div>
+<div class="paragraph"><p>The GNU C library, used on most open-source Unixes, supports these
+members. The POSIX/SUS/OpenGroup standards allow them, but do not
+mandate them; in a strict ISO-C environment they will not be visible.
+You may have to <code>#define _BSD_SOURCE</code> before including <code>time.h</code> to
+make them visible.</p></div>
+<div class="paragraph"><p>The GNU C library documentation says this: "[The tm_gmtoff] field
+describes the time zone that was used to compute this broken-down time
+value, including any adjustment for daylight saving; it is the number
+of seconds that you must add to UTC to get local time. You can also
+think of this as the number of seconds east of UTC. For example, for
+U.S. Eastern Standard Time, the value is -5*60*60."</p></div>
+<div class="paragraph"><p>With the offset member (but not without it) a broken-down time
+specification is unambiguous.</p></div>
+<div class="paragraph"><p>The tm_zone member is less useful. The zone name strings it points to
+are not standardized and can be somewhat haphazard.  They&#8217;re not the
+IANA geographic designators.  Under Linux and BSD they&#8217;re typically
+the familiar (but ambiguous) three- and four-letter abbreviations
+(EDT, CEST, etc.), but under Windows they&#8217;re longer strings like
+"W. Europe Standard Time".  (And they&#8217;re sometimes brain-bending
+monstrosities like "GMT Daylight Time", which is Microsoft&#8217;s own
+special name for what the Brits call British Summer Time.<a href="#MTZ">[MTZ]</a>)</p></div>
+</div>
+<div class="sect2">
+<h3 id="_tzset_3_and_ftime_3">tzset(3) and ftime(3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+void tzset (void);
+
+extern char *tzname[2]; /* time zone name */
+extern long timezone;   /* seconds west of UTC, *not* DST-corrected */
+extern int daylight;    /* nonzero if DST is ever in effect here */</code></pre>
+</div></div>
+<div class="paragraph"><p>The <code>tzset(3)</code> call computes the timezone offset for purposes of
+local-time computation. This information is expressed as three global
+variables (you may have to set feature macros to expose them).</p></div>
+<div class="paragraph"><p>These values are derived from system administrative settings and
+(if it is present) the value of the environment variable <code>TZ</code>, in
+ways too complex to delve into here; consult the manual pages
+for details.  The key point is that after a <code>tzset(3)</code> call, the
+local timezone information should be available.</p></div>
+<div class="paragraph"><p>Note that the timezone offset does <strong>not</strong> include DST correction and
+is of opposite sign to the <code>tm_gmtoff</code> member.</p></div>
+<div class="paragraph"><p>The <code>tzname</code> variable is a pair of strings; <code>tzname[0]</code> is the zone
+name without and and <code>tzname[1]</code> is with DST correction.  These will
+be civil zone names (like GMT/GST or EST/DST) not the IANA naming
+scheme.</p></div>
+<div class="paragraph"><p><code>tzset(3)</code> is required by POSIX to be thread-safe, but access to the
+globals it sets is intrinsically thread-unsafe.</p></div>
+<div class="paragraph"><p>It should usually not be necessary to call <code>tzset(3)</code> directly, as it is
+called at the beginning of processing by most of the functions in this
+section.  Exceptions will be noted below.</p></div>
+<div class="paragraph"><p>This part of the Unix time interface is very old; <code>tzset(3)</code> goes back
+to System III, and at least one of the globals it sets traces back to
+V6.  Later portions of the Unix API design almost completely avoided
+predefined global variables in favor of returns from function calls.</p></div>
+<div class="paragraph"><p>Some early Unixes (including V7) had a a different way of fetching
+similar information; <code>ftime(3)</code>.  This call filled in a structure with members
+containing information similar to the exposed globals above:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>struct timeb {
+   time_t         time;      /* seconds since epoch */
+   unsigned short millitm;   /* milliseconds part of current time */
+   short          timezone;  /* local time offset, minutes west of GMT */
+   short          dstflag;   /* if nonzero, local zone uses DST */
+};</code></pre>
+</div></div>
+<div class="paragraph"><p>The Single UNIX Specification carried this forward, but
+implementations were weak and defective. POSIX.1-2001/SUSv3
+said that the contents of the <code>timezone</code> and <code>dstflag</code> fields
+are unspecified and should not be relied on.  POSIX.1-2008/SUSv4
+removed <code>ftime(3)</code> entirely.  The archaic <code>tzset(3)</code>
+interface remains.</p></div>
+<div class="paragraph"><p>Final warning: some BSD Unixes do not implement <code>timezone</code> at all!</p></div>
+</div>
+<div class="sect2">
+<h3 id="_gmtime_3_and_localtime_3">gmtime(3) and localtime(3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+struct tm *gmtime(const time_t *);
+struct tm *gmtime_r(const time_t *, struct tm *);
+struct tm *localtime(const time_t *);
+struct tm *localtime_r(const time_t *, struct tm *);</code></pre>
+</div></div>
+<div class="paragraph"><p>These are the basic functions for making a broken-down time structure
+<code>struct tm</code> from a <code>time_t</code>.</p></div>
+<div class="paragraph"><p>The difference between the gm* pair and the local* pair is this:</p></div>
+<div class="paragraph"><p>The local* pair computes the local time corresponding to the input
+Unix UTC time, taking the local time zone and all DST corrections into
+account. It does this by, in effect, adding the local timezone offset
+to the UTC seconds before performing the same computation performed by
+gmtime, although in a high-quality implementation it&#8217;s more
+complicated than that, because of the possibility that the addition
+could overflow.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Implementations that have a time zone history database, such as
+  glibc with tzdata, apply the historical offset that was in effect at
+  the time being converted according to the current revision of the
+  IANA timezone history. This is normal on Unix systems.  There is
+  more detail on this behavior under the discussion of <code>mktime(3)</code>
+</p>
+</li>
+<li>
+<p>
+Implementations that lack such a database, such as Visual Studio
+  runtime on Windows, apply the offset that would have been in effect
+  at the time being converted according to the rules at the time the
+  software shipped.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The gm* pair applies no such offset, so the output <code>struct tm</code>
+expresses Unix UTC seconds as UTC time.</p></div>
+<div class="paragraph"><p>The names of the gm* pair are a historical error, since they actually
+convert to UTC.  These systems are not actually identical; for real GMT
+we would incorporate the DST bit, but for UTC it must be ignored.</p></div>
+<div class="paragraph"><p>The functions <code>gmtime(3)</code> and <code>localtime(3)</code> return a pointer to
+internal static storage that is overwritten on each call (in the GNU C
+library this static storage is shared among both functions).  This is
+not thread-safe. The *_r functions are, on the other hand, re-entrant,
+with the user being required to pass in the address of the storage to
+be modified, and can thus be thread-safe.</p></div>
+<div class="paragraph"><p>POSIX implies that <code>localtime(3)</code> is required to behave as though
+<code>tzset(3)</code> has been called, but that <code>localtime_r(3)</code> is not (this is
+almost certainly because <code>tzset(3)</code> sets globals if localtime_r(3)
+also set them its callers could well become thread-unsafe".</p></div>
+<div class="paragraph"><p>For portable code <code>tzset(3)</code> should be called before <code>localtime_r(3)</code>
+- but note that this can lead to subtle errors when processing
+historical date/times because of the historical-date problem
+described under mktime(3).</p></div>
+<div class="paragraph"><p>Now that we&#8217;ve gone through the terchnical details, here is a less
+formal but more evocative way of summarizing them: localtime(3) is
+a pit of horrors that wants to be your personal hell - avoid. This
+is especially true if you are concerned about reproducibility
+(e.g. in unit and regression tests) where timezone- and DST-related
+problems can introduce random glitches like off-by-one-hour errors
+with no cause in your visible code.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_mktime_3_timelocal_3_timegm_3">mktime(3), timelocal(3), timegm(3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+time_t mktime(struct tm *tm);</code></pre>
+</div></div>
+<div class="paragraph"><p>The <code>mktime(3)</code> function inverts <code>localtime(3)</code>, turning an input
+<code>struct tm</code> into a <code>time_t</code>. It is standardized.</p></div>
+<div class="paragraph"><p>There is no analogous standardized <code>mkgmtime()</code> function that inverts
+<code>gmtime(3)</code>, but see the description of <code>timegm(3)</code> below.</p></div>
+<div class="paragraph"><p>The <code>mktime(3)</code> function has a side effect that can trip you up seriously
+if you&#8217;re not aware of it.  In addition to returning a Unix seconds
+value, it also modifies the contents of the <code>struct tm</code>.</p></div>
+<div class="paragraph"><p>This means, in particular, that calling <code>mktime(3)</code> a second time on
+the same <code>struct tm</code> won&#8217;t necessarily return the same value as it
+did on the first call!  The most likely error is for the second
+return to be 3600 seconds off because the first call set the
+<code>tm_isdst</code> member.</p></div>
+<div class="paragraph"><p>The manual page says:</p></div>
+<div class="paragraph"><p>"The mktime() function modifies the fields of the tm structure as
+follows: tm_wday and tm_yday are set to values determined from the
+contents of the other fields; if structure members are outside their
+valid interval, they will be normalized (so that, for example, 40
+October is changed into 9 November); tm_isdst is set (regardless of
+its initial value) to a positive value or to 0, respectively, to
+indicate whether DST is or is not in effect at the specified time.
+Calling mktime() also sets the external variable tzname with
+information about the current timezone."</p></div>
+<div class="paragraph"><p>The last sentence is fairly subtle: it means that the implicit
+tzset(3) call at the beginning of mktime(3) can behave differently
+from an ordinary tzset(3) call, in that the implicit call can take
+advantage of knowing the time stamp that the caller is interested in,
+and can set global variables to values that are tailored for that time
+stamp. For example, if the time zone is Europe/London and the time
+stamp argument to mktime is circa 1970, mktime can set the global
+variables to values appropriate for a location that is at UTC+1 year
+round, which is what London was observing back in 1970; whereas if the
+time stamp is circa 2014, mktime can set the global variables to
+values appropriate for a location that is at UTC in winter and UTC+1
+in summer, which is what London was doing in 2014.</p></div>
+<div class="paragraph"><p>The normalizing side-effect of mktime(3) makes it useful for various
+kinds of date/time arithmetic on broken-down time structures. For
+example, you can increment a tm_day member, call mktime(3) on it, and
+expect overflow beyond the end of month to be handled (but beware that
+this will be done without adjusting for leap-second discontinuities).</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+time_t timelocal(struct tm *tm);
+
+time_t timegm(struct tm *tm);</code></pre>
+</div></div>
+<div class="paragraph"><p>These are GNU C Library extensions, not standardized.  They are
+modeled on calls introduced in BSD and still present in
+FreeBSD/NetBSD/OpenBSD.</p></div>
+<div class="paragraph"><p>The <code>timelocal(3)</code> function is identical to standard <code>mktime(3)</code>
+(except for assuming <code>tm_isdst</code> is initially negative, which
+<code>mktime(3)</code> does not) inverting <code>localtime(3)</code>. The <code>timegm(3)</code>
+function inverts <code>gmtime(3)</code>.</p></div>
+<div class="paragraph"><p>The GNU C Library documentation recommends against using these
+functions, as they introduce a dependency.  It recommends this as a
+portable alternative (but note that it is thread-unsafe):</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+#include &lt;stdlib.h&gt;
+
+time_t
+my_timegm(struct tm *tm)
+{
+     time_t ret;
+     char *tz;
+
+     tz = getenv("TZ");
+     if (tz)
+         tz = strdup(tz);
+     setenv("TZ", "", 1);
+     tzset();
+     ret = mktime(tm);
+     if (tz) {
+         setenv("TZ", tz, 1);
+         free(tz);
+     } else
+         unsetenv("TZ");
+     tzset();
+     return ret;
+}</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_asctime_3_and_ctime_3">asctime(3) and ctime(3)</h3>
+<div class="paragraph"><p>In older Unixes the following functions were available to report time
+and date as a string. They wired in bad design choices (the date
+string is of unpredictable length and includes a trailing "\n"), are
+not locale-aware, and have undefined behavior for years before 0 or
+after 9999.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+char *asctime(const struct tm *);
+char *asctime_r(const struct tm *, char *);
+char *ctime(const time_t *);
+char *ctime_r(const time_t *, char *);</code></pre>
+</div></div>
+<div class="paragraph"><p>These functions are obsolete and should not be used in production
+code; use <code>strftime(3)</code> instead.  If you are curious about the
+details, read their manual pages.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_strftime_3">strftime(3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+size_t strftime(char *, size_t, const char *, const struct tm *);</code></pre>
+</div></div>
+<div class="paragraph"><p>This is the modern function for formatting timestamps into
+string representations; read its manual page.  Here are some
+potentially interesting recipes that illustrate usage patterns:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/* RFC-3339 format */
+strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%M:%SZ", gmtime(t));
+
+/* ISO-8601 local time */
+strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%M:%S", localtime(t));
+
+/* RFC-822/RFC-2822 format */
+strftime(buf, sizeof(buf), "%a, %d %b %Y %H:%M:%S %z", localtime(t));</code></pre>
+</div></div>
+<div class="paragraph"><p>RFC-822/RFC-2822 specifies English month and weekday names, but %a and
+%b are locale-aware; thus, the third recipe will deliver interestingly
+nonstandard results in a non-Anglophone locale.</p></div>
+<div class="paragraph"><p>Some of the format specifiers need to be used with caution; older
+implementations may not support all of them.  Unit-test your
+formatting, checking carefully for %z and the other Single UNIX
+Specification and glibc additions (%C, %D, %E, %h, %n, %O, %P, %r, %t,
+%T, %V) if you must rely on them.</p></div>
+<div class="paragraph"><p>If called with a manually populated struct tm with all Standard C
+members populated, but without the <code>tm_gmtoff</code> and <code>tm_zone</code> members
+populated, strftime will, on some systems, not give sensible results
+for %z or %Z. Worse, it directly reads from the possibly-uninitialized
+<code>tm_zone</code> pointer.</p></div>
+<div class="paragraph"><p>More generally, %z and %Z for anything other than an immediate
+<code>localtime(3)</code>/<code>strftime(3)</code> pair can get wacky. In particular:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+If you’re on a system without <code>tm_gmtoff</code> and <code>tm_zone</code>, they’ll print
+  the local time zone even for a gmtime(3)-initialized struct tm.
+</p>
+</li>
+<li>
+<p>
+If you change the value of TZ between <code>mktime(3)</code> and <code>strftime(3)</code>,
+  if you have <code>tm_zone</code>, %Z will use a random zone for the new zone,
+  not the abbreviation for the old one. If the new zone has fewer
+  abbreviations than the old one, <code>tm_zone</code> (and thus %Z) can even end
+  up pointing into freed memory!
+</p>
+</li>
+<li>
+<p>
+If you&#8217;re constructing struct tm instances by hand before passing them
+  to strftime (or, for that matter, mktime/gmtime), it&#8217;s best to
+  zero them out first, with memset or the equivalent.
+</p>
+</li>
+<li>
+<p>
+If you can help it, only call strftime on struct tm instances that
+  localtime/gmtime have constructed for you.  If you must construct
+  them by hand, try to limit your strftime format specifiers to the
+  "normal" ones that obviously correspond to fields you have set.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_strptime_3_and_getdate_3">strptime(3) and getdate(3)</h3>
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+char *strptime(const char *, const char *, struct tm *);
+struct tm *getdate(const char *);
+int getdate_r(const char *string, struct tm *res);</code></pre>
+</div></div>
+<div class="paragraph"><p>The <code>strptime(3)</code> function is a near-inverse of <code>strftime(3)</code>
+function, with one painful exception; it does not parse timezones.
+(If only because the misdesign of the standardized <code>struct tm</code> leaves
+it no place to put the information.) The full list of <code>strftime(3)</code>
+specifiers not supported are %F, %g, %G, %u, %v, %z, and %Z.</p></div>
+<div class="paragraph"><p>Do not use the %y specifier. Its interpretation differs incompatibly
+among implementations.</p></div>
+<div class="paragraph"><p>Test code that uses <code>strptime(3)</code> carefully on real data.
+Implementations are bug-prone.</p></div>
+<div class="paragraph"><p>The <code>getdate(3)</code> function and its re-entrant twin <code>getdate_r(3)</code> are
+complex and dubiously-designed attempts to do adaptive date parsing.
+We recommend against attempting to use them.  See their manual pages
+for details.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_berkeley_multiple_timezone_api">Berkeley multiple-timezone API</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre><code>#include &lt;time.h&gt;
+
+timezone_t tzalloc(const char *zone);
+void tzfree(timezone_t tz);
+const char *tzgetname(timezone_t tz, int isdst);
+long tzgetgmtoff(timezone_t tz, int isdst);
+char *ctime_rz(timezone_t tz, const time_t *clock, char *buf);
+struct tm *localtime_rz(timezone_t tz, const time_t * clock, struct tm * result);
+time_t mktime_z(timezone_t tz, struct tm *restrict tm);</code></pre>
+</div></div>
+<div class="paragraph"><p>Some Berkeley Unixes have a group of functions designed to avoid any
+dependence on the system timezone globals, thus making it easier to
+handle multiple timezones in one program. This approach is also good
+for re-entrancy.</p></div>
+<div class="paragraph"><p>Because these functions are not standardized, this section is only a
+sketch intended to convey the style of the interface; for more details
+consult their manual pages.</p></div>
+<div class="paragraph"><p><code>tzalloc()</code> takes a timezone specification and returns a <code>timezone_t</code>
+structure, which should later be freed by <code>tzfree()</code>.  It is passed to
+*_rz functions which behave like the corresponding *_r functions,
+except that a hidden reference to system timezone globals is replaced
+by looking at a first argument which must be a pointer to a
+<code>timezone_t</code>.</p></div>
+<div class="paragraph"><p>This is how it should have been done in the first place&#8230;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_good_programming_practice">Good programming practice</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>As previously noted, localtime(3) is a pit of unreproducibility
+horrors due to the hidden and time-variable rules for computing
+timezone offsets. Avoid it.</p></div>
+<div class="paragraph"><p>To stay out of trouble, convert dates to Unix UTC on input, do all
+your calculations in that, and convert back to localtime as late as
+possible.  This reduces your odds of introducing a misconversion
+and spurious timezone skew.</p></div>
+<div class="paragraph"><p>Any time you find yourself writing code that knows how many days there
+are in a month, something is probably very wrong.  Reexamine your
+assumptions. You may want to bite the bullet and use <code>timegm(3)</code>,
+even though it&#8217;s nominally not portable.</p></div>
+<div class="paragraph"><p>Be very careful if you find yourself trying to do anything fancy with
+dates and times.  If it&#8217;s not obvious already, date and time
+processing is rather outrageously complex, and there&#8217;s almost always
+one more quirk or gotcha lurking around the next bend that you haven&#8217;t
+thought of yet.  Whenever possible, offload the work to the standard
+library functions&#8201;&#8212;&#8201;their implementations have <strong>most</strong> of the bugs
+worked out by now.</p></div>
+<div class="paragraph"><p>A potentially useful reference on good practice in dealing with
+timezones and DST is <a href="#DSTBP">[DSTBP]</a></p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_improvements">Improvements</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The author welcomes corrections and improvements.  This document has
+been written in the editorial <em>we</em> because he hopes to attract domain
+experts to cooperate on future revisions.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_acknowledgments">Acknowledgments</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Yuri Khan, Geoff Clare, Gary E. Miller, and Paul Eggert rendered
+substantial help with the beta revision of this document.  Steve
+Summit wrote substantial critiques of versions 1.2 and 1.3.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="ulist bibliography"><ul>
+<li>
+<p>
+<a id="UTC"></a>[UTC] <a href="http://en.wikipedia.org/wiki/Coordinated_Universal_Time">Wikipedia:
+  Coordinated Universal Time</a>
+</p>
+</li>
+<li>
+<p>
+<a id="TIMESCALES"></a>[TIMESCALES]
+  <a href="http://www.ucolick.org/~sla/leapsecs/timescales.html">Time Scales</a>
+</p>
+</li>
+<li>
+<p>
+<a id="GMT"></a>[GMT] <a href="http://en.wikipedia.org/wiki/Greenwich_Mean_Time">Wikipedia:
+  Greenwich Mean Time</a>
+</p>
+</li>
+<li>
+<p>
+<a id="UNIX-TIME"></a>[UNIX-TIME] <a href="http://en.wikipedia.org/wiki/Unix_time">Wikipedia: Unix time</a>
+</p>
+</li>
+<li>
+<p>
+<a id="POSIX-TIME"></a>[POSIX-TIME]
+  <a href="http://pubs.opengroup.org/onlinepubs/9699919799/xrat/V4_xbd_chap04.html#tag_21_04_15">Rationale:
+  Seconds since the Epoch</a>
+</p>
+</li>
+<li>
+<p>
+<a id="FP"></a>[FP] <a href="http://blog.reverberate.org/2014/09/what-every-computer-programmer-should.html">What every computer programmer should know about floating point, part 1</a>
+</p>
+</li>
+<li>
+<p>
+<a id="TIME.H"></a>[TIME.H]
+  <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/time.h.html">Open
+  Group: time.h</a>
+</p>
+</li>
+<li>
+<p>
+<a id="TIME-ZONE"></a>[TIME-ZONE] <a href="http://en.wikipedia.org/wiki/Time_zone">Wikipedia: Time
+  Zone</a>
+</p>
+</li>
+<li>
+<p>
+<a id="IANA-ZONES"></a>[IANA-ZONES] <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of
+  tz database time zones</a>
+</p>
+</li>
+<li>
+<p>
+<a id="COMPUTERPHILE"></a>[COMPUTERPHILE] <a href="https://www.youtube.com/watch?v=-5wpm-gesOY">The
+  Problem with Time &amp; Timezones</a>
+</p>
+</li>
+<li>
+<p>
+<a id="OLDTZ"></a>[OLDTZ]
+  <a href="http://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html">Environment Variables</a>
+</p>
+</li>
+<li>
+<p>
+<a id="TZSOURCES"></a>[TZSOURCES] <a href="http://www.iana.org/time-zones/repository/tz-link.html">Sources
+  for Time Zone and Daylight Saving Time Data</a>
+</p>
+</li>
+<li>
+<p>
+<a id="TZDATA"></a>[TZDATA] <a href="http://en.wikipedia.org/wiki/Tz_database">Wikipedia: tz database</a>
+</p>
+</li>
+<li>
+<p>
+<a id="ISO-8601"></a>[ISO-8601] <a href="http://en.wikipedia.org/wiki/ISO_8601">Wikipedia: ISO-8601</a>
+</p>
+</li>
+<li>
+<p>
+<a id="RFC-3339"></a>[RFC-3339] <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC-3339</a>
+</p>
+</li>
+<li>
+<p>
+[<a id="MTZ"></a> <a href="https://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx">Microsoft Time Zone Index Values</a>]
+</p>
+</li>
+<li>
+<p>
+<a id="DSTBP"></a>[DSTBP] <a href="http://stackoverflow.com/questions/2532729/daylight-saving-time-and-time-zone-best-practices">Daylight saving time and time zone best practices</a>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_revision_history">Revision History</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+1.7: 2017-09-09
+</dt>
+<dd>
+<p>
+   Emphasize that localtime(3) is a horror to be avoided.
+</p>
+</dd>
+<dt class="hdlist1">
+1.6: 2016-06-06
+</dt>
+<dd>
+<p>
+   Note difference between UTC and GMT. Note that NTP does not offer
+   leap-second correction.
+</p>
+</dd>
+<dt class="hdlist1">
+1.5: 2016-05-29
+</dt>
+<dd>
+<p>
+   Remove some buggy code pending better unit testing.
+</p>
+</dd>
+<dt class="hdlist1">
+1.4: 2016-05-04
+</dt>
+<dd>
+<p>
+   Add information on Berkely multiple-timezone API.
+</p>
+</dd>
+<dt class="hdlist1">
+1.3: 2016-04-24
+</dt>
+<dd>
+<p>
+   Various minor corrections and clarifications, mostly around timezones.
+</p>
+</dd>
+<dt class="hdlist1">
+1.2: 2015-01-22
+</dt>
+<dd>
+<p>
+   Note that timezone is not necessarily supported by *BSD.
+   Add a gotcha in the interpretation of the DST bit.
+   More detail under mktime(3) on how historical dates are handled.
+</p>
+</dd>
+<dt class="hdlist1">
+1.1: 2015-01-08
+</dt>
+<dd>
+<p>
+   Explain the contents of <code>tzname</code> better.
+   New section on good programming practice.
+</p>
+</dd>
+<dt class="hdlist1">
+1.0: 2014-10-09
+</dt>
+<dd>
+<p>
+   First production release.
+</p>
+</dd>
+<dt class="hdlist1">
+0.9: 2014-09-29
+</dt>
+<dd>
+<p>
+   Beta version circulated for critique.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2017-09-09 11:35:11 EDT
+</div>
+</div>
+</body>
+</html>

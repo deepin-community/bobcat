@@ -1,0 +1,11 @@
+#!/bin/bash
+
+GCC='g++ `cat ../../c++std` -o driver'
+
+# Using the standard bobcat library
+# ${GCC} driver.cc -lbobcat
+
+#Using the randbuf/tmp library, bobcat, and the local randbuf/irandstream
+#header files
+${GCC} -I../../randbuf:.. driver.cc -L../../randbuf/tmp \
+	    -lrandbuf -lbobcat -s

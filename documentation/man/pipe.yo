@@ -1,0 +1,232 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::Pipe)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (System Level Communication Pipe)
+
+manpagename(FBB::Pipe)(Defines a system level communication pipe)
+
+manpagesynopsis()
+    bf(#include <bobcat/pipe>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+    bf(FBB::Pipe) objects may be used to construct a em(pipe). tt(Pipe)
+objects offer a simple interface to the reading and writing ends of
+pipes. tt(Pipe) objects are object-wrappers around the bf(pipe)(2) system
+call. 
+
+    A tt(Pipe) which is created just before a program forks can be used to set
+up a line of communication between the parent and child process. Information
+which is written by the child process to its standard output stream can be
+redirected to the writing end of the pipe (using the tt(writtenBy)
+member). The information appearing at the reading end of the pipe can then be
+extracted using, e.g., an tt(IFdStream) object, initialized with the
+tt(Pipe)'s reading file descriptor, or the reading end of the pipe can be
+redirected to an existing stream whose file descriptor is known, like tt(cin)
+(which uses the tt(STDIN_FILENO) file descriptor).
+
+    When a tt(Pipe) object goes out of scope, no bf(close)(2) operation is
+performed on the pipe's file descriptors. After setting up the pipe using the
+tt(Pipe's) member functions and passing the tt(Pipe's) file descriptors to
+code that uses the tt(Pipe's) descriptors, the tt(Pipe) object might even be
+destroyed. The using code is responsible for closing the pipe. If the pipe
+should be closed at destruction time, then a class could be derived from
+bf(Pipe)(3bobcat), whose destructor may then close the pipe. Alternatively,
+tt(Pope's close) member can be called. 
+
+    The value -1 indicates that a file descriptor does not refer to a
+bf(pipe)(2) file descriptor.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(Pipe())
+        The default tt(Pipe) constructor constructs a pipe, calling
+bf(pipe)(2). 
+
+    This constructor throws an tt(Exception) exception if the default tt(Pipe)
+constructor did not properly complete.  The thrown bf(Exception) object's
+tt(which()) member shows the system's tt(errno) value set by the failing
+bf(pipe)(2) function.
+
+    itb(Pipe(Pipe &&tmp))
+        The move constructor moves the temporary object's file descriptors to
+the tt(Pipe) object being constructed.
+
+    itb(Pipe(int const *fd))
+        This constructor expects two file descriptors, referring to the read
+and write file descriptors as returned by bf(pipe)(2).
+
+    itb(Pipe(bool initialize))
+        This constructor can be used when the tt(Pipe) object should not be
+associated with an existing pipe. Instead it initializes its read and write
+file descriptors to -1. This constructor may be used in classes that define
+tt(Pipe) data members that only after the object is constructed can open their
+pipes. Having constructing a tt(Pipe obj(false)) object it can be associated
+with an open pipe using tt(obj = Pipe{}). When passing the argument tt(true)
+it calls tt(Pipe()) to construct a pipe. 
+    )
+
+    The move constructor and move assignment operator are available. Copy
+construction and copy assignment are not defined.
+
+    Note that tt(Pipe's) destructor does not close the pipe's file
+descriptors. To close the pipes tt(close) must be called.
+
+manpagesection(MEMBER FUNCTIONS)
+
+    itemization(
+    itb(void close())
+        Both file descriptors of the tt(Pipe) object are closed;
+
+    itb(void closeReadFd())
+        The file descriptor of the tt(Pipe) object that is associated with the
+reading end of the pipe is closed;
+
+    itb(void closeWriteFd())
+        The file descriptor of the tt(Pipe) object that is associated with the
+writing end of the pipe is closed;
+
+    itb(int readFd() const)
+        Returns the pipe's file descriptor that is used for reading
+
+    itb(void readFrom(int filedescriptor))
+        Sets up redirection from the internal em(read) filedescriptor to the
+given filedescriptor: information written to the write-end of the pipe may be
+retrieved by extracting the information from the stream that is associated
+with the indicated file descriptor. E.g., after the call
+tt(readFrom(STDIN_FILENO)) information  inserted into the
+write-end of the pipe can be retrieved from tt(cin).
+
+    itb(void readFrom(int const *filedescriptors, size_t n))
+        Sets up redirection from the internal em(read) filedescriptor to the
+given filedescriptors: information is read from the tt(Pipe) object when
+reading from any of the bf(n) provided filedescriptors (experimental).
+
+    itb(int readOnly())
+        Closes the writing end of the pipe, returns the reading end's file
+descriptor. This member can be used, e.g., to construct an tt(IFdStream)
+object to extract the information that is inserted into the write-end of the
+pipe. 
+
+    itb(void swap(Pipe &other))
+        The current and other tt(Pipe) objects are swapped. Following this
+call the current tt(Pipe) objects refer to the other object's pipe file
+descriptors and vice versa.
+
+    itb(int writeFd() const)
+        Returns the pipe's file descriptor that is used for writing.
+
+    itb(void writtenBy(int filedescriptor))
+        Sets up redirection from the internal em(write) filedescriptor to the
+given filedescriptor: information is  written to the tt(Pipe) object when
+writing to the provided filedescriptor. E.g., after the call
+tt(writtenBy(STDOUT_FILENO)) information sent to the standard output stream (by
+either tt(cout) or by a child process (cf. bf(exec)(3))) is inserted into the
+write-end of the pipe.
+
+    itb(void writtenBy(int const *filedescriptors, size_t n))
+        Sets up redirection from the internal em(write) filedescriptor to the
+given filedescriptors: information is inserted into the write-end of the
+tt(Pipe) object when writing to each of the bf(n) provided filedescriptors.
+E.g., when passing an array of two tt(int) values, respectively equal to
+tt(STDOUT_FILENO) and tt(STDERR_FILENO) to this member, all information which
+is thereafter sent to the standard output or error streams is inserted into
+the write-end of the pipe.
+
+    itb(int writeOnly())
+        Closes the reading end of the pipe, returns the writing end's file
+descriptor. 
+    )
+
+manpagesection(PROTECTED ENUMERATION)
+    The bf(RW) protected enumeration has the following elements:
+
+    itemization(
+    itb(READ)
+        The index in bf(d_fd[]) (see below) of the element holding the pipe's
+reading file descriptor;
+
+    itb(WRITE)
+        The index in bf(d_fd[]) (see below) of the element holding the pipe's
+writing file descriptor
+    )
+
+manpagesection(PROTECTED MEMBER FUNCTION)
+
+    itemization(
+    itb(void close(RW rw))
+        When passing argument RW::READ to this member the reading end of the
+tt(Pipe) object's pipe is closed. When passing argument RW::WRITE the writing
+end of the tt(Pipe) object's pipe is closed.
+    )
+
+
+manpagesection(EXAMPLE)
+        verb(
+    #include <bobcat/pipe>
+    #include <sys/types.h>
+    #include <sys/wait.h>
+    #include <unistd.h>
+    #include <iostream>
+    #include <string>
+    
+    using namespace std;
+    using namespace FBB;
+    
+    int main()
+    {
+        Pipe p;                         // construct a pipe
+    
+        cout << "Read file descriptor: " << p.readFd() << "\n"
+                "Write file descriptor: " << p.writeFd() << endl;
+    
+        int pid = fork();
+    
+        if (pid == -1)
+            return 1;
+    
+        if (!pid)                       //child
+        {
+            p.readFrom(STDIN_FILENO);   // read what goes into the pipe
+    
+            string s;
+
+            getline(cin, s);
+            cout << "CHILD: Got `" << s << "'\n";
+    
+            getline(cin, s);
+            cout << "CHILD: Got `" << s << "'\n";
+    
+            return 0;
+        }
+    
+        p.writtenBy(STDOUT_FILENO);      // write to the pipe via cout
+    
+        cout << "first line" << "\n"
+                "second line" << '\n';
+    
+        waitpid(pid, 0, 0);
+    }
+        )
+
+    See also the 2nd example at bf(fork)(3bobcat)
+
+manpagefiles()
+    em(bobcat/pipe) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(fork)(3bobcat), bf(pipe)(2), bf(mkfifo)(3)
+
+manpagebugs()
+    Note that when the pipe goes out of scope, no bf(close)(2) operation is
+performed on the pipe's ends. If the pipe should be closed by the desctructor,
+derive a class from bf(Pipe)(3bobcat), whose destructor performs the required
+closing-operation.
+
+includefile(include/trailer)

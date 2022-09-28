@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#   use the std bobcat library:
+# g++ --std=c++2a -o driver driver.cc -lbobcat
+
+# use librandbuf.a and the std bobcat library 
+# g++ --std=c++2a -o driver driver.cc -L../tmp -l randbuf -lbobcat
+
+# use librandbuf.a and /tmp/libbob.a 
+g++ --std=c++2a -o driver driver.cc -L../tmp -l randbuf -L/tmp -lbob
+
+
+# g++ --std=c++2a -o driver driver.cc ../*.o -lbobcat

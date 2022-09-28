@@ -1,0 +1,3 @@
+#!/bin/bash
+
+g++ `cat ../../c++std` -I.. -c driver.cc 

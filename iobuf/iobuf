@@ -1,0 +1,51 @@
+#ifndef INCLUDED_BOBCAT_IOBUF_
+#define INCLUDED_BOBCAT_IOBUF_
+
+#include <fstream>
+#include <bobcat/eoi>
+
+namespace FBB
+{
+
+class IOBuf: public Eoi
+{
+    char d_buf;
+    std::istream *d_in;
+    std::ostream *d_out;
+
+    public:
+        IOBuf();                                          // 1.f
+        IOBuf(std::istream &in, std::ostream &out);       // 2.f
+
+        ~IOBuf() override;
+
+        void reset(std::istream &in, std::ostream &out);
+
+    protected:
+        pos_type pSeekoff(off_type offset, std::ios::seekdir way,
+                      std::ios::openmode mode = std::ios::in | std::ios::out);
+
+        pos_type pSeekpos(pos_type offset,                      // .f
+                      std::ios::openmode mode = std::ios::in | std::ios::out);
+
+    private:
+        int underflow() override;
+        pos_type seekoff(off_type offset, std::ios::seekdir way,
+                       std::ios::openmode mode = std::ios::in | std::ios::out)
+                                                                    override;
+        pos_type seekpos(pos_type offset, 
+                       std::ios::openmode mode = std::ios::in | std::ios::out)
+                                                                    override;
+        int sync() override;
+        int overflow(int c) override;
+        std::streamsize xsputn(char const *buffer, std::streamsize n) 
+                                                                    override;
+};
+
+#include "iobuf1.f"
+#include "iobuf2.f"
+#include "pseekpos.f"
+
+} // namespace FBB
+
+#endif

@@ -1,0 +1,16 @@
+#include "cidr"
+
+#include <istream>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
+
+#include "../stringline/stringline"
+#include "../pattern/pattern"
+#include "../fswap/fswap"
+#include "../ranger/ranger"
+#include "../exception/exception"
+
+
+using namespace std;
+using namespace FBB;

@@ -1,0 +1,22 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <ctime>
+
+void getLocal();
+void getDesired(int argc, char **argv);
+void showTM(tm const &ts, char const *label);
+void showLocalTime();
+void showDesiredTime();
+void changeHours();
+
+extern time_t thisZone;        // local zone shift, not considering DST
+extern time_t thisDST;         // local DST info (all in seconds)
+
+extern bool showDesired;
+extern bool setHours;
+extern int hours;
+extern time_t desiredZone;      // desired zone shift, not considering DST
+extern time_t desiredDST;       // desired DST info (all in seconds)
+
+using namespace std;

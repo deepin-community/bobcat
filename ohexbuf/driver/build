@@ -1,0 +1,19 @@
+#!/bin/bash
+
+tput clear
+
+LIBS=" -lbobcat"
+GPP="g++ --std=c++2a"
+
+#   Using the wip ohexbuf library and bobcat
+# CMD="$GPP -o driver -Wall *.cc -L../tmp -lohexbuf -lbobcat -s"
+
+
+#   Using the wip ohexbuf and ofilterbuf libraries and bobcat
+CMD="$GPP -o driver -I../../tmp -Wall *.cc -L../tmp -lohexbuf \
+            -L../../ofilterbuf/tmp -lofilterbuf \
+            -L../../eoi/tmp -leoi \
+            -lbobcat -s"
+
+echo ${CMD}
+${CMD}

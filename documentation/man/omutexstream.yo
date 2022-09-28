@@ -1,0 +1,111 @@
+includefile(include/header)
+
+COMMENT(replace 'classname' by the name of the new class)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::OMutexStream)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (Mutex protected std::ostream)
+
+manpagename(FBB::OMutexStream)(Offers mutex protected std::ostream facilities)
+
+manpagesynopsis()
+    bf(#include <bobcat/omutexstream>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+
+In multi-threaded programs output written by different threads to the same
+output stream may be intermixed due to context switches. This is prevented by
+using mutexes: before writing to the output stream a mutex lock is acquired,
+releasing the lock once the output is completed. 
+
+tt(OMutexStream) supports writing to output streams while handling the mutex
+locks. The tt(OMutexStream) object itself is initialized with the
+tt(std::ostream) object to receive the information written to the
+tt(OMutexStream) object. This object, like tt(std::cout) and tt(std::err)
+usually is defined as a globally accessible object. When inserting information
+into the tt(OMutexStream) object tt(OMutexStream) first returns an
+tt(OMutexStream::Out) object, whose constructor locks the
+tt(OMutexStream::Out) mutex. The tt(OMutexStream::Out) object's lifetime ends
+at the end of the insertion statement, and at that time its destructor
+releases the lock.
+
+In many cases this is appropriate. Especially when statements end in newlines
+(tt('\n') or tt(endl)) this results in clean output. In some cases this
+approach doesn't work. Consider the situation where the output is produced by
+a series of iterations in a tt(for)-statement. For these cases
+tt(OMutexStream) offers the member tt(ostream) returning an
+tt(OMutexStream::Out) object. As that object also locks the mutex, the lock
+also remains active during its lifetime. During its lifetime separate
+tt(OMutexStream) insertions expressions may be executed. E.g., the following
+code fragment will complete all output forcing competing threads to wait:
+        verb(
+    void fun()
+    {
+        OMutexStream mout{ std::cout }; // create an OMutexStream object
+        {
+            auto out{ mout.ostream() }  // locks the mutex (lock #1)
+            mout << "Hello ";           // also locks (lock #2, at ;
+                                        //             back to lock #1)
+            out << "world\n";
+        }                               // 'out' releases the lock
+    }
+        )
+    Be careful to restrict the lifetime of the object returned by
+tt(OMutexStream::ostream()).
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    (via tt(OMutexStream::Out)) tt(std::ostream)
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(OMutexStream(std::ostream &out))
+       The tt(OMutexStream) object is initialized with an tt(std::ostream)
+        object. 
+    )
+
+    Copy and move constructors (and assignment operators) are available.
+
+manpagesection(OVERLOADED OPERATORS)
+    itemization(
+    itb(OMutexStream::Out operator<<(OMutexStream const &mstr, Tp &&tp))
+       This member is a function template. Its forwarding reference is passed
+        on to the tt(OMutexStream::Out) object constructed by tt(mstr). Since
+        tt(OMutexStream::Out) constructors lock the class's mutex, and since
+        tt(OMutexStream::Out) was derived from tt(std::ostream) all insertion
+        and other operations that are allowed for tt(std::ostream) can also be
+        used for tt(OMutexStream::Out) objects.
+
+    itb(OMutexStream::Out operator<<(OMutexStream const &mstr, 
+                                                    Ret &(*manip)(Ret &os)))
+       This member also is a function template. It is used for inserting
+        manipulators without arguments into tt(OMutexStream::Out) objects.
+    )
+
+manpagesection(MEMBER FUNCTIONS)
+    itemization(
+    itb(OMutexStream::Out ostream() const)
+       A tt(OMutexStream::Out) object is returned that has locked its mutex,
+        and will keep the lock during its lifetime. All functionality of the
+        tt(std::ostream) class can also be used for the tt(OMutexStream::Out)
+        object returned by tt(ostream).
+
+       Be careful to restrict the lifetime of the object returned by
+        tt(OMutexStream::ostream()) to avoid needlessly long mutex locks.
+    )
+
+manpagesection(EXAMPLE)
+    verbinclude(../../omutexstream/driver/driver.cc)
+
+manpagefiles()
+    em(bobcat/omutexstream) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

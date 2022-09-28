@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+tput clear
+
+GPP="g++ --std=c++2a"
+
+#   Using tmp libraries and bobcat
+CMD="$GPP -o driver -Wall -I../../tmp driver.cc \
+    -L../tmp -lsyslogbuf \
+    -lbobcat -s"
+#    -L../../eoibuf/tmp -leoibuf \
+#    -L../../eoi/tmp -leoi \
+
+echo ${CMD}
+${CMD}
+

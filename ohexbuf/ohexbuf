@@ -1,0 +1,62 @@
+#ifndef INCLUDED_BOBCAT_OHEXBUF_
+#define INCLUDED_BOBCAT_OHEXBUF_
+
+#include <iosfwd>
+#include <string>
+
+#include <bobcat/ofilterbuf>
+
+namespace FBB
+{
+
+class OHexBuf: public OFilterBuf
+{
+    std::ios::fmtflags d_current;
+    char d_padding;
+    size_t d_width;
+    size_t d_count;
+
+    std::string d_separator;
+
+    void (OHexBuf::*d_separated)(int ch); 
+    void (OHexBuf::*d_widthHandler)(); 
+
+    public:
+        OHexBuf(std::ostream &out, size_t width = 0, 
+                                         std::string const &separator = "");
+        ~OHexBuf() override;
+        size_t size() const;                                            // .f
+
+        void setWidth(size_t width);
+
+        void separator(bool reset = true);                          // 1
+        void separator(std::string const &sep, bool reset = true);  // 2
+
+        void eoi();                                                 // .f
+        
+        static std::string text2bin(std::string const &in); // length and 
+                                                            // contents not
+                                                            // checked
+    private:
+        int overflow(int ch) override;
+        int sync()           override;
+        void eoi_()          override;
+
+        void separated(int ch);
+        void plain(int ch);
+
+        void widthHandler();
+        void noWidth();
+
+        void clear(bool reset);
+};
+
+#include "size.f"
+
+} // FBB        
+#endif
+
+
+
+
+

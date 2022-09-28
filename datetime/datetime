@@ -1,0 +1,398 @@
+#ifndef INCLUDED_BOBCAT_DATETIME_
+#define INCLUDED_BOBCAT_DATETIME_
+
+#include <ctime>
+#include <iosfwd>
+#include <vector>
+#include <unordered_map>
+#include <chrono>
+#include <mutex>
+#include <memory>
+
+namespace FBB
+{
+
+    // DateTime objects define d_utcSec as the time since the epoch
+    // in seconds, and d_thisZone as the computer's time zone shift in
+    // seconds. 
+
+class DateTime
+{
+    friend  std::istream &operator>>(std::istream &str, DateTime &dt);
+    friend  std::ostream &operator<<(std::ostream &str, DateTime const &dt);
+
+    friend bool operator==(DateTime const &left, DateTime const &right);
+    friend bool operator!=(DateTime const &left, DateTime const &right);
+    friend bool operator<(DateTime const &left, DateTime const &right);
+    friend bool operator<=(DateTime const &left, DateTime const &right);
+    friend bool operator>(DateTime const &left, DateTime const &right);
+    friend bool operator>=(DateTime const &left, DateTime const &right);
+
+    typedef struct tm TM;
+
+    public:
+        enum TimeType
+        {
+            LOCALTIME,
+            UTC,
+        };
+        enum Month
+        {
+            JANUARY,                    Jan = JANUARY,
+            FEBRUARY,                   Feb = FEBRUARY,
+            MARCH,                      Mar = MARCH,
+            APRIL,                      Apr = APRIL,
+            MAY,                        May = MAY,
+            JUNE,                       Jun = JUNE,
+            JULY,                       Jul = JULY,
+            AUGUST,                     Aug = AUGUST,
+            SEPTEMBER,                  Sep = SEPTEMBER,
+            OCTOBER,                    Oct = OCTOBER,
+            NOVEMBER,                   Nov = NOVEMBER,
+            DECEMBER,                   Dec = DECEMBER,
+        };
+        enum Relative
+        {
+            THIS_YEAR,
+            LAST,
+            NEXT,
+            THIS_WEEK,
+        };
+        enum Weekday
+        {
+            SUNDAY,                     Sun = SUNDAY,
+            MONDAY,                     Mon = MONDAY,
+            TUESDAY,                    Tue = TUESDAY,
+            WEDNESDAY,                  Wed = WEDNESDAY,
+            THURSDAY,                   Thu = THURSDAY,
+            FRIDAY,                     Fri = FRIDAY,
+            SATURDAY,                   Sat = SATURDAY,
+        };
+        enum TimeFields
+        {
+            SECONDS  = 1 << 0,
+            MINUTES  = 1 << 1,
+            HOURS    = 1 << 2,
+            MONTHDAY = 1 << 3,
+            MONTH    = 1 << 4,
+            YEAR     = 1 << 5
+        };
+
+
+        class Zone
+        {
+            friend class DateTime;
+
+            // iuo zone names:
+            //      <000>   - UTC zone
+            //      <001>   - the computer's current zone
+            //      <999>   - anonymous zone
+            struct Data
+            {
+                std::string spec;
+                int zoneSeconds;
+                int dstSeconds;
+            };
+            Data d_data;
+
+            typedef std::unordered_map<std::string, 
+                                        std::unique_ptr<Zone>> ZoneMap;
+            static ZoneMap *s_zone;
+
+            static time_t s_thisZoneShift;
+            static std::string s_defaultTZ;
+            static std::mutex s_mutex;
+            static char const s_anon[];
+            static char const s_utc[];
+            static char const s_this[];
+
+            public:
+                explicit Zone(std::string const &spec); // zone name or // 2
+                                                        // :X/Y spec. or
+                                                        // hh:mm shift
+
+                Zone(std::string const &shift,                          // 3
+                     std::string const &dstSpec,        // "=" means std
+                     std::string const &dstBegin = "", 
+                     std::string const &dstEnd   = ""); 
+
+                std::string const &spec() const;                        // .f
+                int dstSeconds() const;         // only use when mktime // .f
+                                                // sets tm_isdst = 1
+                                                // (-> DateTime::dst(): true)
+                int seconds() const;
+
+                                                // retrieve a zone from s_zone
+                static Zone const &get(std::string const &name);
+
+                static Zone const &store(                               // 2
+                            std::string const &name, 
+                            std::string const &shift,     // maybe :X/Y
+                            std::string const &dstSpec = "",  // "=": std DST
+                            std::string const &dstBegin = "", 
+                            std::string const &dstEnd = "");
+
+                static std::string const &defaultTZ();                  // .f
+
+                static void read(std::string const &fname); // read zone specs
+                                                            // from file
+
+                static time_t thisZoneShift();                          // .f
+                                                            // this computer's
+                                                            // zone shift in 
+                                                            // seconds
+
+            private:
+                Zone() = default;       // required for the unordered_map
+                Zone(Data &&data);                                      // 4.f
+
+                static Zone const &storeIUO(
+                            std::string const &name, 
+                            std::string const &shift,
+                            std::string const &dstSpec = "", // "=": std DST
+                            std::string const &dstBegin = "", 
+                            std::string const &dstEnd = "");
+
+                static Data data(
+                        std::string const &name,
+                        std::string shift, 
+                        std::string dstSpec = "",           // "=" means std
+                        std::string dstBegin = "", 
+                        std::string dstEnd = "");
+
+                static void checkDST(std::string const &dstSpec,
+                                     std::string &dstBegin, 
+                                     std::string &dstEnd);
+
+                static void negate(std::string &shift);
+
+                static int add(std::string &dstSpec, 
+                               std::string const &shift);
+
+                                        // spec starts with '+' or '-'
+                static int seconds(std::string const &spec); 
+
+                static std::string convert(std::string const &dstSpec);
+
+                static void requireAlpha(std::string const &name);
+
+                static time_t initialize();
+
+                static time_t thisZone(); // define the computer's current zone
+
+                static void addZone(std::string const &line, 
+                                    std::string const &fname, 
+                                    unsigned lineNr);
+
+                typedef std::vector<std::string> StringVector;
+
+                static std::pair<std::string, std::string> 
+                    dstFromVector(StringVector const &vs);
+
+                static std::string dstConcatenate(
+                            StringVector::const_iterator begin,
+                            StringVector::const_iterator end);
+
+                static int zoneSeconds();    // current zone        // 1.cc
+
+                                             // specified zone
+                static int zoneSeconds(std::string const &spec);    // 2.cc
+        };
+
+    private:
+        class Parse             // parse textual time specifications
+        {
+            std::istream &d_in;
+            TM &d_tm;
+            std::string d_zoneName;
+            int d_zoneSeconds = 0;      // zone shift in seconds
+            int d_format;               // see parse1.cc for supported formats
+
+            public:
+                Parse(std::istream &in, TM &tm);
+        
+                int format() const;                                 // .f
+                int zoneSeconds() const;                              // .f
+                std::string const &zoneName() const;                // .f
+        
+            private:
+                void fromYear();
+                void fromDayName();
+                void dateR();
+                void fromMonth();
+        
+                void setZoneShift(bool negative, int minutes, int sign = 0);
+                void setMonth(std::string const &month);    // throws 1 on err
+        };
+
+        TimeType    d_type;     // current type of info in d_tm member
+                                // (LOCALTIME (implied when using displayZone)
+                                // or UTC)
+        time_t      d_utcSec;   // UTC time in seconds (since the epoch: 
+                                //                      time(0) )
+
+        Zone        d_zone;     // the object's current zone info
+
+        mutable TM  d_tm;       // holds the latest broken down time
+                                // given d_type, d_utcSec, d_thisZone,
+                                // and d_dst. d_type UTC only
+                                // considers d_utcSec -> updateTM()
+
+
+        static char const *s_month[];
+        static char const *s_day[];
+
+
+    public:
+                                                // time displayed as TimeType
+        explicit DateTime(TimeType type = UTC);                    // 1
+
+                                                // LOCAL: UTC + zoneMinutes
+                                                // (no DST)
+        explicit DateTime(std::chrono::minutes zoneMinutes);        // 4.f
+
+                                                // LOCAL time, from time(0)
+        explicit DateTime(Zone const &spec);                        // 5.f
+
+                                                // specify UTC/LOCAL time in
+        DateTime(time_t time, TimeType type);  // seconds          // 6
+
+                                                // Local time: zone, no DST
+        DateTime(time_t time, std::chrono::minutes zoneMinutes);   // 7.f
+
+                                                // Local time: time (UTC) +
+                                                // Zone specification
+        DateTime(time_t time, Zone const &zone);                    // 8
+
+                                                // tm fields specify either
+                                                // UTC or LOCALTIME
+        explicit DateTime(TM const &tm, TimeType type = UTC);       // 9
+
+                                                // tm fields specify a 
+                                                // LOCALTIME time point in 
+                                                // Zone `zone'
+        explicit DateTime(TM const &tm, Zone const &zone);          // 10
+
+                                                // UTC/LOCAL text time, 
+        DateTime(std::string const &timeStr, TimeType type);       // 12
+        DateTime(std::istream &in, TimeType type);                 // 13
+        DateTime(std::istream &&in, TimeType type);                // 14.f
+
+
+        DateTime &operator+=(std::chrono::seconds  seconds);       // 1.
+        DateTime &operator+=(TM const &tm);                        // 2.
+
+        DateTime &operator-=(std::chrono::seconds  seconds);       // 1.
+        DateTime &operator-=(TM const &tm);                        // 2.
+
+        void swap(DateTime &other);
+
+        bool        dst() const;                                    // .f
+        unsigned    hours() const;                                  // .f
+        unsigned    minutes() const;                                // .f
+        Month       month() const;                                  // .f
+        unsigned    monthDayNr() const;                             // .f
+        unsigned    seconds() const;                                // .f
+
+        DateTime    thisTime() const;  // The computer's local time    .f
+        TM   const *timeStruct() const;                             // .f
+        DateTime    utc() const;                                    // .f
+        time_t      utcSeconds() const;                             // .f
+        Weekday     weekday() const;                                // .f
+        unsigned    weekNr() const;
+        unsigned    year() const;       // the real year (e.g., 2019)  .f
+        unsigned    yearDay() const;    // 0-based                  // .f
+        unsigned    yearDayNr() const;  // 1-based                  // .f
+        Zone const &zone() const;
+
+        std::string rfc2822() const;
+        std::string rfc3339() const;
+
+        void setDay(int dayNr);
+        void setFields(TM const &ts, TimeFields fields);
+        void setHours(int hours);
+        void setMinutes(int minutes);
+        void setMonth(int month);       // 0-based                  // 1.cc
+        void setMonth(Month month);                                 // 2.f
+        void setMonth(Month month, Relative where);                 // 3.cc
+        void setMonthNr(int month);     // 1-based                  // .f 
+        void setSeconds(int seconds);
+        void setUTCseconds(time_t utcSeconds);
+        void setWeekday(Weekday weekday, Relative where);
+        void setYear(unsigned year);    // calendar year
+        void setZone(Zone const &zone); // d_utcSec is kept, LOCALTIME.
+                                        // use utc() for a utc DateTime
+
+        static void        tm2cout(char const *label, TM const &ts);
+
+    private:
+
+            // from d_utcSec seconds + current zone to TM
+        TM const &assignTM() const;
+
+            // from zone and time spec. in TM to utcSecs
+        time_t utcFromTM(TM &tm) const;
+
+        static void setTZ(std::string const &spec);     // use "" for UTC
+        static void resetTZ();
+                                            // use "" to use a local time 
+                                            // TM specification as UTC spec.
+        static time_t utcForZone(std::string const &zoneSpec, TM &tm);
+
+                                            // show d_tm's clock time as 
+                                            // hh::mm::ss
+        std::ostream &clockTime(std::ostream &out) const;
+
+        static std::string  seconds2str(time_t seconds);
+                                            // at most +/-12 hours away,
+                                            // seconds are ignored.
+
+        static int stdFind(char const **names, int count,   // throws 1
+                           std::string const &target);      // on failure
+
+        [[noreturn]] static void timeException();
+};
+
+#include "datetime4.f"
+#include "datetime5.f"
+#include "datetime7.f"
+#include "datetime14.f"
+
+#include "opeq.f"                           // DateTime == DateTime
+#include "opneq.f"                          // DateTime != DateTime
+#include "opgeq.f"                          // DateTime >= DateTime
+#include "opgreater.f"                      // DateTime > DateTime
+#include "opleq.f"                          // DateTime <= DateTime
+#include "opless.f"                         // DateTime < DateTime
+
+#include "opbitor.f"                        // TimeFields | TimeFields
+
+#include "dst.f"
+#include "hours.f"
+#include "minutes.f"
+#include "month.f"
+#include "monthdaynr.f"
+#include "seconds.f"
+#include "thistime.f"                       // used to be localTime
+#include "timestruct.f"
+#include "utc.f"
+#include "utcseconds.f"
+#include "weekday.f"
+#include "year.f"
+#include "yearday.f"
+#include "yeardaynr.f"
+#include "zone.f"
+
+#include "setmonth2.f"
+#include "setmonthnr.f"
+
+#include "zone4.f"
+#include "zonespec.f"
+#include "zonedstseconds.f"
+#include "zonedefaulttz.f"
+#include "zoneseconds.f"
+#include "thiszoneshift.f"
+
+}   // FBB
+
+#endif

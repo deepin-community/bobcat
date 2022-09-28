@@ -1,0 +1,40 @@
+#ifndef INCLUDED_BOBCAT_DIGESTBUF_
+#define INCLUDED_BOBCAT_DIGESTBUF_
+
+#include <openssl/evp.h>
+#include <bobcat/eoibuf>
+
+namespace FBB
+{
+
+class DigestBuf: public EoiBuf
+{
+    friend std::ostream &operator<<(std::ostream &out, 
+                                    DigestBuf const &digestbuf);
+    EVP_MD_CTX   *d_ctx;
+    EVP_MD const *d_md;
+    std::string   d_digest;
+
+    public:
+        explicit DigestBuf(char const *type, size_t bufsize = 1024);
+
+        void reset();
+        void eoi();
+
+        std::string const &hash() const;
+
+    private:
+        int overflow(int c) override;
+        void eoi_() override;                                // .cc
+};
+
+#include "eoi.f"
+
+std::ostream &operator<<(std::ostream &out, DigestBuf const &digestbuf);
+
+}   // FBB
+        
+#endif
+
+
+

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+ln -sf ../arg .
+ln -sf ../arg.ih .
+
+tput clear
+
+case $1 in
+    (b)
+        rm arg arg.ih
+        g++ -DBOBCAT --static `cat ../../c++std` -I../../tmp -o driver driver.cc \
+        -L../../tmp/lib -lbobcat -s
+    ;;
+    (o)
+        g++ `cat ../../c++std` -o driver *.cc ../tmp/o/*.o -lbobcat # -s
+    ;;
+    (c)
+        g++ `cat ../../c++std` -o driver *.cc -lbobcat -s
+    ;;
+    (w)
+        rm arg arg.ih
+        g++ `cat ../../c++std` -I.. -o driver *.cc -L../tmp -larg -lbobcat -s
+    ;;
+    (*)
+    echo $0 b links to bobcat built by 'build libraries all'
+    echo $0 o links to the files in ../tmp/o
+    echo $0 c links to the files in the current dir only
+    echo $0 w links to libarg.a and the existing bobcat library
+    ;;
+esac

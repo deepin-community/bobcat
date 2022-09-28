@@ -1,0 +1,9 @@
+#include "csvtabdef"
+#include "../xerr/xerr.ih"
+
+#include <string>
+
+#include <bobcat/exception>
+
+using namespace std;
+using namespace FBB;

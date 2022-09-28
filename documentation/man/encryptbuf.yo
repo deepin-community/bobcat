@@ -1,0 +1,196 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::EncryptBuf)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (Encrypt information)
+
+manpagename(FBB::EncryptBuf)
+           (Encrypts information using various methods into a std::ostream) 
+
+manpagesynopsis()
+    bf(#include <bobcat/encryptbuf>)nl()
+    Linking option: tt( -lbobcat -lcrypto) 
+
+manpagedescription()
+    bf(FBB::EncryptBuf) objects are bf(std::streambuf) objects that can be used
+to initialize tt(std::ostream) objects.
+
+    All information inserted into such a tt(std::ostream) is encrypted and
+written into an tt(std::ostream) that is given as argument to tt(EncryptBuf)'s
+constructor.
+
+    All encryption methods supported by the OpenSSL library that can be
+selected by name may be used by tt(EncryptBuf) objects. To
+select a particular encryption method an identifier is passed to the
+constructor. E.g., tt("aes-128-cbc") indicating the AES (Rijndael) method,
+using 128 bit sized keys and blocks using `cbc' mode (see below for an
+explanation). 
+
+Most modes use em(initialization vectors). Unless provided at construction
+time tt(EncryptBuf) objects create random initialization vectors. The
+initialization vector that is actually used can be obtained from the
+tt(EncryptBuf) object. This is important, as the matching decryption object
+needs to know the initialization vector that was used when encrypting the
+data. Initialization vectors are not considered confidential and they can be
+sent in the clear to the decryption object. What em(is) important, though, is
+that they contain random data when used `for real'. When an initialization
+vector is specified that is shorter than expected by the encryption method it
+is automatically extended with 0-bytes to the required length.
+
+includefile(blockciphers)
+
+includefile(symcryptciphers)
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    bf(FBB::CryptBuf), in turn inheriting from bf(std::streambuf)
+
+manpagesection(CONSTRUCTOR/DESTRUCTOR)
+    itemization(
+    itb(EncryptBuf(std::ostream &outStream, char const *type, 
+                            std::string const &key, std::string const &iv,
+                            size_t bufsize = 1024))
+        This constructor initializes the tt(EncryptBuf) object preparing it
+for the encryption algorithm specified with tt(type). The encryption
+algorithms that can be used are listed in the abovementioned table. E.g., to
+use the AES method on 24 bit keys and blocks in CBC mode specify
+tt("aes-192-cbc"). The tt(key) parameter refers to the key to be used, the
+tt(iv) parameter refers to the initialization vector to use. Both tt(key) and
+tt(iv) may contain non-displayable characters. When tt(iv.length()) is zero it
+will be filled by the tt(EncryptBuf) object with random data. When the 
+tt(iv) is too small for the requested method it is expanded by
+adding the required number of zero valued bytes.
+
+    The constructor throws an tt(FBB::Exception) exception if an 
+encryption method is specified that is not supported by OpenSSL.
+
+    The constructor's first parameter refers to the tt(std::ostream) to
+receive the encrypted information. Be aware of the fact that the encrypted
+information most likely contains non-displayable characters.
+
+    The tt(bufsize) argument specifies the size in bytes of the internal
+buffer used by tt(EncryptBuf) temporarily storing incoming characters. The
+provided default argument can most likely be kept as-is.
+
+
+    itb(~EncryptBuf()) 
+        Normally, once all information has been inserted into 
+the encryption stream the tt(end) manipulator (see below) is inserted to
+complete the encryption process. Alternatively, the encryption process ends
+once the tt(EncryptBuf's) destructor is called. E.g., if tt(encStream) is the
+tt(std::ostream) to receive the information to encrypt and tt(inStream) is the
+tt(std::istream) containing the information to encrypt then
+        verb(
+    endStream << inStream.rdbuf();
+        )
+    completes the decryption once tt(EncryptBuf's) destructor is
+called. Alternatively,
+        verb(
+    encStream << inStream.rdbuf() << end;
+        )
+    can be used to immediately complete the encryption process.
+    )
+
+    Copy and move constructors (and assignment operators) are not available.
+
+manpagesection(MEMBER FUNCTIONS)
+
+     All members of bf(std::streambuf) are available, as bf(FBB::EncryptBuf)
+inherits from this class. 
+
+    itemization(
+    itb(size_t blockLength() const)
+        This member returns the block size (in bytes) that are used by
+the specified method.
+
+    itb(size_t ivLength() const)
+        This member returns the size (in bytes) of the initialization vector
+that is used by the specified method.
+
+    itb(std::string iv() const)
+        This member returns a reference to the initialization vector
+that is used by the specified method. Be advised that the initialization
+vector may contain non-displayable characters. 
+
+    itb(size_t keyLength() const)
+        This member returns the size of the key (in bytes) that are used by
+the specified method.
+
+    itb(size_t rounds() const)
+        This member can only be used with the RC5 encryption method to query
+the number of rounds of the algorithm. It returns the currently used number of
+rounds or 0 if the member is called for another encryption method than RC5.
+
+    itb(bool setRounds(size_t nRounds))
+        This member can only be used with the RC5 encryption method to set the
+number of rounds of the algorithm to 8, 12 or 16. When the number of rounds
+were updated successfully the member returns tt(true). It returns tt(false) in
+other cases (e.g., called for other encryption methods than RC5 or the
+requested number of rounds differ from 8, 12 or 16).
+    )
+
+manpagesection(PROTECTED MEMBER)
+    itemization(
+    itb(EVP_CIPHER_CTX *cipherCtx())
+        Classes derived from tt(EncryptBuf) may use this member to gain direct
+access to the tt(EVP_CIPHER_CTX) pointer used by the tt(EncryptBuf)
+object. This pointer is a pointer to an opaque structure used by many OpenSSL
+functions to set or query parameters of an encryption method.
+    )
+
+manpagesection(EXAMPLE)
+    verbinclude(../../encryptbuf/driver/driver.cc)
+
+To ignore the initial 256 bytes generated by the RC4 algorithm a simple
+wrapper class around the eventual output stream can be used. Here is an
+illustration:
+        verb(
+    #include <ostream>
+    #include <bobcat/ofilterbuf>
+    
+    class Skip256: public FBB::OFilterBuf
+    {
+        size_t d_count;
+        public:
+            Skip256(std::ostream &os)
+            :
+                OFilterBuf(os),
+                d_count(0)
+            {}
+        private:
+            virtual int overflow(int c)
+            {
+                if (d_count == 256)
+                    out().put(c);
+                else
+                    ++d_count;
+                return c;
+            }
+    };
+        )
+    Next, an tt(Skip256) object is used to define an intermediate
+tt(std::ostream) that is then passed to the tt(EncryptBuf) object. E.g., only
+showing the essential steps defining the tt(EncryptBuf) object:
+        verb(
+    Skip256 skip256(std::cout);
+    std::ostream out(&skip256);
+
+    EncryptBuf encryptbuf(out, "rc4", key, "");
+        )
+
+manpagefiles()
+    em(bobcat/encryptbuf) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(decryptbuf)(3bobcat), bf(ofilterbuf)(3bobcat),
+    bf(std::streambuf)
+
+manpagebugs()
+    None reported
+
+includefile(include/trailer)
+
+
+
+

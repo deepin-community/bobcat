@@ -1,0 +1,341 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::Config)(3bobcat)(_CurYrs_)
+        (libbobcat-dev__CurVers_)(Configuration File Processing)
+
+manpagename(FBB::Config)
+            (A class processing standard unix-like configuration files)
+
+manpagesynopsis()
+    bf(#include <bobcat/config>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+    bf(Config) objects process standard tt(unix)-style configuration
+files.  Initial white-space (blanks and tabs) are removed from processed
+lines.  If a line ends in a backslash (\), then the backslash is removed and
+the next line (initial white-space removed) is appended to the current line.
+
+    If the tt(rmComment) flag is set to tt(true) blanks lines and information
+on lines from the first tt(#) are removed. If a backslash precedes the comment
+character (i.e., tt(\#)) then this is not considered comment, but it is
+replaced by a single tt(#) character. Similarly, if the tt(rmComment) flag was
+set two consecutive backslash characters are replaced by a single backslash
+character.
+
+All lines of the configuration file (possibly without comment) are stored in
+the bf(Config) object. Their line numbers can also be retrieved. 
+
+At construction time comment handling (keep comment / remove comment) and type
+of searching (case sensitive / insensitive) can be specified. 
+
+In addition to one of the constructors, the tt(load) member can be used to
+processes a configuration file, replacing the object's current content by the
+content of another configuration file. The tt(load) member cannot be used to
+alter the configuration file's processing parameters, but overloaded
+assignment is supported and comment- and letter-case handling can be modified
+by set-members.
+
+Often lines in configuration show the following structure:
+        verb(
+    id: value   trailing content
+        )
+    If tt(id) is a bf(C++) identifier it is called an tt(ID) in this
+man-page. When looking for tt(IDs) all non white-space characters immediately
+following the tt(ID) are ignored (in the example the ID is tt(id)). A tt(Key)
+is defined as the first white-space delimited entry on lines. In the example
+the key is tt(id:).  The first space-delimited entry following the key is
+called the line's em(value), whereas all of the line's content starting at
+tt(value) is called the line's tt(tail).
+
+tt(Config) objects offer various members to process configuration file
+lines that are structured this way. However, lines do not have to be
+structured this way. All the lines of a configuration file are made available
+by tt(Config) objects and can be processed in several other ways as well.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(ENUMERATIONS)
+    The following enumerations are defined by the class bf(Config):
+    itemization(
+    itb(Comment)
+        This enumeration has two values: nl()
+        bf(Config::KeepComment) specifies that comment on lines must be
+            kept; nl()
+        bf(Config::NoComment) specifies that comment on lines must be
+            removed;
+
+    itb(Casing)
+        This enumeration also has two values:nl() 
+        bf(Config::UseCase) specifies that specified targets must match
+            case-sensitively;nl()
+        bf(Config::NoCase) specifies that specified targets are matched
+            case-insensitively;nl()
+    )
+
+manpagesection(TYPES)
+    The following types are defined by the class tt(Config):
+    itemization(
+    itb(const_iterator)
+       a random access iterator referring to a line read from a configuration
+        file. tt(FBB::Config::const_iterator) objects point to
+        tt(FBB::CF_Line) objects (see the next section for a description of
+        the class tt(CF_Line));
+
+    itb(CIVect::const_iterator)
+       an iterator type referring to lines matching regular expressions or
+        IDs. It supports the standard random access iterator facilities. The
+        dereference operators of tt(FBB::Config::CIVect::const_iterator)
+        objects return tt(FBB::Config::const_iterator) objects;
+    )
+
+    When two tt(CIVect::const_iterator) objects are subtracted the number of
+lines matching their regular expressions (or IDs) is returned. E.g.,
+        verb(
+    Config cf(...)
+    auto pair = cf.beginEndID("scenario");
+    cout << "There are " << (pair.second - pair.first) << 
+            " lines starting with the ID `scenario'\n";
+        )
+
+    bf(Pattern)(3bobcat) objects are used when looking for lines matching
+regular expressions.
+    
+manpagesection(CF_Line)
+
+    tt(const_iterators) point to objects of the class
+tt(FBB::CF_Line). Objects of this class contain a line from the configuration
+file and its line number. The class offers the following facilities:
+    itemization(
+    itb(CF_Line())
+       the default constructor initialized its object with line number 0,
+        and an empty line;
+    itb(CF_Line(uint16_t lineNr, std::string const &line))
+       this constructor initialized its object with line number tt(lineNr),
+        and a copy of the contents of tt(line);
+    itb(std::string const &line() const)
+       returns the object's line;
+    itb(std::string key() const)
+       returns the line's em(key) field;
+    itb(uint16_t lineNr() const)
+       returns the line's line number;
+    itb(std::string tail() const)
+       returns the line's em(tail) field (i.e., the info beyond the tt(key));
+    itb(std::string value() const)
+       returns the line's em(value) field (i.e., the first white-space
+       delimited entry following the line's ID);
+    )
+    tt(CF_Line) objects may be inserted into tt(std::ostream) objects,
+inserting their lines into the streams.
+
+    Copy- and move-constructors and -assignment operators are available.
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(Config(Casing sType = UseCase, Comment cType = NoComment))
+       creates an empty object. It is not associated with a configuration
+        file; the tt(load) member can be used for that. The parameters
+        specify specific handling of comment, and letter-casing;
+
+    itb(Config(std::string const &fname, Casing sType = UseCase, 
+               Comment cType = NoComment)) 
+       creates a bf(Config) object, containing the information from the
+        configuration file tt(fname). The other parameters are used as
+        described with the abovementioned constructor. If the file cannot be
+        opened an tt(FBB::Exception) exception is thrown;
+
+    itb(Config(std::istream &stream, Casing sType = UseCase, 
+               Comment cType = NoComment)) 
+       same functionality as the previous constructor, but reading the
+        configuration information from the tt(std::istream stream);
+
+    itb(Config(std::istream &stream, uint16_t lineNr, Casing sType = UseCase, 
+               Comment cType = NoComment)) 
+       same functionality as the previous constructor, but the line number of
+        the first line read from tt(stream) is set to tt(lineNr);
+
+    itb(Config(std::istream &&tmp, Casing sType = UseCase, 
+               Comment cType = NoComment)) 
+       same functionality as the constructor expecting an tt(istream)
+        reference, but this time the configuration information is read from
+        the tt(std::istream) rvalue reference tt(tmp);
+
+    itb(Config(std::istream &&tmp, uint16_t lineNr, Casing sType = UseCase, 
+               Comment cType = NoComment)) 
+       same functionality as the previous constructor, but the line number of
+        the first line read from tt(stream) is set to tt(lineNr).
+    )
+
+    Copy- and move-constructors and -assignment operators are available.
+
+manpagesection(OVERLOADED OPERATORS)
+    itemization(
+    itb(CF_Line const &operator[](size_t idx) const)
+       returns the (0-based) tt(idx)-th line of the configuration file.
+    )
+
+manpagesection(MEMBER FUNCTIONS)
+    itemization(
+    itb(const_iterator begin() const)
+       returns a tt(const_iterator) referring to the first line of the
+        configuration file;
+
+    itb(std::pair<CIVect::const_iterator, CIVect::const_iterator>
+         beginEndID(std::string const &rid) const)
+       returns a pair of tt(CIVect::const_iterators). Its tt(first) field is
+        an tt(CIVect::const_iterator) referring to the first line containing
+        ID tt(id); its tt(second) field is a tt(CIVect::const_iterator)
+        marking the end of the series of lines containing ID tt(id).
+
+        The difference between the two iterators equals the number of lines
+        containing ID tt(id);
+
+    itb(std::pair<CIVect::const_iterator, CIVect::const_iterator>
+         beginEndRE(std::string const &regex) const)
+       same functionality as the previous member, but returning a pair of
+        iterators to lines matching tt(regex);
+
+    itb(const_iterator end() const)
+       returns a tt(const_iterator) pointing beyond the last line of the
+        configuration file;
+
+    itb(void clear())
+       clears the current content of the tt(Config) object. This member is
+        automatically called by the tt(load) members;
+
+    itb(const_iterator find(std::string const &target) const) 
+       returns an iterator to the first line containing tt(target), starting
+        the search at tt(begin()). Note that tt(target) may appear anywhere
+        within a line. 
+       It returns tt(end()) if no such line was found;
+
+    itb(const_iterator find(std::string const &target, const_iterator from) 
+        const) 
+       same functionality as the previous member, but searching starts at
+        tt(from);
+
+    itb(const_iterator findID(std::string const &id) const) 
+        returns an iterator of the the first line containing ID tt(id).
+       It returns tt(end()) if no such line was found;
+
+    itb(const_iterator findID(std::string const &id, const_iterator from) 
+       const) 
+       same functionality as the previous member, but searching starts at
+        tt(from);
+
+    itb(const_iterator findKey(std::string const &key) const) 
+       returns an iterator of the the first line containing key `tt(key)'.
+       It returns tt(end()) if no such line was found;
+
+    itb(const_iterator findKey(std::string const &key, const_iterator from) 
+       const) 
+       same functionality as the previous member, but searching starts at
+        tt(from);
+
+    itb(const_iterator findRE(std::string const &regex) const)
+       returns an iterator is returned to the first line matching the regular
+        expression tt(regex).
+       It returns tt(end()) if no such line was found;
+
+    itb(void load(std::string const &fname))
+       the content of the file named tt(fname) is stored in the tt(Config)
+        object, replacing any previously stored content. The file is read
+        according to the latest setting of the tt(Comment) and tt(Casing)
+        flags. If the file cannot be opened an tt(FBB::Exception) exception is
+        thrown;
+
+    itb(void load(std::istream &stream, uint16_t lineNr = 1))
+       same functionality as the previous member, but reading the
+        configuration information from the tt(std::istream) reference
+        tt(stream). The tt(lineNr) value specifies the line number of the
+        first read line;
+
+    itb(void load(std::istream &&tmp, uint16_t lineNr = 1))
+       same functionality as the previous member, but reading the
+        configuration information from the tt(std::istream) rvalue reference
+        tt(tmp);
+
+    itb(void setComment(Comment type))
+       the object's comment-handling type is set to tt('type') (ether
+        tt(KeepComment) or tt(NoComment)). It doesn't affect the current
+        content of the bf(Config) object, but when calling tt(load) the
+        configuration file is processed according to tt(type's) value;
+
+    itb(void setCasing(Casing type))
+       the object's letter case handling type is set to tt('type') (either
+        tt(UseCase) or tt(NoCase));
+
+    itb(size_t size() const)
+       returns the number of lines stored in the tt(Config) object;
+    )
+
+manpagesection(EXAMPLE)
+    Assume the configuration file is named tt(config.rc), containing the
+    following lines:
+
+    COMMENT(Keep the blank following the backslashes below:)
+    verb(
+
+# this is ignored
+
+noline: this one too
+
+line: this is found
+
+this is not a line containing line: at the beginning \ 
+                                    of the line
+
+line: this one is
+
+    line: what about this one? \ 
+        it extends over multiple lines
+
+and there may, of course, be more lines in this file
+    )
+
+    The next program may be compiled and run as tt(a.out config.rc):
+    verb(
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <bobcat/config>
+
+using namespace std;
+using namespace FBB;
+    
+int main(int argc, char **argv)
+{
+    Config cf(argv[1]);     
+
+    cout << *cf.find("this one") << '\n'; // find text within a line
+
+                                     // find all lines specifying ID 'line'
+    auto [begin, end] = cv.beginEndID("line");
+    copy(begin, end, ostream_iterator<CF_Line>(cout, "\n"));
+}
+    )
+
+    Producing the output:
+    verb(
+line: this is found
+line: this one is
+line: what about this one? it extends over multiple lines
+    )
+
+manpagefiles()
+    em(bobcat/config) - defines the class interface
+
+manpageseealso()
+    bf(argconfig)(3bobcat), bf(bobcat)(7), bf(exception)(3bobcat), 
+    bf(pattern)(3bobcat)
+
+manpagebugs()
+
+    None reported
+
+includefile(include/trailer)
+

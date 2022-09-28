@@ -1,0 +1,154 @@
+#ifndef INCLUDED_BOBCAT_OFOLDBUF_
+#define INCLUDED_BOBCAT_OFOLDBUF_
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include <bobcat/ofilterbuf>
+
+namespace FBB
+{
+
+class lm
+{
+    size_t d_value;
+    
+    public:
+        lm(int value);                                  // 1.f
+        std::ostream &modify(std::ostream &out) const;  // 1.f
+};
+
+class mlm
+{
+    int d_value;
+    
+    public:
+        mlm(int value);                                 // 1.f
+        std::ostream &modify(std::ostream &out) const;  // 2.f
+};
+
+struct OFoldBufEnums
+{
+    enum TrailingBlanks
+    {
+        IGNORE_TRAILING_BLANKS,
+        HANDLE_TRAILING_BLANKS
+    };
+    enum TabsOrBlanks
+    {
+        BLANKS,
+        TABS
+    };
+};
+    
+    // 'virtual public OFoldBufBlanks is used to avoid 'base class not
+    // accessible' warnings when classes inherit from OFoldBuf like
+    // OFoldStream. 
+class OFoldBuf: virtual public OFoldBufEnums, 
+                      public OFilterBuf
+{
+    friend std::ostream &lm::modify(std::ostream &) const;
+    friend std::ostream &mlm::modify(std::ostream &) const;
+
+    enum Mode
+    {
+        INDENT,
+        WS,
+        NON_WS
+    };
+
+    std::string d_nonWs;
+    std::string d_ws;
+
+    size_t d_rightMargin;
+    size_t d_indent;
+    bool d_reqIndent;
+
+    size_t d_wsLength;
+    size_t d_next;
+
+    Mode d_mode;
+
+    char d_indentChar;
+    size_t d_indentWidth;
+    bool d_handleTrailingBlanks;
+
+    typedef std::vector<OFoldBuf const *>::iterator BufIt;
+    static std::vector<OFoldBuf const *> s2_buffers;
+
+    public:
+        explicit OFoldBuf(                                    // 1
+                   size_t leftIndent = 0, size_t rightMargin = 80,
+                   TabsOrBlanks tob = BLANKS,
+                   TrailingBlanks tb = IGNORE_TRAILING_BLANKS);
+
+        explicit OFoldBuf(std::string const &fname,           // 2
+                   size_t leftIndent = 0, size_t rightMargin = 80,
+                   TabsOrBlanks tob = BLANKS,
+                   TrailingBlanks tb = IGNORE_TRAILING_BLANKS);
+
+        explicit OFoldBuf(std::ostream &stream,               // 3
+                   size_t leftIndent = 0, size_t rightMargin = 80,
+                    TabsOrBlanks tob = BLANKS,
+                   TrailingBlanks tb = IGNORE_TRAILING_BLANKS);
+
+        ~OFoldBuf() override;
+
+        void setMargins(size_t leftMargin, size_t rightMargin);
+        void setTrailingBlanks(TrailingBlanks tb);                  // .f
+        void useBlanks();                                           // .f
+        void useTabs(size_t tabWidth = 8);                          // .f
+
+        static size_t leftMargin(std::streambuf const *buffer);
+        static size_t rightMargin(std::streambuf const *buffer);
+
+    private:
+        int sync() override;
+        int overflow(int c) override;
+
+        void indent(int c);
+        void ws(int c);
+        void nonWs(int c);
+
+        size_t length() const;
+
+        void iniBlankTabs(TabsOrBlanks tob);
+        void newline();
+        void addNonWs(int c);                           // .f
+        void addWs(int c);
+        void indent();
+        void flush();
+        void clearWs();
+
+        void modifyIndent(int delta);
+        void setIndent(int value);                      // .f
+
+        void writeWs() const;                           // .f    
+        void writeNonWs() const;                        // .f
+        void put(int ch) const;                         // .f
+
+        static BufIt findOFoldBuf(std::streambuf const *buffer);
+};
+
+#include "lm1.f"
+#include "modify1.f"
+
+#include "mlm1.f"
+#include "modify2.f"
+
+#include "leftmargin.f"
+#include "rightmargin.f"
+#include "setindent.f"
+#include "settrailingblanks.f"
+#include "useblanks.f"
+#include "usetabs.f"
+
+    // Free functions
+
+#include "opinsert1.f"      // ostream << lm
+#include "opinsert2.f"      // ostream << mlm
+
+} // FBB
+
+#endif

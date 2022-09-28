@@ -1,0 +1,7 @@
+#include "fmt"
+#include "../xerr/xerr.ih"
+
+#include <bobcat/exception>
+
+using namespace std;
+using namespace FBB;

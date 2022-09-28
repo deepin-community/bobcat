@@ -1,0 +1,13 @@
+#include "ifdbuf"
+
+//#include <iostream>
+//#define CERRX std::cerr << __FILE__": "
+
+#include <cstring>
+#include <cstdio>
+
+#include <unistd.h>
+
+using namespace FBB;
+
+using namespace std;

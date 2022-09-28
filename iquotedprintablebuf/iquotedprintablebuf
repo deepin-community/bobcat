@@ -1,0 +1,38 @@
+#ifndef INCLUDED_BOBCAT_IQUOTEDPRINTABLEBUF_
+#define INCLUDED_BOBCAT_IQUOTEDPRINTABLEBUF_
+
+#include <bobcat/qpbufbase>
+#include <bobcat/fbb>
+
+namespace FBB
+{
+
+    // generic class declaration
+template <CryptType>
+class IQuotedPrintableBuf;
+
+    // specialization when encoding (using available symbolic name ENCRYPT
+    //  from bobcat/fbb)
+template <>
+class IQuotedPrintableBuf<ENCRYPT>: public IUO::QPBufBase
+{
+    public:                                                     // 1.f
+        IQuotedPrintableBuf(std::istream &in, size_t bufSize = 1000);  
+};
+
+    // specialization when decoding (using available symbolic name DECRYPT
+    //  from bobcat/fbb)
+template <>
+class IQuotedPrintableBuf<DECRYPT>: public IUO::QPBufBase
+{
+    public:                                                     // 2.f
+        IQuotedPrintableBuf(std::istream &in, size_t bufSize = 1000);  
+};
+
+#include "iquotedprintablebuf1.f"
+#include "iquotedprintablebuf2.f"
+
+} // FBB        
+#endif
+
+

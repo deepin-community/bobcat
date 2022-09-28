@@ -1,0 +1,123 @@
+#ifndef INCLUDED_BOBCAT_FMT_
+#define INCLUDED_BOBCAT_FMT_
+
+#include <ostream>
+#include <string>
+
+namespace FBB
+{
+
+struct FMT
+{
+                                        // update s_align (data.cc) 
+    enum Align                          // when this enum is altered
+    {
+        UNUSED,                         // extraFMT's d_align is not used
+                                        // when an ios_base manipulator
+                                        // has just been inserted.
+
+        CENTER,                         // FMTFunCH
+        HLINE, 
+
+        LEFT,                           // FMTFunLR
+        RIGHT,
+    };
+    
+    typedef FMT (*FMTFun)(unsigned, unsigned);
+    typedef FMT (*FMTHline)(unsigned);
+
+    friend class CSVTabDef;
+    friend class CSVTabIns;
+
+    friend std::ostream &operator<<(std::ostream &out, FMT const &fmt);
+
+            // when inserting and used with arguments the current column fmt
+            // is altered for that insertion, when defining: the next column
+            // is defined as specified. 
+            // When used without arguments and inserting then the alignment 
+            // of then next column is altered as specified. Instead of
+            // FBB::left and FBB::right std::left and std::right can also be 
+            // used.
+    friend FMT center(unsigned width, unsigned precision);              // 1.f
+    friend FMT left(unsigned width, unsigned precision);                // 1.f
+    friend FMT right(unsigned width, unsigned precision);               // 1.f
+
+    friend FMT center(std::string const &width, unsigned precision);    // 2.f
+    friend FMT left(std::string const &width, unsigned precision);      // 2.f
+    friend FMT right(std::string const &width, unsigned precision);     // 2.f
+
+    friend FMT hline(unsigned nCols);
+
+            // when inserting:
+            // the next nCols (not exceeding d_format.size()) are formatted
+            // as specified by fun, using precision ~0U
+            // omit 'nCols' to join all remaining columns
+    friend FMT join(unsigned nCols, Align align, unsigned precision);
+
+    private:
+        Align d_align;
+    
+        unsigned d_width = 1;       // width of a single column (nCols == 1)
+
+                                    // if <= d_width then precision is also 
+        unsigned d_precision = ~0U; // used
+
+                                    // if > 1: use the widths of subsequent cols
+        unsigned d_nCols = 1;       // + the width of in =-between separators 
+    
+        static char const *s_align[];       // Align labels
+        static FMTFun s_lrcFun[];           // L,R,C function given Align spec
+
+    public:
+        Align align() const;
+
+        unsigned width() const;
+        unsigned precision() const;
+        unsigned nCols() const;
+
+        static FMTFun lrcFun(Align align);
+
+        static char const *align(Align value);
+
+    private:
+        FMT() = default;
+
+        FMT(Align align,  unsigned width, unsigned precision,   //    1.cc
+            unsigned nCols = 1);
+
+        std::ostream &insert(std::ostream &out) const;
+};
+
+#include "align1.f"
+#include "width1.f"
+#include "precision.f"
+#include "ncols.f"
+#include "insert.f"
+#include "align2.f"
+
+#include "opinsert.f"
+
+#include "hline.f"
+
+    // when inserting d_size specifies the precision and
+    // d_precision is copied from d_format[d_idx].d_precision
+    // when defining, 'size' is the width
+
+#include "center1.f"
+#include "left1.f"
+#include "right1.f"
+
+#include "center2.f"
+#include "left2.f"
+#include "right2.f"
+
+FMT join(unsigned nCols, FMT::Align align, unsigned precision = ~0U);  // 1.cc
+#include "join2.f"
+
+} // FBB        
+
+#endif
+
+
+
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+g++ `cat ../../c++std` -Wall -o driver driver.cc -s
+

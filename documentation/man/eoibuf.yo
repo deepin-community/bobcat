@@ -1,0 +1,115 @@
+includefile(include/header)
+
+COMMENT(replace 'classname' by the name of the new class)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::EoiBuf)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (End-Of-Information Base class)
+
+manpagename(FBB::EoiBuf)(std::streambuf class offering an eoi manipulator)
+
+manpagesynopsis()
+    bf(#include <bobcat/eoibuf>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+    The class tt(EoiBuf) inherits from tt(Eoi) and may therefore be
+used as a base class of classes specializing tt(std::streambuf). It also
+provides a configurable character buffer for storing characters received from
+their devices. Often, when deriving classes from tt(std::streambuf) the
+derived classes must implement storage to and retrieval from a character
+buffer. By deriving from tt(EoiBuf) buffer-handling is automatically
+provided. 
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    tt(Eoi) (and thus from: tt(std::streambuf))
+
+manpagesection(PROTECTED CONSTRUCTOR)
+
+    Analogously to tt(std::streambuf) only protected constructors are
+        available.
+
+    itemization(
+    itb(EoiBuf())
+       The default constructor initializes an empty buffer.
+
+    itb(EoiBuf(size_t size))
+       This initializes an empty buffer of a predefined size of tt(size)
+        characters .
+    )
+
+    Note that there's no inherent limit to the size of the internal buffer: its
+    size can always be enlarged or reduced.
+
+    Copy and move constructors (and assignment operators) are not available.
+
+
+manpagesection(PROTECTED MEMBER FUNCTIONS) 
+
+   All members of tt(std:streambuf) and tt(Eoi) are available, as
+    bf(FBB::EoiBuf) inherits from these classes.
+
+    itemization(
+    itb(std::string &buffer())
+       A reference to the internal buffer is returned;
+
+    itb(size_t bufSize() const)
+       The length (size) of the internal buffer is returned;
+
+    itb(void resize(size_t size))
+       The size of the internal buffer is changed to tt(size) characters;
+
+    itb(void setg(unsigned next, unsigned beyond))
+       The tt(streambuf::eback) member returns the address of the internal
+        buffer's first character, tt(streambuf::gptr) returns the address of
+        the internal buffer's tt(next) character, tt(streambuf::egptr) returns
+        the the address of the internal buffer's tt(beyond) character;
+
+    itb(void setp())
+       The tt(streambuf::pbase) and tt(pptr) members return the address of
+        the internal buffer's first character, tt(streambuf::epptr) returns
+        the address immediately beyond the internal buffer's last character;
+
+    itb(unsigned char *ucharPtr())
+       The address of the first character of the internal buffer is returned
+        as a pointer to an unsigned character;
+
+    itb(unsigned char const *ucharPtr() const)
+       Same as the previous member, but this time the address of the first
+        character of the internal buffer is returned as a pointer to an
+        immutable unsigned character.
+    )
+
+manpagesection(PROTECTED STATIC MEMBER FUNCTIONS) 
+
+    The following two static members are provided as convenient functions for
+        derived classes to convert the address of the first character of
+        tt(std::string) objects to pointers to unsigned characters:
+
+    itb(unsigned char *ucharPtr(std::string &str))
+       The address of the first character of tt(str) is returned as a pointer
+        to an unsigned character;
+
+    itb(unsigned char const *ucharPtr(std::string const &str) const)
+       Same as the previous member, but this time the address of the first
+        character of tt(str) is returned as a pointer to an immutable unsigned
+        character.
+    
+
+manpagesection(EXAMPLE)
+    Here is an example from the implementation of tt(EncryptBuf):
+
+    verbinclude(../../encryptbuf/flushbuffer.cc)
+
+manpagefiles()
+    em(bobcat/eoibuf) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(eoi)(3bobcat)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

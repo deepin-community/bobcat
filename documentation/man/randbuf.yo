@@ -1,0 +1,62 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::RandBuffer)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (random number streambuf)
+
+manpagename(FBB::RandBuffer)(std::streambuf generating random numbers)
+
+manpagesynopsis()
+    bf(#include <bobcat/randbuf>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+
+    bf(FBB:RandBuffer) objects may be used as a bf(std::streambuf) of
+tt(std::istream) objects to allow the extraction of random numbers from the
+stream.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    std::streambuf
+
+manpagesection(CONSTRUCTOR)
+    itemization(
+    itb(RandBuf(int min, int max, size_t seed = 1))
+    This bf(RandBuf()) constructor initializes the random generator. The
+seed is used to initialize the random number generator.Random values between
+tt(min) and tt(max) (inclusive) are returned.
+    )
+
+    Copy and move constructors (and assignment operators) are not available.
+`
+manpagesection(VIRTUAL MEMBERS)
+
+    itemization(
+    itb(int underflow())
+    This function is called by tt(std::istream) objects using
+bf(RandBuf). It produces the next available random number, separating the
+random numbers by one blanks space. Random values between tt(min) and tt(max)
+(inclusive) are returned (see the description of the constructor).
+    )
+
+manpagesection(INHERITED MEMBERS)
+
+    Since the class uses public derivation from 
+bf(std::streambuf), all members of this class can be used.
+
+manpagesection(EXAMPLE)
+    verbinclude(../../randbuf/driver/driver.cc)
+
+manpagefiles()
+    em(bobcat/randbuf) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(irandstream)(3bobcat), bf(rand)(3), bf(srand)(3),
+    bf(std::streambuf)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

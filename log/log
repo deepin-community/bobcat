@@ -1,0 +1,64 @@
+#ifndef INCLUDED_BOBCAT_LOG_
+#define INCLUDED_BOBCAT_LOG_
+
+#include <fstream>
+#include <memory>
+
+#include <bobcat/logbuf>
+
+namespace FBB
+{
+
+enum LogManipulator
+{
+    FATAL,
+    nl,                 // new line without new time stamp
+    fnl,                // forced new line, even at low level specs.
+};
+
+class Log: private LogBuf, public std::ostream
+{
+    private:
+        static std::unique_ptr<Log> s_stream;
+
+        std::ofstream d_stream;
+        size_t d_level;         // defined by setLevel: the level messages 
+                                // must at least have to be inserted
+
+        size_t d_msgLevel;      // the level of inserted messages
+
+    public:
+        static Log &instance();
+        static Log &initialize(std::string const &filename, 
+                std::ios::openmode = std::ios::out | std::ios::app, 
+                char const *delim = " ");
+
+        Log();
+        Log(std::ostream &out,  char const *delim = " ");
+        Log(std::string const &filename, 
+                std::ios::openmode = std::ios::out | std::ios::app, 
+                char const *delim = " ");
+
+        void open(std::string const &filename, 
+                std::ios::openmode = std::ios::out | std::ios::app, 
+                char const *delim = " ");
+
+        size_t level() const;                                           // .f
+        std::ostream &level(size_t useLevel);
+        void  setLevel(size_t newLevel);
+        void  setTimestamp(TimeStamps timeStamp, char const *delim = " ");
+        void  off();                                                    // .f
+        void  on(size_t logLevel = 0);                                  // .f
+
+    private:
+        void init();
+};
+
+#include "level.f"
+#include "off.f"
+
+std::ostream &operator<<(std::ostream &str, LogManipulator);
+        
+} // FBB
+
+#endif

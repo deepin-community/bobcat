@@ -1,0 +1,43 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+
+export DEB_BUILD_HARDENING = 1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+export CPPFLAGS = $(shell dpkg-buildflags --get CPPFLAGS)
+
+export LDFLAGS = $(shell dpkg-buildflags --get LDFLAGS)
+export LDFLAGS += -lpthread -Wl,-z,now
+
+export CXXFLAGS = $(shell dpkg-buildflags --get CXXFLAGS)
+export CXXFLAGS += -Wall --std=c++2a -D_FORTIFY_SOURCE=2
+
+export CXX = g++
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	./build clean
+	dh_auto_clean
+
+override_dh_auto_build:
+	# Compile the package:
+	./build libraries all
+	./build man
+	# Use this instead of the previous 2 commands for minimal
+	# testing the bobcat package construction
+	#./build test
+	#./build mantest
+	dh_auto_build
+
+override_dh_auto_install:
+	dh_auto_install
+	./build install x debian/libbobcat-dev
+	mkdir -p debian/libbobcat5/usr/lib
+	mv debian/libbobcat-dev/usr/lib/libbobcat.so.* debian/libbobcat5/usr/lib
+
+print-version:
+	@@echo "Debian version:                  $(DEBVERSION)"
+	@@echo "Upstream version:                $(UPVERSION)"

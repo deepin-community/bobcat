@@ -1,0 +1,10 @@
+#include "sharedsegment"
+
+#include <sys/types.h>
+#include <sys/shm.h>
+
+#include "../ranger/ranger"
+#include "../exception/exception"
+
+using namespace std;
+using namespace FBB;

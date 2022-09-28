@@ -1,0 +1,47 @@
+#ifndef INCLUDED_BOBCAT_EOIBUF_
+#define INCLUDED_BOBCAT_EOIBUF_
+
+#include <bobcat/eoi>
+
+namespace FBB
+{
+
+class EoiBuf: public Eoi
+{
+    std::string d_buffer;
+    
+    protected:
+        EoiBuf() = default;
+        EoiBuf(size_t size);                                        // 2.f
+
+        void resize(size_t size);
+
+        void setp();
+        void setg(unsigned next, unsigned beyond); // begin is fixed
+
+        std::string &buffer();
+        size_t bufSize() const;
+
+        unsigned char *ucharPtr();                                  // 1.f
+        unsigned char const *ucharPtr() const;                      // 2.f
+
+        static unsigned char *ucharPtr(std::string &str);           // 3.f
+        static unsigned char const *ucharPtr(                       // 4.f
+                                       std::string const &str);
+};
+
+#include "eoibuf2.f"
+#include "buffer.f"
+#include "bufsize.f"
+#include "resize.f"
+
+#include "ucharptr1.f"
+#include "ucharptr2.f"
+
+#include "ucharptr3.f"
+#include "ucharptr4.f"
+
+
+} // FBB        
+
+#endif

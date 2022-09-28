@@ -1,0 +1,4 @@
+#!/bin/bash
+
+g++-8 --std=c++17 -Wall -fdiagnostics-color=never -o driver -I. driver.cc \
+       -lbobcat -s

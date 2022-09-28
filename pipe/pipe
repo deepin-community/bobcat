@@ -1,0 +1,63 @@
+#ifndef INCLUDED_BOBCAT_PIPE_
+#define INCLUDED_BOBCAT_PIPE_
+
+#include <cstddef>
+#include <bobcat/fswap>
+
+namespace FBB
+{
+
+class Pipe
+{
+    int d_fd[2];
+
+    protected:
+        enum  RW 
+        {
+            READ, 
+            WRITE 
+        };
+
+    public:
+        Pipe();
+        Pipe(Pipe &&tmp);
+        explicit Pipe(int const *fd);
+        explicit Pipe(bool initialize);
+
+        // ~Pipe(); removed from the interface as it's implementation was
+        //          empty and this class is not a Base class having virtual
+        //          members
+
+        Pipe &operator=(Pipe &&tmp);
+
+        void swap(Pipe &other);
+
+        int readFd() const;                                     // .f
+        int writeFd() const;                                    // .f
+
+        void close();                           // close the fds  1.cc
+        void closeReadFd();                                     // .f
+        void closeWriteFd();                                    // .f
+
+        void readFrom(int filedescriptor);   
+        void readFrom(int const *filedescriptor, size_t n);
+
+        void writtenBy(int filedescriptor);
+        void writtenBy(int const *filedescriptor, size_t n = 2);
+
+        int readOnly();                 // closes the write FD
+        int writeOnly();                // closes the read FD
+
+    protected:
+        void close(RW rw);                                      // 2.cc
+};
+
+#include "readfd.f"
+#include "writefd.f"
+#include "closereadfd.f"
+#include "closewritefd.f"
+#include "swap.f"
+
+} // FBB
+
+#endif

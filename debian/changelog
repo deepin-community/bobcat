@@ -1,0 +1,1559 @@
+bobcat (5.09.01-2) unstable; urgency=medium
+
+  * Upload to unstable
+
+ -- tony mancill <tmancill@debian.org>  Mon, 23 Aug 2021 12:19:15 -0700
+
+bobcat (5.09.01-1) experimental; urgency=medium
+
+  * Fixed bobcat 5.09.00's DateTime's static data initialization problem.
+    (version 5.09.00 was not released)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 01 Jul 2021 08:55:01 +0200
+
+bobcat (5.09.00-1) UNRELEASED; urgency=medium
+
+  * Upstream fixed an incorrect initialization of a DateTime static data
+    member, cosmetically changed some man-pages, and removed the icmake -q
+    option from the 'build' script.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 29 Jun 2021 09:50:22 +0200
+
+bobcat (5.08.00-1) experimental; urgency=medium
+
+  [ Frank B. Brokken ]
+  * New upstream release.
+  * Upstream reorganized and added new members to the Arg and ArgConfig
+    classes, provided a missing DataTime::Zone member, and updated several
+    man-pages.
+
+  [ tony mancill ]
+  * Update debian/gbp.conf for DEP-14 debian/latest branch
+ 
+ -- tony mancill <tmancill@debian.org>  Sun, 16 May 2021 10:57:56 -0700
+
+bobcat (5.07.03-1) experimental; urgency=medium
+
+  [ Frank B. Brokken ]
+  * New upstream version 5.07.03 
+    Fixes compilation errors and warnings reported by g++-11
+    (Closes: #983995).
+
+  [ tony mancill ]
+  * Add debian/gbp.conf for experimental branch
+  * Freshen debian/copyright
+
+ -- tony mancill <tmancill@debian.org>  Thu, 18 Mar 2021 20:57:56 -0700
+
+bobcat (5.07.00-1) unstable; urgency=medium
+
+  * New upstream version added a constructor and member to CSVTable, changed
+    the prototype of Arg::argPointers() (now a const member), and improved the
+    content of several man-pages.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 24 Dec 2020 12:23:38 +0100
+
+bobcat (5.06.01-1) unstable; urgency=medium
+
+  [ Frank B. Brokken ]
+  * New upstream version 5.06.01
+  * Upstream extended the facilities of the class CSVTable
+
+  [ tony mancill ]
+  * Remove explicit "touch build-stamp" 'in auto-build override
+  * Bump Standards-Version to 4.5.1
+
+ -- tony mancill <tmancill@debian.org>  Sat, 12 Dec 2020 09:23:56 -0800
+
+bobcat (5.06.00-1) unstable; urgency=medium
+
+  * Added new class: CSVTable constructing tables row-wise
+  * Added the move constructor and move assignment operators to BigInt
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 07 Dec 2020 20:59:44 +0100
+
+bobcat (5.05.00-1) unstable; urgency=medium
+
+  * Added new class: Config. The existing class ConfigFile should be phased
+    out.
+  * Added new class: Fields to get/set subfields in numbers of configurable
+    number systems.
+  * Reimplemented binary_search.
+  * Added descriptions of the members of the tt(Arg::LongOption) class to the
+    tt(Arg) man-page.
+  * Fixed a bug in DateTime.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 23 May 2020 15:27:05 +0200
+
+bobcat (5.04.01-1) unstable; urgency=medium
+
+  * Upstream removed an erroneously included header file....
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 04 Mar 2020 14:41:26 +0100
+
+bobcat (5.04.00-1) unstable; urgency=medium
+
+  * New upstream release extends the facilities of the Glob and Stat classes
+    so that confusion of recognized file types (caused by applying the `bitor'
+    operator on standard file-type values) can be prevented.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 03 Mar 2020 21:34:15 +0100
+
+bobcat (5.03.00-1) unstable; urgency=medium
+
+  * New upstream release simplifies the FSA used by Pattern to a mere five
+    states, adds members to the class Pipe, and prevents pipes from remaining
+    open after completing child processes of Process objects.  Also, several
+    man-pages were updated.
+  * The man-page patch file debian/patches/manpage_typo.patch is superfluous
+    and has been removed.
+  * Bumped Standards-Version to 4.5.0 in debian/control
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 28 Feb 2020 17:57:40 +0100
+
+bobcat (5.02.00-1) unstable; urgency=medium
+
+  * New upstream release adds members to the classes Log and LogBuf
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 11 Dec 2019 11:26:15 +0100
+
+bobcat (5.01.00-1) unstable; urgency=medium
+
+  [ Frank B. Brokken ]
+  * New upstream release added constructors to the class User and added its
+    copy assignment operator; also a bug in BigInt::fromText was fixed.
+  * Added debian/upstream/metadata
+  * Bumped Standards-Version to 4.4.1 in debian/control
+
+  [ tony mancill ]
+  * Specify debhelper compat via debhelper-compat dependency
+  * Set "Rules-Requires-Root: no" in debian/control
+
+ -- tony mancill <tmancill@debian.org>  Sat, 30 Nov 2019 10:59:53 -0800
+
+bobcat (5.00.03-1) unstable; urgency=low
+
+  * New upstream release 5.00.03
+    - Removed superfluous cerr statement from digestbuf/eoi.cc
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 08 Sep 2019 16:27:52 +0200
+
+bobcat (5.00.02-2) unstable; urgency=medium
+
+  * Upload to unstable.
+  * Bump Standards-Version to 4.4.0
+
+ -- tony mancill <tmancill@debian.org>  Tue, 23 Jul 2019 21:36:54 -0700
+
+bobcat (5.00.02-1) experimental; urgency=medium
+
+  [ Frank B. Brokken ]
+  * New upstream release fixes flaws in LogBuf and SyslogBuf
+
+  [ tony mancill ]
+  * Add a patch for a manpage typo.
+  * Update years of copyright in debian/copyright.
+
+ -- tony mancill <tmancill@debian.org>  Sat, 06 Jul 2019 20:36:35 -0700
+
+bobcat (5.00.01-1) experimental; urgency=low
+
+  * New major version update: see the upstream changelog for details. Core
+    changes are:
+        - standardization of class-names derived from std::streambuf (all
+          classes now end in `Buf'
+        - removed obsoleted classes and members, as well as members kept for
+          backward compatibility
+        - redesigned classes using pimpl so that pimpl is no longer required
+        - complete overhaul of the class DateTime
+  * debian/control: remove Conflict/Replaces with libbobcat3, libbobcat3v5
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 04 May 2019 15:55:37 +0200
+
+bobcat (4.09.00-1) experimental; urgency=low
+
+  * New upstream release
+    - reimplements LogBuffer's overflow member and adds several xsputn members
+    - redesigned DateTime
+    - declares overriding members using 'override' instead of 'virtual'
+    - man-pages were updated
+    - deprecates class members pSync, to be removed at Bobcat's next major
+      release upgrade.
+
+  * 'debian/control' specifies policy 4.3.0
+  * 'debian/compat upgraded to 12
+  * 'debian/rules' specifies policy --std=c++2a
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 22 Jan 2019 21:01:23 +0100
+
+bobcat (4.08.06-1) unstable; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream release adds factory-members to the Exception class, fixes
+    flaws in man-pages.
+
+  [ Ondřej Nový ]
+  * d/copyright: Change Format URL to correct one
+
+  [ tony mancill ]
+  * Update pattern in debian/watch
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 17 Dec 2018 09:47:49 +0100
+
+bobcat (4.08.05-1) unstable; urgency=low
+
+  * New upstream release
+    - turns BigInt::diophantus into a static member
+    - contains several cosmetic changes to source files and man-pages (see the
+      upstream changelog for details)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 26 Sep 2018 13:34:25 +0200
+
+bobcat (4.08.04-1) unstable; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream release
+    - Upstream migrated from Github to Gitlab
+    - Updated debian/watch
+
+  [ tony mancill ]
+  * Remove -arch and -indep targets in debian/rules
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 17 Jun 2018 19:09:37 +0530
+
+bobcat (4.08.03-1) unstable; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream release fixes prepares bobcat for g++-8
+    (Closes: #897997)
+  * Updated Standards-Version to 4.1.4 in debian/control.
+
+  [ tony mancill ]
+  * Update Vcs fields for migration from Alioth -> Salsa
+
+ -- tony mancill <tmancill@debian.org>  Mon, 07 May 2018 08:15:49 -0700
+
+bobcat (4.08.02-2) unstable; urgency=low
+
+  * Rebuilt the Debian package to fix some issues with the pristine-tar and
+    upstream branches (not showing the 4.08.02 version).
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 18 Sep 2017 09:35:43 +0200
+
+bobcat (4.08.02-1) unstable; urgency=low
+
+  * See the upstream changelog for changes of the class CSV4180
+
+  * Since c++-14 is the compiler's default standard the --std=c++14 was
+    removed from the CXXFLAGS specification in debian/rules
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 16 Sep 2017 15:16:41 +0200
+
+bobcat (4.08.01-1) unstable; urgency=low
+
+  * Upstream fixed fswap to handle plain pointers, and slightly modified
+    headers included by bobcat/string.
+
+  * Updated Standards-Version to 4.1.0 in debian/control.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 31 Aug 2017 12:15:22 +0200
+
+bobcat (4.08.00-1) unstable; urgency=low
+
+  * Upstream added new classes CSV4180 (deprecating the class CSV),
+    IQuotedPrintableStream(buf), and added new members to the class String.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 25 Aug 2017 14:24:56 +0200
+
+bobcat (4.07.00-2) unstable; urgency=medium
+
+  * Upload to unstable for buster release cycle.
+
+ -- tony mancill <tmancill@debian.org>  Tue, 20 Jun 2017 15:58:04 -0700
+
+bobcat (4.07.00-1) experimental; urgency=low
+
+  * New upstream release contains a much simplified class BinopsBase and adds
+    the option 'select' for building bobcat libraries containing a subset of
+    the available classes to the build script.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 12 Feb 2017 14:09:00 +0100
+
+bobcat (4.06.01-1) experimental; urgency=low
+
+  [ Frank B. Brokken ]
+  * Upstream simplified BinopsBase's implementation and added operator codes
+    'i' to request implementation of the stream insertion operator, and 'e' to
+    request implementation of the stream extraction operator.
+
+  [ tony mancill ]
+  * Use debhelper 10.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 31 Jan 2017 19:58:54 +0100
+
+bobcat (4.06.00-1) experimental; urgency=low
+
+  * New upstream release simplifies elements of the BinopsBase class and fixes
+    cosmetic errors in html versions of bobcat's man pages.
+
+  * Upgraded Bobcat 4.06.00-1's dependency on Yodl to Yodl 3.08.02.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 29 Jan 2017 14:46:46 +0100
+
+bobcat (4.05.00-1) experimental; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream class contains new classes (Exec, CinInserter, CerrExtractor,
+    CoutExtractor, and StdExtractor) and allows fswap to be used for classes
+    having (some) members or using base classes that do not support fast
+    swapping.
+
+  [ tony mancill ]
+  * Set distribution to experimental due to the freeze.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 17 Dec 2016 19:00:09 +0100
+
+bobcat (4.04.00-1) unstable; urgency=low
+
+  [ Frank Brokken ]
+  * New upstream release adds new class BinopsBase, adding (selections of)
+    binary operators to classes derived from it, added members to several
+    existing classes, modernized GetHostent, and repaired several bugs. See
+    the upstream's changelog.
+
+  [ tony mancill ]
+  * Add debian/watch file.
+  * Update Vcs URLs in debian/control to use HTTPS.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 24 Nov 2016 13:17:44 +0100
+
+bobcat (4.03.00-2) unstable; urgency=medium
+
+  * Add -lpthread patch to sync with Ubuntu version (Closes: #805881)
+    - Thank you to Sebastien Bacher for forwarding the patch.
+  * Add manpage-typos.patch.
+
+ -- tony mancill <tmancill@debian.org>  Sat, 03 Sep 2016 12:03:21 -0700
+
+bobcat (4.03.00-1) unstable; urgency=low
+
+  * New upstream release is compatible with OpenSSL 1.0.2 as well as OpenSSL
+    1.1.0 (currently in experimental), and realizes several code and
+    documentation cleanups. (Closes: #828249).
+
+  * The manpage-typos patch was removed.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 17 Aug 2016 08:07:27 +0200
+
+bobcat (4.02.00-1) unstable; urgency=medium
+
+  * New upstram release fixes a yodl-dependency and adds a new member to the
+    Semaphore class. The debian/control file was updated accordingly.
+    (Closes: #822519).
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 26 Apr 2016 10:43:59 +0530
+
+bobcat (4.01.04-1) unstable; urgency=medium
+
+  * New upstream release, updates build scripts to icmake >= 8.00.04, and
+    applies Tony's 4.01.03-2 patches. (Closes: #807734).
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 12 Dec 2015 13:44:20 +0100
+
+bobcat (4.01.03-2) unstable; urgency=medium
+
+  * Upload to unstable after receiving ACK of transition from the
+    Release Team.  See Debian BTS #805523.
+  * Add patch for manpage typos.
+
+ -- tony mancill <tmancill@debian.org>  Thu, 19 Nov 2015 20:50:56 -0800
+
+bobcat (4.01.03-1) experimental; urgency=low
+
+  * Upstream fixed a flaw in the installation script, Upstream's 'build'
+    script now supports -P to prevent the use of precompiled headers
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 06 Oct 2015 09:00:17 +0200
+
+bobcat (4.01.02-1) experimental; urgency=low
+
+  * New upstream release moved the pf_iterator* classes to the SSLCLASSES and
+    redefined the ./build install and ./build uninstall commands. The
+    debian/rules file was adapted accordingly.
+
+  * Removed the superfluous get-orig-sources target from debian/rules
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 01 Oct 2015 08:00:25 +0200
+
+bobcat (4.01.01-1) experimental; urgency=low
+
+  * New upstream release reverts to using (internally) .ih rather than .hh
+    header files. No implications for using bobcat.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 24 Sep 2015 15:17:27 +0200
+
+bobcat (4.01.00-1) experimental; urgency=low
+
+  * New upstream release uses precompiled header when constructing the
+    libraries, removed the undocumented and superfluous LC class and offers
+    'build uninstall' for non-binary (e.g., non-debian)
+    installations. Furthermore, several man-pages and driver.cc demo programs
+    were updated.
+
+  * Reinstalled target 'get-orig-source:' in debian/rules, which was dropped
+    somewhere between commit 91f6fedb2de654db9db3d3c8f8f97fea5f7e8b82 (Aug. 3,
+    2015) and 01a392f5bb2784becc44a7955d6c5a7d41706f8d (Sep 2, 2015).
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 23 Sep 2015 12:18:15 +0200
+
+bobcat (4.00.00-1) experimental; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream release bumps the major version as a result of the modified
+    g++-5* ABI (Closes: #790985).
+
+  * Bobcat classes which were already deprecated for quite some time were
+    removed by upstream. See the upstream changelog for details.
+
+  [ tony mancill ]
+  * Update Homepage.
+
+ -- tony mancill <tmancill@debian.org>  Wed, 02 Sep 2015 21:33:14 -0700
+
+bobcat (3.25.02-3) unstable; urgency=medium
+
+  * Rename library package for g++5 ABI transition.
+    - Thank you to Steve Langesek for the patch. (Closes: #790985)
+
+ -- tony mancill <tmancill@debian.org>  Mon, 10 Aug 2015 20:41:03 -0700
+
+bobcat (3.25.02-2) unstable; urgency=medium
+
+  [ Frank B. Brokken ]
+  * New subminor release adds missing implementation of BigInt::ulong()
+  * Changed --std=c++0x to --std=c++14 in debian/rules
+
+  [ tony mancill ]
+  * Update debian/copyright.
+
+ -- tony mancill <tmancill@debian.org>  Thu, 11 Jun 2015 21:51:04 -0700
+
+bobcat (3.25.01-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- tony mancill <tmancill@debian.org>  Thu, 30 Apr 2015 22:37:11 -0700
+
+bobcat (3.25.01-1) experimental; urgency=medium
+
+  * New upstream release fixes overlooked small bug
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 15 Feb 2015 08:10:59 +0100
+
+bobcat (3.25.00-1) experimental; urgency=medium
+
+  * New upstream release fixes g++-5 compiler errors reported by Matthias
+    Klose (Closes: #777802)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 12 Feb 2015 17:58:05 +0100
+
+bobcat (3.24.01-1) experimental; urgency=medium
+
+  * New upstream release fixes a missing 'throw' clause
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 09 Feb 2015 13:11:43 +0100
+
+bobcat (3.24.00-1) experimental; urgency=medium
+
+  * New upstream release adds new class Semaphore
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 28 Jan 2015 11:42:11 +0100
+
+bobcat (3.23.01-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 24 Aug 2014 12:15:43 +0200
+
+bobcat (3.23.00-3) unstable; urgency=medium
+
+  * Drop versioned g++ dependency.
+  * Drop dependency on hardening-wrapper.
+
+ -- tony mancill <tmancill@debian.org>  Sat, 28 Jun 2014 10:51:37 -0700
+
+bobcat (3.23.00-2) unstable; urgency=medium
+
+  * Switch explicitly depending on g++-4.8 to g++-4.9.  This is only needed
+    because sh4 still defaults to g++-4.6.  (Closes: #751305)
+
+ -- tony mancill <tmancill@debian.org>  Thu, 12 Jun 2014 00:14:10 -0700
+
+bobcat (3.23.00-1) unstable; urgency=medium
+
+  * New upstream release adds new classes SharedCondition and Tty, added
+    several new members to existing classes and updates multiple man-pages.
+    see upstream's changelog for details.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 05 Jun 2014 18:02:38 +0200
+
+bobcat (3.22.01-1) unstable; urgency=medium
+
+  * New upstream release incorporates Tony's patches which he added to
+    version 3.22.00.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 04 Mar 2014 09:50:57 +0100
+
+bobcat (3.22.00-1) unstable; urgency=medium
+
+  [ Frank B. Brokken ]
+  * New upstream release adds new class CSV processing comma-separated values
+    and improves the implementation of Iterator
+
+  [ tony mancill ]
+  * Add patches to define PATH_MAX and SIGRTMAX; needed for hurd-i386.
+
+ -- tony mancill <tmancill@debian.org>  Sun, 02 Mar 2014 16:15:19 -0800
+
+bobcat (3.21.01-1) unstable; urgency=low
+
+  * New upstream release adds missing 'iterator' header. Do not use 3.21.00.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 15 Feb 2014 15:28:55 +0100
+
+bobcat (3.21.00-1) unstable; urgency=low
+
+  * New upstream release adds class templates Iterator and ReverseIterator,
+    implementing (reverse) iterators for plain value types.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 15 Feb 2014 12:28:45 +0100
+
+bobcat (3.20.01-1) unstable; urgency=low
+
+  * New upstream release adds a constructor accepting an initializer_list to
+    the class template 'LinearMap'
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 18 Jan 2014 16:58:16 +0100
+
+bobcat (3.20.00-1) unstable; urgency=low
+
+  * New upstream release fixes a bug in ArgConfig and adds a new class
+    template 'LinearMap'
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 18 Jan 2014 13:09:44 +0100
+
+bobcat (3.19.01-1) unstable; urgency=low
+
+  * New upstream release fixes a Process data member initialization, required
+    for FreeBSD systems.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 30 Dec 2013 11:21:58 +0100
+
+bobcat (3.19.00-1) unstable; urgency=low
+
+  * New upstream release reimplements Process partially using pimpl, and
+    updates several man-pages
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 28 Dec 2013 11:23:31 +0100
+
+bobcat (3.18.01-1) unstable; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream release fixes a previously undetected compilation error
+
+  [ tony mancill ]
+  * Bump Standards-Version to 3.9.5.
+
+ -- tony mancill <tmancill@debian.org>  Fri, 22 Nov 2013 23:51:44 -0800
+
+bobcat (3.18.00-1) unstable; urgency=low
+
+  * New upstream release adds classes processing shared memory
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 18 Nov 2013 15:00:35 +0100
+
+bobcat (3.17.00-1) unstable; urgency=low
+
+  * New upstream release mainly removes inline functions from maintenance
+    header files. For several other issues: see the upstream changelog
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 09 Oct 2013 17:52:15 +0200
+
+bobcat (3.16.00-1) unstable; urgency=low
+
+  * The 3.15.00-2 patch has been incorporated upstream.
+
+  * New release fixes a flaw in Process's function interpreting a program's
+    command-line arguments, and adds a new member Exception::protection
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 13 Sep 2013 19:48:08 +0200
+
+bobcat (3.15.00-2) unstable; urgency=low
+
+  * Add patch to no longer timestamp .gz files.  (Closes: #722166)
+    - This allows for reproducible builds.  Thanks to Jeremy Bobbio.
+
+ -- tony mancill <tmancill@debian.org>  Sun, 08 Sep 2013 19:59:11 -0700
+
+bobcat (3.15.00-1) unstable; urgency=low
+
+  * Added several new classes: IFilterStreambuf (filtering std::istreams),
+    ISymCryptStream(buf) (istream filters for symmetric encryption),
+    IBase64Stream(buf) (istream filters for base64 encoding) and DiffieHelman
+    (shared key computations)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 26 Aug 2013 16:57:59 +0200
+
+bobcat (3.14.00-2) unstable; urgency=low
+
+  * Switch g++ dependency to g++-4.8 to allow auto-builders to install
+    the necessary compiler on architectures where g++ (>= 4:4.7) is not
+    available.
+  * Update Vcs fields to be canonical.
+
+ -- tony mancill <tmancill@debian.org>  Sat, 10 Aug 2013 21:36:44 -0700
+
+bobcat (3.14.00-1) unstable; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream release overhauls SyslogStream and Syslogbuf
+  * Update debian/rules to export CXX = g++ instead of g++-4.7.
+
+  [ tony mancill ]
+  * Update debian/control with versioned dependency on g++ >= 4:4.7.1
+  * Update Format URL in debian/copyright.
+
+ -- tony mancill <tmancill@debian.org>  Fri, 10 May 2013 22:07:11 -0700
+
+bobcat (3.13.00-1) unstable; urgency=low
+
+  * New upstream release adds CGI::param1 to CGI
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 30 Apr 2013 21:13:41 +0200
+
+bobcat (3.12.00-1) experimental; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream release adds class PrimeFactors, and new members to BigInt
+
+  [ tony mancill ]
+  * Add Homepage: field to debian/control
+  * Update Vcs-Git and Vcs-Browser fields to point to repo on Alioth.
+  * Freshen copyright year in debian/copyright.
+
+ -- tony mancill <tmancill@debian.org>  Sat, 02 Mar 2013 17:30:30 -0800
+
+bobcat (3.11.01-3) experimental; urgency=low
+
+  * Update debian/rules to set CXX explicitly to g++-4.7.
+
+ -- tony mancill <tmancill@debian.org>  Wed, 14 Nov 2012 18:11:05 -0800
+
+bobcat (3.11.01-2) experimental; urgency=low
+
+  * Change dependency on g++ to g++-4.7.
+
+ -- tony mancill <tmancill@debian.org>  Wed, 14 Nov 2012 16:25:58 -0800
+
+bobcat (3.11.01-1) experimental; urgency=low
+
+  [ Frank Brokken ]
+  * New upstream release fixes incorrect header inclusion
+
+  [ tony mancill ]
+  * Update Vcs-Git URL
+  * Bump Standards-Version to 3.9.4 (no changes).
+  * Bump debhelper dependency and debian/compat to 9.
+  * Add build-dep on hardening-wrapper.
+
+ -- tony mancill <tmancill@debian.org>  Wed, 14 Nov 2012 05:41:42 -0800
+
+bobcat (3.11.00-1) unstable; urgency=low
+
+  * New upstream release adds new facilities to the Glob and OFdStreambuf
+    classes and augmented several man pages
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 27 Oct 2012 14:23:36 +0200
+
+bobcat (3.10.01-1) unstable; urgency=low
+
+  * debian/rules uses dpkg-buildflags's compilation variables settings
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 22 Jul 2012 11:00:26 +0200
+
+bobcat (3.10.00-1) unstable; urgency=low
+
+  * New upstream release (new class: Signal, new members in User and Stat)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 26 Jun 2012 20:31:32 +0200
+
+bobcat (3.01.00-1) unstable; urgency=low
+
+  * New upstream release (bumps the soname version).
+    + Arg, ArgConfig and ConfigFile use the bridge design pattern.
+    + Programs depending on the Bobcat library must be recompiled.
+    + DateTime bugfix.
+  * Rename the library package libbobcat2 to libbobcat3 to reflect
+    the soname bump (no further relationships are needed, since
+    libbobcat2 and libbobcat3 do not ship common files).
+  * Drop unneeded and errant relationships of Provides|Conflicts|Replaces:
+    libbobcat1 previosly added to the library package section (post lenny).
+  * Likewise, drop Provides|Conflicts|Replaces: libbobcat1-dev
+    relationships from the -dev package section (libbobcat1-dev is
+    a non-virtual package in lenny, which has been subsequently renamed
+    to libbobcat-dev in squeeze).
+
+ -- George Danchev <danchev@spnet.net>  Wed, 16 May 2012 16:58:39 +0200
+
+bobcat (2.23.00-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 22 Apr 2012 13:58:14 +0200
+
+bobcat (2.22.00-1) unstable; urgency=low
+
+  * New upstream release (bug fix, manual cosmetics, code cleanup)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 16 Apr 2012 09:26:51 +0200
+
+bobcat (2.21.01-1) unstable; urgency=low
+
+  * New upstream release (code cleanup)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 21 Jan 2012 16:54:40 +0100
+
+bobcat (2.21.00-1) unstable; urgency=low
+
+  * New upstream release adds two classes: Ranger and PtrIter
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 07 Jan 2012 13:30:11 +0100
+
+bobcat (2.20.02-1) unstable; urgency=low
+
+  * New upstream release.
+  * Build-depend on g++ (>= 4.6.2).
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 05 Jan 2012 12:35:08 +0100
+
+bobcat (2.20.01-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 04 Dec 2011 21:34:14 +0100
+
+bobcat (2.20.00-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 03 Nov 2011 19:01:50 +0100
+
+bobcat (2.19.01-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 10 Oct 2011 10:31:09 +0200
+
+bobcat (2.19.00-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 22 Sep 2011 21:01:18 +0200
+
+bobcat (2.18.00-2) unstable; urgency=low
+
+  * Build depend on 4:4.6.0, better support for c++0x.
+    (fixes ftbfs with older compilers on some architectures)
+
+ -- George Danchev <danchev@spnet.net>  Fri, 17 Jun 2011 19:15:45 +0300
+
+bobcat (2.18.00-1) unstable; urgency=low
+
+  * New upstream release.
+  * [GD] Drop configure* targets, as they are not needed.
+  * [GD] Rename build to build-arch, add build and (empty) build-indep.
+  * [GD] Drop libbobcat{-dev|2}.install and README.debian (unneeded).
+  * [GD] Don't call dh_installexamples.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 17 Jun 2011 10:37:33 +0200
+
+bobcat (2.17.00-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 06 Jun 2011 14:38:46 +0200
+
+bobcat (2.16.00-1) unstable; urgency=low
+
+  * New upstream release (changes inline implementations of
+    virtual members to non-inline).          Closes: #602817
+  * Added Vcs-* fields.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 25 May 2011 16:36:31 +0200
+
+bobcat (2.15.02-1) unstable; urgency=low
+
+  * New upstream release. Closes: #626889
+    (repairs segfaults observed with g++ 4.6
+    for static data members in the Cidr class.)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 16 May 2011 16:37:45 +0200
+
+bobcat (2.15.01-1) unstable; urgency=low
+
+  * New upstream release repairs flaws appearing with g++ 4.6.
+    (includes bobcat changes resulting in bobcat 2.15.00).
+    Closes: #625076
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 05 May 2011 09:40:29 +0200
+
+bobcat (2.15.00-1) unstable; urgency=low
+
+  * New upstream release repairs flaws appearing with g++ 4.6
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 03 May 2011 15:14:57 +0200
+
+bobcat (2.14.00-1) unstable; urgency=low
+
+  * New upstream release: new classes StringLine and Cidr, and bugfix
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 05 Feb 2011 12:38:36 +0100
+
+bobcat (2.13.00-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 02 Feb 2011 18:41:05 +0100
+
+bobcat (2.12.00-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 30 Jan 2011 14:52:35 +0100
+
+bobcat (2.11.00-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 10 Jan 2011 13:08:41 +0100
+
+bobcat (2.10.03-1) unstable; urgency=low
+
+  * New upstream release (Closes: #608183)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 29 Dec 2010 17:19:36 +0100
+
+bobcat (2.10.02-1) unstable; urgency=low
+
+  * New upstream release fixes missing ConfigFile::size() member
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 25 Dec 2010 11:04:08 +0100
+
+bobcat (2.10.01-2) unstable; urgency=low
+
+  * Set distribution to unstable.
+
+ -- tony mancill <tmancill@debian.org>  Sun, 19 Dec 2010 21:07:14 -0800
+
+bobcat (2.10.01-1) experimental; urgency=low
+
+  * New upstream release fixes several g++-4.5 issues encountered by Tony
+    Mancill.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 19 Dec 2010 21:32:10 +0100
+
+bobcat (2.10.00-1) experimental; urgency=low
+
+  * New upstream release (bugfixes, class expansions, classes made move-aware,
+    also using -O2 when compiling rather than -O3)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 17 Dec 2010 14:26:17 +0100
+
+bobcat (2.09.04-1) experimental; urgency=low
+
+  * New upstream release (another minor bugfix)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 06 Dec 2010 23:43:08 +0100
+
+bobcat (2.09.03-1) experimental; urgency=low
+
+  * New upstream release (minor bugfix, man-page reorganization)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 06 Dec 2010 10:10:18 +0100
+
+bobcat (2.09.02-1) experimental; urgency=low
+
+  * New upstream release repairs flaws detected by g++ 4.5
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 04 Nov 2010 13:02:39 +0100
+
+bobcat (2.09.01-1) experimental; urgency=low
+
+  * New upstream release should fix the amd-64 RTBFS error
+  * Dropped all patches since have been merged upstream
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 03 Nov 2010 13:00:09 +0100
+
+bobcat (2.09.00-2) experimental; urgency=low
+
+  * Set source format to 3.0 (quilt)
+  * Add patch for icmake ./build file for tset; TERM need not be set.
+  * Set debian/compat to 7.
+
+ -- tony mancill <tmancill@debian.org>  Mon, 01 Nov 2010 20:06:36 -0700
+
+bobcat (2.09.00-1) experimental; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream release (new classes: ReadLineBuf, ReadLineStream,
+    ReadLineHistory, Mstream, Mbuf; deprecating class Msg. Several cosmetic
+    changes (mostly related to virtual members: now almost all are private, in
+    line with Liskov's Substitution Principle)
+
+  [ tony mancill ]
+  * Set distribution to experimental.
+
+ -- tony mancill <tmancill@debian.org>  Sun, 31 Oct 2010 21:41:38 -0700
+
+bobcat (2.08.01-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 05 May 2010 11:16:50 +0200
+
+bobcat (2.08.00-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 04 May 2010 12:15:12 +0200
+
+bobcat (2.07.04-1) unstable; urgency=low
+
+  * New upstream release
+  * Switched to dpkg-source 1.0 format
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 09 Apr 2010 09:10:38 +0200
+
+bobcat (2.07.03-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 19 Mar 2010 15:39:35 +0100
+
+bobcat (2.07.02-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 24 Feb 2010 08:40:24 +0100
+
+bobcat (2.07.01-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 19 Feb 2010 08:54:57 +0100
+
+bobcat (2.07.00-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #564967)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 13 Feb 2010 17:04:29 +0100
+
+bobcat (2.06.00-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 27 Nov 2009 10:36:02 +0100
+
+bobcat (2.05.00-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 25 Sep 2009 15:58:10 +0200
+
+bobcat (2.04.01-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 04 Sep 2009 23:50:11 +0200
+
+bobcat (2.04.00-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #542922)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 02 Sep 2009 21:01:42 +0200
+
+bobcat (2.03.00-1) unstable; urgency=low
+
+  [ Frank B. Brokken ]
+  * New upstream release.
+
+  [ George Danchev ]
+  * Build-Depends on libssl-dev
+
+  [ tony mancill ]
+  * debian/control:
+    - add myself to Uploaders
+  * debian/copyright:
+    - add OpenSSL exception
+
+ -- tony mancill <tmancill@debian.org>  Sat, 25 Jul 2009 02:10:17 -0700
+
+bobcat (2.02.03-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #525746)
+  * disable symbols check (-c0): Rf.
+    http://lists.debian.org/debian-devel/2009/04/msg00298.html
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 06 May 2009 10:38:12 +0200
+
+bobcat (2.02.02-1) unstable; urgency=low
+
+  * New upstream release.  (Closes: #525746)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 04 May 2009 08:23:37 +0200
+
+bobcat (2.02.01-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 24 Mar 2009 12:36:52 +0100
+
+bobcat (2.01.0-2) unstable; urgency=low
+
+  * New symbols added for:
+  * libbobcat2.symbols.alpha     (done)
+  * libbobcat2.symbols.arm       (still empty)
+  * libbobcat2.symbols.armel     (done)
+  * libbobcat2.symbols.hppa      (done)
+  * libbobcat2.symbols.hurd-i386 (still empty)
+  * libbobcat2.symbols.ia64      (done)
+  * libbobcat2.symbols.mips      (done)
+  * libbobcat2.symbols.mipsel    (done)
+  * libbobcat2.symbols.powerpc   (done)
+  * libbobcat2.symbols.s390      (done)
+  * libbobcat2.symbols.sparc     (done)
+
+ -- George Danchev <danchev@spnet.net>  Tue, 24 Feb 2009 22:40:53 +0200
+
+bobcat (2.01.0-1) unstable; urgency=low
+
+  [ Frank Brokken ]
+  * New upstream release. (Closes: #505955)
+  * Adapted debian/rules to also build/install /usr/bin/bobcatlcgen
+
+  [ George Danchev ]
+  * drop TODO.Debian, not relevant anymore
+  * added libbobcat2.symbols.i386
+  * added libbobcat2.symbols.amd64
+  * added libbobcat2.symbols.alpha     (empty file)
+  * added libbobcat2.symbols.arm       (empty file)
+  * added libbobcat2.symbols.armel     (empty file)
+  * added libbobcat2.symbols.hppa      (empty file)
+  * added libbobcat2.symbols.hurd-i386 (empty file)
+  * added libbobcat2.symbols.ia64      (empty file)
+  * added libbobcat2.symbols.mips      (empty file)
+  * added libbobcat2.symbols.mipsel    (empty file)
+  * added libbobcat2.symbols.powerpc   (empty file)
+  * added libbobcat2.symbols.s390      (empty file)
+  * added libbobcat2.symbols.sparc     (empty file)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 13 Feb 2009 15:16:31 +0100
+
+bobcat (2.00.1-2) unstable; urgency=low
+
+  *  added missing libbobcat2 (= ${binary:Version}) to depends of libbobcat-dev
+
+ -- George Danchev <danchev@spnet.net>  Sat, 06 Dec 2008 16:36:41 +0200
+
+bobcat (2.00.1-1) unstable; urgency=low
+
+  * New upstream release. Fixes an FTBFS on architectures where
+    size_t is not unsigned int.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 03 Dec 2008 15:50:40 +0100
+
+bobcat (2.00.0-1) unstable; urgency=low
+
+  [ Frank Brokken ]
+  * New upstream release.
+  * Handle ABI breakage - libbobcat-dev replaces libbobcat1-dev and libbobcat2
+    replaces libbobcat1. Provides/Conflict/Replaces set accordingly.
+
+  [ George Danchev ]
+  * the dev package no longer strictly depends on libbobcat1/2 since
+    dh_makeshlibs -V is meant to handle that automatically.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 29 Nov 2008 19:23:13 +0100
+
+bobcat (1.21.1-2) unstable; urgency=low
+
+  *  Enforce versioned dependencies on the library
+     via dh_makeshlibs -V (Closes: #504603)
+
+ -- George Danchev <danchev@spnet.net>  Thu, 06 Nov 2008 20:59:17 +0200
+
+bobcat (1.21.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 26 Oct 2008 15:51:21 +0100
+
+bobcat (1.20.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 14 Sep 2008 21:15:06 +0200
+
+bobcat (1.20.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 13 Sep 2008 11:40:37 +0200
+
+bobcat (1.19.0-2) unstable; urgency=low
+
+  * Convert to machine-interpretable copyright format.
+
+ -- George Danchev <danchev@spnet.net>  Wed, 20 Aug 2008 21:12:53 +0300
+
+bobcat (1.19.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 07 Aug 2008 10:15:58 +0200
+
+bobcat (1.18.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 24 May 2008 17:17:26 +0200
+
+bobcat (1.17.2-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #464684)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 14 Mar 2008 11:50:24 +0100
+
+bobcat (1.17.1-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #456060, #455142)
+  * Bump Standards-Version to 3.7.3
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 20 Dec 2007 12:12:43 +0100
+
+bobcat (1.17.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 16 Oct 2007 20:01:10 +0200
+
+bobcat (1.16.1-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #417127, #436603)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 05 Sep 2007 10:31:50 +0200
+
+bobcat (1.16.0-2) unstable; urgency=low
+
+  * Added missing ${shlibs:Depends}, ${misc:Depends} for libbobcat1-dev
+
+ -- George Danchev <danchev@spnet.net>  Sun, 12 Aug 2007 18:58:44 +0300
+
+bobcat (1.16.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 30 Jul 2007 15:20:57 +0200
+
+bobcat (1.15.0-1) unstable; urgency=low
+
+  * New upstream release (Closes: #423744)
+  * Build-Depends: yodl >= 2.04a
+  * Transition build-deps from tetex to texlive packages
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 17 May 2007 14:25:55 +0200
+
+bobcat (1.14.2-1) unstable; urgency=low
+
+  * New upstream release  (Closes: #417127)
+    Added (still) missing header files. Also see the upstream changelog
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 13 Apr 2007 12:06:45 +0200
+
+bobcat (1.14.1-1) unstable; urgency=low
+
+  * New upstream release (Closes: #417127)
+
+  * Additional modifications: See the upstream changelog
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 06 Apr 2007 22:14:34 +0200
+
+bobcat (1.13.1-1) unstable; urgency=low
+
+  * New upstream release:
+        See the upstream changelog
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 08 Feb 2007 15:12:53 +0100
+
+bobcat (1.12.1-1) unstable; urgency=low
+
+  * New upstream release:
+        See the upstream changelog, for both 1.12.0 and 1.12.1.
+        Due to a presumed g++ compiler bug release 1.12.0 was not added
+        to the Debian archive. Instead 1.11.0 is immediately followed by
+        1.12.1.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 07 Dec 2006 16:13:29 +0100
+
+bobcat (1.12.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- George Danchev <danchev@spnet.net>  Sat, 18 Nov 2006 19:00:40 +0200
+
+bobcat (1.11.0-1) unstable; urgency=low
+
+  [ Frank Brokken ]
+  * New upstream release expands and generalizes the Wrap* classes
+    see the upstream changelog for details
+
+  [ George Danchev ]
+  * rules:get-orig-source - use sed instead original-awk
+  * fix a textual typo in package description
+  * build-depend on icmake >= 6.30-1
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 14 Oct 2006 15:22:42 +0200
+
+bobcat (1.10.2-1) unstable; urgency=high
+
+  * New upstream release (Closes: #385312)
+
+  [ George Danchev ]
+  * renamed *.install and *.dirs files to match package names
+  * no more doc directories which do not match binary package names:
+    (/usr/share/doc/bobcat and /usr/share/doc/bobcat-dev)
+  * install upstream changelog for both packages
+  * debian/copyright: added GPL license preambule, debian packaging
+    copyright and canonical upstream download location
+  * debian/compat 5, thus debhelper (>= 5.0.37.3)
+  * Ack superfluous NMU (Closes: #386374)
+  * fix some url locations in copyright and rules:get-svn-trunk
+  * installdocs CLASSES README.class-setup README.optimization
+
+  [ Frank Brokken ]
+  * the lintian overrides are superfluous and were removed, the icmake/install
+    script ignores them, too.
+
+ -- George Danchev <danchev@spnet.net>  Thu, 7 Sep 2006 11:14:35 +0300
+
+bobcat (1.10.1-1.1) unstable; urgency=high
+
+  * Non-maintainer Upload
+  * Fix FTBFS on amd64 (Closes: 385312)
+
+ -- Michael Ablassmeier <abi@debian.org>  Thu,  7 Sep 2006 10:01:06 +0200
+
+bobcat (1.10.1-1) unstable; urgency=low
+
+  * New upstream release
+
+  [ Frank B. Brokken ]
+  * Changed make/xxx scripts to construction scripts based on icmake. Debian
+    now uses icmake scripts, and INSTALL.im to define the locations of the
+    various targets. Added the directory ./icmake.
+
+  [ George Danchev ]
+  * drop all patches since have been merged upstream
+  * new build-depends: icmake, tetex-bin, tetex-extra, gs-gpl | gs
+
+ -- George Danchev <danchev@spnet.net>  Sat, 26 Aug 2006 12:15:54 +0300
+
+bobcat (1.10.0-5) unstable; urgency=low
+
+  [ George Danchev ]
+  * 04_g++.dpatch: use system's g++, versions if any should specified in debian/control
+  * build-depend on g++, debhelper (>=4.0.2)
+  * intermediate realclean target (patch clean unpatch, since we need patching early)
+
+ -- George Danchev <danchev@spnet.net>  Thu, 27 Jul 2006 23:17:11 +0300
+
+bobcat (1.10.0-4) unstable; urgency=low
+
+  [ George Danchev ]
+  * 01_fix_yodl_macro.dpatch: updated to fix some bashisms there.
+  * 03_fix_bashisms.dpatch: fix several blatant bashisms, preventing
+    builds on systems wish /bin/sh->/bin/dash (Closes: #379722)
+    also don't let *.so files go in -dev package, but keep *.a instead
+  * build library first, then docs
+
+ -- George Danchev <danchev@spnet.net>  Wed, 26 Jul 2006 16:26:39 +0300
+
+bobcat (1.10.0-3) unstable; urgency=low
+
+  [ George Danchev ]
+  * 02_fix_amd64_s390_build: applied the patch from Andreas Jochens
+    to fix amd64 and s390 builds (Closes: #379620)
+
+ -- George Danchev <danchev@spnet.net>  Wed, 26 Jul 2006 12:04:28 +0300
+
+bobcat (1.10.0-2) unstable; urgency=low
+
+  [ George Danchev ]
+  * 01_fix_yodl_macro.dpatch: fix yodl macro
+  * control: Add yodl, dpatch to build-depends
+  * rules: Add get-orig-source and print-version targets
+
+ -- George Danchev <danchev@spnet.net>  Sun, 23 Jul 2006 01:04:57 +0300
+
+bobcat (1.10.0-1) unstable; urgency=low
+
+  *  License changed to the GNU GENERAL PUBLIC LICENSE. See the file
+    `copyright'.
+
+    Introduced George Danchev <danchev@spnet.net> as uploader
+
+    CmdFinder now properly clears beyond() when using mode USE_FIRST
+
+    From now on this file will only reflect Debian-specific changes. See the
+    newly added file changelog for `upstream' changes. At this point,
+    changelog will be a copy of debian's changelog file.
+
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 18 Jul 2006 21:38:21 +0200
+
+bobcat (1.9.0) unstable; urgency=low
+
+  * Following suggestions made by George Danchev, this version was compiled by
+    the unstable's g++ compiler (version >= 4.1), which unveiled several flaws
+    in the library's class header files. These flaws were removed (i.e.,
+    repaired).
+
+    In order to facilitate compiler selection, the compiler to use is defined
+    in the INSTALL.cf file.
+
+    The debian control-files (i.e., all files under the debian subdirectory)
+    were removed from the source distribution, which is now also named in
+    accordance with the Debian policy. A diff.gz file was added.
+
+    At the contents level: the class ConfigFile was extended with two
+    overloaded members index(), returning line offset of the original
+    configuration file associated with a particular line that may be retrieved
+    from the ConfigFile object itself.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue,  4 Jul 2006 21:17:56 +0200
+
+bobcat (1.8.0) unstable; urgency=low
+
+  * make/install script slightly modified: header files are copied before the
+            compilation starts to prevent unavailable header files.
+    Added the following classes:
+        * CmdFinder and CmdFinderBase: CmdFinder is a class handling
+                command-lookup and command-function associations
+        * OneKey: Objects of the class OneKey allow single-keystroke input (not
+                requiring `Enter' to be pressed.
+        * RefCount: Base class allowing its derived classes to share their
+                memory, using reference counting.
+    Modified the layout and contents of the file README.class-setup to improve
+    the current class organization's representation.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 26 Jun 2006 08:42:18 +0200
+
+bobcat (1.7.1) unstable; urgency=low
+
+  * Bobcat now `lintianized'. The libraries are now in the libbobcat1 and
+    libbocat1-dev packages. The package's info has been upgraded. Note that
+    packages depending on bobcat (e.g., stealth and bisonc++) require an
+    upgrade as well.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 26 May 2006 15:02:22 +0200
+
+bobcat (1.7.0) unstable; urgency=low
+
+  * milter and xpointer are included optionally. `make/library all' includes
+    them automatically
+
+    New class Indent and associated manipulators implementing indentation
+    defined.
+
+    ofdstreambuf and ifdstreambuf constructors have additional parameters to
+    either close or keep open the file descriptor that is passed to the
+    constructor. The default situation is for ofdstreambuf to close the file
+    descriptor and for ifdstreambuf to keep de file descriptor open. Thus the
+    new implementation is backward compatible with earlier bobcat versions.
+
+    Msg has a new free function msgstream() returning the not-cleared msg()
+    stream. This allows certain STL algorithms to be used, see `man -e bobcat
+    msg'
+
+    wrap1c and wrap2c now also accept const contexts; see, e.g., `man -e
+    bobcat wrap1c'. Errors in wrap2c's template definition repaired.
+
+    ConfigFile now has additional members beginRE() and endRE(), allowing
+    iterators to produce all lines matching a RE.
+    Repaired ConfigFile in accordance with the man-page:
+        initial ws are now removed from the stored lines,
+        find(target): `target' may be found anywhere within a configuration
+                      line.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue,  2 May 2006 19:31:02 +0200
+
+bobcat (1.6.0) unstable; urgency=low
+
+  * minor repair in Pattern- and Selector manpages
+
+    added MultiStrambuf, IOStreambuf, IOStream: see the manpages for details.
+
+    redesigned Process: insertions insert to the child process, extractions
+    extract from the child process. STDOUT and STDERR can or cannot be
+    merged. See the man-page for details.
+
+    redesigned Arg: same functionality as before, but allows for multiple
+    specifications of options, also those having arguments. When multiple
+    options having arguments are specified, each individual argument is
+    retrievable.
+
+    added string::escape()
+
+    `get...' accessors removed from all classes, (Arg, Fork and Pipe)
+    Old names are kept for the time being.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 26 Dec 2005 19:04:24 +0100
+
+bobcat (1.5.0) unstable; urgency=low
+
+  * The general bobcat manpage did not have links to wrap1c and wrap2c. Now
+    Repaired.
+
+    The Log-class interface is modified. See the man -e bobcat log manpage for
+    details. The main difference is that a static initialize() member is now
+    used to define the static Log-object. Also, logs may be written to stdout
+    using a simpler specification than before. The Log class also supports an
+    open() member, allowing you to open a local Log object after its
+    construction.
+
+    Added the class Milter, offering a C++ interface to the (sendmail)
+    libmilter API. This class uses the `virtual constructor' Design Pattern to
+    prevent the need for saving and accessing private connection based data
+    using the libmilter api smfi_setpriv() and smfi_getpriv(). See `man -e
+    bobcat milter' for details.
+
+    Added the class Xpointer, setting and retrieving the X-windows pointer
+    coordinates.
+
+    With the shared object library, functions from both libmilter and libX11
+    must be available before a program can be fully linked. To prevent
+    unnessary linking to these libraries, required dummy C functions were
+    added to the bobcat library. When using libmilter and/or libX11, that
+    these libraries should be mentioned to the linker before libbobcat.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu,  8 Dec 2005 20:52:44 +0100
+
+bobcat (1.4.0) unstable; urgency=low
+
+  * 1.4.0 and beyond: compiled with g++-4.0 compiler series.
+    Minor modifications in the log/log and level/level header files:
+        ::operator<<() changed into operator<<()
+
+    Further support of the 1.2.x series is discontinued
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 18 Nov 2005 21:44:13 +0100
+
+bobcat (1.2.1) unstable; urgency=low
+
+  * added missing constructor description in the Pattern manpage
+    removed leftover cerr insertion from localserversocket::listen()
+
+    defined default localsocketbase constructor.
+    added /bobcat/localsocketbase/open.cc
+
+    defined default localserversocket constructor.
+    removed /bobcat/localserversocket/localserversocket1.cc
+    added /bobcat/localserversocket/open.cc
+
+    defined default localclientsocket constructor.
+    defined LocalClientSocket::open()
+
+    Pattern missed some throwlists in its implementations. Repaired.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 17 Nov 2005 14:05:26 +0100
+
+bobcat (1.2.0) unstable; urgency=low
+
+  * Added the following classes:
+    localsocketbase     - base class for unix domain sockets
+    localserversocket   - defines server for unix domain sockets
+    localclientsocket   - defined client for unix domain sockets
+    randbuffer          - std::streambuf producing random numbers
+    irandstream         - istream producing random numbers
+    mailheaders         - handles SMTP mail message headers
+
+    Repaired incorrect header inclusion in datetime.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 11 Nov 2005 16:47:31 +0100
+
+bobcat (1.1.2) unstable; urgency=low
+
+  * Repaired -I statement in make/parameters, and changed tmp/inc into
+    tmp/bobcat (repairs resulting from feedback by Vincent Hecht)
+    Changed the ordering of the classes tablesupport and tablespec
+    in CLASSES
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu,  8 Sep 2005 19:40:43 +0200
+
+bobcat (1.1.1) unstable; urgency=low
+
+  * Removed the compilation dependency on `icmake'. See INSTALL for
+    instructions about how to compile and install bobcat yourself, rather than
+    using the binary distribution
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat,  3 Sep 2005 16:47:24 +0200
+
+bobcat (1.1.0) unstable; urgency=low
+
+  * Added the following classes:
+
+       FBB::ClientSocket: a socket for tcp-communication with a server.
+       FBB::columnWidth: Manipulator class for the class Table.
+       FBB::DateTime: Manipulations with date and time values.
+       FBB::equalWidth: Manipulator class for the class Table.
+       FBB::GetHostent: Obtains hostent struct from hostname or -address.
+       FBB::Glob: Obtain a list of files matching a certain pattern.
+       FBB::Hostent: Wrapper around the hostent struct.
+       FBB::Hostname:  Derived  from Hostent, allows the initialization from a
+       FBB::IFdStream: stream extracting information from a device whose  file
+       FBB::IFdStreambuf:  Input  stream buffer initialized by a file descrip-
+       FBB::InetAddress: Base class (no public constructor) for objects repre-
+       FBB::level: Manipulator setting the log-level of FBB::Log objects.
+       FBB::Log: std::ostream handling log messages.
+       FBB::LogBuffer: std::streambuf handling log messages.
+       FBB::OFdStream: stream inserting information into a device  whose  file
+       FBB::OFdStreambuf: Output stream buffer initialized by a file descrip-
+                          tor.
+       FBB::Process: Runs child processes, piping output to parents.
+       FBB::ServerSocket: defines a socket to which clients can connect.
+       FBB::SocketBase: Base class for ClientSocket and ServerSocket.
+       FBB::Stat:   Determines file characteristics.
+       FBB::Syslogbuf: streambuf to Buffer generating syslog(3) messages.
+       FBB::SyslogStream: stream to Output  stream  inserting  syslog(3)  mes-
+                          sages.
+       FBB::Table:  Display tables row- or column-wise.
+       FBB::TableSpec: Base class for the class Table.
+       FBB::TableSupport: Support class for the class Table.
+       FBB::User:   Determines the current user's parameters from /etc/passwd.
+
+    Added an examples directory under /usr/share/doc/bobcat-dev
+    Added a contrib directory under /usr/share/doc/bobcat-dev, currently
+          containing the `solib' script making shared libraries
+
+    o   The minor release number will be incremented when new information
+            (classes, documentation, etc.) is added,
+    o   The subrelease number will be incremented at bugfixes.
+    o   I don't know yet when I'll upgrade the major release number
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 31 Aug 2005 12:57:03 +0200
+
+bobcat (1.0.0-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 15 Aug 2005 11:32:09 +0200

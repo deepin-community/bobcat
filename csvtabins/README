@@ -1,0 +1,49 @@
+template <typename Type>
+CSVTabIns &CSVTabIns::insert(Type const &value):
+
+If d_idx == d_format.size() ignore formats and insert value as is
+
+determine the FMT to use (extraFMT or d_format):
+FMT:
+        left:   use left, setw, setpos and insert
+        right:  use right, setw, setpos and insert
+        center: configure an ostringstream with width and position and insert 
+                value. Then trim value -> length.
+                if length < width: pre- and append spaces
+                insert value with setw(width)
+
+------------------------------------------------------------------------------
+
+CSVTabIns &operator<<(CSVTabIns &tab, FMT const &fmt)
+
+        if FMT align == HLINE: insert the hline according to fmt
+        otherwise: cp fmt to d_extraFMT and set d_useExtraFMT true
+        hlines are at most inserted until (including) the table's lat col.
+        if the #cols == 0 then nothing is inserted
+
+    if fmt.width() == 0, then fmt.nCols() specifies the #columns to use
+        (if nCols() + d_idx >= d_format.size() then all remaining columns are
+        used).
+    if (fmt.width() != 0, then that width is used for the combined fmt.nCols
+        columns starting at d_idx
+    
+
+------------------------------------------------------------------------------
+
+CSVTabIns &operator<<(CSVTabIns &tab, FMTFunCH align)
+
+    align = 
+        FBB::center: copy the next fmt to extraFMT and set align to CENTER. 
+        FBB::hline:  use the next fmt specs to insert a hline, and ++d_idx
+
+------------------------------------------------------------------------------
+
+CSVTabIns &operator<<(CSVTabIns &tab, std::ios_base &(*func)(std::ios_base &))
+
+        std::left, std::right: used only for the next column insertion
+                    (via d_extraFMT)
+        other manipulators (like hex etc): are inserted and 
+                    remain active until this row ends
+
+------------------------------------------------------------------------------
+

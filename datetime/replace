@@ -1,0 +1,18 @@
+#, std::allocator<unsigned long> ##
+#, std::allocator<StateItem> ##
+#, std::allocator<Item> ##
+#, std::allocator<Next> ##
+#, std::allocator<Terminal const*> ##
+#, std::allocator<Element const*> ##
+
+// replace objdump's idea of what a string is by ours:
+#std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >#std::string#
+
+#, std::hash<std::string >, std::equal_to<std::string >, std::allocator<std::pair<std::string const, std::string > > ##
+// #__gnu_cxx::__normal_iterator<Next const*, std::vector<Next> >#Next::ConstIter #
+// #std::set<Element const*, std::less<Element const*> const*> >#std::set<Element const *>#
+#[abi:cxx11]##
+
+#__gnu_cxx::__normal_iterator<std::string const*, std::vector<std::string, std::allocator<std::string > > >#StingVector::const_iterator#
+#std::vector<std::string, std::allocator<std::string > >#StringVector#
+#std::chrono::duration<long, std::ratio<1l, 1l> >#std::chrono::seconds#

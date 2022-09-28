@@ -1,0 +1,57 @@
+#ifndef INCLUDED_BOBCAT_CSVTABDEF_
+#define INCLUDED_BOBCAT_CSVTABDEF_
+
+#include <iosfwd>
+#include <vector>
+#include <sstream>
+#include <algorithm>
+
+#include <bobcat/string>
+#include <bobcat/fmt>
+
+namespace FBB
+{
+
+class CSVTabDef
+{
+    friend class CSVTable;
+
+    template <typename Type>
+    friend CSVTabDef &operator<<(CSVTabDef &tab, Type const &value);    // 1.f
+
+    friend CSVTabDef &operator<<(CSVTabDef &tab, FMT const &fmt);       // 2.f
+
+    unsigned d_idx;
+    std::vector<FMT> &d_format;
+
+    public:
+        CSVTabDef(CSVTabDef const &other) = delete;
+        ~CSVTabDef();
+
+    private:
+        CSVTabDef(std::vector<FMT> &format, unsigned idx);
+
+                                                    // split the string into
+                                                    // words, add their  
+                                                    // lengths as R-aligned 
+        void split(std::string const &fields);      // columns
+
+        void add(std::string const &field);         // add one column    1.f
+
+                                                    // add R-aligned col,
+        void add(unsigned width);                   // width characters  2.cc
+
+        template <typename Type>
+        CSVTabDef &insert(Type const &value);       //                    1.f
+
+        CSVTabDef &insert(FMT const &fmt);          //                    2.cc
+};
+
+#include "add1.f"
+#include "insert1.f"
+#include "opinsert1.f"
+#include "opinsert2.f"
+
+} // FBB        
+
+#endif

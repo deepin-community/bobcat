@@ -1,0 +1,26 @@
+    {
+        Pattern one("one");
+        Pattern two(one);
+        Pattern three("a");
+        Pattern four;
+        three = three;
+    }
+
+    try 
+    {
+        Pattern pattern("aap|noot|mies");
+
+        {
+            Pattern extra(Pattern(pattern));
+        }
+    
+        if (pattern << "noot")
+            cout << "noot matches\n";
+        else
+            cout << ": noot doesn't match\n";
+    }
+    catch (exception const &e)
+    {
+        cout << e.what() << ": compilation failed" << endl;
+    }
+        

@@ -1,0 +1,24 @@
+# formats:
+#   name shift
+#   name shift =
+#   name shift dstshift
+#   name shift dstshift mon, wkspec day until mon, wkspec day
+#   name shift dstshift mon, wkspec day until mon, wkspec day [hh:mm] 
+#   name shift dstshift mon, wkspec day [hh:mm] until mon, wkspec day
+#   name shift dstshift mon, wkspec day [hh:mm] until mon, wkspec day [hh:mm] 
+
+one: +1:00
+
+    # illustrates redefine-warning:
+one:   +1:00 =
+
+two:   +1:00 +1:00
+three: +1:00 +1:00 Mar, last Sun       until Oct, last Sun
+four:  +1:00 +1:00 Mar, last Sun       until Oct, last Sun 03:00
+five:  +1:00 +1:00 Mar, last Sun 02:00 until Oct, last Sun
+six:   +1:00 +1:00 Mar, last Sun 02:00 until Oct, last Sun 03:00
+seven: +1:00 =     Mar, last Sun 02:00 until Oct, last Sun 03:00
+
+
+
+

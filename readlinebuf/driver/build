@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# CMD="g++ --std=c++2a -o driver -Wall -I../../tmp driver.cc -L../../tmp/lib \
+#                                                     -lreadline -lbobcat -s"
+
+tput clear
+
+GPP="g++ --std=c++2a"
+
+#   Using tmp libraries and bobcat
+CMD="$GPP -o driver -Wall -I../../tmp driver.cc \
+    -L../tmp -lreadlinebuf \
+    -lreadline -lbobcat -s"
+
+echo $CMD
+$CMD

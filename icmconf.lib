@@ -1,0 +1,15 @@
+// #define PRECOMP             "-x c++-header"
+
+#define CLS
+#define SOURCES             "*.cc"
+#define OBJ_EXT             ".o"
+#define TMP_DIR             "tmp"
+#define USE_ECHO              ON
+#define IH                  ".ih"
+#define CXX                 "g++"
+#define CXXFLAGS            " --std=c++2a -Wall -O2 -I../tmp" \
+                                " -fdiagnostics-color=never $EXTRAFLAGS"
+#define ADD_LIBRARIES       "bobcat"
+#define ADD_LIBRARY_PATHS   ""
+
+#define DEFCOM     "library"

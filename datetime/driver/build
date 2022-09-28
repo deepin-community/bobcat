@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# -I../../tmp -fconcepts \
+
+g++ --std=c++2a -Wall -pthread \
+    -fdiagnostics-color=never \
+    $1 \
+    -L../tmp -ldatetime \
+    -lbobcat
+
+#    -L/tmp -lbob -s
+

@@ -1,0 +1,14 @@
+#include "multibuf"
+
+#include <algorithm>
+
+#include "../exception/exception"
+
+using namespace std;
+using namespace FBB;
+
+struct MultiBuf::Insert
+{
+    std::string &buffer;
+    bool ok;
+};

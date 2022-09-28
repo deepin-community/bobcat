@@ -1,0 +1,44 @@
+#ifndef INCLUDED_HMACBUF_
+#define INCLUDED_HMACBUF_
+
+#include <openssl/hmac.h>
+
+#include <bobcat/eoibuf>
+
+namespace FBB
+{
+
+class HMacBuf: public EoiBuf
+{
+    friend std::ostream &operator<<(std::ostream &out, 
+                                    HMacBuf const &hmacbuf);
+
+    HMAC_CTX     *d_ctx = 0;
+    EVP_MD const *d_md;
+    std::string   d_digest;
+
+    std::string   d_key;
+
+    public:
+        HMacBuf(std::string const &key, 
+                char const *type, size_t bufsize = 1024);
+
+        void reset();
+        void eoi();
+
+        std::string const &hash() const;
+
+    private:
+        int overflow(int c) override;
+        void eoi_() override;                       // .cc
+
+};
+
+std::ostream &operator<<(std::ostream &out, HMacBuf const &hmacbuf);
+
+}   // FBB
+        
+#endif
+
+
+

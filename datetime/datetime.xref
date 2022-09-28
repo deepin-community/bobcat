@@ -1,0 +1,359 @@
+oxref by Frank B. Brokken (f.b.brokken@rug.nl)
+oxref V2.00.00 2012-2019
+
+CREATED Thu, 01 Jul 2021 06:30:53 +0000
+CROSS REFERENCE FOR: -r replace -fxs tmp/libdatetime.a 
+
+----------------------------------------------------------------------
+CROSS REFERENCE LISTING:
+
+add(std::string&, std::string const&)
+  Full name: FBB::DateTime::Zone::add(std::string&, std::string const&)
+  Source:    zoneadd.cc 
+  Used By:
+    zonedata.cc: FBB::DateTime::Zone::data(std::string const&, std::string, std::string, std::string, std::string)
+
+addZone(std::string const&, std::string const&, unsigned int)
+  Full name: FBB::DateTime::Zone::addZone(std::string const&, std::string const&, unsigned int)
+  Source:    zoneaddzone.cc 
+  Used By:
+    zoneread.cc: FBB::DateTime::Zone::read(std::string const&)
+
+assignTM() const
+  Full name: FBB::DateTime::assignTM() const
+  Source:    assigntm.cc 
+  Used By:
+    datetime10.cc: FBB::DateTime::DateTime(tm const&, FBB::DateTime::Zone const&)
+    datetime13.cc: FBB::DateTime::DateTime(std::istream&, FBB::DateTime::TimeType)
+    datetime6.cc: FBB::DateTime::DateTime(long, FBB::DateTime::TimeType)
+    datetime9.cc: FBB::DateTime::DateTime(tm const&, FBB::DateTime::TimeType)
+    opaddis1.cc: FBB::DateTime::operator+=(std::chrono::seconds)
+    opaddis2.cc: FBB::DateTime::operator+=(tm const&)
+    opsubis1.cc: FBB::DateTime::operator-=(std::chrono::seconds)
+    opsubis2.cc: FBB::DateTime::operator-=(tm const&)
+    setfields.cc: FBB::DateTime::setFields(tm const&, FBB::DateTime::TimeFields)
+    setutcseconds.cc: FBB::DateTime::setUTCseconds(long)
+    setzone.cc: FBB::DateTime::setZone(FBB::DateTime::Zone const&)
+
+checkDST(std::string const&, std::string&, std::string&)
+  Full name: FBB::DateTime::Zone::checkDST(std::string const&, std::string&, std::string&)
+  Source:    zonecheckdst.cc 
+  Used By:
+    zonedata.cc: FBB::DateTime::Zone::data(std::string const&, std::string, std::string, std::string, std::string)
+
+clockTime(std::ostream&) const
+  Full name: FBB::DateTime::clockTime(std::ostream&) const
+  Source:    clocktime.cc 
+  Used By:
+    rfc2822.cc: FBB::DateTime::rfc2822() const
+    rfc3339.cc: FBB::DateTime::rfc3339() const
+
+convert(std::string const&)
+  Full name: FBB::DateTime::Zone::convert(std::string const&)
+  Source:    zoneconvert.cc 
+  Used By:
+    zonecheckdst.cc: FBB::DateTime::Zone::checkDST(std::string const&, std::string&, std::string&)
+
+data(std::string const&, std::string, std::string, std::string, std::string)
+  Full name: FBB::DateTime::Zone::data(std::string const&, std::string, std::string, std::string, std::string)
+  Source:    zonedata.cc 
+  Used By:
+    zone2.cc: FBB::DateTime::Zone::Zone(std::string const&)
+    zone3.cc: FBB::DateTime::Zone::Zone(std::string const&, std::string const&, std::string const&, std::string const&)
+    zonestoreiuo.cc: FBB::DateTime::Zone::storeIUO(std::string const&, std::string const&, std::string const&, std::string const&, std::string const&)
+
+dateR()
+  Full name: FBB::DateTime::Parse::dateR()
+  Source:    parsedater.cc 
+  Used By:
+    parsefromdayname.cc: FBB::DateTime::Parse::fromDayName()
+
+DateTime(FBB::DateTime::TimeType)
+  Full name: FBB::DateTime::DateTime(FBB::DateTime::TimeType)
+  Source:    datetime1.cc 
+  Used By:
+    datetime9.cc: FBB::DateTime::DateTime(tm const&, FBB::DateTime::TimeType)
+
+DateTime(long, FBB::DateTime::TimeType)
+  Full name: FBB::DateTime::DateTime(long, FBB::DateTime::TimeType)
+  Source:    datetime6.cc 
+  Used By:
+    datetime1.cc: FBB::DateTime::DateTime(FBB::DateTime::TimeType)
+
+DateTime(long, FBB::DateTime::Zone const&)
+  Full name: FBB::DateTime::DateTime(long, FBB::DateTime::Zone const&)
+  Source:    datetime8.cc 
+  Used By:
+    datetime10.cc: FBB::DateTime::DateTime(tm const&, FBB::DateTime::Zone const&)
+
+DateTime(std::istream&, FBB::DateTime::TimeType)
+  Full name: FBB::DateTime::DateTime(std::istream&, FBB::DateTime::TimeType)
+  Source:    datetime13.cc 
+  Used By:
+    datetime12.cc: FBB::DateTime::DateTime(std::string const&, FBB::DateTime::TimeType)
+    opextract.cc: FBB::operator>>(std::istream&, FBB::DateTime&)
+
+dstConcatenate(StingVector::const_iterator, StingVector::const_iterator)
+  Full name: FBB::DateTime::Zone::dstConcatenate(StingVector::const_iterator, StingVector::const_iterator)
+  Source:    zonedstconcatenate.cc 
+  Used By:
+    zonedstfromvector.cc: FBB::DateTime::Zone::dstFromVector(StringVector const&)
+
+dstFromVector(StringVector const&)
+  Full name: FBB::DateTime::Zone::dstFromVector(StringVector const&)
+  Source:    zonedstfromvector.cc 
+  Used By:
+    zoneaddzone.cc: FBB::DateTime::Zone::addZone(std::string const&, std::string const&, unsigned int)
+
+fromDayName()
+  Full name: FBB::DateTime::Parse::fromDayName()
+  Source:    parsefromdayname.cc 
+  Used By:
+    parse1.cc: FBB::DateTime::Parse::Parse(std::istream&, tm&)
+
+fromMonth()
+  Full name: FBB::DateTime::Parse::fromMonth()
+  Source:    parsefrommonth.cc 
+  Used By:
+    parsefromdayname.cc: FBB::DateTime::Parse::fromDayName()
+
+fromYear()
+  Full name: FBB::DateTime::Parse::fromYear()
+  Source:    parsefromyear.cc 
+  Used By:
+    parse1.cc: FBB::DateTime::Parse::Parse(std::istream&, tm&)
+
+get(std::string const&)
+  Full name: FBB::DateTime::Zone::get(std::string const&)
+  Source:    zoneget.cc 
+  Used By:
+    datetime13.cc: FBB::DateTime::DateTime(std::istream&, FBB::DateTime::TimeType)
+    datetime6.cc: FBB::DateTime::DateTime(long, FBB::DateTime::TimeType)
+    zone2.cc: FBB::DateTime::Zone::Zone(std::string const&)
+
+initialize()
+  Full name: FBB::DateTime::Zone::initialize()
+  Source:    zoneinitialize.cc 
+  Used By:
+    zoneget.cc: FBB::DateTime::Zone::get(std::string const&)
+
+negate(std::string&)
+  Full name: FBB::DateTime::Zone::negate(std::string&)
+  Source:    zonenegate.cc 
+  Used By:
+    zonedata.cc: FBB::DateTime::Zone::data(std::string const&, std::string, std::string, std::string, std::string)
+
+Parse(std::istream&, tm&)
+  Full name: FBB::DateTime::Parse::Parse(std::istream&, tm&)
+  Source:    parse1.cc 
+  Used By:
+    datetime13.cc: FBB::DateTime::DateTime(std::istream&, FBB::DateTime::TimeType)
+
+requireAlpha(std::string const&)
+  Full name: FBB::DateTime::Zone::requireAlpha(std::string const&)
+  Source:    zonerequirealpha.cc 
+  Used By:
+    zone2.cc: FBB::DateTime::Zone::Zone(std::string const&)
+    zonestore.cc: FBB::DateTime::Zone::store(std::string const&, std::string const&, std::string const&, std::string const&, std::string const&)
+
+resetTZ()
+  Full name: FBB::DateTime::resetTZ()
+  Source:    resettz.cc 
+  Used By:
+    assigntm.cc: FBB::DateTime::assignTM() const
+    utcforzone.cc: FBB::DateTime::utcForZone(std::string const&, tm&)
+    zonezoneseconds2.cc: FBB::DateTime::Zone::zoneSeconds(std::string const&)
+
+s_anon
+  Full name: FBB::DateTime::Zone::s_anon
+  Source:    data.cc 
+  Used By:
+    zone2.cc: FBB::DateTime::Zone::Zone(std::string const&)
+    zone3.cc: FBB::DateTime::Zone::Zone(std::string const&, std::string const&, std::string const&, std::string const&)
+
+s_day
+  Full name: FBB::DateTime::s_day
+  Source:    data.cc 
+  Used By:
+    rfc2822.cc: FBB::DateTime::rfc2822() const
+    zoneconvert.cc: FBB::DateTime::Zone::convert(std::string const&)
+
+s_defaultTZ
+  Full name: FBB::DateTime::Zone::s_defaultTZ
+  Source:    data.cc 
+  Used By:
+    zoneinitialize.cc: FBB::DateTime::Zone::initialize()
+
+s_month
+  Full name: FBB::DateTime::s_month
+  Source:    data.cc 
+  Used By:
+    parsesetmonth.cc: FBB::DateTime::Parse::setMonth(std::string const&)
+    rfc2822.cc: FBB::DateTime::rfc2822() const
+    zoneconvert.cc: FBB::DateTime::Zone::convert(std::string const&)
+
+s_mutex
+  Full name: FBB::DateTime::Zone::s_mutex
+  Source:    data.cc 
+  Used By:
+    zoneget.cc: FBB::DateTime::Zone::get(std::string const&)
+    zonestore.cc: FBB::DateTime::Zone::store(std::string const&, std::string const&, std::string const&, std::string const&, std::string const&)
+
+s_this
+  Full name: FBB::DateTime::Zone::s_this
+  Source:    data.cc 
+  Used By:
+    zonethiszone.cc: FBB::DateTime::Zone::thisZone()
+
+s_thisZoneShift
+  Full name: FBB::DateTime::Zone::s_thisZoneShift
+  Source:    data.cc 
+  Used By:
+    zoneget.cc: FBB::DateTime::Zone::get(std::string const&)
+
+s_utc
+  Full name: FBB::DateTime::Zone::s_utc
+  Source:    data.cc 
+  Used By:
+    zoneinitialize.cc: FBB::DateTime::Zone::initialize()
+
+s_zone
+  Full name: FBB::DateTime::Zone::s_zone
+  Source:    data.cc 
+  Used By:
+    zoneaddzone.cc: FBB::DateTime::Zone::addZone(std::string const&, std::string const&, unsigned int)
+    zoneget.cc: FBB::DateTime::Zone::get(std::string const&)
+    zonestoreiuo.cc: FBB::DateTime::Zone::storeIUO(std::string const&, std::string const&, std::string const&, std::string const&, std::string const&)
+
+seconds(std::string const&)
+  Full name: FBB::DateTime::Zone::seconds(std::string const&)
+  Source:    zoneseconds.cc 
+  Used By:
+    zoneadd.cc: FBB::DateTime::Zone::add(std::string&, std::string const&)
+
+seconds2str(long)
+  Full name: FBB::DateTime::seconds2str(long)
+  Source:    seconds2str.cc 
+  Used By:
+    datetime13.cc: FBB::DateTime::DateTime(std::istream&, FBB::DateTime::TimeType)
+    zonethiszone.cc: FBB::DateTime::Zone::thisZone()
+
+setDay(int)
+  Full name: FBB::DateTime::setDay(int)
+  Source:    setday.cc 
+  Used By:
+    setweekday.cc: FBB::DateTime::setWeekday(FBB::DateTime::Weekday, FBB::DateTime::Relative)
+
+setFields(tm const&, FBB::DateTime::TimeFields)
+  Full name: FBB::DateTime::setFields(tm const&, FBB::DateTime::TimeFields)
+  Source:    setfields.cc 
+  Used By:
+    setday.cc: FBB::DateTime::setDay(int)
+    sethours.cc: FBB::DateTime::setHours(int)
+    setminutes.cc: FBB::DateTime::setMinutes(int)
+    setmonth1.cc: FBB::DateTime::setMonth(int)
+    setmonth3.cc: FBB::DateTime::setMonth(FBB::DateTime::Month, FBB::DateTime::Relative)
+    setseconds.cc: FBB::DateTime::setSeconds(int)
+    setyear.cc: FBB::DateTime::setYear(unsigned int)
+
+setMonth(std::string const&)
+  Full name: FBB::DateTime::Parse::setMonth(std::string const&)
+  Source:    parsesetmonth.cc 
+  Used By:
+    parsedater.cc: FBB::DateTime::Parse::dateR()
+    parsefrommonth.cc: FBB::DateTime::Parse::fromMonth()
+
+setTZ(std::string const&)
+  Full name: FBB::DateTime::setTZ(std::string const&)
+  Source:    settz.cc 
+  Used By:
+    assigntm.cc: FBB::DateTime::assignTM() const
+    utcforzone.cc: FBB::DateTime::utcForZone(std::string const&, tm&)
+    zonezoneseconds2.cc: FBB::DateTime::Zone::zoneSeconds(std::string const&)
+
+setZone(FBB::DateTime::Zone const&)
+  Full name: FBB::DateTime::setZone(FBB::DateTime::Zone const&)
+  Source:    setzone.cc 
+  Used By:
+    datetime8.cc: FBB::DateTime::DateTime(long, FBB::DateTime::Zone const&)
+
+setZoneShift(bool, int, int)
+  Full name: FBB::DateTime::Parse::setZoneShift(bool, int, int)
+  Source:    parsesetzoneshift.cc 
+  Used By:
+    parsedater.cc: FBB::DateTime::Parse::dateR()
+    parsefromyear.cc: FBB::DateTime::Parse::fromYear()
+
+stdFind(char const**, int, std::string const&)
+  Full name: FBB::DateTime::stdFind(char const**, int, std::string const&)
+  Source:    stdfind.cc 
+  Used By:
+    parsesetmonth.cc: FBB::DateTime::Parse::setMonth(std::string const&)
+    zoneconvert.cc: FBB::DateTime::Zone::convert(std::string const&)
+
+store(std::string const&, std::string const&, std::string const&, std::string const&, std::string const&)
+  Full name: FBB::DateTime::Zone::store(std::string const&, std::string const&, std::string const&, std::string const&, std::string const&)
+  Source:    zonestore.cc 
+  Used By:
+    zoneaddzone.cc: FBB::DateTime::Zone::addZone(std::string const&, std::string const&, unsigned int)
+
+storeIUO(std::string const&, std::string const&, std::string const&, std::string const&, std::string const&)
+  Full name: FBB::DateTime::Zone::storeIUO(std::string const&, std::string const&, std::string const&, std::string const&, std::string const&)
+  Source:    zonestoreiuo.cc 
+  Used By:
+    zoneinitialize.cc: FBB::DateTime::Zone::initialize()
+    zonestore.cc: FBB::DateTime::Zone::store(std::string const&, std::string const&, std::string const&, std::string const&, std::string const&)
+    zonethiszone.cc: FBB::DateTime::Zone::thisZone()
+
+thisZone()
+  Full name: FBB::DateTime::Zone::thisZone()
+  Source:    zonethiszone.cc 
+  Used By:
+    zoneinitialize.cc: FBB::DateTime::Zone::initialize()
+
+timeException()
+  Full name: FBB::DateTime::timeException()
+  Source:    timeexception.cc 
+  Used By:
+    parse1.cc: FBB::DateTime::Parse::Parse(std::istream&, tm&)
+    setmonth3.cc: FBB::DateTime::setMonth(FBB::DateTime::Month, FBB::DateTime::Relative)
+
+utcForZone(std::string const&, tm&)
+  Full name: FBB::DateTime::utcForZone(std::string const&, tm&)
+  Source:    utcforzone.cc 
+  Used By:
+    opaddis2.cc: FBB::DateTime::operator+=(tm const&)
+    opsubis2.cc: FBB::DateTime::operator-=(tm const&)
+    rfc2822.cc: FBB::DateTime::rfc2822() const
+    rfc3339.cc: FBB::DateTime::rfc3339() const
+    setfields.cc: FBB::DateTime::setFields(tm const&, FBB::DateTime::TimeFields)
+    utcfromtm.cc: FBB::DateTime::utcFromTM(tm&) const
+
+utcFromTM(tm&) const
+  Full name: FBB::DateTime::utcFromTM(tm&) const
+  Source:    utcfromtm.cc 
+  Used By:
+    datetime10.cc: FBB::DateTime::DateTime(tm const&, FBB::DateTime::Zone const&)
+    datetime13.cc: FBB::DateTime::DateTime(std::istream&, FBB::DateTime::TimeType)
+    datetime9.cc: FBB::DateTime::DateTime(tm const&, FBB::DateTime::TimeType)
+
+Zone(std::string const&)
+  Full name: FBB::DateTime::Zone::Zone(std::string const&)
+  Source:    zone2.cc 
+  Used By:
+    datetime13.cc: FBB::DateTime::DateTime(std::istream&, FBB::DateTime::TimeType)
+
+zoneSeconds()
+  Full name: FBB::DateTime::Zone::zoneSeconds()
+  Source:    zonezoneseconds1.cc 
+  Used By:
+    zonezoneseconds2.cc: FBB::DateTime::Zone::zoneSeconds(std::string const&)
+
+zoneSeconds(std::string const&)
+  Full name: FBB::DateTime::Zone::zoneSeconds(std::string const&)
+  Source:    zonezoneseconds2.cc 
+  Used By:
+    zone2.cc: FBB::DateTime::Zone::Zone(std::string const&)
+    zonedata.cc: FBB::DateTime::Zone::data(std::string const&, std::string, std::string, std::string, std::string)
+
+

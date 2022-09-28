@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#g++ `cat ../../c++std` -pthread -o driver --static driver.cc -L../../tmp/lib -lbobcat
+g++ `cat ../../c++std` -pthread -o driver driver.cc -lbobcat

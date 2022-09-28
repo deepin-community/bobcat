@@ -1,0 +1,24 @@
+#ifndef INCLUDED_BOBCAT_SEP_
+#define INCLUDED_BOBCAT_SEP_
+
+#include <string>
+
+namespace FBB
+{
+
+class Sep: private std::string
+{
+    friend class CSVTabIns;
+
+    public:
+        Sep(std::string const &sep);
+};
+
+inline Sep::Sep(std::string const &sep)
+:
+    std::string(sep)
+{}
+
+} // FBB        
+
+#endif

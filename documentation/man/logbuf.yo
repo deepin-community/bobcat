@@ -1,0 +1,146 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::LogBuf)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (log messages stream buffer)
+
+manpagename(FBB::LogBuf)( bf(std::streambuf) handling log messages)
+
+manpagesynopsis()
+    bf(#include <bobcat/logbuf>)nl()
+    Linking option: tt(-lbobcat) 
+
+manpagedescription()
+
+    bf(FBB::LogBuf) is a class derived from bf(std::streambuf) handling log
+messages. The stream to log to, timestamps and log-levels can be configured
+both at construction time and beyond. The bf(FBB::LogBuf) may be used to
+initialize a bf(std::ostream). 
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    bf(std::streambuf)
+
+manpagesection(ENUMERATIONS)
+    The enumeration bf(TimeStamps) is defined in the namespace bf(FBB) to be
+used when initializing bf(FBB::LogBuf) objects. It has the following
+values:
+    itemization(
+    itb(NOTIMESTAMPS)
+        Log-messages will not have timestamps prepended to them.
+    itb(TIMESTAMPS)
+        Log-messages will have timestamps prepended to them.
+    itb(UTCTIMESTAMPS)
+        Log-messages will have timestamps showing the UTC time prepended to
+        them.
+    )
+
+    The enumeration tt(Active) is used to distinguish between suspending
+message insertion when a message's level does not exceed a minimum level and
+suspending all message insertions (e.g., when suspending inserting messages
+into bf(FBB::Log) objects after calling their tt(off) member:
+    itemization(
+    itb(OFF)
+        All insertions into the tt(LogBuf) object are suspended;
+    itb(NOT_ACTIVE)
+        Insertions of messages into the tt(LogBuf) object are suspended if
+        their levels are less than the a specified minimum (as set by, e.g.,
+        tt(Log::setLevel)). 
+    itb(ACTIVE)
+        Messages are inserted
+    )
+   
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(LogBuf(TimeStamps timestamps = TIMESTAMPS,
+                bool active = true,
+                char const *delim = " "))
+        This constructor constructs an bf(FBB::LogBuf) object writing its
+log-messages to bf(std::cerr). If the bf(active) parameter is initialized to
+bf(false) no messages will be logged until the buffer's activity is switched
+on (see bf(setActive()) below).  The parameter bf(delim) is inserted
+immediately beyond the time stamp. If a delimiter is inappropriate, an empty
+string or a 0-pointer may be specified. When bf(stamps == FBB::NOTIMESTAMPS
+delim) is ignored. A time stamp consists of the month, the day number of the
+month and the (local) time of the current message, as usually appearing in
+messages in tt(/var/log) files. E.g., tt(Aug 5 13:52:23);
+
+        itb(LogBuf(std::ostream &stream, 
+                TimeStamps timestamps = TIMESTAMPS,
+                bool active = true,
+                char const *delim = " "))
+        This constructor constructs an bf(FBB::LogBuf) object writing its
+log-messages to the stream used to initialize its bf(stream) parameter. If the
+bf(active) parameter is initialized to bf(false) no messages will be logged
+until the buffer's activity is switched on (see bf(setActive()) below). The
+parameter bf(delim) is inserted immediately beyond the time stamp. If a
+delimiter is inappropriate, an empty string or a 0-pointer may be
+specified. When bf(stamps == FBB::NOTIMESTAMPS delim) is ignored. A time stamp
+consists of the month, the day number of the month and the (local) time of the
+current message, as usually appearing in messages in tt(/var/log) files. E.g.,
+tt(Aug 5 13:52:23).
+    )
+
+    Copy and move constructors (and assignment operators) are not available.
+
+manpagesection(PUBLIC MEMBER FUNCTIONS)
+     All members of bf(std::streambuf) are available, as bf(FBB::LogBuf)
+inherits from this class. 
+    itemization(
+    itb(bool active() const)
+        Returns tt(true) if log-messages are currently processed;
+
+    itb(bool empty() const)
+        Returns tt(true) if the object's buffer is currently empty (initially
+or after a newline character has been inserted);
+
+    itb(void setStream(std::ostream &stream))
+        This member may be used to switch the stream to log to. It is the
+responsibility of the programmer to ensure that the external stream remains
+available for as long as log-messages are inserted into it;
+
+    itb(void settimestamp(FBB::TimeStamps timestamps,
+                char const *delim = " "))
+        The member function (de)activates time stamp prepending. Use the value
+bf(FBB::TIMESTAMPS) to prepend time stamps, bf(FBB::NOTIMESTAMPS) suppresses
+time stamps.   A time stamp consists of the month, the day number of the month
+and the (local) time of the current message, as usually appearing in messages
+in tt(/var/log) files. E.g., tt(Aug 5 13:52:23). The parameter bf(delim) is
+inserted immediately beyond the time stamp. If a delimiter is inappropriate,
+an empty string or a 0-pointer may be specified. When bf(stamps ==
+FBB::NOTIMESTAMPS delim) is ignored;
+
+    itb(void setActive(bool active))
+        Unless the current object's tt(Active) state is tt(OFF) this member
+can be used to (de)activate logging. The argument bf(true) activates logging,
+the argument bf(false) deactivates it. If the current tt(Active) status is
+tt(OFF) then this member does not change the object's activity status. This
+member is normally called by bf(FBB::Log::level) members;
+
+    itb(void setActive(Active active))
+        The member function (de)activates logging. The argument bf(ACTIVE)
+activates logging, the argument bf(OFF) completely suppresses logging, the
+argument tt(NOT_ACTIVE) also suppresses logging, but here tt(setActive(true))
+can also be used reactivate logging;
+
+    itb(void setEmpty(bool empty))
+        This member may be called to ensure that a timestamp is inserted
+before the next insertion. It is called as bf(setEmpty(true)) when a newline
+character (tt(\n)) is inserted, ensuring that another timestamp is prepended
+before the next insertion.
+    )
+
+manpagesection(EXAMPLE)
+    verbinclude(../../logbuf/driver/driver.cc)
+
+manpagefiles()
+    em(bobcat/logbuf) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(log)(3bobcat)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

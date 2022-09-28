@@ -1,0 +1,54 @@
+#ifndef INCLUDED_BOBCAT_OMUTEXSTREAM_
+#define INCLUDED_BOBCAT_OMUTEXSTREAM_
+
+#include <ostream>
+#include <mutex>
+
+namespace FBB
+{
+
+class OMutexStream
+{
+    std::ostream &d_out;
+
+    public:
+        class Out;
+
+        explicit OMutexStream(std::ostream &out);
+
+        Out ostream() const;
+};
+
+class OMutexStream::Out: public std::ostream
+{
+    friend Out OMutexStream::ostream() const;
+
+    template <typename Tp>
+    friend Out operator<<(OMutexStream const &mstr, Tp &&tp);           // 1.f
+
+    template <typename Ret>
+    friend Out operator<<(OMutexStream const &mstr,                     // 2.f
+                          Ret &(*manip)(Ret &os));
+
+    static std::recursive_mutex s_mutex;
+
+    public:
+        ~Out();
+
+    private:
+        Out(OMutexStream const &mstr);              // 1.cc
+        Out(Out &&tmp);                         // 2.f
+};
+
+#include "omutexstream1.f"
+#include "ostream.f"
+#include "out2.f"
+#include "operatorinsert1.f"
+#include "operatorinsert2.f"
+
+}   // FBB
+
+#endif
+
+
+

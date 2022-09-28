@@ -1,0 +1,15 @@
+#include "ofoldbuf"
+
+#include <cstdio>
+#include <algorithm>
+
+#include "../exception/exception"
+
+using namespace std;
+using namespace FBB;
+
+#include "addnonws.f"
+#include "writews.f"
+#include "writenonws.f"
+#include "put.f"
+

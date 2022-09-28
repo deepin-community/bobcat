@@ -1,0 +1,113 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::Field)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (Number fields)
+
+manpagename(FBB::Field)(sets and retrieves offset based number fields)
+
+manpagesynopsis()
+    bf(#include <bobcat/field>)nl()
+
+manpagedescription()
+
+Numbers may contain offset-based sub-fields. E.g., a value like 12345 might
+consist of fields 12 and 345. Such fields can be considered offset-based,
+using end- and begin offsets in the number representations. In this example
+345 begins at digit position 0 (indicating the least significant digit of
+12345) and at digit position 3 the next field starts. Likewise, the field 12
+begins at digit position 3 and has ended at digit position 5.
+
+The tt(Field) class template provides facilities for retrieving and assigning
+position based values of existing numeric values of (currently) at most 64
+bits. 
+
+To represent such fields the following format is used:
+        verb(
+    Field<base, end, begin>::function(argument(s))
+        )
+    where tt(base) specifies the number system's base value, tt(end) specifies
+the (0-based) index position where the number field ends, and tt(begin)
+specifies the index position where the number field begins. Here are two
+examples, using the decimal number system:
+        verb(
+    Field<10, 3, 0>::get(12345)    // returns 345
+    Field<10, 5, 3>::get(12345)    // returns  12
+        )
+
+The decision to specify the tt(end) offset before (i.e., left of) the
+tt(begin) offset is based on the consideration that this corresponds to the
+standard way of looking at digit positions in numbers, where the end offset is
+found to the left of the begin offset.
+
+Values of fields can be retrieved, but they can also
+be set: to set a field's value the following format is used:
+        verb(
+    Field<10, 3, 1>::set(12345, 99)   // returns 12995
+    Field<10, 1, 0>::set(12345, 0)    // returns 12450
+        )
+    When values are assigned to fields the maximum width of the destination
+field is taken into account. When specifying 9999 instead of 99 in 
+the above example the returned value will still be 12995, as the destination
+field has a width of two digit positions. Likewise, specifying a smaller value
+sets the remaining (more significant) digits to 0:
+        verb(
+    Field<10, 3, 1>::set(12345, 9)    // returns 12095
+        )
+
+The class templates themselves are unaware of bases of number systems. Since
+0xdeaf equals the decimal value 57007 and 0xd equals 13, calling the above
+function as
+        verb(
+    Field<16, 1, 0>::set(76007, 13) 
+        )
+    returns the hexadecimal value tt(0xdead'). 
+
+The tt(Field) class template requires three non-type numeric arguments:
+    itemization(
+    itt(base), specifying the base of the number system;
+    itt(end), specifying the 0-based offset of the digit position where the
+        field has ended;
+    itt(begin), specifying the 0-based offset of the digit position where the
+        field begins;
+    )
+
+The class template is specialized for situations where tt(base) is a mere
+power of 2 (like 2, 4, 8, 16, ...) because in those cases bit-operations can
+be used which are faster than multiplications, divisions and modulo
+computation which are required when other number system bases are used.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(MEMBER FUNCTIONS)
+    itemization(
+    itb(uint64_t Field<base, end, begin>::get(uint64_t value))
+        tt(value) is interpreted as a value in the tt(base) number system, and
+using digit positions in that number system the value of the digits from
+offset tt(begin) to (but not including) offset tt(end) is returned;
+
+    itb(uint64_t Field<base, end, begin>::set(uint64_t value, uint64_t field))
+        tt(value) is interpreted as a value in the tt(base) number system, and
+using digit positions in that number system the digits from
+offset tt(begin) to (but not including) offset tt(end) are replaced by
+tt(field's) value. When the number of tt(fields's) digits (also using number
+system tt(base)) exceeds tt(end - begin) then those excess digits are
+ignored. 
+    )
+
+manpagesection(EXAMPLE)
+    See the examples in the bf(DESCRIPTION) section
+
+manpagefiles()
+    em(bobcat/field) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

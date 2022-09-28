@@ -1,0 +1,36 @@
+#ifndef INCLUDED_BOBCAT_IFILTERBUF_
+#define INCLUDED_BOBCAT_IFILTERBUF_
+
+#include <bobcat/eoibuf>
+
+namespace FBB
+{
+
+class IFilterBuf: public EoiBuf
+{
+    size_t d_maxSize;
+
+    char const *d_srcBegin = 0;
+    char const *d_srcEnd = 0;
+
+    public:
+        ~IFilterBuf() override;
+
+    protected:
+        IFilterBuf(size_t bufSize = 1000);
+        void setBuffer();                                   // .f
+
+    private:
+        virtual bool filter(char const **srcBegin, char const **srcEnd) = 0;
+
+        int underflow()             override;
+        std::streamsize showmanyc() override;
+        int pbackfail(int ch)       override;
+};
+
+#include "setbuffer.f"
+
+} // FBB        
+#endif
+
+

@@ -1,0 +1,81 @@
+Source: bobcat
+Section: libs
+Priority: optional
+Maintainer: Frank B. Brokken <f.b.brokken@rug.nl>
+Uploaders: George Danchev <danchev@spnet.net>,
+           tony mancill <tmancill@debian.org>
+Build-Depends: debhelper-compat (= 13),
+               icmake (>= 9.03.01),
+               libmilter-dev (>= 8.14.4-8),
+               libreadline-dev,
+               libssl-dev,
+               libx11-dev (>= 2:1.6.2-3),
+               yodl (>= 4.02.02)
+Standards-Version: 4.5.1
+Vcs-Browser: https://salsa.debian.org/debian/bobcat
+Vcs-Git: https://salsa.debian.org/debian/bobcat.git
+Homepage: https://fbb-git.gitlab.io/bobcat/
+Rules-Requires-Root: no
+
+Package: libbobcat5
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: run-time (shared) Bobcat library
+ The (shared) Bobcat library contains classes and templates used by, e.g., the
+ Stealth and Bisonc++ programs.
+ .
+ The Bobcat library contains a variety of C++ classes and templates, some of
+ them based on well-known Design Patterns. The library offers classes
+ handling, e.g.,
+    Child Processes, Forks, Pipes and Redirection
+    Command-to-Function associations
+    Command-line arguments and history handling
+    Command-line editing using streams
+    Configuration Files
+    Decryption and Encryption
+    Extended String Operations
+    Hash-tables
+    Integers of unlimited size
+    File-descriptor based streams (e.g. handle sockets using streams)
+    Mail headers and mail filtering (milters)
+    Message Digests
+    Pattern matching
+    Processes, Signals, Threads
+    Shared Memory
+    Single (Direct) Key Input
+    Syslog- and other kinds of messages
+    Temporary files
+    Universal Type Conversions (Templates)
+
+Package: libbobcat-dev
+Architecture: any
+Section: libdevel
+Depends: libbobcat5 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: headers and documentation for the Bobcat library
+ Headers and documentation of classes defined in the Bobcat library.
+ .
+ The Bobcat library contains a variety of C++ classes and templates, some of
+ them based on well-known Design Patterns. The library offers classes
+ handling, e.g.,
+    Child Processes, Forks, Pipes and Redirection
+    Command-to-Function associations
+    Command-line arguments
+    Command-line editing using streams
+    Configuration Files
+    Decryption and Encryption
+    Extended String Operations
+    Hash-tables
+    Integers of unlimited size
+    File-descriptor based streams (e.g. handle sockets using streams)
+    Mail headers and mail filtering (milters)
+    Message Digests
+    Pattern matching
+    Processes, Signals, Threads
+    Shared Memory
+    Single (Direct) Key Input
+    Syslog- and other kinds of messages
+    Temporary files
+    Universal Type Conversions (Templates)
+ .
+ The libbobcat-dev package contains the static library as well as header
+ files and manual pages of the Bobcat classes and templates.
