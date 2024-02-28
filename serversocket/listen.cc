@@ -6,7 +6,7 @@ void ServerSocket::listen(size_t backlog, bool blocking)
 
     if (d_msg)
         throw Exception{1} << d_msg;
-        
+
     int sock = socket();
 
     if (::listen(sock, backlog) < 0)
@@ -15,16 +15,15 @@ void ServerSocket::listen(size_t backlog, bool blocking)
     if (blocking)
         return;
 
-    if 
+    if
     (
         fcntl
         (
-            sock, 
-            F_SETFL, 
+            sock,
+            F_SETFL,
             fcntl(sock, F_GETFL, 0) | O_NONBLOCK
-        ) 
+        )
         == -1
     )
         throw Exception{} << name << ": " << errnodescr;
 }
-

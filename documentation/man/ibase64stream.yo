@@ -2,7 +2,7 @@ includefile(include/header)
 
 COMMENT(manpage, section, releasedate, archive, short name)
 manpage(FBB::IBase64Stream)(3bobcat)(_CurYrs_)
-(libbobcat-dev__CurVers_)  
+(libbobcat-dev__CurVers_)
                     (Base64 encoding/decoding std::istream)
 
 manpagename(FBB::IBase64Stream)
@@ -10,7 +10,7 @@ manpagename(FBB::IBase64Stream)
 
 manpagesynopsis()
     bf(#include <bobcat/ibase64stream>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::IBase64Stream) objects may be used to base64 encode or decrypt
@@ -27,7 +27,7 @@ includefile(include/namespace)
 
 manpagesection(INHERITS FROM)
     bf(FBB::IBase64Buf) (private), nl()
-    bf(std::istream) 
+    bf(std::istream)
 
 manpagesection(CONSTRUCTORS)
     itemization(
@@ -70,5 +70,3 @@ manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-
-

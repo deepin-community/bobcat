@@ -20,7 +20,7 @@ begins at digit position 3 and has ended at digit position 5.
 
 The tt(Field) class template provides facilities for retrieving and assigning
 position based values of existing numeric values of (currently) at most 64
-bits. 
+bits.
 
 To represent such fields the following format is used:
         verb(
@@ -47,7 +47,7 @@ be set: to set a field's value the following format is used:
     Field<10, 1, 0>::set(12345, 0)    // returns 12450
         )
     When values are assigned to fields the maximum width of the destination
-field is taken into account. When specifying 9999 instead of 99 in 
+field is taken into account. When specifying 9999 instead of 99 in
 the above example the returned value will still be 12995, as the destination
 field has a width of two digit positions. Likewise, specifying a smaller value
 sets the remaining (more significant) digits to 0:
@@ -59,9 +59,9 @@ The class templates themselves are unaware of bases of number systems. Since
 0xdeaf equals the decimal value 57007 and 0xd equals 13, calling the above
 function as
         verb(
-    Field<16, 1, 0>::set(76007, 13) 
+    Field<16, 1, 0>::set(76007, 13)
         )
-    returns the hexadecimal value tt(0xdead'). 
+    returns the hexadecimal value tt(0xdead').
 
 The tt(Field) class template requires three non-type numeric arguments:
     itemization(
@@ -95,7 +95,7 @@ using digit positions in that number system the digits from
 offset tt(begin) to (but not including) offset tt(end) are replaced by
 tt(field's) value. When the number of tt(fields's) digits (also using number
 system tt(base)) exceeds tt(end - begin) then those excess digits are
-ignored. 
+ignored.
     )
 
 manpagesection(EXAMPLE)

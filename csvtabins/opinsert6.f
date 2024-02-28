@@ -9,4 +9,3 @@ inline CSVTabIns &operator<<(CSVTabIns &&tab,
 {
     return tab << func;
 }
-

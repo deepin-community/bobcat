@@ -6,6 +6,8 @@
 #include <regex.h>
 #include <iostream>
 
+#include <bobcat/exception>
+
 //  match() throws an Errno when either the construction (i.e.,
 //  compilation of the pattern) or the match failed.
 //
@@ -34,7 +36,7 @@ namespace FBB
 
 class Pattern
 {
-    typedef std::pair<char const *, char const *> conversion;
+    using conversion = std::pair<char const *, char const *>;
 
     static conversion       s_patmod[];
     static size_t           s_sizeofPatmod;
@@ -61,11 +63,11 @@ class Pattern
     std::string             d_text;
     int                     d_matchOptions;
 
-    public:
-        typedef std::pair<std::string::size_type, std::string::size_type>
-            Position;
+    public: 
+        using Position = 
+                std::pair<std::string::size_type, std::string::size_type>;
 
-        //  define a pattern using a case-flag and number of 
+        //  define a pattern using a case-flag and number of
         //  ()-subexpressions. Compilation flags:
         //
         //  REG_EXTENDED
@@ -82,7 +84,7 @@ class Pattern
         //  REG_NEWLINE
         //      Match-any-character  operators  don't  match a newline.
         //
-        //      A non-matching list ([^...])  not containing a newline 
+        //      A non-matching list ([^...])  not containing a newline
         //      does not match a newline.
         //
         //      Match-beginning-of-line  operator  (^)  matches the
@@ -99,7 +101,7 @@ class Pattern
         Pattern(Pattern const &other);                  // 2.f
 
         explicit Pattern(std::string const &pattern,    // 3.cc
-                        bool caseSensitive = true, 
+                        bool caseSensitive = true,
                         size_t nSub = 10,
                         int options = REG_EXTENDED | REG_NEWLINE);
         Pattern(Pattern &&tmp);                         // 4
@@ -111,8 +113,8 @@ class Pattern
         Pattern &operator<<(int matchOption);
         bool operator<<(std::string const &text);
 
-        void setPattern(std::string const &pattern, 
-                        bool caseSensitive = true, 
+        void setPattern(std::string const &pattern,
+                        bool caseSensitive = true,
                         size_t nSub = 10,
                         int options = REG_EXTENDED | REG_NEWLINE);
 
@@ -122,7 +124,7 @@ class Pattern
         //  REG_NOTBOL
         //      The  match-beginning-of-line  operator always fails
         //      to match (but see the compilation flag  REG_NEWLINE
-        //      above)  This  flag  may be used when different portions 
+        //      above)  This  flag  may be used when different portions
         //      of a string are passed  to  regexec  and  the
         //      beginning  of  the string should not be interpreted
         //      as the beginning of the line.
@@ -142,10 +144,10 @@ class Pattern
             // (which may be 0)
 
             // position of subexpression
-        Position position(size_t index) const; 
+        Position position(size_t index) const;
 
             // subexpression itself
-        std::string operator[](size_t index) const; 
+        std::string operator[](size_t index) const;
         size_t end() const;           // index beyond the last available    .f
 
         std::string const &pattern() const; // compiled pattern
@@ -155,7 +157,7 @@ class Pattern
     private:
         void newRegex(std::string const &pattern, int options);         // .f
         void destroy();
-        void copy(Pattern const &other);    
+        void copy(Pattern const &other);
 };
 
 #include "pattern2.f"

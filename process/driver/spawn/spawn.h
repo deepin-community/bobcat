@@ -27,7 +27,7 @@ class Spawn: public FBB::Fork, public std::ostream// , public std::istream
 
     public:
         Spawn(std::string const &command);
-    
+
         void end();
 
     private:
@@ -35,10 +35,5 @@ class Spawn: public FBB::Fork, public std::ostream// , public std::istream
         void parentProcess() override;
         void childRedirections() override;
 };
-        
+
 #endif
-
-
-
-
-

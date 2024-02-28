@@ -11,7 +11,7 @@ class X2a: public std::ostringstream
     static bool s_lastFail;
 
     public:
-        template <typename T>                   // initialize from 
+        template <typename T>                   // initialize from
         X2a(T const &x);                        // (insertable) type       1.f
 
         X2a(X2a const &other);                                          // 2.f

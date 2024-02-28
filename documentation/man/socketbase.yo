@@ -8,7 +8,7 @@ manpagename(FBB::SocketBase)(Base class for socket-constructing classes)
 
 manpagesynopsis()
     bf(#include <bobcat/socketbase>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     This class is a base class for the bf(FBB::ServerSocket) and
@@ -22,11 +22,11 @@ manpagesection(INHERITS FROM)
 
 manpagesection(PROTECTED CONSTRUCTORS)
     itemization(
-    itb(SocketBase(size_t port)) 
+    itb(SocketBase(size_t port))
        This constructor creates a bf(SocketBase) to be used with
-        bf(ServerSocket)-objects, listening on tt(port).  
+        bf(ServerSocket)-objects, listening on tt(port).
 
-    itb(SocketBase(std::string const &host, uint16_t port)) 
+    itb(SocketBase(std::string const &host, uint16_t port))
        This constructor creates a bf(FBB::SocketBase) to be used with a
         bf(ClientSocket)-object, connecting to tt(hostname), at port
         `tt(port)'.
@@ -78,7 +78,7 @@ manpagesection(EXAMPLE)
     The classes tt(FBB::ClientSocket) and tt(FBB::ServerSocket) were derived
 from tt(SocketBase). E.g.,
     verbinclude(../../clientsocket/clientsocket)
-    
+
     See the bf(clientsocket)(3bobcat) man-page for an example showing how to
 use tt(FBB::ClientSocket).
 

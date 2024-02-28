@@ -8,14 +8,3 @@ SharedBuf::SharedBuf()
     setg(0, 0, 0);
     setp(0, 0);
 }
-
-
-
-
-
-
-
-
-
-
-

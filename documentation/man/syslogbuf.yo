@@ -8,7 +8,7 @@ manpagename(FBB::SyslogBuf)(A streambuf object inserting syslog messages)
 
 manpagesynopsis()
     bf(#include <bobcat/syslogbuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     Addresses of bf(FBB::SyslogBuf) objects can be passed as
@@ -21,7 +21,7 @@ command (e.g., after inserting tt(std::flush) or tt(std::endl)). Non-printable
 characters (like tt('\n')) show up in the syslog message as octal values,
 preceded by tt(#) (e.g., tt(#012) for tt('\n')). The newline normally inserted
 by tt(std::endl) is ignored: bf(SyslogStream) objects interpret tt(std::endl)
-like tt(std::flush). 
+like tt(std::flush).
 
 One series of insertions may contain multiple tt(std::endl) or tt(std::flush)
 manipulators. At each of these manipulators a new message is sent to the
@@ -74,7 +74,7 @@ processed by the syslog daemon;
 tt(setMask) call are processed by the syslog daemon;
     )
     By default, the syslog daemon processes all messages it receives.
-    
+
 
     bf(Facility):
 
@@ -89,7 +89,7 @@ bf(LOG_xxx) values used with bf(syslog)(3):
         other system daemons
     itb(KERN)
         kernel messages
-    itb(LOCAL0) 
+    itb(LOCAL0)
         reserved for local use. bf(LOCAL1) through bf(LOCAL7) are
         available as well.
     itb(LPR)
@@ -109,7 +109,7 @@ bf(LOG_xxx) values used with bf(syslog)(3):
 manpagesection(CONSTRUCTOR)
     itemization(
     itb(SyslogBuf(string const &ident = "",
-                FBB::Priority priority = FBB::NOTICE, 
+                FBB::Priority priority = FBB::NOTICE,
                 FBB::Facility facility = FBB::USER,
                 int option = 0))
         The tt(ident) parameter is usually the name of the program. Its
@@ -165,7 +165,7 @@ inherits from this class.
        Returns the next priority. I.e., the priority that will be used for
         the next message that is sent to the syslog daemon.
     itb(void reset(string const &ident,
-                FBB::Priority priority = FBB::NOTICE, 
+                FBB::Priority priority = FBB::NOTICE,
                 FBB::Facility facility = FBB::USER,
                 int option = 0))
        Redefines the current identifier, priority, facility and options that
@@ -228,4 +228,3 @@ constructor. It is the responsibility of the programmer to pass defined option
 values only.
 
 includefile(include/trailer)
-

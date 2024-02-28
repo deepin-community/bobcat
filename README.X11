@@ -4,7 +4,7 @@ the linker before the bobcat library is specified.
 
 E.g., use -lX11 -lbobcat
 
-If the bobcat library is specified before the X11 library the following 
+If the bobcat library is specified before the X11 library the following
 stand-in functions defined in the bobcat library will be used:
 
 	`XOpenDisplay'
@@ -27,15 +27,12 @@ symbols defined in the X11 library.
 However, if the X11 library is not used (e.g., Xpointer is not used) and if
 bobcat itself would not define the above symbols then those symbols would not
 be defined in the shared libraries inspected by the linker, producing linker
-errors. 
+errors.
 
 Although these errors could be prevented by specifying the option
 
-    -Wl,--allow-shlib-undefined 
+    -Wl,--allow-shlib-undefined
 
 requiring this option seems like a more complex instruction than requiring
 that when using the X11 library it must be specified before the bobcat
 library.
-
-
-

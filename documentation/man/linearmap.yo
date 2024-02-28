@@ -23,7 +23,7 @@ searching algorithms.
 standard tt(std::map), except for the tt(key_comp) and tt(value_comp)
 members. These latter two members are not available as ordering the keys is
 not an issue with the unordered, linear searching method which is used by
-bf(LinearMap). 
+bf(LinearMap).
 
 includefile(include/namespace)
 
@@ -39,12 +39,12 @@ manpagesection(TEMPLATE TYPES)
 tt(Value) types must support default and copy constructors and overloaded
 (copy) assignment operators.
 
-manpagesection(TYPEDEFS)
+manpagesection(USING SPECIFICATIONS)
     itemization(
-    itt(typedef std::pair<Key, Value>           value_type);
+    itt(using value_type =  std::pair<Key, Value>);
     itt(iterator) - an iterator to a bf(LinearMap) object's elements;
     itt(const_iterator)  - a tt(const_iterator) to a bf(LinearMap) object's
-     elements; 
+     elements;
     itt(reverse_iterator) - a tt(reverse_iterator) to a bf(LinearMap) object's
      elements;
     itt(const_reverse_iterator) - a tt(const_reverse_iterator) to a
@@ -83,30 +83,30 @@ as bf(LinearMap) is privately inherited from tt(std::vector).
 
 bf(LinearMap) offers the following member functions:
     itemization(
-    itb(Value &at(int idx)) 
+    itb(Value &at(int idx))
     returns a reference to the bf(LinearMap)'s tt(Value) that is associated
      with tt(key). If the tt(key) is not stored in the bf(LinearMap) then an
      bf(std::out_of_range) exception is thrown.
 
-    itb(iterator begin()) 
+    itb(iterator begin())
     returns an iterator pointing to the bf(LinearMap)'s first element.
 
     itb(size_t capacity())
     returns the number of elements that can be stored in the bf(LinearMap)
      before its capacity is enlarged.
 
-    itb(const_iterator cbegin() const) 
+    itb(const_iterator cbegin() const)
     returns a tt(const_iterator) pointing to the bf(LinearMap)'s first
      element.
 
-    itb(const_iterator cend() const) 
+    itb(const_iterator cend() const)
     returns a tt(const_iterator) pointing beyond the bf(LinearMap)'s last
      element.
 
     itb(void clear())
     erases all elements from the bf(LinearMap).
 
-    itb(size_t count(key)) 
+    itb(size_t count(key))
     returns 1 if the provided key is available in the bf(LinearMap), otherwise
      0 is returned.
 
@@ -137,17 +137,17 @@ bf(LinearMap) offers the following member functions:
     returns a pair of iterators, being respectively the return values of the
      member functions tt(lower_bound) and tt(upper_bound).
 
-    itb(bool erase(Key const &key)) 
+    itb(bool erase(Key const &key))
     erases the element having the given tt(key) from the
      bf(LinearMap). tt(True) is returned if the value was removed, tt(false)
      if the bf(LinearMap) did not contain an element using the given tt(key).
 
-    itb(void erase(iterator pos)) 
+    itb(void erase(iterator pos))
     erases the element at iterator position tt(pos).
 
-    itb(void erase(iterator begin, iterator end)) 
+    itb(void erase(iterator begin, iterator end))
     erases all elements indicated by the iterator range rangett(first,
-     beyond). 
+     beyond).
 
     itb(iterator find(Key const &key))
     returns an iterator to the element having the given key. If the element
@@ -161,7 +161,7 @@ bf(LinearMap) offers the following member functions:
     returns a copy of the allocator object used by the tt(bf(LinearMap))
      object.
 
-    itb(std::pair<iterator, bool> insert(value_type const &keyValue)) 
+    itb(std::pair<iterator, bool> insert(value_type const &keyValue))
     tries to inserts a new tt(value_type) object into the bf(LinearMap),
      returning a tt(std::pair<iterator, bool>).  If the returned ti(bool)
      field is tt(true), tt(keyValue) was inserted into the bf(LinearMap). The

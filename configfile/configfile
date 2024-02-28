@@ -12,10 +12,12 @@
 #include <string>
 #include <iterator>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
-class RE_iterator: public std::iterator<std::input_iterator_tag, std::string>
+struct RE_iterator
 {
     friend class ConfigFile_;
 
@@ -24,12 +26,19 @@ class RE_iterator: public std::iterator<std::input_iterator_tag, std::string>
 
     friend bool operator==(RE_iterator const &lhs, RE_iterator const &rhs);
 
-                            // contains iterators to lines matching REs
-    typedef std::vector<std::string>::const_iterator VsIterator;
-    typedef std::vector<VsIterator> VsIterVector;
+    using iterator_category = std::input_iterator_tag;
+    using difference_type   = std::ptrdiff_t;
+    using value_type        = std::string const;
+    using pointer           = value_type *;
+    using reference         = value_type &;
 
-    VsIterVector const &d_vsIter;
-    size_t d_idx;
+    private:
+                                // contains iterators to lines matching REs
+        using VsIterator = std::vector<std::string>::const_iterator;
+        using VsIterVector = std::vector<VsIterator>;
+
+        VsIterVector const &d_vsIter;
+        size_t d_idx;
 
     public:
         RE_iterator &operator++();
@@ -43,10 +52,11 @@ class RE_iterator: public std::iterator<std::input_iterator_tag, std::string>
 
 struct CFEnums_
 {
-        typedef RE_iterator const_RE_iterator;
-        typedef std::vector<std::string>::const_iterator const_iterator;
-        typedef std::pair<const_RE_iterator, const_RE_iterator> 
-                                                        RE_iteratorPair;
+        using const_RE_iterator = RE_iterator;
+        using const_iterator = std::vector<std::string>::const_iterator;
+        using RE_iteratorPair = 
+                        std::pair<const_RE_iterator, const_RE_iterator>;
+                                                        
 
         enum Comment
         {
@@ -77,14 +87,14 @@ class ConfigFile: public CFEnums_
                    Indices iType = IgnoreIndices);
                                                         // 2
         explicit ConfigFile(std::string const &fname,   // config file name
-                    Comment cType = KeepComment, 
+                    Comment cType = KeepComment,
                     SearchCasing sType = SearchCaseSensitive,
                     Indices iType = IgnoreIndices);
 
         ConfigFile(ConfigFile &&tmp);                   // 3
         ConfigFile(ConfigFile const &rhs);              // 4
 
-        ~ConfigFile();                          
+        ~ConfigFile();
 
         ConfigFile &operator=(ConfigFile &&tmp);
         ConfigFile &operator=(ConfigFile const &rhs);   // 2
@@ -105,7 +115,7 @@ class ConfigFile: public CFEnums_
 
         std::string findKey(std::string const &key, size_t count = 1) const;
 
-        std::string findKeyTail(std::string const &key, 
+        std::string findKeyTail(std::string const &key,
                                 size_t count = 1) const;
 
         size_t index(size_t lineNr);                        // 1
@@ -130,14 +140,3 @@ bool operator==(RE_iterator const &lhs, RE_iterator const &rhs);
 } // FBB
 
 #endif
-
-
-
-
-
-
-
-
-
-
-

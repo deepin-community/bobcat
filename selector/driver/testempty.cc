@@ -13,7 +13,7 @@ bool isEmpty(fd_set const *fdset)
 int main()
 {
     fd_set demo;
-    
+
     cout << isEmpty(&demo) << '\n';
 
     FD_ZERO(&demo);

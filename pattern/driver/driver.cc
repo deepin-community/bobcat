@@ -25,8 +25,8 @@ try
     Pattern p3(pattern);
 
     cout << "before:  " << p3.before() << "\n"
-            "matched: " << p3.matched() << "\n"  
-            "beyond:  " << pattern.beyond() << "\n"  
+            "matched: " << p3.matched() << "\n"
+            "beyond:  " << pattern.beyond() << "\n"
             "end() = " << pattern.end() << '\n';
 
     for (size_t idx = 0; idx != pattern.end(); ++idx)
@@ -39,7 +39,7 @@ try
         {
             Pattern::Position pos = pattern.position(idx);
 
-            cout << "part " << idx << ": '" << str << "' (" << 
+            cout << "part " << idx << ": '" << str << "' (" <<
                         pos.first << "-" << pos.second << ")\n";
         }
     }
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
                 cout << "String: '" << text << "'\n";
                 match(patt, text);
             }
-        }            
+        }
         catch (exception const &exc)
         {
             cout << exc.what() << ": compilation failed\n";

@@ -19,7 +19,7 @@ void logRecursive(string src, string dest)
         return;
     }
 
-    dirs = findAll("d", src, "");     // find all subdirs 
+    dirs = findAll("d", src, "");     // find all subdirs
 
     for (idx = listlen(dirs); idx--; ) // visit all subdirs
     {
@@ -29,7 +29,3 @@ void logRecursive(string src, string dest)
 
     logInstall(src, "", dest);
 }
-
-
-
-

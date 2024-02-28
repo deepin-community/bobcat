@@ -24,15 +24,15 @@ do
 
     echo $field >> $usingClasses            # write the class-name
 
-                                            # add indented names of all 
+                                            # add indented names of all
                                             # classes including the class-name
-                                            # in non .cc and .f files 
+                                            # in non .cc and .f files
                                             # so: header files
     grep "bobcat/$field>" \
 		    `find -mindepth 2 -maxdepth 2 -type f -name '*[^cf]'` |
         grep -v '/icmake\|:\s*//\s*#include' |
         sed 's,./\([^/]\+\).*,    \1,g' >> $usingClasses
-    
+
 done
 
 dependencies/tmp/bin/binary < $usingClasses > dependencies/required.classes
@@ -40,4 +40,3 @@ dependencies/tmp/bin/binary < $usingClasses > dependencies/required.classes
 cd dependencies
 
 icmbuild clean
-

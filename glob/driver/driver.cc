@@ -64,4 +64,3 @@ catch (exception const &err)
     cout << err.what() << '\n';
     return 1;
 }
-

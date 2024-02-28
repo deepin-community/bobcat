@@ -7,5 +7,3 @@ ISharedStream::ISharedStream(
     SharedBuf(maxSize, sizeUnit, openMode, access),
     istream(this)
 {}
-
- 

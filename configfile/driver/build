@@ -22,14 +22,9 @@ case $1 in
     echo $0 b links to bobcat built by 'build libraries all'
     echo $0 o links to the files in ../tmp/o
     echo $0 c links to the files in the current dir only
-    echo $0 l links to \*.cc, ../libconfig.a and std bobcat 
+    echo $0 l links to \*.cc, ../libconfig.a and std bobcat
     rm -f driver
     ;;
 esac
 
 rm -f configdir
-
-
-
-
-

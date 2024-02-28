@@ -18,7 +18,7 @@ int main()
 
     while (true)
     {
-        cout << 
+        cout <<
                 "\n"
                 " K             kill (no lock) existing shared segment\n"
                 " S             show stats of current shared segment\n"
@@ -63,7 +63,7 @@ int main()
                 cout << '\n';
             }
             break;
-        
+
             case 'C':
             {
                 sharedStream.seekp(0);
@@ -107,7 +107,7 @@ int main()
                 sharedStream.memInfo(cout);
                 cout << '\n';
             break;
-            
+
             case 's':
             {
                 size_t offset;
@@ -123,7 +123,7 @@ int main()
                         "tellp: " << sharedStream.tellp() << '\n';
             }
             break;
-            
+
             case 'i':
             {
                 string line;
@@ -135,14 +135,14 @@ int main()
                     if (not getline(cin, line) || line.empty())
                         break;
                     sharedStream << line << endl;
-                    cout << 
+                    cout <<
                             "   tellp: " << sharedStream.tellp() << '\n';
                 }
                     cout << // "   tellg: " << sharedStream.tellg() << ", "
                             "   tellp: " << sharedStream.tellp() << '\n';
             }
             break;
-                    
+
             case 'x':
             {
                 string line;
@@ -159,7 +159,7 @@ int main()
                 }
             }
             break;
-                    
+
             case 'X':
             {
                 SharedCondition cond(sharedStream.attachSharedCondition(0));
@@ -206,7 +206,7 @@ int main()
                 }
             }
             break;
-        
+
             case 'p':           // put a char behind the last written
             {
                 if (id == -1)
@@ -218,14 +218,14 @@ int main()
                 cin >> offset >> ch;
                 if (!cin)
                     throw Exception() << "cmd specification error";
-    
+
                 sharedStream.seekp(offset);
-                cout << "Segment id = " << id << " at write offset " << 
+                cout << "Segment id = " << id << " at write offset " <<
                                                     sharedStream.tellp() << '\n';
                 sharedStream.put(ch);
             }
             break;
-                
+
             case 'r':           // put a char behind the last written
             {
                 if (id == -1)
@@ -243,11 +243,11 @@ int main()
                 char buf[n];
 
                 sharedStream.seekg(offset);
-                cout << "Segment id = " << id << " at offset " << 
+                cout << "Segment id = " << id << " at offset " <<
                          sharedStream.tellg() << ", to read " << n << " bytes\n";
-    
+
                 n = sharedStream.read(buf, n).gcount();
-    
+
                 if (n < 0)
                     cout << "No data at " << offset << '\n';
                 else
@@ -255,14 +255,14 @@ int main()
                     cout << "Retrieved " << n << " bytes, containing `";
                     cout.write(buf, n);
                     cout << "'\n";
-    
+
                     for (auto ch: buf)
                         cout << static_cast<int>(ch) << ' ';
                     cout << '\n';
                 }
             }
             break;
-                
+
             case 'w':           // write chars at offset
             {
                 if (id == -1)
@@ -277,13 +277,13 @@ int main()
                 getline(cin, line);
                 if (!cin)
                     throw Exception() << "cmd specification error";
-    
+
                 streampos pos = sharedStream.seekp(offset).tellp();
 
-                cout << "Segment id = " << id << " at offset " << 
+                cout << "Segment id = " << id << " at offset " <<
                          pos << ", to write " << line.length() << " bytes\n";
-    
-                
+
+
                 sharedStream.write(line.data(), line.length());
 
                 if (!sharedStream)
@@ -292,7 +292,7 @@ int main()
                     cout << "Wrote " << (sharedStream.tellp() - pos) << " bytes\n";
             }
             break;
-                
+
             case 'q':
             return 0;
 
@@ -302,4 +302,3 @@ int main()
         }
     }
 }
-

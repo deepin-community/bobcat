@@ -34,6 +34,3 @@ string Stat::typeStr() const
 
     return ret;
 }
-
-
-    

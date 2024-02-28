@@ -4,13 +4,13 @@
     // stateDescription
 void PerlSetFSA::initialize(TransitionMatrix &stateDescription)
 {
-                                // statePtr points to the element matching 
+                                // statePtr points to the element matching
                                 // stateTransitions[]' element
-    statePair *statePtr = &s_transition[stateDescription.d_state]; 
+    StatePair *statePtr = &s_transition[stateDescription.d_state];
 
                                 // not yet initialized: both point to the
     if (!statePtr->first)       // first element in stateTransitions[]
-        *statePtr = statePair(&stateDescription, &stateDescription);
+        *statePtr = StatePair(&stateDescription, &stateDescription);
     else
        statePtr->second++;      // otherwise: there's another element: count
 }                               // the #elements of a state
@@ -30,6 +30,6 @@ PerlSetFSA::PerlSetFSA()
             auto &transit:          // visit each s_stateTransitions element
             ranger(s_stateTransitions, s_stateTransitions_end)
         )
-            initialize(transit);    
+            initialize(transit);
     }
 }

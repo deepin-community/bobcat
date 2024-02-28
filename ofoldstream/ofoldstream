@@ -14,7 +14,7 @@ namespace FBB
     // accessible' warnings since OFoldBuf also inherits from
     // OFoldBufBlanks and only one struct definition is needed in the
     // final OFoldStream class.
-class OFoldStream: virtual public OFoldBufEnums, 
+class OFoldStream: virtual public OFoldBufEnums,
                    private OFoldBuf, public std::ostream
 {
     public:
@@ -52,15 +52,11 @@ class OFoldStream: virtual public OFoldBufEnums,
 
 #include "leftmargin.f"
 #include "rightmargin.f"
-#include "setmargins.f"    
-#include "settrailingblanks.f"    
+#include "setmargins.f"
+#include "settrailingblanks.f"
 #include "useblanks.f"
 #include "usetabs.f"
 
 } // FBB
 
 #endif
-
-
-
-

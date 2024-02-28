@@ -14,14 +14,15 @@ class Table: public TableBase, public std::ostringstream
     friend Table &operator<<(Table &table, Type const &ref);
 
     public:
-        typedef std::string value_type;     // for C++-0x
-        typedef Element const &const_reference;  // required for push_back()
+                                        // required for push_back()
+        using value_type =  std::string;
+        using const_reference  =  Element const &;
 
         Table(size_t nColumns, FillDirection direction,             // 0
-                                WidthType widthType = COLUMNWIDTH); 
+                                WidthType widthType = COLUMNWIDTH);
 
         Table(TableSupport &tableSupport,                           // 1
-                size_t nColumns, FillDirection direction,             
+                size_t nColumns, FillDirection direction,
                 WidthType widthType = COLUMNWIDTH);
 
         Table(Table const &other) = delete;
@@ -34,8 +35,8 @@ class Table: public TableBase, public std::ostringstream
         void fill(InputIterator begin, InputIterator end);              // .f
 
         void push_back(Element const &element); // add an element to       .f
-                                                // the table, using the 
-                                                // default alignment. 
+                                                // the table, using the
+                                                // default alignment.
 
         Table &setAlign(Align const &align);    // set an alignment        .f
 
@@ -48,7 +49,7 @@ class Table: public TableBase, public std::ostringstream
     private:
         Table &flush();                     // insert the text currently
                                             // inserted into the Table object
-                                            // as ostringstream into the table 
+                                            // as ostringstream into the table
 };
 
 #include "clearstr.f"

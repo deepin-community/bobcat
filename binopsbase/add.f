@@ -1,6 +1,6 @@
 
 template <class Derived, typename Rhs>
-Derived &operator+=(BinopsBase<Derived> &lhs, Rhs const &rhs) 
+Derived &operator+=(BinopsBase<Derived> &lhs, Rhs const &rhs)
 {
     Derived tmp{ Derived{der(lhs)} += rhs };
     tmp.swap(der(lhs));
@@ -18,4 +18,3 @@ Derived operator+(BinopsBase<Derived> const &lhs, Rhs const &rhs)
 {
     return Derived{der(lhs)} += rhs;
 }
-

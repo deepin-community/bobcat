@@ -15,7 +15,7 @@ CGI::CGI(bool defaultEscape, char const *header, std::ostream &out)
     for (auto &target: ranger(d_escape, sizeof(d_escape) / sizeof(bool)))
         target = d_escapeValue;
 
-    d_escapeValue = !d_escapeValue;     // all changes will now change the 
+    d_escapeValue = !d_escapeValue;     // all changes will now change the
                                         // default
     setMethod();
 

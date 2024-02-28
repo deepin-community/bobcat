@@ -16,13 +16,13 @@ void run(int nr)
 {
     for (size_t idx = 0; idx != 3; ++idx)
     {
-        mout << "hello world 1 from thread " << nr << ": " << 
+        mout << "hello world 1 from thread " << nr << ": " <<
                 log(rand()) << endl;
 
         this_thread::sleep_for(
                 chrono::milliseconds(200 + rand() % 800));
 
-       mout << "hello world 2 from thread " << nr << ": " << 
+       mout << "hello world 2 from thread " << nr << ": " <<
                 log(rand()) << '\n';
 
         this_thread::sleep_for(
@@ -32,7 +32,7 @@ void run(int nr)
     auto out{ mout.ostream() };
     cout << nr << ": " << out.tellp() << '\n';
 }
-        
+
 int main()
 {
     srand(time(0));

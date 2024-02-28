@@ -14,4 +14,3 @@ Selector::Selector()
 
     d_max = 0;
 }
-

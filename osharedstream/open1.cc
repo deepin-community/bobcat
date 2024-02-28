@@ -8,4 +8,3 @@ void OSharedStream::open(
     setOpenMode(openMode);
     clear();
 }
-

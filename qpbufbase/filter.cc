@@ -16,4 +16,3 @@ bool QPBufBase::filter(char const **srcBegin, char const **srcEnd)
 
     return d_buffer.size();                     // any chars available: true
 }
-

@@ -5,7 +5,7 @@
         - obtaining a hostent struct from the GetHostent::gethostent()
             function,
         - providing it with the dotted-decimal address obtained from the
-            GetHostent::addressToString() function, 
+            GetHostent::addressToString() function,
         - which function is given the binary address obtained from the
             InetAddress parameter.
 */
@@ -21,10 +21,10 @@ Hostname::Hostname(InetAddress const &address)
     (
         GetHostent::gethostent
         (
-            ::name, 
+            ::name,
             GetHostent::addressToString
             (
-                ::name, 
+                ::name,
                 address.sockaddrPtr()
             )
         )
@@ -32,4 +32,3 @@ Hostname::Hostname(InetAddress const &address)
 {
     init();
 }
-

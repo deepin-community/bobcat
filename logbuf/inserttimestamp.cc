@@ -3,7 +3,7 @@
 void LogBuf::insertTimestamp()
 {
     time_t curtime = time(0);
-    struct tm *timestruct = 
+    struct tm *timestruct =
         (d_timestamps == TIMESTAMPS ? localtime : gmtime)(&curtime);
 
     char buffer[256];       // see time functions example of `info libc'

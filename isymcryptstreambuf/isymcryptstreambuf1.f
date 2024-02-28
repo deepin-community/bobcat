@@ -1,15 +1,19 @@
+template <typename StreamSpec>
 inline ISymCryptStreambuf<ENCRYPT>::ISymCryptStreambuf(
-                    std::istream &in,       char const *type,
-                    std::string const &key, std::string const &iv,
-                    size_t bufSize,         size_t filterBufSize,
-                    ENGINE *engine
+                    StreamSpec &streamSpec,
+                    std::string const &cipherName,
+                    std::string const &key,
+                    std::string const &iv,
+                    size_t inBufSize
         )
 :
-    SymCryptStreambufBase(
-        &EVP_EncryptInit_ex,  &EVP_EncryptUpdate, &EVP_EncryptFinal_ex,
-        in,      type, 
-        key,     iv,
-        bufSize, filterBufSize, 
-        engine
+    ISymCryptBase(
+        streamSpec,
+        cipherName,
+        key,
+        iv,
+        inBufSize,
+        0,
+        &EVP_EncryptInit_ex2,  &EVP_EncryptUpdate, &EVP_EncryptFinal_ex
     )
 {}

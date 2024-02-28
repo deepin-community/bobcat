@@ -33,73 +33,72 @@ Content-Length: 4411
 Lines: 70
 
 
-Jul 12 18:04:51 dep sendmail[16508]: SAA16508: from=<isik_dilek@hotmail.com>, size=41126, 
-class=0, pri=71126, nrcpts=1, msgid=<200207121604.SAA16508@dep.rc.rug.nl>, proto=SMTP, 
+Jul 12 18:04:51 dep sendmail[16508]: SAA16508: from=<isik_dilek@hotmail.com>, size=41126,
+class=0, pri=71126, nrcpts=1, msgid=<200207121604.SAA16508@dep.rc.rug.nl>, proto=SMTP,
 relay=a106005.upc-a.chello.nl [62.163.106.5]
-Jul 12 18:04:51 dep sendmail[16510]: SAA16508: to=brokken@imap.rc.rug.nl, delay=00:00:03, 
-xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173817 
+Jul 12 18:04:51 dep sendmail[16510]: SAA16508: to=brokken@imap.rc.rug.nl, delay=00:00:03,
+xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173817
 message accepted for delivery)
-Jul 12 18:04:51 dep sendmail[16510]: SAA16508: to=brokken@rc2000.rc.rug.nl, 
-delay=00:00:03, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3], 
+Jul 12 18:04:51 dep sendmail[16510]: SAA16508: to=brokken@rc2000.rc.rug.nl,
+delay=00:00:03, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3],
 stat=Sent (Data received OK.)
 
-Jul 12 18:12:42 dep sendmail[16585]: SAA16585: from=<suyunrengii@hotmail.com>, 
-size=41147, class=0, pri=71147, nrcpts=1, msgid=<200207121612.SAA16585@dep.rc.rug.nl>, 
+Jul 12 18:12:42 dep sendmail[16585]: SAA16585: from=<suyunrengii@hotmail.com>,
+size=41147, class=0, pri=71147, nrcpts=1, msgid=<200207121612.SAA16585@dep.rc.rug.nl>,
 proto=SMTP, relay=a106005.upc-a.chello.nl [62.163.106.5]
-Jul 12 18:12:42 dep sendmail[16588]: SAA16585: to=brokken@imap.rc.rug.nl, delay=00:00:03, 
-xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173824 
+Jul 12 18:12:42 dep sendmail[16588]: SAA16585: to=brokken@imap.rc.rug.nl, delay=00:00:03,
+xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173824
 message accepted for delivery)
-Jul 12 18:12:42 dep sendmail[16588]: SAA16585: to=brokken@rc2000.rc.rug.nl, 
-delay=00:00:03, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3], 
+Jul 12 18:12:42 dep sendmail[16588]: SAA16585: to=brokken@rc2000.rc.rug.nl,
+delay=00:00:03, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3],
 stat=Sent (Data received OK.)
 
-Jul 12 18:19:25 dep sendmail[16650]: SAA16650: from=<isik_dilek@hotmail.com>, size=41127, 
-class=0, pri=71127, nrcpts=1, msgid=<200207121619.SAA16650@dep.rc.rug.nl>, proto=SMTP, 
+Jul 12 18:19:25 dep sendmail[16650]: SAA16650: from=<isik_dilek@hotmail.com>, size=41127,
+class=0, pri=71127, nrcpts=1, msgid=<200207121619.SAA16650@dep.rc.rug.nl>, proto=SMTP,
 relay=a106005.upc-a.chello.nl [62.163.106.5]
-Jul 12 18:19:25 dep sendmail[16651]: SAA16650: to=brokken@imap.rc.rug.nl, delay=00:00:04, 
-xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173833 
+Jul 12 18:19:25 dep sendmail[16651]: SAA16650: to=brokken@imap.rc.rug.nl, delay=00:00:04,
+xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173833
 message accepted for delivery)
-Jul 12 18:19:25 dep sendmail[16651]: SAA16650: to=brokken@rc2000.rc.rug.nl, 
-delay=00:00:04, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3], 
+Jul 12 18:19:25 dep sendmail[16651]: SAA16650: to=brokken@rc2000.rc.rug.nl,
+delay=00:00:04, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3],
 stat=Sent (Data received OK.)
 
-Jul 12 18:25:14 dep sendmail[16691]: SAA16691: from=<MAILER-DAEMON@rc.rug.nl>, 
-size=42320, class=0, pri=72320, nrcpts=1, msgid=<200207121625.SAA16691@dep.rc.rug.nl>, 
+Jul 12 18:25:14 dep sendmail[16691]: SAA16691: from=<MAILER-DAEMON@rc.rug.nl>,
+size=42320, class=0, pri=72320, nrcpts=1, msgid=<200207121625.SAA16691@dep.rc.rug.nl>,
 proto=SMTP, relay=a106005.upc-a.chello.nl [62.163.106.5]
-Jul 12 18:25:14 dep sendmail[16693]: SAA16691: to=brokken@imap.rc.rug.nl, delay=00:00:04, 
-xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173839 
+Jul 12 18:25:14 dep sendmail[16693]: SAA16691: to=brokken@imap.rc.rug.nl, delay=00:00:04,
+xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173839
 message accepted for delivery)
-Jul 12 18:25:14 dep sendmail[16693]: SAA16691: to=brokken@rc2000.rc.rug.nl, 
-delay=00:00:04, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3], 
+Jul 12 18:25:14 dep sendmail[16693]: SAA16691: to=brokken@rc2000.rc.rug.nl,
+delay=00:00:04, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3],
 stat=Sent (Data received OK.)
 
-Jul 12 18:29:24 dep sendmail[16738]: SAA16738: from=<xsedefx@hotmail.com>, size=41140, 
-class=0, pri=71140, nrcpts=1, msgid=<200207121629.SAA16738@dep.rc.rug.nl>, proto=SMTP, 
+Jul 12 18:29:24 dep sendmail[16738]: SAA16738: from=<xsedefx@hotmail.com>, size=41140,
+class=0, pri=71140, nrcpts=1, msgid=<200207121629.SAA16738@dep.rc.rug.nl>, proto=SMTP,
 relay=a106005.upc-a.chello.nl [62.163.106.5]
-Jul 12 18:29:24 dep sendmail[16739]: SAA16738: to=brokken@imap.rc.rug.nl, delay=00:00:03, 
-xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173845 
+Jul 12 18:29:24 dep sendmail[16739]: SAA16738: to=brokken@imap.rc.rug.nl, delay=00:00:03,
+xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173845
 message accepted for delivery)
-Jul 12 18:29:24 dep sendmail[16739]: SAA16738: to=brokken@rc2000.rc.rug.nl, 
-delay=00:00:03, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3], 
+Jul 12 18:29:24 dep sendmail[16739]: SAA16738: to=brokken@rc2000.rc.rug.nl,
+delay=00:00:03, xdelay=00:00:00, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3],
 stat=Sent (Data received OK.)
 
-Jul 12 18:35:52 dep sendmail[16800]: SAA16800: from=<MAILER-DAEMON@rc.rug.nl>, 
-size=42316, class=0, pri=72316, nrcpts=1, msgid=<200207121635.SAA16800@dep.rc.rug.nl>, 
+Jul 12 18:35:52 dep sendmail[16800]: SAA16800: from=<MAILER-DAEMON@rc.rug.nl>,
+size=42316, class=0, pri=72316, nrcpts=1, msgid=<200207121635.SAA16800@dep.rc.rug.nl>,
 proto=SMTP, relay=a106005.upc-a.chello.nl [62.163.106.5]
-Jul 12 18:35:52 dep sendmail[16801]: SAA16800: to=brokken@imap.rc.rug.nl, delay=00:00:03, 
-xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173851 
+Jul 12 18:35:52 dep sendmail[16801]: SAA16800: to=brokken@imap.rc.rug.nl, delay=00:00:03,
+xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173851
 message accepted for delivery)
-Jul 12 18:35:53 dep sendmail[16801]: SAA16800: to=brokken@rc2000.rc.rug.nl, 
-delay=00:00:04, xdelay=00:00:01, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3], 
+Jul 12 18:35:53 dep sendmail[16801]: SAA16800: to=brokken@rc2000.rc.rug.nl,
+delay=00:00:04, xdelay=00:00:01, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3],
 stat=Sent (Data received OK.)
 
-Jul 12 18:42:52 dep sendmail[16864]: SAA16864: from=<MAILER-DAEMON@rc.rug.nl>, 
-size=42312, class=0, pri=72312, nrcpts=1, msgid=<200207121642.SAA16864@dep.rc.rug.nl>, 
+Jul 12 18:42:52 dep sendmail[16864]: SAA16864: from=<MAILER-DAEMON@rc.rug.nl>,
+size=42312, class=0, pri=72312, nrcpts=1, msgid=<200207121642.SAA16864@dep.rc.rug.nl>,
 proto=SMTP, relay=a106005.upc-a.chello.nl [62.163.106.5]
-Jul 12 18:42:52 dep sendmail[16865]: SAA16864: to=brokken@imap.rc.rug.nl, delay=00:00:04, 
-xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173858 
+Jul 12 18:42:52 dep sendmail[16865]: SAA16864: to=brokken@imap.rc.rug.nl, delay=00:00:04,
+xdelay=00:00:00, mailer=esmtp, relay=imap.rc.rug.nl. [129.125.50.21], stat=Sent (173858
 message accepted for delivery)
-Jul 12 18:42:53 dep sendmail[16865]: SAA16864: to=brokken@rc2000.rc.rug.nl, 
-delay=00:00:05, xdelay=00:00:01, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3], 
+Jul 12 18:42:53 dep sendmail[16865]: SAA16864: to=brokken@rc2000.rc.rug.nl,
+delay=00:00:05, xdelay=00:00:01, mailer=esmtp, relay=rc2000.rc.rug.nl. [129.125.3.3],
 stat=Sent (Data received OK.)
-

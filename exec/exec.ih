@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include "../exception/exception"
 #include "../string/string"
 
 using namespace std;

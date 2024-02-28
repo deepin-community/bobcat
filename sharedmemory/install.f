@@ -1,5 +1,5 @@
 template <typename SharedType, typename ... Params>
-SharedType *SharedMemory::install(std::streamsize *offsetPtr, 
+SharedType *SharedMemory::install(std::streamsize *offsetPtr,
                                   Params &&...params)
 {
     size_t segmentSize = dataSegmentSize();
@@ -19,10 +19,10 @@ SharedType *SharedMemory::install(std::streamsize *offsetPtr,
                                             // go to the object's last byte
     if (address == 0 || seek(sizeof(SharedType) - 1) == -1)
         throw Exception() << "SharedMemory::install: out of memory.";
-    
+
             // make sure shmem knows it exists by writing a byte at its last
             // byte location
-    put(0);       
+    put(0);
 
     if (offsetPtr)
         *offsetPtr = location;

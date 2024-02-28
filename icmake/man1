@@ -8,7 +8,7 @@ void man1(string manpage)
 
     chdir("documentation/man");
 
-    printf("    Writing the ", manpage, " man page to `/tmp/", base + 
+    printf("    Writing the ", manpage, " man page to `/tmp/", base +
                                                                 ".man'\n");
 
     run("yodl2man  --no-warnings -r 3 -o /tmp/" + base + ".man " + manpage);

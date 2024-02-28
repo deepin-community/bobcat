@@ -8,13 +8,13 @@ manpagename(FBB::CinInserter)(Runs external programs reading standard input)
 
 manpagesynopsis()
     bf(#include <bobcat/cininserter>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     The bf(FBB::CinInserter) class offers a basic interface for calling
 external programs (so-called child processes) reading their standard input
 streams. The standard output and standard error streams of the child processes
-by default are not handled by ttCinInserter) objects. The child's standard
+by default are not handled by tt(CinInserter) objects. The child's standard
 input is provided through the tt(CinInserter) object: information inserted
 into an tt(CinInserter) object is forwarded to the child process's standard
 input stream. The tt(PATH) environment variable is not used when calling child
@@ -68,7 +68,7 @@ manpagesection(CONSTRUCTOR)
 manpagesection(DESTRUCTOR)
 
     The destructor ends the tt(CinInserter's) child process, if it is still
-    active. 
+    active.
 
 manpagesection(MEMBERS)
 
@@ -120,7 +120,7 @@ manpagesection(PROTECTED MEMBER)
        If derived classes need to override the redirections-members then they
         probabaly need access to the pipe read by the child process. This
         member provides a reference to that pipe. By default the parent
-        process inserts information into the pipe, while the 
+        process inserts information into the pipe, while the
         child process reads the inserted information from the pipe.
     )
 
@@ -132,16 +132,12 @@ manpagefiles()
     em(bobcat/cininserter) - provides the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(cerrextractor)(3bobcat), bf(coutextractor)(3bobcat), 
-    bf(execl)(3), bf(exec)(3bobcat), 
-    bf(fork)(3bobcat), bf(pipe)(3bobcat), bf(process)(3bobcat), 
+    bf(bobcat)(7), bf(cerrextractor)(3bobcat), bf(coutextractor)(3bobcat),
+    bf(execl)(3), bf(exec)(3bobcat),
+    bf(fork)(3bobcat), bf(pipe)(3bobcat), bf(process)(3bobcat),
     bf(stdextractor)(3bobcat).
 
 manpagebugs()
     None reported.
 
 includefile(include/trailer)
-
-
-
-

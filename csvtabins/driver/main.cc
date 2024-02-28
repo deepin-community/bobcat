@@ -4,7 +4,7 @@
 #include <string>
 #include <exception>
 
-#include <bobcat/csvtable> 
+#include <bobcat/csvtable>
 
 #include "../../xerr/xerr.ih"
 

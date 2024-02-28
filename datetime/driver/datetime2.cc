@@ -15,7 +15,7 @@ int main()
 
 
     DateTime local{ DateTime::LOCALTIME };
-    cout << "current LOCAL time: " << local << 
+    cout << "current LOCAL time: " << local <<
                                         ", dst = " << local.dst() << "\n\n";
 
     DateTime localCopy{ local };
@@ -23,13 +23,12 @@ int main()
 
 
     DateTime moved{ std::move(localCopy) };
-    cout << "moved from existing object: " << moved << 
-                        ", dst = " << moved.dst() << 
+    cout << "moved from existing object: " << moved <<
+                        ", dst = " << moved.dst() <<
                         ", zone spec: " << moved.zone().spec() << "\n\n";
 
-    cout << "existing object after move: " << localCopy << 
-                        ", dst = " << moved.dst() << 
+    cout << "existing object after move: " << localCopy <<
+                        ", dst = " << moved.dst() <<
                         ", zone spec: " << moved.zone().spec() << "\n\n";
 
 }
-

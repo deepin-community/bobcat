@@ -3,7 +3,7 @@
 // after https://stackoverflow.com/questions/154536/encode-decode-urls-in-c
 
 // static
-string String::urlEncode(string const &text) 
+string String::urlEncode(string const &text)
 {
     ostringstream escaped;
     escaped.fill('0');
@@ -27,4 +27,3 @@ string String::urlEncode(string const &text)
 
     return escaped.str();
 }
-

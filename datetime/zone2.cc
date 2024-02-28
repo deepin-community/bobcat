@@ -6,7 +6,7 @@ DateTime::Zone::Zone(string const &spec)
     {
         case ':':                   // E.g., :Asia/Calcutta. Maybe DST is
                                     // never used, but then tm_isdst remains 0
-            d_data = { spec, zoneSeconds(spec), 3600 };    
+            d_data = { spec, zoneSeconds(spec), 3600 };
         break;
 
         case '+':                   // +/-hh::mm zone specification

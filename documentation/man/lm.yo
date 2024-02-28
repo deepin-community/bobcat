@@ -9,13 +9,13 @@ manpagename(FBB::lm)(Manipulator setting left margins of OFoldStream objects)
 manpagesynopsis()
     bf(#include <bobcat/ofoldstream>) or nl()
     bf(#include <bobcat/ofoldbuf>) nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
 The tt(lm) class implements a manipulator that can be inserted into
 tt(OFoldStream) objects to set the stream's left margin to a requested
-value. 
+value.
 
 Depending on the tab-setting of the tt(OFoldStream) the inserted value
 represents the number of blank space characters or the number of
@@ -72,11 +72,10 @@ manpagefiles()
     em(bobcat/lm) - defines the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(manipulators)(3bobcat), bf(mlm)(3bobcat), 
+    bf(bobcat)(7), bf(manipulators)(3bobcat), bf(mlm)(3bobcat),
     bf(ofoldstream)(3bobcat)
 
 manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-

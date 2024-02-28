@@ -13,6 +13,6 @@ enum CryptType
     ENCODE
 };
 
-} // FBB        
+} // FBB
 
 #endif

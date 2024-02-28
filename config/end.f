@@ -7,4 +7,3 @@ inline Config::const_iterator Config::end() const
 {
     return d_ptr->end();
 }
-   

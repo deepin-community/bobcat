@@ -9,7 +9,7 @@ manpagename(FBB::MultiBuf)(Selectively writes multiple streams)
 
 manpagesynopsis()
     bf(#include <bobcat/multibuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     The bf(FBB::MultiBuf) class is a specialization of
@@ -17,8 +17,8 @@ tt(std::streambuf). It can be used to write selectively to multiple
 tt(std::ostreams). Each tt(std::ostream) that is associated with a
 bf(MultiBuf) is given a mode-tag indicating whether the stream
 should always be used when information is inserted into the
-bf(MultiBuf), just once, or not at all. Each of the stream's 
-mode-tags may be set to any of the defined tag-values. 
+bf(MultiBuf), just once, or not at all. Each of the stream's
+mode-tags may be set to any of the defined tag-values.
 
     When the address of a bf(MultiBuf) is used to initialize a
 tt(std::ostream) the constructed tt(std::ostream) becomes an
@@ -32,7 +32,7 @@ that are associated with it.
 bf(MultiBuf) objects refer to tt(std::ostreams) which are passed to it,
 and not to their tt(std::streambufs). So it is possible to change these
 tt(std::ostream's std::streambufs) without reinstalling the tt(std::ostreams)
-themselves. 
+themselves.
 
 No assumptions should be made about the order in which the tt(std::ostream)
 objects that are associated with the bf(MultiBuf) objects are
@@ -61,7 +61,7 @@ bf(MultiBuf)
 is inserted into a bf(MultiBuf). At a flush operation all bf(ONCE)
 modes will be set to bf(RESET)
     itb(ALL)
-        This mode is used in combination with the member tt(remove) to remove 
+        This mode is used in combination with the member tt(remove) to remove
 all tt(std::ostream) elements matching a specified tt(std::ostream) argument.
     )
 
@@ -77,7 +77,7 @@ manpagesection(TYPES)
 manpagesection(NESTED CLASS)
     The class bf(MultiBuf::stream) is defined as a nested class of
 bf(MultiBuf). It offers the following constructor and public
-members: 
+members:
     itemization(
     itb(stream(std::ostream &os, Mode mode = ON))
         The constructor stores a tt(std::ostream) object, and associates a
@@ -88,7 +88,7 @@ bf(Mode) value with it.
         This member returns the  bf(stream)'s  bf(Mode) value.
     itb(operator std::ostream &())
         This member returns the  bf(stream)'s  tt(std::ostream).
-    )    
+    )
 
 manpagesection(CONSTRUCTORS)
     itemization(
@@ -98,7 +98,7 @@ contains no associated tt(std::ostream) objects.
     itb(MultiBuf(std::ostream &os, Mode mode = ON))
         This constructor creates a bf(MultiBuf) object which
 is immediately associated with the tt(std::ostream) specified as its first
-argument. 
+argument.
     itb(MultiBuf(std::vector<MultiBuf::stream> const &osvector))
         This constructor creates a bf(MultiBuf) object which is
 immediately associated with all tt(std::ostream) objects that are stored in

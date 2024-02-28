@@ -14,7 +14,7 @@ int main()
             0,      // min
             19,     // hour
             4,      // month-day
-            3,      // month 
+            3,      // month
             2019,   // year
          };
 
@@ -28,8 +28,7 @@ int main()
     cout << "time (hr explicitly set to 19):\n";
     ts.tm_mon = 10;
     DateTime dt3{ ts, DateTime::LOCALTIME };
-    cout << "specified localtime 19:00:00: " << dt3 << 
+    cout << "specified localtime 19:00:00: " << dt3 <<
                         ", dst = " << dt3.dst() << "\n"
             "corresponding UTC: " << dt3.utc() << "\n\n";
 }
-

@@ -7,5 +7,3 @@ BigInt &BigInt::rshift(size_t nBits)
 
     return *this;
 }
-
-

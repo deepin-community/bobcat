@@ -2,10 +2,10 @@
 
 void parentRedirections()
 {
-    d_childCinbuf.open(p1 = d_child_inp->writeOnly());  
-    d_childCin.rdbuf(&d_childCinbuf);
+    d_childCinbuf.reset(p1 = d_child_inp->writeOnly());
+       d_childCin.rdbuf(&d_childCinbuf);
 
-    d_childCoutbuf.open(p2 = d_child_outp->readOnly()); 
+    d_childCoutbuf.reset(p2 = d_child_outp->readOnly());
     d_childCout.rdbuf(&d_childCoutbuf);
 
     if (oldIn != -1)

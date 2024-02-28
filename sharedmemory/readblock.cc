@@ -22,8 +22,8 @@ int SharedMemory::readBlock(char *data, size_t len)
 
     if (remaining < len)
         len = remaining;
-    
-//cerr << " len = " << len << ", blockIdx = " << d_pos.blockIdx() << 
+
+//cerr << " len = " << len << ", blockIdx = " << d_pos.blockIdx() <<
 //" blockOffset = " << d_pos.blockOffset() << '\n';
 
     lock(d_pos.blockIdx());
@@ -36,8 +36,3 @@ int SharedMemory::readBlock(char *data, size_t len)
 
     return len;
 }
-
-
-
-
-

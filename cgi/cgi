@@ -9,6 +9,7 @@
 #include <unordered_map>
 
 #include <bobcat/pattern>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -18,8 +19,8 @@ class CGI
     friend std::ostream &operator<<(std::ostream &out, CGI const &cgi);
 
     public:
-        typedef std::unordered_map<std::string, std::vector<std::string> >
-                MapStringVector;
+        using MapStringVector =  
+                std::unordered_map<std::string, std::vector<std::string>>;
 
         enum Method
         {
@@ -45,16 +46,16 @@ class CGI
 
         bool d_escapeValue;
         bool d_escape[256];     // initially all d_defaultEscape
-    
+
         MapStringVector d_param;
         std::string d_query;
         std::string d_boundary; // boundary of the multipart/form-data forms
-                                // empty if POST produces GET-like info on 
+                                // empty if POST produces GET-like info on
                                 // stdin.
 
         unsigned long long d_contentLength;
 
-        std::string d_filePath;     // uploaded files are named 
+        std::string d_filePath;     // uploaded files are named
         std::string d_filePrefix;   // d_filePath / d_filePrefix d_fileNr++
         size_t d_fileNr;
 
@@ -67,7 +68,7 @@ class CGI
 
         static std::vector<std::string> s_empty;
 
-        enum: size_t 
+        enum: size_t
         {
             s_uploadBlock = 8000,                   // upload.cc
             s_nTries = 100
@@ -75,7 +76,7 @@ class CGI
 
     public:
         explicit CGI(bool defaultEscape = true,
-            char const *header = "Content-type: text/html", 
+            char const *header = "Content-type: text/html",
             std::ostream &out = std::cout);
 
         CGI(CGI &&tmp);
@@ -89,7 +90,7 @@ class CGI
         CGI &operator<<(std::pair<char, char> range);
         CGI &operator<<(int ch);
 
-        void setFileDestination(std::string const &path, 
+        void setFileDestination(std::string const &path,
                                 std::string const &prefix = "",
                                 Create create = CREATE_PATH);
         void setMaxUploadSize(size_t maxUploadSize, int unit = 'M');
@@ -102,7 +103,7 @@ class CGI
         unsigned long long maxUploadSize() const;   // .f
 
         Method method() const;                      // .f
-        std::string const &query() const;           // .f 
+        std::string const &query() const;           // .f
                                             // empty with multipart/form-data
 
         std::vector<std::string> const &param(std::string const &variable);
@@ -113,10 +114,10 @@ class CGI
 
     // static members:
                                     // unpercent also does the '+' to ' '
-                                    // conversion 
+                                    // conversion
         static std::string unPercent(std::string const &text);
         static std::string dos2unix(std::string const &text);
-        
+
     private:
         void setQuery();
 

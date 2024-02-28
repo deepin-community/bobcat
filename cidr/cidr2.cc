@@ -2,5 +2,5 @@
 
 Cidr::Cidr(istream &fin)
 {
-    setCidr(fin);       
+    setCidr(fin);
 }

@@ -5,7 +5,7 @@ tput clear
 LIBS=" -lbobcat"
 GPP="g++ `cat ../../c++std`"
 
-# WHEN LINKING TO A STATIC LIBRARY DON'T FORGET TO LINK AGAINST 
+# WHEN LINKING TO A STATIC LIBRARY DON'T FORGET TO LINK AGAINST
 # ssl (-lssl)
 
 # CMD="$GPP -o driver -Wall -I../ driver.cc -L../tmp ${LIBS} -lbigint  -s"
@@ -20,4 +20,3 @@ $CMD || exit 1
 
 echo Ready...
 driver 4
-

@@ -11,10 +11,10 @@ try
 {
     if (argc == 1)
     {
-        cout << 
+        cout <<
             "Argument:\n"
             "   c: create a shared memory segment + SharedCondition "
-                                                    ", display ID\n" 
+                                                    ", display ID\n"
             "   k <id>: kill shared memory segment <id>\n"
             "   m <id>: show a message every 5 secs, otherwise wait until\n"
             "           being notified in segment <id>\n"
@@ -29,11 +29,11 @@ try
         {
             SharedMemory shmem(1, SharedMemory::kB);
 
-            SharedCondition cond = SharedCondition::create(shmem);   
+            SharedCondition cond = SharedCondition::create(shmem);
 
             void *ptr = shmem.ptr();
 
-            cout << "ID = " << shmem.id() << ", SharedCondition at " << 
+            cout << "ID = " << shmem.id() << ", SharedCondition at " <<
                     cond.offset() << endl;
             break;
         }
@@ -52,7 +52,7 @@ try
 
             cond.lock();
             cout << "Obtained the lock. Now waiting for a notification\n";
-        
+
             while (true)
             {
                 switch (cond.wait_for(chrono::seconds(5)))
@@ -68,7 +68,7 @@ try
                 }
             }
         }
-            
+
         case 'w':
         {
             SharedMemory shmem(stoll(argv[2]));
@@ -76,14 +76,14 @@ try
 
             cond.lock();
             cout << "Obtained the lock. Now waiting for a notification\n";
-        
+
             cond.wait();
             cout << "Received the notification. Unlocking.\n";
 
             cond.unlock();
             break;
         }
-            
+
         case 'n':
         {
             SharedMemory shmem(stoll(argv[2]));
@@ -107,4 +107,3 @@ catch (exception const &exc)
 {
     cout << "Exception: " << exc.what() << endl;
 }
-

@@ -16,7 +16,7 @@ void show(char const *name)
             "is r-ref: "    << TypeTrait<T>::isR_Ref << ", "
             "is ref: "      << TypeTrait<T>::isRef << '\n';
 }
-    
+
 int main()
 {
     TypeTrait<int *>::Plain        int1 = 12;
@@ -26,29 +26,23 @@ int main()
     TypeTrait<int &&>::Plain       int5 = 12;
     TypeTrait<int const &&>::Plain int6 = 12;
 
-    show<int>("int");   
-    show<int *>("int *");   
-    show<int const>("int const");   
-    show<int const *>("int const *");   
-    show<int &>("int &");   
-    show<int const &>("int const &");   
-    show<int &&>("int &&");   
-    show<int const &&>("int const &&");   
-    show<std::string>("std::string");   
+    show<int>("int");
+    show<int *>("int *");
+    show<int const>("int const");
+    show<int const *>("int const *");
+    show<int &>("int &");
+    show<int const &>("int const &");
+    show<int &&>("int &&");
+    show<int const &&>("int const &&");
+    show<std::string>("std::string");
 
 
     cout << "=======================\n";
 
-    cout << "string promotes char const *: " << 
+    cout << "string promotes char const *: " <<
                 LpromotesR<string, char const *>::yes << '\n';
-    cout << "string promotes string " << 
+    cout << "string promotes string " <<
                 LpromotesR<string, string>::yes << '\n';
-    cout << "char const * promotes string " << 
+    cout << "char const * promotes string " <<
                 LpromotesR<char const *, string>::yes << '\n';
 }
-
-
-
-
-
-

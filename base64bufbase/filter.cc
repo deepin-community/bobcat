@@ -15,4 +15,3 @@ bool Base64BufBase::filter(char const **srcBegin, char const **srcEnd)
 
     return d_buffer.size();
 }
-

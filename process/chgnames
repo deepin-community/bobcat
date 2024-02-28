@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd ~/src/bobcat/process || exit 1
+
+sed -i  -e "
+s/d_oChildInPipe/d_childIn_paWritePipe/g
+s/d_iChildOutPipe/d_paIn_childCoutPipe/g
+s/d_iChildErrPipe/d_paIn_childCerrPipe/g
+
+s/d_oChildInbuf/d_toChildCinBuf/g
+s/d_iChildOutbuf/d_fmChildCoutBuf/g
+s/d_iChildErrbuf/d_fmChildCerrBuf/g
+
+s/d_oChildIn/d_oChild/g
+s/d_iChildOut/d_iChildCout/g
+s/d_iChildErr/d_iChildCerr/g
+
+" *.cc process*

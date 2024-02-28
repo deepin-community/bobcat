@@ -1,5 +1,5 @@
-template <typename Clock, typename Duration> 
-std::cv_status SharedCondition::wait_until(                      
+template <typename Clock, typename Duration>
+std::cv_status SharedCondition::wait_until(
     std::chrono::time_point<Clock, Duration> const &absTime)
 {
     Data data = prepare();

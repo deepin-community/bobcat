@@ -4,7 +4,7 @@ bool Xpointer::set(int x, int y) const
 {
     Window root = DefaultRootWindow(s_theDisplay);
     XWindowAttributes XWA;              // get root window info
-        
+
     if (!XGetWindowAttributes(s_theDisplay, root, &XWA))
         return false;                   // failure return
 
@@ -18,4 +18,3 @@ bool Xpointer::set(int x, int y) const
     XFlush(s_theDisplay);
     return true;
 }
-

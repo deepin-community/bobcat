@@ -7,5 +7,3 @@ OSharedStream::OSharedStream(
     SharedBuf(maxSize, sizeUnit, openMode, access),
     std::ostream(this)
 {}
-
- 

@@ -4,4 +4,3 @@ SyslogBuf::~SyslogBuf()
 {
 //    eoi();
 }
-    

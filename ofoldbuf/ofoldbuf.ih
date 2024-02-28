@@ -3,8 +3,6 @@
 #include <cstdio>
 #include <algorithm>
 
-#include "../exception/exception"
-
 using namespace std;
 using namespace FBB;
 
@@ -12,4 +10,3 @@ using namespace FBB;
 #include "writews.f"
 #include "writenonws.f"
 #include "put.f"
-

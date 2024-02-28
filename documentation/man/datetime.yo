@@ -8,7 +8,7 @@ manpagename(FBB::DateTime)(Performs Date and Time Computations)
 
 manpagesynopsis()
     bf(#include <bobcat/datetime>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -87,9 +87,9 @@ timezone 8 hours earlier than UTC (noon at UTC becomes 04:00 in this timezone)
 or +5:30 for a time zone later than UTC (noon at UTC becomes 17:30 in that
 timezone). Timezones can be given names (which may or may not be the names of
 the `standard' time zones like CET or PST) but can also be constructed by
-providing 
+providing
     itemization(
-    it() a mere shift relative to UTC, no DST.        
+    it() a mere shift relative to UTC, no DST.
     it() a shift relative to UTC, using a standard DST (1 hour) time shift. In
         this case the computer's idea of the calendar interval in which DST is
         active is used;
@@ -97,10 +97,10 @@ providing
         a specified calendar interval, optionally specifying the time when
         the DST calendar interval starts and/or ends.
     )
-    
+
 includefile(include/namespace)
 
-manpagesection(INHERITS FROM)    
+manpagesection(INHERITS FROM)
     -
 
 manpagesection(ENUMS)
@@ -171,7 +171,7 @@ default bf(C++) tt(enum) values:
     it() bf(LOCALTIME): the tt(DateTime) object's date and time use a shift
         relative to UTC according to the object's configured time zone.
     it() bf(UTC): the object's date and time represent the Universal Time
-        Coordinated. 
+        Coordinated.
     )
 
     bf(DateTime::Weekday)nl()
@@ -261,7 +261,7 @@ following constructors:
         format as tt(shift), or tt(=) may be specified, in which case the
         (standard) DST shift of +1:00 hour is used;
 
-    itb(Zone(std::string const &shift, std::string const &dstSpec, 
+    itb(Zone(std::string const &shift, std::string const &dstSpec,
              std::string const &beginDST, std::string const &endDST))
        Like the previous constructor, but in addition tt(beginDST) and
         tt(endDST) are used to define the date/time interval in which the DST
@@ -278,7 +278,7 @@ following constructors:
         tt(Day). Use tt(1st, 2nd, 3rd, 4th, 5th) or tt(last). Here, tt(1st)
         refers to the first week having day tt(Day), while tt(last) and
         tt(5th) refer to the last week (so not necessarily the 5th week)
-        having day tt(Day). 
+        having day tt(Day).
 
        The time specification defines the time when the DST starts or ends.
         Some examples:
@@ -289,7 +289,7 @@ following constructors:
         )
 
     Copy and move constructors as well as assignment operators are available.
-        
+
 manpagesection(ZONE MEMBERS)
     itemization(
     itb(std::string const &spec() const)
@@ -309,14 +309,14 @@ manpagesection(ZONE MEMBERS)
     )
 
 manpagesection(ZONE STATIC MEMBERS)
-    
+
     itemization(
     itb(DateTime::Zone const &DateTime::Zone::get(std::string const &name))
         The time zone object named tt(name) is returned. E.g., to retrieve the
         time zone object for tt(CET) use tt(DateTime::Zone::get("CET")).
         If the named zone has not been defined an tt(std::exception) is
         thrown;
-    
+
     itb(DateTime::Zone const &DateTime::Zone::store(std::string const &name,
         ...))
        A time zone object is defined and stored as zone tt(name). Zone names
@@ -387,7 +387,7 @@ manpagesection(DATETIME CONSTRUCTORS)
     itb(DateTime(tm const &ts, TimeType type = UTC))
        The tt(tm) argument is a struct defined as:
         verb(
-    struct tm 
+    struct tm
     {
         int tm_sec;     // seconds          0..59, or 60: leap second
         int tm_min;     // minutes          0..59
@@ -403,7 +403,7 @@ manpagesection(DATETIME CONSTRUCTORS)
         )
        Values outside of these ranges may be specified to compute points in
         time in the future or in the past. E.g., tt(tm_hour == 30) is
-        normalized to tt(tm_hour == 6) of the next day.  
+        normalized to tt(tm_hour == 6) of the next day.
 
        Note that functions like bf(mktime)(3) expect tt(tm_year) to be
         specified relative to 1900. The tt(DateTime) constructor does em(not)
@@ -438,6 +438,10 @@ manpagesection(DATETIME CONSTRUCTORS)
         destribed at the tt(DateTime(std::string const &timeStr, ...))
         constructor. The tt(std::istream &in) stream may also be a rvalue
         reference.
+
+    itb(DateTime(std::istream &&in, TimeType type = UTC))
+       Same as the previous constructor, but receeiving an r-value reference
+        as its first argumnt.
     )
 
 Copy and move constructors are available.
@@ -451,7 +455,7 @@ without modifying the destination object.
 
     itemization(
     itb(std::ostream &std::operator<<(std::ostream &str, DateTime const
-        &dt)) 
+        &dt))
        Inserts tt(dt's) date/time into tt(str) using the zone-less supported
         textual time representation (e.g., tt(Mon Dec 3 13:29:11 2018));
 
@@ -482,7 +486,7 @@ without modifying the destination object.
        Returns tt(true) if tt(left) represents a later or equal UTC time as
         tt(right).
 
-    itb(DateTime operator+(DateTime const &obj, std::chrono::seconds 
+    itb(DateTime operator+(DateTime const &obj, std::chrono::seconds
         seconds))
        Returns a copy of tt(obj) to which tt(seconds) were added;
 
@@ -506,13 +510,13 @@ without modifying the destination object.
         calendar year!
 
 
-    itb(DateTime operator-(DateTime const &obj, std::chrono::seconds 
+    itb(DateTime operator-(DateTime const &obj, std::chrono::seconds
         seconds))
        Returns a copy of tt(obj) to which tt(seconds) were subtracted;
 
     itb(DateTime operator-(DateTime const &obj, tm const &ts))
        Returns a copy of tt(obj) to which the tt(tm_sec, tm_min, tm_hour,
-        tm_mday, tm_mon) and tt(tm_year) fields of tt(ts) were subtracted. 
+        tm_mday, tm_mon) and tt(tm_year) fields of tt(ts) were subtracted.
 
         Caveat: note that this is an em(addition) operation: if you want to
         subtract 1 year specify tt(ts.tm_year = 1), and not the finally
@@ -530,7 +534,7 @@ without modifying the destination object.
         expected calendar year!
 
         E.g., the following program fragment displays midnight,
-        December 31, 1969: 
+        December 31, 1969:
             verbinsert(//info ../../datetime/driver/midnight.cc)
     )
 
@@ -587,7 +591,7 @@ at 1.
 
     itb(void setDay(int dayNr))
        Assigns tt(dayNr) to the day number of the object's current
-        month. 
+        month.
 
        Caveat: since day numbers start at 1, passing 0 or negative values to
         tt(setDay) results in resetting the objects date to an earlier month;
@@ -599,22 +603,22 @@ at 1.
 
     itb(void setHours(int hours))
        Assigns tt(hours) to the number of hours of the current object's
-        time; 
+        time;
 
     itb(void setMinutes(int minutes))
        Assigns tt(minutes) to the number of minutes of the current object's
-        time; 
+        time;
 
-   itb(void setMonth(int month)) 
+   itb(void setMonth(int month))
        Assigns tt(month) to the current object's month. January is
         represented by 0, December by 11. Smaller or larger values refer to
-        previous or future years; 
+        previous or future years;
 
-    itb(void setMonth(DateTime::Month month)) 
+    itb(void setMonth(DateTime::Month month))
        Assigns tt(month) to the current object's month;
 
     itb(void setMonth(DateTime::Month month, DateTime::Relative where =
-            THIS_YEAR)) 
+            THIS_YEAR))
        Assigns tt(month) to the current object's month. By default the month
         of the current year is updated (tt(where == THIS_YEAR)). Use
         tt(LAST) to ensure that the month is set before the current
@@ -632,10 +636,10 @@ at 1.
 
     itb(void setSeconds(int seconds))
        Assigns tt(seconds) to the number of seconds of the current object's
-        time; 
+        time;
 
     itb(void setUTCseconds(time_t utcSeconds))
-       Assigns tt(utcSeconds) as the number of seconds since the epoch 
+       Assigns tt(utcSeconds) as the number of seconds since the epoch
         to the current object's UTC time;
 
     itb(void setWeekday(Weekday day, Relative where = NEXT))
@@ -644,9 +648,9 @@ at 1.
         (maybe the current week, maybe in the next week: if the current day
         equals Monday and Friday is specified, the current week is used. If
         the current day equals Friday and Monday is requested the next week is
-        used). By specifying tt(where = LAST) the day will be most recent
+        used).  By specifying tt(where = LAST) the day will be most recent
         occurrence of tt(day): if the current day equals Friday and Monday is
-        requested, the current week is used). By specifying tt(where =
+        requested, the current week is used. By specifying tt(where =
         THIS_WEEK) then tt(day) is selected in the current week;
 
     itb(void setYear(unsigned year))
@@ -715,7 +719,7 @@ manpagesection(STATIC MEMBER)
     )
 
 manpagesection(EXAMPLES)
-    
+
     Many examples illustrating the use of tt(DateTime) objects are provided in
 the source archive's tt(bobcat/datetime/driver) directory. Here is an
 example:
@@ -725,7 +729,7 @@ manpagefiles()
     em(bobcat/datetime) defines the class interface.
 
 manpageseealso()
-        bf(bobcat)(7), bf(Exception)(3bobcat), 
+        bf(bobcat)(7), bf(Exception)(3bobcat),
         bf(gmtime_r)(3), bf(localtime_r)(3), bf(mktime)(3), bf(time)(2),
         bf(tzset)(3),nl()
         bf(http://www.catb.org/esr/time-programming),nl()

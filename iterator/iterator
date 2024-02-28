@@ -24,21 +24,28 @@ template <typename Type>
 bool operator==(Iterator<Type> const &lhs, Iterator<Type> const &rhs);
 
 template <typename Type>
-class Iterator: public std::iterator<std::input_iterator_tag, Type const>
+struct Iterator
 {
-    friend  bool operator==<>(Iterator<Type> const &lhs, 
+    friend  bool operator==<>(Iterator<Type> const &lhs,
                             Iterator<Type> const &rhs);
 
-    Type d_value;
-    std::shared_ptr<Type> d_type;
+    using iterator_category = std::input_iterator_tag;
+    using difference_type   = std::ptrdiff_t;
+    using value_type        = Type const;
+    using pointer           = value_type *;
+    using reference         = value_type &;
+
+    private:
+        Type d_value;
+        std::shared_ptr<Type> d_type;
 
     public:
         Iterator() = default;
         explicit Iterator(Type const &value);
-    
+
         Iterator<Type> &operator++();
         Iterator<Type> operator++(int);
-    
+
         Type const &operator*() const;
 
         static Iterator<Type> last(Type value);
@@ -71,9 +78,3 @@ class Iterator: public std::iterator<std::input_iterator_tag, Type const>
 } // FBB
 
 #endif
-
-
-
-
-
-

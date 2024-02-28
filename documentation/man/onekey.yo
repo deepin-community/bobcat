@@ -8,7 +8,7 @@ manpagename(FBB::OneKey)(Single keystroke input, not requiring `Return')
 
 manpagesynopsis()
     bf(#include <bobcat/onekey>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(OneKey) objects may be used to realize `direct keyboard input': a
@@ -30,15 +30,15 @@ characters. It has two values:
     it() bf(OFF): returned characters are em(not) echoed to the standard
 output stream;
     it() bf(ON): returned characters em(are) echoed to the standard output
-stream. 
+stream.
     )
 manpagesection(CONSTRUCTORS)
     itemization(
-    itb(OneKey(OneKey::Mode state = OneKey::OFF)) 
+    itb(OneKey(OneKey::Mode state = OneKey::OFF))
         This constructor initializes the bf(OneKey) input object. By
         default, entered characters are not echoed. By constructing the object
         with the bf(OneKey::ON) argument, entered characters are echoed to
-        the standard output stream. 
+        the standard output stream.
 
         This construct throws an tt(Exception) exception if it not properly
         complete. The constructor may fail for the following reasons:
@@ -56,10 +56,10 @@ manpagesection(CONSTRUCTORS)
 
 manpagesection(MEMBER FUNCTIONS)
     itemization(
-    itb(int get() const) 
+    itb(int get() const)
         Returns the next character from the standard input stream, without the
-        need for pressing tt(Enter). 
-    itb(void setEcho(OneKey::Mode state)) 
+        need for pressing tt(Enter).
+    itb(void setEcho(OneKey::Mode state))
         Changes the echo-state of the bf(OneKey) object. The argument may be
         either bf(OneKey::ON) or bf(OneKey::OFF).
     )

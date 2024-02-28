@@ -5,7 +5,6 @@
 #include <cstring>
 
 #include "../pattern/pattern"
-#include "../exception/exception"
 #include "../iuo/iuo"
 
 using namespace std;
@@ -28,26 +27,26 @@ class ConfigFile_: public CFEnums_
     bool d_rmComment;
     bool d_caseSensitive;
     void (ConfigFile_::*d_rawIndices)();
-    size_t d_rawIndex;        
-    size_t d_nextIndex;        
+    size_t d_rawIndex;
+    size_t d_nextIndex;
     std::vector<size_t> d_index;
 
                             // contains iterators to lines matching REs
-    typedef std::vector<std::string>::const_iterator VsIterator;
-    typedef std::vector<VsIterator> VsIterVector;
+    using VsIterator = std::vector<std::string>::const_iterator;
+    using VsIterVector = std::vector<VsIterator>;
     VsIterVector d_vsIter;
     std::string d_re;
 
     mutable Pattern d_pattern;
 
     public:
-        explicit ConfigFile_(Comment cType = KeepComment, 
+        explicit ConfigFile_(Comment cType = KeepComment,
                    SearchCasing sType = SearchCaseSensitive,
                    Indices iType = IgnoreIndices);
 
                                                 // Name of the config file
         explicit ConfigFile_(std::string const &fname,
-                    Comment cType = KeepComment, 
+                    Comment cType = KeepComment,
                     SearchCasing sType = SearchCaseSensitive,
                     Indices iType = IgnoreIndices);
 
@@ -67,7 +66,7 @@ class ConfigFile_: public CFEnums_
         const_RE_iterator beginRE(std::string const &re);
         const_RE_iterator endRE() const;                                // .i
 
-        std::pair<const_RE_iterator, const_RE_iterator> 
+        std::pair<const_RE_iterator, const_RE_iterator>
                             beginEndRE(std::string const &re);
 
         const_iterator find(std::string const &target) const;
@@ -106,7 +105,7 @@ class ConfigFile_: public CFEnums_
 
 #include "begin.f"
 #include "casefinder.f"
-#include "end.f"   
+#include "end.f"
 #include "endre.f"
 #include "finder.f"
 #include "findkey.f"
@@ -115,9 +114,5 @@ class ConfigFile_: public CFEnums_
 #include "index2.f"
 #include "opindex.f"
 #include "setcommenthandling.f"
-#include "setsearchcasing.f"   
+#include "setsearchcasing.f"
 #include "size.f"
-
-
-
-

@@ -44,7 +44,7 @@ manpagesection(MANIPULATORS)
 
     itb(FBB::fatal) defined in tt(bobcat/msg)
         Generates a fatal message, followed by an bf(Exception)bf((1))
-        exception. 
+        exception.
 
     itb(FBB::fs) defined in tt(bobcat/tablebuf)
         Starts the definition of the next element in a table.
@@ -68,7 +68,7 @@ manpagesection(MANIPULATORS)
     itb(FBB::lm) defined in tt(bobcat/ofoldbuf)
         This manipulator sets the left margin of bf(FBB::OFoldStream) objects.
 
-    itb(FBB::mlm) defined in tt(bobcat/ofoldbuf) 
+    itb(FBB::mlm) defined in tt(bobcat/ofoldbuf)
         This manipulator modifies (alters) the left margin of
         bf(FBB::OFoldStream) objects.
 
@@ -79,22 +79,18 @@ manpagesection(MANIPULATORS)
         Starts the definition of the next row in a table.
 
     itb(FBB::spool) defined in tt(bobcat/msg)
-        Generates a (partial) informational message. 
+        Generates a (partial) informational message.
 
     itb(FBB::warning) defined in tt(bobcat/msg)
         Generates a warning message.
     )
 
 manpageseealso()
-    bf(bobcat)(7), bf(columnwidth)(3bobcat), bf(eoi)(3bobcat), 
+    bf(bobcat)(7), bf(columnwidth)(3bobcat), bf(eoi)(3bobcat),
     bf(equalwidth)(3bobcat), bf(indent)(3bobcat), bf(lm)(3bobcat),
-    bf(mlm)(3bobcat), bf(msg)(3bobcat), bf(table)(3bobcat) 
+    bf(mlm)(3bobcat), bf(msg)(3bobcat), bf(table)(3bobcat)
 
 manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-
-
-
-

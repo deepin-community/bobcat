@@ -1,4 +1,4 @@
-inline level::level(size_t lvel)
+inline level::level(size_t lev)
 :
-    d_level(lvel)
+    d_level(lev)
 {}

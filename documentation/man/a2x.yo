@@ -2,13 +2,13 @@ includefile(include/header)
 
 COMMENT(manpage, section, releasedate, archive, short name)
 manpage(FBB::A2x)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
-                    (Error handler)
+                    (Text to X convertor)
 
 manpagename(FBB::A2x)(Objects performing ascii-to-x (anything) conversions)
 
 manpagesynopsis()
     bf(#include <bobcat/a2x>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::A2x) objects offer the bf(C++) equivalent of the standard bf(C++)
@@ -32,13 +32,13 @@ manpagesection(CONSTRUCTORS)
         This constructor constructs an empty tt(A2x) object. No
 information can be converted from a  thus constructed tt(A2x) object.
 
-    itb(A2x(char const *text)) 
+    itb(A2x(char const *text))
         This constructor stores tt(text). If tt(text) represents a textual
 value of some type, the tt(A2x) object may be used to initialize or assign
 this value to a variable of that particular type. Extraction, however is also
 still possible.
 
-    itb(A2x(std::string const &str)) 
+    itb(A2x(std::string const &str))
         This constructor stores the text contained in tt(str). If this text
 represents a textual value of some type, the tt(A2x) object may be used to
 initialize or assign this value to a variable of that particular
@@ -49,7 +49,7 @@ type. Extraction is also still possible.
 
 manpagesection(STATIC MEMBER FUNCTION)
     itemization(
-    itb(bool lastFail()) 
+    itb(bool lastFail())
         This member returns tt(true) if the last conversion failed (i.e., the
 object's tt(fail()) member returned tt(true) and returns tt(false) otherwise).
 This member allows checks on the success of the extraction/conversion using
@@ -63,7 +63,7 @@ manpagesection(MEMBER FUNCTION)
     All members of the bf(istringstream) class are available.
 
     itemization(
-    itb(Type to()) 
+    itb(Type to())
         This member returns any type tt(Type) supporting extractions from
 tt(i[string]streams). If the extraction fails, the tt(A2x) object's
 tt(good()) member returns tt(false), and the tt(Type)'s default value is
@@ -77,22 +77,22 @@ is provided in the bf(EXAMPLE) section below.
 
 manpagesection(OVERLOADED OPERATORS)
     itemization(
-    itb(operator Type()) 
+    itb(operator Type())
         Conversion to any type tt(Type) supporting
 extractions from tt(istreams). If the extraction fails, the tt(A2x)
 object's tt(good()) member will return tt(false), and the tt(Type)'s default
 value is returned. This operator was implemented as a member template.
-    itb(istream &operator>>(istream &, Type &)) 
+    itb(istream &operator>>(istream &, Type &))
         Extraction to any type tt(Type) supporting extractions from
 tt(istreams). If the extraction fails, the tt(A2x) object's
 tt(good()) member returns tt(false), and the tt(Type)'s default value is
 returned (this facility is implied by the fact that this class inherits from
 bf(istringstream), but it's probably useful to stress that the extraction
 operation is still available).
-    itb(A2x &operator=(char const *)) 
+    itb(A2x &operator=(char const *))
         Stores new text in the tt(A2x) object, resets the status flags to
 tt(ios::good). If a 0-pointer is passed, an empty string is stored.
-    itb(A2x &operator=(std::string const &)) 
+    itb(A2x &operator=(std::string const &))
         Stores the text stored in the tt(std::string) argument in the
 tt(A2x) object, resets the status flags to tt(ios::good).
     )

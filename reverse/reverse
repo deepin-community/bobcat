@@ -1,0 +1,74 @@
+#ifndef INCLUDED_BOBCAT_REVERSE_
+#define INCLUDED_BOBCAT_REVERSE_
+
+#include <type_traits>
+#include <iterator>
+
+namespace FBB
+{
+
+template <typename Type, bool isConst>
+class Reverse
+{
+    Type &d_type;
+
+    using reverse_iter =
+            std::reverse_iterator<
+                typename
+                    std::conditional<
+                        isConst,
+                        typename Type::const_iterator,
+                        typename Type::iterator
+                    >::type
+            >;
+
+    public:
+        Reverse(Type &type);
+
+        reverse_iter begin() const;
+        reverse_iter end() const;
+};
+
+template <typename Type, size_t size>
+class ReverseArray
+{
+    Type (&d_type)[size];
+
+    public:
+        ReverseArray(Type (&type)[size]);
+
+        std::reverse_iterator<Type *> begin() const
+        {
+            return std::reverse_iterator<Type *>{ d_type + size };
+        }
+
+        std::reverse_iterator<Type *> end() const
+        {
+            return std::reverse_iterator<Type *>{ d_type };
+        }
+};
+
+template <typename Type>
+class ReverseSize
+{
+    Type *d_type;
+    size_t d_size;
+
+    public:
+        ReverseSize(Type *type, size_t size);
+
+        std::reverse_iterator<Type *> begin() const
+        {
+            return std::reverse_iterator<Type *>{ d_type + d_size };
+        }
+
+        std::reverse_iterator<Type *> end() const
+        {
+            return std::reverse_iterator<Type *>{ d_type };
+        }
+};
+
+#include "reverse.f"
+
+} // FBB
+#endif

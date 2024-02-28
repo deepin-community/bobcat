@@ -3,7 +3,7 @@
 namespace FBB
 {
 
-TableSupport &operator<<(TableSupport &support, 
+TableSupport &operator<<(TableSupport &support,
                          TableSupport::HLine const &hline)
 {
     if (hline.d_begin >= hline.d_end)
@@ -20,11 +20,11 @@ TableSupport &operator<<(TableSupport &support,
     int end = TableSupport::leftSeparator(hline.d_end);
 
     TableSupport::rightType(&elements[end], hline.d_type);
-        
-    for 
+
+    for
     (
         int idx = TableSupport::element(hline.d_begin);
-            idx != end; 
+            idx != end;
                 ++idx
     )
         elements[idx] = TableSupport::USE;

@@ -1,7 +1,4 @@
 #include "iobuf"
 
-#include "../exception/exception"
-
 using namespace std;
 using namespace FBB;
-

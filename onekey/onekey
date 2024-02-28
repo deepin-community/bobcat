@@ -2,6 +2,7 @@
 #define INCLUDED_BOBCAT_ONEKEY_
 
 #include <termios.h>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -14,11 +15,11 @@ class OneKey
     public:
         enum Mode
         {
-            OFF,      
-            ON      
+            OFF,
+            ON
         };
 
-        explicit OneKey(Mode state = OFF);    
+        explicit OneKey(Mode state = OFF);
 
         ~OneKey();
 

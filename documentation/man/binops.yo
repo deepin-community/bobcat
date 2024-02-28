@@ -57,12 +57,12 @@ manpagesection(NAMESPACE)
 
     The binary operator functions templates in tt(bobcat/binops) are em(not)
 implemented in a particular namespace. This allows sources to include
-tt(bobcat/binops) in multiple namespaces. 
+tt(bobcat/binops) in multiple namespaces.
 
     If tt(bobcat/binops) is to be used in multiple namespaces then the include
 safeguard (using the identifier tt(INCLUDED_BOBCAT_BINOPS_)) must be
 suppressed between inclusions of tt(bobcat/binops) in different
-namespaces. 
+namespaces.
 
     E.g., to make the binary operator function templates available in a source
 file using the tt(namespace FBB) and in a source file using the default
@@ -106,7 +106,7 @@ Move-aware operators, using temporary objects for its left-hand side operands:
     itb(Class operator^(Class &&lhs, Class const &rhs))
     )
 
-`Traditional' operators, using lvalue references to constant objects 
+`Traditional' operators, using lvalue references to constant objects
 for its left-hand side operands:
     itemization(
     itb(Class operator*(Class const &lhs, Class const &rhs))
@@ -141,6 +141,3 @@ section.
     )
 
 includefile(include/trailer)
-
-
-

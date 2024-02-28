@@ -13,5 +13,3 @@ string CGI::dos2unix(string const &text)
         ret.erase(pos, 1);
     }
 }
-
-

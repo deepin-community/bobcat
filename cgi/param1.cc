@@ -11,4 +11,3 @@ std::string CGI::param1(std::string const &variable)
 
     return ret;
 }
-

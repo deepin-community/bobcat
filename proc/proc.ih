@@ -1,0 +1,38 @@
+#include "proc"
+
+#include "../xerr/xerr.ih"
+
+#include <chrono>
+
+#include <bobcat/exception>
+#include <bobcat/ifdbufs>
+#include <bobcat/ofdstream>
+#include <bobcat/fswap>
+
+using namespace std;
+using namespace FBB;
+
+struct Proc::ExecContext
+{
+    size_t argc;            // must eventually be at least 1
+    char const **argv;      // 0-terminated array of pointers to the 
+                            // arguments
+};
+
+inline Proc::RetPid::RetPid(int rt, pid_t pd)
+:
+    ret(rt),
+    pid(pd)
+{}
+
+inline void Proc::closePipe(size_t idx)
+{
+    (*d_pipesPtr)[idx].close();
+}
+
+inline bool Proc::localPipes() const
+{
+    return d_admin & LOCAL_PIPES;
+}
+
+

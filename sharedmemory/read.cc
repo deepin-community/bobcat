@@ -30,10 +30,3 @@ int SharedMemory::read(char *data, streamsize len)
 
     return d_pos.offset() - begin;
 }
-
-
-
-
-
-
-

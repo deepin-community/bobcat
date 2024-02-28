@@ -2,7 +2,7 @@
 
 int IFdBuf::underflow()
 {
-//    if (gptr() < egptr())               
+//    if (gptr() < egptr())
 //        return static_cast<unsigned char>(*gptr());
 
     int nread = read(d_fd, &buffer()[0], bufSize());
@@ -16,4 +16,3 @@ int IFdBuf::underflow()
             // promotions of 0xff characters to -1, thus returning EOF...
     return static_cast<unsigned char>(*gptr());
 }
-    

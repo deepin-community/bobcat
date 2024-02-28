@@ -5,19 +5,19 @@ Maintainer: Frank B. Brokken <f.b.brokken@rug.nl>
 Uploaders: George Danchev <danchev@spnet.net>,
            tony mancill <tmancill@debian.org>
 Build-Depends: debhelper-compat (= 13),
-               icmake (>= 9.03.01),
-               libmilter-dev (>= 8.14.4-8),
+               icmake (>= 10.06.00),
+               libmilter-dev,
                libreadline-dev,
                libssl-dev,
-               libx11-dev (>= 2:1.6.2-3),
+               libx11-dev,
                yodl (>= 4.02.02)
-Standards-Version: 4.5.1
+Standards-Version: 4.6.2
 Vcs-Browser: https://salsa.debian.org/debian/bobcat
 Vcs-Git: https://salsa.debian.org/debian/bobcat.git
 Homepage: https://fbb-git.gitlab.io/bobcat/
 Rules-Requires-Root: no
 
-Package: libbobcat5
+Package: libbobcat6
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: run-time (shared) Bobcat library
@@ -50,7 +50,7 @@ Description: run-time (shared) Bobcat library
 Package: libbobcat-dev
 Architecture: any
 Section: libdevel
-Depends: libbobcat5 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Depends: libbobcat6 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: headers and documentation for the Bobcat library
  Headers and documentation of classes defined in the Bobcat library.
  .

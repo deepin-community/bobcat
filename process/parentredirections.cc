@@ -42,8 +42,3 @@ void Process::parentRedirections()
 
     clear();                // clears IOStream's streams
 }
-
-
-
-
-

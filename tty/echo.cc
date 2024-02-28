@@ -2,7 +2,7 @@
 
 bool Tty::echo(EchoType type)
 {
-    struct termios tty = d_tty; 
+    struct termios tty = d_tty;
 
     switch (type)
     {

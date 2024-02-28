@@ -13,5 +13,3 @@ time_t DateTime::Zone::initialize()
 
     return ret;
 }
-
-

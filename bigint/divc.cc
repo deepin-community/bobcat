@@ -6,4 +6,3 @@ BigInt BigInt::divc(BigInt *remainder, BigInt const &rhs) const
     checked3(ret.d_bn, remainder->d_bn, rhs, "div");
     return ret;
 }
-

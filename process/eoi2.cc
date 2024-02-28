@@ -8,4 +8,3 @@ void Process::eoi_()
         d_exitStatus = waitForChild();
     }
 }
-

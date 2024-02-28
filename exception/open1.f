@@ -8,14 +8,3 @@ void Exception::open(StreamType &stream, std::string const &name)
     if (!stream)
         throw Exception{} << "Can't open `" << name << '\'';
 }
-
-
-
-
-
-
-
-
-
-
-

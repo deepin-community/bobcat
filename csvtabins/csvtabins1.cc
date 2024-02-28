@@ -1,8 +1,8 @@
 //#define XERR
 #include "csvtabins.ih"
 
-CSVTabIns::CSVTabIns(unsigned *tabIdx, ostream &out, 
-                     vector<FMT> const &format, 
+CSVTabIns::CSVTabIns(unsigned *tabIdx, ostream &out,
+                     vector<FMT> const &format,
                      unsigned startIdx, string const &sep, bool more)
 :
     d_tabIdx(tabIdx),
@@ -16,4 +16,3 @@ CSVTabIns::CSVTabIns(unsigned *tabIdx, ostream &out,
     for (unsigned fill = startIdx - d_idx; fill-- != 0; )
         insert(' ');
 }
-

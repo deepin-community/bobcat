@@ -2,7 +2,7 @@
 
 void Stat::init()
 {
-    d_errno = ::lstat(d_name.c_str(), &d_stat) ? 
+    d_errno = ::lstat(d_name.c_str(), &d_stat) ?
                     errno
                 :
                     0;
@@ -41,4 +41,3 @@ int main()
     files(Glob::SOCKET, "SOCKET");
     files(Glob::SYMBOLIC_LINK, "SYMBOLIC_LINK");
 }
-

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -f a.out
+g++ -Wall -Werror -c driver.cc || exit 1
+build

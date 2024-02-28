@@ -5,7 +5,7 @@ using namespace std;
 
 void tm2cout(tm const &ts)
 {
-    cout << 
+    cout <<
             "mon "  << ts.tm_mon     <<
         ",  mday " << ts.tm_mday    <<
         ",  time " << ts.tm_hour    <<
@@ -23,7 +23,7 @@ int main()
     time_t now = time(0);
 
     setenv("TZ", ":Pacific/Auckland", 1);
-    tzset();    
+    tzset();
 
     tm ts;
 
@@ -37,4 +37,3 @@ int main()
 
     cout << '\n';
 }
-

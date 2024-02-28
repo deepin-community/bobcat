@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <bobcat/eoi>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -33,12 +34,12 @@ class IOBuf: public Eoi
         pos_type seekoff(off_type offset, std::ios::seekdir way,
                        std::ios::openmode mode = std::ios::in | std::ios::out)
                                                                     override;
-        pos_type seekpos(pos_type offset, 
+        pos_type seekpos(pos_type offset,
                        std::ios::openmode mode = std::ios::in | std::ios::out)
                                                                     override;
         int sync() override;
         int overflow(int c) override;
-        std::streamsize xsputn(char const *buffer, std::streamsize n) 
+        std::streamsize xsputn(char const *buffer, std::streamsize n)
                                                                     override;
 };
 

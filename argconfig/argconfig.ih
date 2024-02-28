@@ -5,7 +5,6 @@
 #include <algorithm>
 
 #include "../string/string"
-#include "../exception/exception"
 #include "../iuo/iuo"
 
 namespace FBB
@@ -15,17 +14,23 @@ class ArgConfig__
 {
                                             // find long options given short
                                             // option char
-    std::unordered_map<int, std::string> d_longOption; 
-        
+    std::unordered_map<int, std::string> d_longOption;
+
     public:
         ArgConfig__(LongOption__ const *begin, LongOption__ const *const end);
 
-        std::unordered_map<int, std::string>::const_iterator        
+        std::unordered_map<int, std::string>::const_iterator
                                         find(int optChar) const;    // .i
-        
-        std::unordered_map<int, std::string>::const_iterator 
+
+        std::unordered_map<int, std::string>::const_iterator
                                         findEnd() const;            // .i
 };
+
+// inline ArgConfig::Deleter::operator bool() const
+// {
+//     return d_argconfig != 0;
+// }
+
 
 #include "find.f"
 #include "findend.f"
@@ -34,4 +39,3 @@ class ArgConfig__
 
 using namespace FBB;
 using namespace std;
-

@@ -28,7 +28,7 @@ compile()
 		-L../../signal/tmp -lsignal \
 		-lbobcat -s
 }
-    
+
 case $1 in
     (pipe|gpg|sha1sum|limit|ls)
         compile $1
@@ -67,16 +67,9 @@ Available tests are:
     sort    - multi threading is used when sorting stdin to stdout, where
               sort's output is extracted from the Process object
     thread  - compute the input's sha1sum using multi-threading
-    
+
     clean   - not a test, but removes the test binaries
 "
     ;;
 
 esac
-
-
-
-
-
-
-

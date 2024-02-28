@@ -5,7 +5,7 @@
 using namespace std;
 using namespace FBB;
 
-static char const *type[] = 
+static char const *type[] =
 {
     "DQUOTE_UNTERMINATED",
     "SQUOTE_UNTERMINATED",
@@ -26,17 +26,17 @@ int main(int argc, char **argv)
 
     cout << "The string `" << text << "'\n"
             "   as url-encoded string: `" << encoded << "'\n"
-            "   and the latter string url-decoded: " << 
+            "   and the latter string url-decoded: " <<
                                     String::urlDecode(encoded) << "\n"
-            "\n"               
-            "Splitting `" << text << "' into " << 
-                    String::split(&splitpair, text, String::STRSEP, ", ") << 
-                " fields\n"; 
+            "\n"
+            "Splitting `" << text << "' into " <<
+                    String::split(&splitpair, text, String::STRSEP, ", ") <<
+                " fields\n";
 
     for (auto it = splitpair.begin(); it != splitpair.end(); ++it)
         cout << (it - splitpair.begin() + 1) << ": " <<
-                type[it->second] << ": `" << it->first << 
-                "', unescaped: `" << String::unescape(it->first) << 
+                type[it->second] << ": `" << it->first <<
+                "', unescaped: `" << String::unescape(it->first) <<
                 "'\n";
 
     cout << '\n' <<
@@ -46,11 +46,11 @@ int main(int argc, char **argv)
 }
 
 /*
-    Calling the program as 
+    Calling the program as
         driver'
     results in the following output:
         Program's name in uppercase: DRIVER
-        
+
         Splitting `one, two, 'thr\x65\145'' into 9 fields
         1: NORMAL: `one', unescaped: `one'
         2: SEPARATOR: `,', unescaped: `,'
@@ -61,14 +61,9 @@ int main(int argc, char **argv)
         7: NORMAL: `', unescaped: `'
         8: SEPARATOR: ` ', unescaped: ` '
         9: SQUOTE: `thr\x65\145', unescaped: `three'
-        
+
         one, two, 'thr\x65\145':
            upper case: ONE, TWO, 'THR\X65\145',
            lower case: one, two, 'thr\x65\145'
 
 */
-
-
-
-
-

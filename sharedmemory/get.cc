@@ -18,5 +18,5 @@ int SharedMemory::get()
         unlock(d_pos.blockIdx());
     }
 
-    return ret;    
+    return ret;
 }

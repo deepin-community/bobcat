@@ -1,7 +1,7 @@
 Currently immovable classes, hence classes using them will not offer move
-facilities: 
+facilities:
 
-    std::streambuf, 
+    std::streambuf,
     std::ios
 
 Singleton classes are not provided with move facilities: there's never another
@@ -39,7 +39,7 @@ No need for move-operations (no class type data members, no move-operations
     Hostname
     Indent
     InetAddress
-    Milter 
+    Milter
     TableBase       (used by classes derived fm streams)
     autoptr     (obsolete)
     bigint
@@ -49,8 +49,8 @@ No need for move-operations (no class type data members, no move-operations
     for_each
     fswap
     hmacbuf
-    ifdstream       
-    ifdstreambuf    
+    ifdstream
+    ifdstreambuf
     iostream
     iostreambuf
     irandstream

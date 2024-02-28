@@ -11,7 +11,7 @@ void catFile(string destination, string source)
 
         line = record[0] + "\n";            // get the line's contents
 
-        if 
+        if
         (
             strfind(line, "#include \"") == 0 && strfind(line, ".f\"") != -1
         )  // saw #include
@@ -38,7 +38,7 @@ void _iFiles(string class)
     list iFiles;
     int recreate = 0;
 
-    destination = g_cwd + g_tmphdr + class;     
+    destination = g_cwd + g_tmphdr + class;
 
     chdir(class);
                                         // the destination file name
@@ -63,18 +63,18 @@ void _iFiles(string class)
         buildHeader(destination, class, iFiles);
 
     chdir(g_cwd);
-}    
-    
+}
+
 void _cpHeaders()
 {
     int idx;
-    
+
     for (idx = g_nClasses; idx--; )
         _iFiles(g_classes[idx]);
 }
 
 int g_gch = 1;
-    
+
 void _precompileHeaders()
 {
     int idx;
@@ -93,7 +93,7 @@ void _precompileHeaders()
         classIH = class + ".ih";
 
         chdir(class);
-        
+
         if (classIH younger class + ".ih.gch")
             run(compiler + " -x c++-header " + classIH);
         chdir(g_cwd);
@@ -113,14 +113,14 @@ void static_library(string library)
     }
 }
 
-void _shared_library(string libso, string libsoshared, 
+void _shared_library(string libso, string libsoshared,
                     int strip)
 {
     string libsomajor;
     string gxx;
 
     gxx = g_cxx + " " + g_copt;
-    
+
     if (listlen(makelist("*/os/*.o")))
     {
         printf("\n"
@@ -128,28 +128,28 @@ void _shared_library(string libso, string libsoshared,
 
         libsomajor  = libso + "." + element(0, strtok(g_version, "."));
 
-        run(gxx +  
+        run(gxx +
                     " " + setOpt(LDFLAGS, "LDFLAGS") +
                     " -pthread -shared -Wl,--as-needed,"
-                    "-z,defs,-soname," + 
+                    "-z,defs,-soname," +
                     libsomajor +
                     " -o " + g_tmplibso + "/" + libsoshared +
                     " */os/*.o " +
                     g_sharedLibReq);
-    
+
         chdir(g_tmplibso);
-    
+
         if (strip)
             run("strip --strip-unneeded " + libsoshared);
 
         run("chmod -x " + libsoshared);
-        
+
         run("ln -sf " + libsoshared + " " + libsomajor);
 
         chdir(g_cwd + g_tmpliba);
 
         run("ln -sf " + libsomajor  + " " + libso);
-    
+
         chdir(g_cwd);
         // run("rm -f */os/*");
     }

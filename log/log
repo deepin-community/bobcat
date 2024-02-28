@@ -1,10 +1,14 @@
 #ifndef INCLUDED_BOBCAT_LOG_
 #define INCLUDED_BOBCAT_LOG_
 
+#include <iostream>
+
 #include <fstream>
 #include <memory>
 
 #include <bobcat/logbuf>
+#include <bobcat/level>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -18,29 +22,47 @@ enum LogManipulator
 
 class Log: private LogBuf, public std::ostream
 {
-    private:
-        static std::unique_ptr<Log> s_stream;
+                                                                    // opins:
+    friend Log &operator<<(Log &log, LogManipulator manip);         //  2.cc
 
-        std::ofstream d_stream;
-        size_t d_level;         // defined by setLevel: the level messages 
-                                // must at least have to be inserted
+    friend Log &operator<<(Log &log,                                //  3.cc
+                           std::ostream &(*fun)(std::ostream &str)); 
 
-        size_t d_msgLevel;      // the level of inserted messages
+    friend Log &operator<<(Log &log,                                //  4.cc
+                           std::ios_base &(*fun)(std::ios_base &base));
+
+    template<typename Type>
+    friend Log &operator<<(Log &log, Type const &type);             //   .f
+
+    static std::unique_ptr<Log> s_stream;
+
+    std::ofstream d_stream;
+    size_t d_level;         // defined by setLevel: the minimum level 
+                            // messages must have to be inserted
+
+    struct Active
+    {
+        bool levelOK;
+        bool opfunOK;
+        std::string accept; // accepted log characters for opfun.cc
+    };
+ 
+    std::unique_ptr<Active> d_active;
 
     public:
         static Log &instance();
-        static Log &initialize(std::string const &filename, 
-                std::ios::openmode = std::ios::out | std::ios::app, 
+        static Log &initialize(std::string const &filename,
+                std::ios::openmode = std::ios::out | std::ios::app,
                 char const *delim = " ");
 
         Log();
         Log(std::ostream &out,  char const *delim = " ");
-        Log(std::string const &filename, 
-                std::ios::openmode = std::ios::out | std::ios::app, 
+        Log(std::string const &filename,
+                std::ios::openmode = std::ios::out | std::ios::app,
                 char const *delim = " ");
 
-        void open(std::string const &filename, 
-                std::ios::openmode = std::ios::out | std::ios::app, 
+        void open(std::string const &filename,
+                std::ios::openmode = std::ios::out | std::ios::app,
                 char const *delim = " ");
 
         size_t level() const;                                           // .f
@@ -48,17 +70,23 @@ class Log: private LogBuf, public std::ostream
         void  setLevel(size_t newLevel);
         void  setTimestamp(TimeStamps timeStamp, char const *delim = " ");
         void  off();                                                    // .f
-        void  on(size_t logLevel = 0);                                  // .f
+        void  on(size_t logLevel = 0);
+
+        Log &operator()(char accept);
+
+        void str(std::string const &str);
+        std::string const &str() const;
 
     private:
         void init();
 };
 
-#include "level.f"
-#include "off.f"
+#include "log.f"
 
-std::ostream &operator<<(std::ostream &str, LogManipulator);
-        
+//std::ostream &operator<<(std::ostream &str, LogManipulator);    // opins1.cc
+
 } // FBB
+
+std::ostream &operator<<(std::ostream &str, FBB::LogManipulator);    // opins1.cc
 
 #endif

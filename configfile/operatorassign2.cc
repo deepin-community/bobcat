@@ -6,5 +6,3 @@ ConfigFile &ConfigFile::operator=(ConfigFile const &rhs)
     swap(d_ptr, tmp.d_ptr);
     return *this;
 }
-
-    

@@ -25,7 +25,7 @@ int main(int argc, char **argv)
         {
             cout << "extraction failed\n";
             break;
-        }    
+        }
         cout << "next: " << c << endl;
     }
 

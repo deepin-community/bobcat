@@ -19,7 +19,7 @@ try
     while (true)
     {
         if (!selector.wait())           // 0: alarm fires
-            cout << "Are you still there?" << endl;                
+            cout << "Are you still there?" << endl;
         else
         {
             string s;
@@ -33,4 +33,3 @@ catch (exception const &e)
 {
     cout << e.what() << endl;
 }
-

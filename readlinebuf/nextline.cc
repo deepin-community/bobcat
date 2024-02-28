@@ -7,8 +7,8 @@ size_t ReadLineBuf::nextLine(char *buf)      // malloc allocated buf
     else
         d_buffer = buf;
 
-    if (d_history && not d_buffer.empty())  // add line (+ maybe a timestamp) 
-    {                                       // to the history 
+    if (d_history && not d_buffer.empty())  // add line (+ maybe a timestamp)
+    {                                       // to the history
         add_history(buf);
         if (d_timestamp)
             add_history_time((*d_timestamp)().c_str());
@@ -18,6 +18,5 @@ size_t ReadLineBuf::nextLine(char *buf)      // malloc allocated buf
 
     d_buffer += '\n';
 
-    return d_buffer.length();    
+    return d_buffer.length();
 }
-

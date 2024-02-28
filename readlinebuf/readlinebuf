@@ -23,7 +23,7 @@ struct HistoryExpansion
         DONT_EXEC,
     };
 };
-        
+
 
 class ReadLineBuf: public HistoryExpansion, public std::streambuf
 {
@@ -42,11 +42,11 @@ class ReadLineBuf: public HistoryExpansion, public std::streambuf
     public:
         static ReadLineBuf &initialize(std::string const &prompt,
                                        Type type = DONT_EXPAND_HISTORY);
-        static ReadLineBuf &initialize(std::string const &prompt, 
-                             size_t historySize, 
+        static ReadLineBuf &initialize(std::string const &prompt,
+                             size_t historySize,
                              Type type = DONT_EXPAND_HISTORY);
         static ReadLineBuf &instance();
-        
+
 
         ~ReadLineBuf() override;
 
@@ -58,16 +58,18 @@ class ReadLineBuf: public HistoryExpansion, public std::streambuf
 
         bool useTimestamps(std::string (*timestamp)() = 0);
 
+        size_t readLine();          // reads a line, adds it to the history
+
     private:
         explicit ReadLineBuf(std::string const &prompt,
                              Type type = DONT_EXPAND_HISTORY);
-        explicit ReadLineBuf(std::string const &prompt, 
-                             size_t historySize, 
+        explicit ReadLineBuf(std::string const &prompt,
+                             size_t historySize,
                              Type type = DONT_EXPAND_HISTORY);
 
         int underflow() override;
 
-        size_t readLine();          // reads a line, adds it to the history
+//        size_t readLine();          // reads a line, adds it to the history
         size_t expandLine();        // reads a line, expands it if necessary,
                                     // then adds it to the history
         size_t nextLine(char *buf);
@@ -75,12 +77,7 @@ class ReadLineBuf: public HistoryExpansion, public std::streambuf
 
 #include "setprompt.f"
 #include "expansion.f"
-#include "expansionerror.f"        
+#include "expansionerror.f"
 
-} // FBB        
+} // FBB
 #endif
-
-
-
-
-

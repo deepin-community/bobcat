@@ -5,8 +5,10 @@
 
 #include <syslog.h>
 #include <string>
+
 #include <bobcat/eoibuf>
-                        
+#include <bobcat/exception>
+
 namespace FBB
 {
 
@@ -78,7 +80,7 @@ class SyslogBuf: public EoiBuf
         int sync()           override;
         int overflow(int ch) override;
         void eoi_()          override;                              // .cc
-        std::streamsize xsputn(char const *buffer, std::streamsize nChars) 
+        std::streamsize xsputn(char const *buffer, std::streamsize nChars)
                                                                 override;
 
         void reset(std::string const &ident, Facility facility,     // 2
@@ -178,8 +180,3 @@ class SyslogBuf: public EoiBuf
 */
 
 #endif
-
-
-
-
-

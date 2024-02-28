@@ -14,9 +14,9 @@ string DateTime::rfc3339() const
     time_t difference = utcForZone("", tm) - d_utcSec;
 
     clockTime(out) << ' ' <<
-                    showpos << setw(3) << internal << 
-                               difference / 3600 << ':' << 
-                    noshowpos << setw(2) << 
+                    showpos << setw(3) << internal <<
+                               difference / 3600 << ':' <<
+                    noshowpos << setw(2) <<
                                abs(difference) % 3600 / 60;
     return out.str();
 }

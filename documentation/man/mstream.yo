@@ -8,7 +8,7 @@ manpagename(FBB::Mstream)(Generic message handling stream)
 
 manpagesynopsis()
     bf(#include <bobcat/mstream>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     Objects of this class are used for handling messages in a standardized
@@ -44,7 +44,7 @@ this is a plain message
     )
     By default all messages are inserted into the standard output stream, but
 other destinations (standard error, a named file, etc.) can easily be
-configured. 
+configured.
 
     tt(Mstream) objects themselves are tt(std::ostream) objects, so they
 can be used as objects passed to functions expecting tt(ostream)
@@ -81,7 +81,7 @@ messages that may be inserted. No message or line numbers are shown, no
 exceptions are thrown when inserting messages.
     itb(explicit Mstream(std::ostream &ostr, size_t maxCount =
         std::numeric_limits<size_t>::max(), std::string const &tag = "", bool
-        throwing = false)) 
+        throwing = false))
        This constructor uses the tt(std::streambuf) that is also used by the
         tt(ostream ostr). By default (using the default argument values) there
         is no limit to the number of messages that may be inserted. No message
@@ -89,7 +89,7 @@ exceptions are thrown when inserting messages.
         messages. Specifying any other value than
         tt(std::numeric_limits<size_t>::max()) will set the maximum number of
         messages that can be inserted to that value. The tt(tag) defines the
-        text of the message label (e.g., tt(Error)). 
+        text of the message label (e.g., tt(Error)).
 
         When tt(throwing) is tt(true) an exception is thrown after completing
         a message. The generated exception's tt(what) member may show the
@@ -97,12 +97,12 @@ exceptions are thrown when inserting messages.
         tt(Mstream) object throwing the exception.
     itb(explicit Mstream(std::streambuf *buf, size_t maxCount =
         std::numeric_limits<size_t>::max(), std::string const &tag = "", bool
-        throwing = false)) 
+        throwing = false))
        This constructor uses tt(buf) to insert messages into. The remaining
         parameters are identical to those of the previous constructor.
     itb(explicit Mstream(std::string const &name, size_t maxCount =
         std::numeric_limits<size_t>::max(), std::string const &tag = "", bool
-        throwing = false)) 
+        throwing = false))
        This constructor creates a tt(std::ofstream) from the provided tt(name)
         parameter. It throws an exception if the stream cannot be opened for
         writing. If a file by that name already exists it is rewritten.  The
@@ -127,7 +127,7 @@ bf(FBB::MStream) object, and tt(false) if inserted messages are ignored. When
 ignoring messages the message count is not updated.
 
     itb(int id() const)
-        returns the unique em(id) of the tt(Mstream) object. 
+        returns the unique em(id) of the tt(Mstream) object.
 
     itb(bool lineExcess() const)
         returns bf(true) after attempting to insert an additional message
@@ -167,17 +167,16 @@ label) are kept as-is.
 
     itb(void reset(FBB::Mstream const &mstream))
         the current object is reset using the parameters of the tt(mstream)
-parameter. 
+parameter.
 
-    itb(void reset(std::string const &name, size_t maxCount, 
-                std::string const &tag, bool throwing))
+    itb(void reset(std::string const &name))
         messages inserted into tt(Mstream) objects are handled by a
 tt(std::ofstream) created using the provided tt(name) parameter.  An exception
 is thrown if the stream cannot be opened for writing. If a file by that name
 already exists it is rewritten. Other parameters (e.g., tt(maxCount), the
 message label) are kept as-is.
 
-    itb(void reset(std::ostream &ostr, size_t maxCount, 
+    itb(void reset(std::ostream &ostr, size_t maxCount,
                 std::string const &tag, bool throwing))
         messages inserted into tt(Mstream) objects are handled by the
 tt(std::streambuf) also used by tt(ostr).  By specifying
@@ -187,7 +186,7 @@ tt(std::streambuf). The tt(tag) defines the text of the message label (e.g.,
 tt(Error) or the empty string for no message label). When tt(throwing) is
 specified as tt(true) an exception is thrown after completing a message.
 
-    itb(void reset(std::streambuf *buf, size_t maxCount, 
+    itb(void reset(std::streambuf *buf, size_t maxCount,
                 std::string const &tag, bool throwing))
         messages inserted into tt(Mstream) objects are handled by
 tt(std::streambuf buf). The remaining parameters are identical to those of the
@@ -218,7 +217,7 @@ otherwise its actions are suppressed. Returns tt(ifTrue).
 next line is displayed (see also tt(noLineNr)). This value is em(not)
 changed by the tt(Mstream) object. To display another line number the
 member will have to be called again (i.e., the line number is not displayed
-automatically again at every new line). 
+automatically again at every new line).
 
     itb(void setLineTag(std::string const &tag))
         specifies the tag prefixing line numbers. By default the line tag

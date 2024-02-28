@@ -10,4 +10,3 @@ void showLocalTime()
 
     showTM(ts, "Local time");
 }
-

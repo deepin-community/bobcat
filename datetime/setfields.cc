@@ -24,5 +24,3 @@ void DateTime::setFields(TM const &src, TimeFields fields)
 
     assignTM();
 }
-
-

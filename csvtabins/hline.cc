@@ -4,7 +4,7 @@
 CSVTabIns &CSVTabIns::hline(FMT const &fmt)
 {
     unsigned nCols = min(               // idx beyond the last col. to fill
-                        d_idx + static_cast<size_t>(fmt.nCols()), 
+                        d_idx + static_cast<size_t>(fmt.nCols()),
                         d_format.size()
                      ) - d_idx;         // nCols: #columns to fill
 

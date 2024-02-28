@@ -22,7 +22,7 @@ try
     {
         cout << "port number required\n";
         return 1;
-    }        
+    }
 
     size_t portnr = stoul(argv[1]);
     ServerSocket server(portnr);
@@ -33,15 +33,15 @@ try
     {
         SocketBase fdb = server.accept();   // wait for incoming
         int fd = fdb.socket();
-        
+
         cerr << "Client FD = " << fd << ", " << endl <<
                 "address = " << fdb.dottedDecimalAddress() << ", " <<
                 endl <<
                 "communication through port " << fdb.port() << endl;
-        
+
         IFdStream in(fd);           // stream to read from client
         string cmd;
-        
+
         if (getline(in, cmd))
         {
             cout << "Got: " << cmd << endl;
@@ -51,7 +51,7 @@ try
 
             close(fd);              // the connection is terminated
         }
-    }  
+    }
 }
 catch(exception const &error)
 {

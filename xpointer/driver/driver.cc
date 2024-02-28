@@ -33,4 +33,3 @@ catch (exception const &err)
     cout << err.what() << endl;
     return 1;
 }
-

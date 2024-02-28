@@ -18,8 +18,3 @@ void md(string target)
         exit(1);
     }
 }
-
-
-
-
-

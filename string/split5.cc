@@ -19,4 +19,3 @@ vector<string> String::split(Type *type, string const &str, SplitType stype,
 
     return ret;
 }
-

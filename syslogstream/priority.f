@@ -1,4 +1,4 @@
-inline Priority SyslogStream::priority()   const       
+inline Priority SyslogStream::priority()   const
 {
     return SyslogBuf::priority();
 }

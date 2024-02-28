@@ -1,5 +1,5 @@
 template <typename Iterator, typename Type, typename Comparator>
-Iterator binary_search(Iterator begin, Iterator end, Type const &value, 
+Iterator binary_search(Iterator begin, Iterator end, Type const &value,
                        Comparator comparator)
 {
         // note: the comparator's lhs parameter is an element in

@@ -1,6 +1,4 @@
 #include "sharedcondition"
 
-#include "../exception/exception"
-
 using namespace std;
 using namespace FBB;

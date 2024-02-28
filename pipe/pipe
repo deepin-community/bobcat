@@ -1,8 +1,8 @@
 #ifndef INCLUDED_BOBCAT_PIPE_
 #define INCLUDED_BOBCAT_PIPE_
 
-#include <cstddef>
 #include <bobcat/fswap>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -12,17 +12,17 @@ class Pipe
     int d_fd[2];
 
     protected:
-        enum  RW 
+        enum  RW
         {
-            READ, 
-            WRITE 
+            READ,
+            WRITE
         };
 
     public:
-        Pipe();
-        Pipe(Pipe &&tmp);
-        explicit Pipe(int const *fd);
-        explicit Pipe(bool initialize);
+        Pipe();                                                 // 1.cc
+        Pipe(Pipe &&tmp);                                       // 2.cc
+        explicit Pipe(int const *fd);     // fd: must be 2 FDs     3.cc
+        explicit Pipe(bool initialize);                         // 4.cc
 
         // ~Pipe(); removed from the interface as it's implementation was
         //          empty and this class is not a Base class having virtual
@@ -30,33 +30,43 @@ class Pipe
 
         Pipe &operator=(Pipe &&tmp);
 
-        void swap(Pipe &other);
-
-        int readFd() const;                                     // .f
-        int writeFd() const;                                    // .f
-
         void close();                           // close the fds  1.cc
         void closeReadFd();                                     // .f
         void closeWriteFd();                                    // .f
 
-        void readFrom(int filedescriptor);   
-        void readFrom(int const *filedescriptor, size_t n);
+        int readFd() const;                                     // .f
+        void readFrom(int filedescriptor);
+        void readFrom(int const *filedescriptor, size_t nSwallow);
+        int readOnly();                     // closes the write FD
+                                            // closes the FDs, sets read FD
+        int readOnlyFd();                   // to -1, returns the original FD
 
-        void writtenBy(int filedescriptor);
-        void writtenBy(int const *filedescriptor, size_t n = 2);
 
-        int readOnly();                 // closes the write FD
+                                            // closes the npipes
+        void reset();                       // and reopens them         1.cc
+
+                                            // closes the npipes and reopens 
+                                            // them with the provided 2
+        void reset(int const *fds);         // read/write file descr.   2.cc
+
+
+        void swap(Pipe &other);
+
+        int writeFd() const;                                    // .f
         int writeOnly();                // closes the read FD
+        int writeOnlyFd();                // as readOnlyFd, using the write FD
+        void writtenBy(int filedescriptor);
+        void writtenBy(int const *filedescr, size_t nSwallow = 2);
 
     protected:
         void close(RW rw);                                      // 2.cc
 };
 
-#include "readfd.f"
-#include "writefd.f"
 #include "closereadfd.f"
 #include "closewritefd.f"
+#include "readfd.f"
 #include "swap.f"
+#include "writefd.f"
 
 } // FBB
 

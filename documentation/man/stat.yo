@@ -10,7 +10,7 @@ manpagename(FBB::Stat)(Determines File Characteristics)
 
 manpagesynopsis()
     bf(#include <bobcat/stat>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(Stat) is a wrapper around the bf(stat)(2) and bf(lstat)(2) system
@@ -27,16 +27,16 @@ manpagesection(INHERITS FROM)
 
 manpagesection(ENUMERATIONS)
 
-    bf(Stat::Combine): nl() 
+    bf(Stat::Combine): nl()
         This enumeration defines the following values:
         itemization(
-        it() bf(ALL): require all of the specified bf(Mode) or 
+        it() bf(ALL): require all of the specified bf(Mode) or
                 bf(SpecialMode) values to match;
-        it() bf(ANY): require any match of the specified bf(Mode) or 
+        it() bf(ANY): require any match of the specified bf(Mode) or
                 bf(SpecialMode) values (one match suffices);
         )
- 
-    bf(Stat::Mode): nl() 
+
+    bf(Stat::Mode): nl()
         This enumeration defines the following values:
         itemization(
        it() bf(UR): the owner of the object has read permissions
@@ -55,16 +55,16 @@ manpagesection(ENUMERATIONS)
        it() bf(EXEC): equal to tt(UX | GX | OX)
        it() bf(RWX): all of the above.
         )
- 
-    bf(Stat::SpecialMode): nl() 
+
+    bf(Stat::SpecialMode): nl()
         This enumeration defines the following values:
         itemization(
         it() bf(SUID): set UID bit is up
         it() bf(SGID): set GID bit is up
         it() bf(SB): sticky bit is up
         )
- 
-    bf(Stat::Type): nl() 
+
+    bf(Stat::Type): nl()
         This enumeration, which is identical to the bf(glob)(3bobcat) tt(Type)
             enumeration,  defines the following values:
         includefile(gs.inc)
@@ -74,7 +74,7 @@ manpagesection(ENUMERATIONS)
         construtors and some members when the tt(Stat) object should
         distinguish regular files and symbolic links (calling bf(lstat)(2))
         instead of considering symbolic links as regular files (using
-        bf(stat)(2)). 
+        bf(stat)(2)).
 
         Constructors and members that define tt(Stat::Lstat) parameters call
         bf(lstat)(2), thus distinguishing symbolic links from regular files,
@@ -99,7 +99,7 @@ manpagesection(CONSTRUCTORS)
     itb(Stat([Stat::Lstat,] std::string const &fname))
        Initializes a bf(Stat) with a given object name;
     itb(Stat([Stat::Lstat,] std::string const &fname, std::string const
-        &searchPath)) 
+        &searchPath))
        Initializes a bf(Stat) with a given object name, where the object is
         searched in the tt(searchPath) directories, which is a colon-separated
         string of directory names. The filenames are constructed by appending
@@ -147,7 +147,7 @@ manpagesection(MEMBER FUNCTIONS)
        Returns the error number associated with an error, in cases where
         bf(operator bool()) returns bf(false). A returned value of 0 indicates
         `no errors'. To obtain a verbal transcription of returned error
-        numbers the tt(Exception::errnodescr) manipulator (cf. 
+        numbers the tt(Exception::errnodescr) manipulator (cf.
         bf(exception)(3bobcat)) can be used.
     itb(bool isType(Stat::Type probe))
        Returns tt(true) if the object has the probed type otherwise tt(false)
@@ -178,7 +178,7 @@ manpagesection(MEMBER FUNCTIONS)
         function should return true if at least one specified mode matches the
         object's actual mode. An tt(Exception) exception is thrown if the
         specified tt(mode) contains other values than the defined bf(Mode)
-        or bf(SpecialMode) values. 
+        or bf(SpecialMode) values.
     itb(std::string modeStr() const)
        Returns the standard string-representation of the object's mode (e.g.,
         tt(rw-r--r--)). Special modes (e.g., suid) are indicated by tt(s)
@@ -200,7 +200,7 @@ manpagesection(MEMBER FUNCTIONS)
        Redefine the bf(Stat) object to represent the information about
         the indicated object name.
     itb(bool set([Stat::Lstat,] std::string const &name, std::string const
-        &pathlist)) 
+        &pathlist))
        Redefine the bf(Stat) object to represent the information about the
         indicated object name, where the object is searched in the
         tt(pathlist) directories, which is a colon-separated string of
@@ -210,7 +210,7 @@ manpagesection(MEMBER FUNCTIONS)
         path, tt(searchPath) is ignored.
     itb(off_t size() const)
         Returns the object's size in number of bytes (tt(st_size)).
-    itb(bool specialMode(size_t special, Combine combine = ALL)) 
+    itb(bool specialMode(size_t special, Combine combine = ALL))
        Returns true if the object has the indicated special modes.  Multiple
         special modes may be specified, which can be combined by the logical
         bf(bitor) operator. By default, if multiple modes are specified, the
@@ -219,7 +219,7 @@ manpagesection(MEMBER FUNCTIONS)
         be specified if the function should return true if at least one
         specified mode matches the object's actual mode. The non-special modes
         are ignored but a tt(Exception) exception is thrown if tt(special)
-        contains other values than those defined by the bf(SpecialMode) enum. 
+        contains other values than those defined by the bf(SpecialMode) enum.
     itb(Stat::stat const &statStruct() const)
         Returns a reference to the object's bf(stat struct).
     itb(Stat::Type type() const)

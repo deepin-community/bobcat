@@ -32,5 +32,3 @@ void CSVTabIns::insertFormatted(FMT const &fmt, Type const &value)
     if (d_idx != d_format.size())
         *d_out << d_sep;
 }
-
-

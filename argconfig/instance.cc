@@ -2,8 +2,8 @@
 
 ArgConfig &ArgConfig::instance()
 {
-    if (!s_argconfig)
+    if (not s_argConfig)
         throw Exception{} << "ArgConfig::instance(): not yet initialized";
 
-    return *s_argconfig;
+    return *s_argConfig;
 }

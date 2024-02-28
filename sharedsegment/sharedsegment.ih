@@ -4,7 +4,6 @@
 #include <sys/shm.h>
 
 #include "../ranger/ranger"
-#include "../exception/exception"
 
 using namespace std;
 using namespace FBB;

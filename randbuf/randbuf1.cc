@@ -1,20 +1,8 @@
 #include "randbuf.ih"
 
-RandBuf::RandBuf(int min, int max, size_t seed)
+RandBuf::RandBuf(int minimum, int maximum, size_t seed)
+:
+    d_randomMT(min(minimum, maximum), max(minimum, maximum), seed)
 {
-    if (min <= max)
-    {
-        d_min = min;
-        d_max = max;
-    }
-    else
-    {
-        d_min = max;
-        d_max = min;
-    }
-
-    ++d_max;
-
-    srandom(seed);
     setg(0, 0, 0);
 }

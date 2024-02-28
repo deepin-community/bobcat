@@ -13,12 +13,9 @@ size_t LocalServerSocket::accept()
                 reinterpret_cast<sockaddr *>(&address),
                 &size
             );
-        
+
     if (sock < 0)
         throw Exception{} << "LocalServerSocket::accept(): " << errnodescr;
 
     return sock;
 }
-
-
-

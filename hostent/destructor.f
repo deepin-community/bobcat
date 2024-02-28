@@ -2,4 +2,3 @@ inline Hostent::~Hostent()
 {
     destroy();
 }
-

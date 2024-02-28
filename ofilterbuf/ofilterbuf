@@ -9,7 +9,7 @@ namespace FBB
 
 class OFilterBuf: public Eoi
 {
-    typedef std::ios::openmode openmode;
+    using openmode =  std::ios::openmode;
     std::ofstream d_dest;
 
     std::ostream *d_out;
@@ -33,5 +33,5 @@ class OFilterBuf: public Eoi
 #include "out.f"
 
 } // FBB
-        
+
 #endif

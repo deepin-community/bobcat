@@ -27,7 +27,7 @@ int main(int argc, char **argv)
         cout << err.what() << endl;
     }
 
-    mh.setHeaderIterator("Received");  
+    mh.setHeaderIterator("Received");
 
     cout << "=================================== All mail headers:\n";
 
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 
     cout << "====================== all From headers:\n";
 
-    mh.setHeaderIterator("From", MailHeaders::PARTIAL);  
+    mh.setHeaderIterator("From", MailHeaders::PARTIAL);
 
     copy(mh.beginh(), mh.endh(),  ostream_iterator<string>(cout, "\n"));
 }

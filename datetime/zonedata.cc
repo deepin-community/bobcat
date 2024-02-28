@@ -18,14 +18,14 @@ DateTime::Zone::Data DateTime::Zone::data(string const &name,
 
     string dstName;                     //  -> dstSpec + d
 
-    bool useDST = not dstSpec.empty();  
+    bool useDST = not dstSpec.empty();
     if (useDST)                         // dst was specified
     {
         dstName = name;                 // append d, if needed also >
         if (dstName.back() != '>')
             dstName += 'd';
         else
-            dstName.replace((dstName.rbegin() + 1).base(), dstName.end(), 
+            dstName.replace((dstName.rbegin() + 1).base(), dstName.end(),
                             "d>");
     }
 
@@ -45,7 +45,3 @@ DateTime::Zone::Data DateTime::Zone::data(string const &name,
 
     return { shift, zoneSeconds(shift), dstSeconds };
 }
-
-
-
-

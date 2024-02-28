@@ -10,14 +10,14 @@ manpagename(FBB::OMutexStream)(Offers mutex protected std::ostream facilities)
 
 manpagesynopsis()
     bf(#include <bobcat/omutexstream>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
 In multi-threaded programs output written by different threads to the same
 output stream may be intermixed due to context switches. This is prevented by
 using mutexes: before writing to the output stream a mutex lock is acquired,
-releasing the lock once the output is completed. 
+releasing the lock once the output is completed.
 
 tt(OMutexStream) supports writing to output streams while handling the mutex
 locks. The tt(OMutexStream) object itself is initialized with the
@@ -63,7 +63,7 @@ manpagesection(CONSTRUCTORS)
     itemization(
     itb(OMutexStream(std::ostream &out))
        The tt(OMutexStream) object is initialized with an tt(std::ostream)
-        object. 
+        object.
     )
 
     Copy and move constructors (and assignment operators) are available.
@@ -78,7 +78,7 @@ manpagesection(OVERLOADED OPERATORS)
         and other operations that are allowed for tt(std::ostream) can also be
         used for tt(OMutexStream::Out) objects.
 
-    itb(OMutexStream::Out operator<<(OMutexStream const &mstr, 
+    itb(OMutexStream::Out operator<<(OMutexStream const &mstr,
                                                     Ret &(*manip)(Ret &os)))
        This member also is a function template. It is used for inserting
         manipulators without arguments into tt(OMutexStream::Out) objects.

@@ -36,29 +36,35 @@ class TableSupport
             size_t d_row;
             size_t d_begin;
             size_t d_end;
-            size_t d_type;  
-        
+            size_t d_type;
+
             HLine(size_t row, size_t begin, size_t end);
             HLine(ColumnType margins, size_t row, size_t begin, size_t end);
         };
 
-        class const_iterator: public std::iterator<std::input_iterator_tag, 
-                                                                        Field>
+        struct const_iterator
         {
-            TableSupport const &d_support;
+            using iterator_category = std::input_iterator_tag;
+            using difference_type   = std::ptrdiff_t;
+            using value_type        = Field;
+            using pointer           = value_type *;
+            using reference         = value_type &;
 
-                // iterators to vectors in d_elements. The elements of the 
+            private:
+                TableSupport const &d_support;
+
+                // iterators to vectors in d_elements. The elements of the
                 // vectors contain the types of the column (SKIP, USE, etc)
-                // to determine the width of an element call 
+                // to determine the width of an element call
                 // separator.width(iterator)
-            std::vector<size_t> const *d_vector;
-            std::vector<size_t>::const_iterator d_iter;
-            mutable Field d_field;
+                std::vector<size_t> const *d_vector;
+                std::vector<size_t>::const_iterator d_iter;
+                mutable Field d_field;
 
-            static std::vector<size_t> s_empty;
+                static std::vector<size_t> s_empty;
 
             public:
-                const_iterator(TableSupport const &support, size_t row, 
+                const_iterator(TableSupport const &support, size_t row,
                                                             bool begin);
 
                 const_iterator &operator++();                           // .f
@@ -82,9 +88,9 @@ class TableSupport
 
                                             // Element types per row per
                                             // column, wrt hlines
-        typedef std::unordered_map<size_t, std::vector<size_t>> UMsizeVector;
-        typedef  UMsizeVector::value_type UMValue;
-        typedef  UMsizeVector::const_iterator UMIter;
+        using UMsizeVector =  std::unordered_map<size_t, std::vector<size_t>>;
+        using UMValue =   UMsizeVector::value_type;
+        using UMIter =   UMsizeVector::const_iterator;
 
         UMsizeVector d_elements;
 
@@ -111,7 +117,7 @@ class TableSupport
         size_t width() const;               // total width of the table     .f
 
     protected:
-                                            
+
         const_iterator begin(size_t row) const;                         // .f
         const_iterator end(size_t row) const;                           // .f
 
@@ -151,9 +157,9 @@ class TableSupport
 
     friend const_iterator;
     friend TableSupport &operator<<(TableSupport &support, size_t);
-    friend TableSupport &operator<<(TableSupport &support, 
+    friend TableSupport &operator<<(TableSupport &support,
                                                 std::string const &sep);
-    friend TableSupport &operator<<(TableSupport &support, 
+    friend TableSupport &operator<<(TableSupport &support,
                                                 HLine const &hline);
 };
 
@@ -182,7 +188,7 @@ class TableSupport
 
 TableSupport &operator<<(TableSupport &support, size_t);
 TableSupport &operator<<(TableSupport &support, std::string const &sep);
-TableSupport &operator<<(TableSupport &support, 
+TableSupport &operator<<(TableSupport &support,
                                         TableSupport::HLine const &hline);
 } // FBB
 

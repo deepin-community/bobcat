@@ -10,11 +10,11 @@ manpagename(FBB::LocalSocketBase)
 
 manpagesynopsis()
     bf(#include <bobcat/localsocketbase>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     This class is a base class for the bf(FBB::LocalServerSocket) and
-bf(FBB::LocalClientSocket) classes. Since it is designed as a base class, 
+bf(FBB::LocalClientSocket) classes. Since it is designed as a base class,
 its constructor is protected. All its remaining members are protected as well.
 
 includefile(include/namespace)
@@ -24,11 +24,11 @@ manpagesection(INHERITS FROM)
 
 manpagesection(PROTECTED CONSTRUCTOR)
     itemization(
-    itb(LocalSocketBase()) 
+    itb(LocalSocketBase())
         The default constructor merely constructs a tt(FBB::LocalSocketBase)
 object. Before the object can be used, its tt(open()) member must be called
-first. 
-    itb(LocalSocketBase(string const &name)) 
+first.
+    itb(LocalSocketBase(string const &name))
         This constructor creates a bf(LocalSocketBase) using the file
 specified in tt(name) as the Unix domain socket interface.  If the socket
 could not be constructed, an bf(FBB::Exception) exception is thrown.
@@ -38,7 +38,7 @@ could not be constructed, an bf(FBB::Exception) exception is thrown.
 
 manpagesection(PROTECTED MEMBER FUNCTIONS)
     itemization(
-    itb(open(string const &name)) 
+    itb(open(string const &name))
         This member initiaizes a bf(LocalSocketBase) object following its
 construction using the default constructor. The file specified in tt(name) is
 used as the Unix domain socket interface.  If the socket could not be
@@ -48,17 +48,17 @@ constructed, an bf(FBB::Exception) exception is thrown.
     itb(int socket() const)
         This accessor returns the bf(FBB::LocalSocketBase)'s socket value.
     itb(sockaddr const *sockaddrPtr() const)
-        Accessor returning the pointer to the object's bf(sockaddr). 
+        Accessor returning the pointer to the object's bf(sockaddr).
     )
 
 manpagesection(EXAMPLE)
-    See the examples presented with the bf(localclientsocket)(3bobcat) and 
+    See the examples presented with the bf(localclientsocket)(3bobcat) and
     bf(localserversocket)(3bobcat) classes.
 
 manpagefiles()
     em(bobcat/localsocketbase) - defines the class interface
 
-manpageseealso() 
+manpageseealso()
     bf(bobcat)(7), bf(localclientsocket)(3bobcat),
     bf(localserversocket)(3bobcat), bf(socketbase)(3bobcat)
 

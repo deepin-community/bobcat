@@ -17,7 +17,7 @@ PrimeFactors::iterator &PrimeFactors::iteratorStream::operatorPreInc()
             d_mode = NEW_PRIMES;
             d_iterator = d_newPrimes.begin();
         [[fallthrough]];
-        
+
         case NEW_PRIMES:
             if (d_iterator != d_newPrimes.cend())
                 break;
@@ -32,6 +32,3 @@ PrimeFactors::iterator &PrimeFactors::iteratorStream::operatorPreInc()
 
     return *this;
 }
-
-
-

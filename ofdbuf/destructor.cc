@@ -4,4 +4,3 @@ OFdBuf::~OFdBuf()
 {
     cleanup(d_mode);
 }
-

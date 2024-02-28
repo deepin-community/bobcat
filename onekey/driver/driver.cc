@@ -20,22 +20,22 @@ int main()
         while (true)
         {
             char c;
-    
+
             cout << "ready...\n";
             cout << "Got character '" << (c = onekey.get()) << "'\n";
 
             switch (c)
             {
-                case '1':    
+                case '1':
                     onekey.setEcho(OneKey::ON);
                 break;
 
-                case '0':    
+                case '0':
                     onekey.setEcho(OneKey::OFF);
                 break;
 
                 case 'q':
-                return 0;    
+                return 0;
             }
         }
     }
@@ -45,4 +45,3 @@ int main()
         return 1;
     }
 }
-

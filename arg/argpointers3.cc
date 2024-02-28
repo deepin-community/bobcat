@@ -7,4 +7,3 @@ char const **Arg__::argPointers() const
 
     return d_argPointer;
 }
-

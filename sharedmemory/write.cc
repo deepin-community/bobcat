@@ -26,7 +26,7 @@ int SharedMemory::write(char const *data, streamsize len)
         data += nChars;
         d_pos += nChars;
 
-    
+
         d_sharedSegment->updateNreadable(d_pos.offset());
 
 //cerr << "Next offset: " << d_pos.offset() << ", len = " << len << '\n';
@@ -36,4 +36,3 @@ int SharedMemory::write(char const *data, streamsize len)
 
     return d_pos.offset() - begin;
 }
-

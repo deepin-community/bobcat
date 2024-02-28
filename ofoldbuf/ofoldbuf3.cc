@@ -1,6 +1,6 @@
 #include "ofoldbuf.ih"
 
-OFoldBuf::OFoldBuf(ostream &stream, size_t indent, 
+OFoldBuf::OFoldBuf(ostream &stream, size_t indent,
                         size_t rightMargin,
                         TabsOrBlanks tob, TrailingBlanks tb)
 :

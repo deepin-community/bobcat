@@ -10,7 +10,7 @@ manpagename(FBB::ServerSocket)
 
 manpagesynopsis()
     bf(#include <bobcat/serversocket>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     An bf(FBB::ServerSocket) may be constructed to listen for connection
@@ -31,7 +31,7 @@ latter situation implies that the sequence of input- and output operations is
 defined by the programmer.
 
     A Unix Domain server socket can be defined using
-tt(FBB::LocalServerSocket). 
+tt(FBB::LocalServerSocket).
 
 includefile(include/namespace)
 
@@ -64,7 +64,7 @@ base class could not properly be constructed.
      The bf(listen()) member's tt(backlog) parameter defines the size of the
 bf(FBB::ServerSocket)'s internal queue in which connection requests may be
 stored waiting for their turn to be serviced. When tt(backlog) requests are
-waiting and another request arrives, then that request is lost. 
+waiting and another request arrives, then that request is lost.
 
     The member's second parameter, tt(blocking), is used to control the
 blocking mode. By default, blocking is used, and tt(listen()) will wait until
@@ -80,7 +80,7 @@ accepted. The bf(FBB::SocketBase) object's socket value may be used to
 initialize streams that can be used to communicate with the client. In more
 complex programs the bf(FBB::SocketBase) could be passed to a class derived
 from bf(FBB::Fork), handling the communication with the child as a separate
-(child) process. 
+(child) process.
     )
 
 
@@ -92,10 +92,10 @@ manpagesection(EXAMPLE)
     #include <bobcat/serversocket>
     #include <bobcat/ifdstream>
     #include <bobcat/ofdstream>
-    
+
     using namespace std;
     using namespace FBB;
-    
+
     int main(int argc, char **argv)
     try
     {
@@ -104,47 +104,47 @@ manpagesection(EXAMPLE)
             cerr << "Provide server port number\n";
             return 1;
         }
-    
+
         size_t portnr = stoul(argv[1]);
-    
+
         ServerSocket server(portnr);
-    
+
         cerr << "server listens on port " << argv[1] << endl;
-    
+
         cerr << "serversocket returns:\n" <<
             "address = " << server.dottedDecimalAddress() << "\n"
             "port    = " << server.port() << endl;
-    
+
         int fd = server.socket();       // open the socket's descriptor
-    
+
         cout << "File descriptor of the socket is " << fd << "\n"
             "The server terminates when it receives a "
                                         "single `q' on a line\n"
             "A connection is terminated when no input "
                                         "is received anymore.\n"
             "Then another connection is possible" << endl;
-    
+
         server.listen();                // listen in blocking mode
-    
+
         while (true)
         {
             SocketBase fdb = server.accept();
             int fd = fdb.socket();
-    
+
             cerr << "Client FD = " << fd << ", " << endl <<
-                    "address = " << fdb.dottedDecimalAddress() << ", " << 
+                    "address = " << fdb.dottedDecimalAddress() << ", " <<
                     endl <<
                     "communication through port " << fdb.port() << endl;
-    
+
             IFdStream in(fd);           // stream to read from client
             OFdStream out(fd);          // stream to write to client
             string cmd;
-            
+
             while (getline(in, cmd))
             {
                 cout << "Got: " << cmd << endl;
                 out << "Got: " << cmd << "\r" << endl;
-    
+
                 if (cmd[0] == 'q')
                     return 0;
             }
@@ -155,10 +155,10 @@ manpagesection(EXAMPLE)
     {
         cerr <<
             err.what() << endl <<
-            "Server socket on port " << argv[1] << 
+            "Server socket on port " << argv[1] <<
             " can't be opened" << endl;
         return -1;
-    }        
+    }
         )
 
 manpagefiles()

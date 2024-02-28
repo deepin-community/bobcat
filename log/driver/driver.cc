@@ -1,7 +1,9 @@
 #include <iostream>
 #include <iomanip>
 
-#include <bobcat/log>
+//#include <bobcat/log>
+#include "../log"
+
 #include <bobcat/level>
 
 using namespace std;
@@ -11,7 +13,8 @@ int main()
 {
 //    Log &log = Log::initialize("&1"); // uses the static Log object
     Log log;                        // explicitly defining a Log object
-    log.open("/tmp/out");           // or at once: Log log{ "/tmp/out" }
+//    log.open("/tmp/out");           // or at once: Log log{ "/tmp/out" }
+
 
     log << "This message is written to cout" << nl <<
            setw(16) << ' ' << "occupying multiple lines\n";
@@ -32,6 +35,20 @@ int main()
 
     log << level(2) << "in business again\n";
     log << "final line\n";
+
+    log.str("ab");
+
+    log('a') << "hello a!" << endl;
+    log('b') << "hello b!" << nl <<
+                setw(16) << ' ' << "so far, so good" << endl;
+
+    log << "not shown" << endl;
+
+    log('c') << "not shown\n";
+    log << "not shown\n";
+
+    log.setLevel(2);
+    log << level(2) << "in business again\n";
 }
 
 

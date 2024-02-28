@@ -6,16 +6,16 @@ class FSwapBase
         template <typename Type>                // swap using memcpy
         static void rawswap(FSwapPOD<Type> &pod, char *two, int size);
 
-        template <typename Type>    
-        static constexpr char *addr(Type &);    // does reinterpret_cast 
+        template <typename Type>
+        static constexpr char *addr(Type &);    // does reinterpret_cast
 
-        template <typename Type>    
-        static constexpr char *addr(Type *);    // does reinterpret_cast 
-    
+        template <typename Type>
+        static constexpr char *addr(Type *);    // does reinterpret_cast
+
                                                 // use specified swap method
         template <typename Type, typename FSwapMode>
         static void explicitSwap(FSwapPOD<Type> &pod, FSwapMode &&member);
-    
+
                                                 // actions before using a
                                                 // specific swap method
         template <typename ReturnType, typename Type, typename Member>

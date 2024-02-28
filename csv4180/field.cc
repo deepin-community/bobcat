@@ -7,7 +7,7 @@ bool CSV4180::field()
     ++d_begin;                              // skip the comma
 
     d_last.push_back(move(d_field));        // add the field to d_last,
-                                            //  preparing d_field for the next 
+                                            //  preparing d_field for the next
                                             //  field
 
     d_state = START;

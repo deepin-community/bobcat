@@ -11,5 +11,3 @@ inline CSVTabIns &operator<<(CSVTabIns &&tab, Type const &value)
 {
     return tab << value;
 }
-
-

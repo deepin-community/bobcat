@@ -1,7 +1,7 @@
 #include "mailheaders.ih"
 
-MailHeaders::const_hdr_iterator::Comparator 
-    MailHeaders::const_hdr_iterator::s_comparator[] = 
+MailHeaders::const_hdr_iterator::Comparator
+    MailHeaders::const_hdr_iterator::s_comparator[] =
 {
     fail,
     initial,
@@ -11,4 +11,3 @@ MailHeaders::const_hdr_iterator::Comparator
     casePartial,
     caseFull
 };
-

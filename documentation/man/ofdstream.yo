@@ -28,7 +28,7 @@ manpagesection(CONSTRUCTORS)
     itemization(
     itb(OFdStream(int fd, size_t n = 1))
         The constructor initializes the object to write to descriptor tt(fd),
-using a buffer of size tt(n), by default having size 1. 
+using a buffer of size tt(n), by default having size 1.
     )
 
     Copy and move constructors (and assignment operators) are not available.
@@ -48,10 +48,10 @@ manpageseealso()
     bf(bobcat)(7), bf(ifdstream)(3bobcat), bf(ofdbuf)(3bobcat)
 
 manpagebugs()
-    The tt(OFdStream) object uses a tt(OFdStreamBuf) for its
+    The tt(OFdStream) object uses an tt(OFdBuf) for its
 tt(std::streambuf). This buffer is associated with the file descriptor passed
 to tt(OFdStream)'s constructor. When the tt(OFdStream) object goes out of
 scope the device (file, socket, etc.) to which the file descriptor that was
-passed to tt(OFdStream)'s constructor is em(not) closed. 
+passed to tt(OFdStream)'s constructor is em(not) closed.
 
 includefile(include/trailer)

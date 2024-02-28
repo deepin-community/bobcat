@@ -6,7 +6,7 @@
 
 /*
     int-info coming in or going out: host byte order
-*/    
+*/
 namespace FBB
 {
 

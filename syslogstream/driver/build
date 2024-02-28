@@ -15,4 +15,3 @@ CMD="$GPP -o driver -Wall -I../tmp driver.cc \
 
 echo ${CMD}
 ${CMD}
-

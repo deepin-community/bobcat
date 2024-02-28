@@ -4,7 +4,7 @@ BigInt &BigInt::operator|=(BigInt const &rhs)
 {
     if (rhs.isNegative())
         setNegative(true);
-    
+
     size_t nMin = min(sizeInBytes(), rhs.sizeInBytes());
     size_t nMax = max(sizeInBytes(), rhs.sizeInBytes());
 
@@ -24,9 +24,9 @@ BigInt &BigInt::operator|=(BigInt const &rhs)
         bLarge = d_bn;
         bSmall = rhs.d_bn;
     }
-    
-    BN_bn2bin(bSmall, small);    
-    BN_bn2bin(bLarge, large);    
+
+    BN_bn2bin(bSmall, small);
+    BN_bn2bin(bLarge, large);
 
     unsigned char *largePtr = large + nMax - nMin;
 

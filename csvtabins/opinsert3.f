@@ -7,4 +7,3 @@ inline CSVTabIns &operator<<(CSVTabIns &&tab, FMT::Align align)
 {
     return tab << align;
 }
-

@@ -22,7 +22,3 @@ void clean()
 
     exit(0);
 }
-
-
-
-

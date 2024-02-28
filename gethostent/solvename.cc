@@ -9,7 +9,7 @@ void GetHostent::solveName(char const *prefix, string const &host)
 
     char name[NI_MAXHOST];
     if (getnameinfo(
-            reinterpret_cast<sockaddr *>(&addr), sizeof(addr), 
+            reinterpret_cast<sockaddr *>(&addr), sizeof(addr),
                     name, NI_MAXHOST, 0, 0, 0) != 0)
         hostError(prefix);
 

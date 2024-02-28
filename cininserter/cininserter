@@ -25,7 +25,7 @@ class CinInserter: public IUO::CloseMode, private Exec,
     Pipe d_oChildInPipe = Pipe{ false };    // cin to be read by the CHILD
     void (*d_modeFun)();
     bool d_stopped = true;
-    
+
     public:
         CinInserter(size_t bufSize = 100);
         CinInserter(StdMode mode, size_t bufSize = 100);
@@ -40,7 +40,7 @@ class CinInserter: public IUO::CloseMode, private Exec,
 
     protected:
         Pipe &childInPipe();
-        
+
     private:
         void childRedirections() override;
         void parentRedirections() override;
@@ -58,10 +58,3 @@ inline Pipe &CinInserter::childInPipe()
 } // namespace FBB
 
 #endif
-
-
-
-
-
-
-

@@ -19,4 +19,3 @@ BigInt &BigInt::tildeBits()
 
     return *this;
 }
-

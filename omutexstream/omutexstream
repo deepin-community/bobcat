@@ -49,6 +49,3 @@ class OMutexStream::Out: public std::ostream
 }   // FBB
 
 #endif
-
-
-

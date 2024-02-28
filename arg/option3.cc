@@ -10,7 +10,7 @@ size_t Arg__::option(size_t idx, string *value, int optChar) const
 
     if (idx < ret && value)             // if the idx is within range and
         *value = it->second[idx];       // value requested, return it.
-    
+
     return ret;                         // return this option count.
 }
 

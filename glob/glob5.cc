@@ -1,6 +1,6 @@
 #include "glob.ih"
 
-Glob::Glob(unordered_set<Type> const &type, string const &pattern, 
+Glob::Glob(unordered_set<Type> const &type, string const &pattern,
            int flags, Dots dots)
 try
 :
@@ -9,7 +9,7 @@ try
     if (flags & ~Flags::mask)
         throw Exception(flags) << "Glob: unknown Flag specified";
 
-    int err = glob(pattern.c_str(), flags & ~NOMATCH, 0, 
+    int err = glob(pattern.c_str(), flags & ~NOMATCH, 0,
                                                     &d_share->globStruct);
 
     if (err != 0)

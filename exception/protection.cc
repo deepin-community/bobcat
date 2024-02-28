@@ -9,17 +9,17 @@ size_t Exception::protection(std::string const &name, size_t protect,
                                 protect << dec << ')';
 
     struct stat statbuf;
-    
+
                             // no: create it with the requested protection
     if (stat(name.c_str(), &statbuf) != 0)                          // bits
-    {                           
+    {
         if (errno != ENOENT)    // stat error, but not non-existing file
             throw Exception{} << "Cannot obtain details about `" << name <<
                                                                         '\'';
         int fd = ::open(name.c_str(), O_CREAT, protect);
 
         if (fd < 0)
-            throw Exception{} << "Can't create 0" << oct << protect << 
+            throw Exception{} << "Can't create 0" << oct << protect <<
                                  dec << ' ' << name;
         close(fd);
 
@@ -30,7 +30,7 @@ size_t Exception::protection(std::string const &name, size_t protect,
 
     if (type == EQUAL && mode != protect)
         throw Exception{} << "Protection of `" << name << "' (0" << oct <<
-                            mode << ") differs from required 0" << 
+                            mode << ") differs from required 0" <<
                             protect;
     return mode;
 }

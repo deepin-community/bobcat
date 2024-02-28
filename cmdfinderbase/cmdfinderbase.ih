@@ -3,7 +3,6 @@
 #include <sstream>
 
 #include "../string/string"
-#include "../exception/exception"
 
 using namespace std;
 using namespace FBB;
@@ -11,5 +10,3 @@ using namespace FBB;
 #include "matchexact.f"
 #include "matchunique.f"
 #include "matchinsensitive.f"
-
-

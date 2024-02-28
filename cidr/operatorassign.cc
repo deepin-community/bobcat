@@ -2,7 +2,7 @@
 
 #include "../iuo/iuo"
 
-Cidr &Cidr::operator=(Cidr &&tmp) 
+Cidr &Cidr::operator=(Cidr &&tmp)
 {
     swap(tmp);
     return *this;

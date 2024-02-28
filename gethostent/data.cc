@@ -1,6 +1,6 @@
 #include "gethostent.ih"
 
-// struct addrinfo 
+// struct addrinfo
 // {
 //     int              ai_flags;
 //     int              ai_family;
@@ -17,7 +17,7 @@
 //     char              sa_data[14];  // 14 bytes of protocol address
 // };
 //
-// 
+//
 // struct in_addr {
 //     unsigned long s_addr;          // load with inet_pton()
 // };
@@ -46,7 +46,7 @@ namespace
 string              GetHostent::s_name;
 
 in_addr             GetHostent::s_address;
-char               *GetHostent::s_addressPtr[2] = 
+char               *GetHostent::s_addressPtr[2] =
                     {
                         reinterpret_cast<char *>(&s_address),
                         0
@@ -54,8 +54,8 @@ char               *GetHostent::s_addressPtr[2] =
 struct hostent      GetHostent::s_hp
                     {
                         0,              // set to &s_name.front()
-                        &::nullPtr, 
-                        AF_INET, 
+                        &::nullPtr,
+                        AF_INET,
                         4,              // Size of binary IP4 addresses
                         s_addressPtr
-                    };    
+                    };

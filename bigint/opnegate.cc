@@ -6,4 +6,3 @@ BigInt BigInt::operator-() const
     tmp.negate();
     return tmp;
 }
-

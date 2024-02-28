@@ -23,10 +23,9 @@ void OFoldBuf::flush()
         d_next = d_indent + d_nonWs.length();
     }
 
-//    cerr << "FLUSHNONWS " << d_next << ' ' << d_wsLength << ' ' << 
+//    cerr << "FLUSHNONWS " << d_next << ' ' << d_wsLength << ' ' <<
 //                            d_nonWs.length() << ": " << length() << endl;
 
     d_nonWs.erase();
     clearWs();
 }
-

@@ -8,7 +8,7 @@ manpagename(FBB::Pattern)(Performs RE pattern matching)
 
 manpagesynopsis()
     bf(#include <bobcat/pattern>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(Pattern) objects may be used for Regular Expression (RE) pattern
@@ -61,7 +61,7 @@ classes. E.g.,
     regular expression matches an (alpha-numeric) word, followed by optional
     blanks, a colon, more optional blanks and a (decimal) number:
         verb(
-    R"((\w+)\s*:\s*\d+)" 
+    R"((\w+)\s*:\s*\d+)"
         )
     )
 
@@ -72,7 +72,7 @@ manpagesection(INHERITS FROM)
 
 manpagesection(TYPEDEF)
     itemization(
-    itb(Pattern::Position) 
+    itb(Pattern::Position)
         A nested type representing the offsets of the first character and
 the offset beyond the last character of the matched text or indexed
 subexpression, defined as tt(std::pair<std::string::size_type,
@@ -89,8 +89,8 @@ be the em(lvalue) in assignments where another bf(Pattern) object is the
 em(rvalue). However, it can receive a pattern using the member
 bf(setPattern()) (see below). An bf(FBB::Exception) object is thrown if the
 object could not be constructed.
-    itb(Pattern(std::string const &pattern, 
-                            bool caseSensitive = true, 
+    itb(Pattern(std::string const &pattern,
+                            bool caseSensitive = true,
                             size_t nSub = 10,
                         int options = REG_EXTENDED | REG_NEWLINE))
         This constructor compiles tt(pattern), preparing the bf(Pattern)
@@ -101,7 +101,7 @@ where the order-number of their opening parentheses determines the
 subexpression's index. By default at most 10 subexpressions are recognized.
 The em(options) flags may be:
 
-               REG_EXTENDED: nl() 
+               REG_EXTENDED: nl()
                    Use POSIX Extended Regular Expression syntax when
                     interpreting regex.  If not set, POSIX Basic Regular
                     Expression syntax is used.
@@ -134,7 +134,7 @@ manpagesection(MEMBER FUNCTIONS)
      All members of bf(std::ostringstream) and bf(  std::exception) are
 available, as bf(Pattern) inherits from these classes.
     itemization(
-    itb(std::string before() const)  
+    itb(std::string before() const)
         Following a successful match, bf(before()) returns the text before the
 matched text.
     itb(std::string beyond() const)
@@ -158,7 +158,7 @@ Options may be:
                     may be used when different portions of a string are passed
                     to regexec and the beginning of the string should not be
                     interpreted as the beginning of the line.
-        
+
     REG_NOTEOL: nl()
                     The  match-end-of-line  operator  always  fails  to
                     match  (but  see  the  compilation flag REG_NEWLINE)
@@ -169,13 +169,13 @@ Options may be:
 bf(regcomp)(3). It returns the content of a tt(static) string that is
 overwritten at each construction of a bf(Pattern) object and at each call of
 the tt(setPattern()) member function.
-    itb(Pattern::Position position(size_t index) const) 
+    itb(Pattern::Position position(size_t index) const)
         With em(index == 0) the fully matched text is returned (identical to
 tt(matched())). Other index values return the corresponding
 subexpressions. bf(std::string::npos, std::string::npos) is returned if index
 is at least bf(end()) (which may happen at index value 0).
-    itb(void setPattern(std::string const &pattern, 
-                            bool caseSensitive = true, 
+    itb(void setPattern(std::string const &pattern,
+                            bool caseSensitive = true,
                             size_t nSub = 10,
                         int options = REG_EXTENDED | REG_NEWLINE))
         This member function installs a new compiled tt(pattern) in its
@@ -185,7 +185,7 @@ parameters. Like the constructor, an bf(FBB::Exception) exception is thrown if
 the new pattern could not be compiled.
     itb(void swap(Pattern &other))
         The content of the current object and the tt(other) object are
-swapped. 
+swapped.
     )
 
 manpagesection(OVERLOADED OPERATORS)
@@ -197,7 +197,7 @@ subexpression. An empty string is returned for index values which are at least
 bf(end()).
     itb(Pattern &operator<<(int matchOptions))
         Defines match-options to be used with the following overloaded
-operator. 
+operator.
     itb(bool operator<<(std::string const &text))
         Performs a bf(match(text, matchOptions)) call, catching any exception
 that might be thrown. If no em(matchOptions) were set using the above
@@ -227,7 +227,3 @@ like this prefer the use of a (shared, unique) pointer to a tt(Pattern),
 initializing the pointer when, e.g., first used.
 
 includefile(include/trailer)
-
-
-
-

@@ -16,7 +16,7 @@ void CSV4180::setSpecs(string const &specs)
         if (ch == '-')
             ch = 'X';
         else if (string("SIDX").find(ch) == string::npos)
-            throw Exception{} << "CSV4180: specification `" << ch << 
+            throw Exception{} << "CSV4180: specification `" << ch <<
                                                         "' not supported";
         size_t repeat;
         if (not (in >> repeat))
@@ -24,7 +24,7 @@ void CSV4180::setSpecs(string const &specs)
             in.clear();
             repeat = 1;
         }
-        
+
         d_specs.append(repeat, ch);
     }
 

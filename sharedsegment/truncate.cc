@@ -10,7 +10,7 @@ bool SharedSegment::truncate(streamsize offset)
     bool ret = offset <= d_nReadable;
     if (ret)
         d_nReadable = offset;
-    
+
     nReadableUnlock();
 
     return ret;

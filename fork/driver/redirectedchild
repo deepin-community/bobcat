@@ -39,7 +39,7 @@ void ChildIO::childProcess()
         // child process started by Fork::fork()
     Process process(Process::DIRECT, "/bin/cat");
     process.start();
-   
+
     // this point is never reached
 }
 

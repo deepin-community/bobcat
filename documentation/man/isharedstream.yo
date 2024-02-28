@@ -8,7 +8,7 @@ manpagename(FBB::ISharedStream)(std::istream operations on shared memory)
 
 manpagesynopsis()
     bf(#include <bobcat/isharedstream>)nl()
-    Linking option: tt(-lpthread -lbobcat) 
+    Linking option: tt(-lpthread -lbobcat)
 
 manpagedescription()
 
@@ -39,7 +39,7 @@ manpagesection(CONSTRUCTORS)
         cannot immediately be used to access shared memory. To use it, its
         member tt(open) must first be called.
 
-    itb(ISharedStream(size_t maxSize, SizeUnit sizeUnit, 
+    itb(ISharedStream(size_t maxSize, SizeUnit sizeUnit,
             std::ios::openmode openMode = std::ios::in,
             size_t access = 0600))
        This constructor creates an tt(std::istream) that interfaces to a
@@ -55,7 +55,7 @@ manpagesection(CONSTRUCTORS)
         octal digits. If construction succeeds the shared memory is ready for
         use. If construction fails, an tt(FBB::Exception) is thrown.
 
-    itb(ISharedStream(int id, std::ios::openmode openMode = std::ios::in)) 
+    itb(ISharedStream(int id, std::ios::openmode openMode = std::ios::in))
        This constructor creates an tt(std::istream) that connects to a shared
         memory segment having ID tt(id). If construction succeeds the shared
         memory is ready for use. If construction fails (e.g., no shared memory
@@ -134,7 +134,7 @@ END)
         octal digits. If opening succeeds the shared memory is ready for
         use. If opening fails, an tt(FBB::Exception) is thrown.
 
-    itb(void open(int id, std::ios::openmode openMode = std::ios::in)) 
+    itb(void open(int id, std::ios::openmode openMode = std::ios::in))
        This member connects the bf(FBB::ISharedStream) object to a shared
         memory segment having ID tt(id). A matching tt(close) member does
         not exist and is not required. If opening succeeds the shared
@@ -156,7 +156,7 @@ END)
         tt(tellg) exceeded tt(offset), tt(tellg)'s return value it is reduced
         to tt(offset) as well. Subsequent read operations on the shared memory
         can only succeed as long as tt(tellg)'s return value hasn't reached
-        the value tt(offset). 
+        the value tt(offset).
     )
 
 
@@ -170,11 +170,11 @@ manpageseealso()
     bf(bobcat)(7),  bf(chmod)(1),
         bf(osharedstream)(3bobcat),
         bf(sharedblock)(3bobcat),
-        bf(sharedcondition)(3bobcat), 
+        bf(sharedcondition)(3bobcat),
         bf(sharedmemory)(3bobcat),
-        bf(sharedmutex)(3bobcat), 
-        bf(sharedpos)(3bobcat), 
-        bf(sharedreadme)(7bobcat), 
+        bf(sharedmutex)(3bobcat),
+        bf(sharedpos)(3bobcat),
+        bf(sharedreadme)(7bobcat),
         bf(sharedsegment)(3bobcat),
         bf(sharedstream)(3bobcat),
         bf(sharedbuf)(3bobcat)
