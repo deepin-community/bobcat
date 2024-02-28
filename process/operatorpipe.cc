@@ -1,7 +1,7 @@
 #include "process.ih"
 
 // See ../README.process-pipe for an explanation of the inner workings of
-// operator| 
+// operator|
 
 namespace FBB
 {
@@ -16,27 +16,27 @@ Process &operator|(Process &lhs, Process &rhs)
     }
 
         // all but the first process has IN_PIPE set
-    if 
+    if
     (
         (lhs.d_setMode & Process::CIN)
-        && 
+        &&
         not (lhs.d_setMode & Process::IN_PIPE)
     )
         lhs.d_setMode |= Process::CLOSE_ON_EXEC;
 
                                         // This is the output end of the pipe
-    lhs.d_setMode |= Process::PIPES_OK | Process::OUT_PIPE; 
+    lhs.d_setMode |= Process::PIPES_OK | Process::OUT_PIPE;
     rhs.d_setMode |= Process::PIPES_OK;
 
     lhs.start();                        // forking() does the real work
 
 #ifdef BOBCAT_DIY_CLOEXEC_
-    rhs.d_closedByChild = lhs.d_closedByChild;  // children close the initial 
+    rhs.d_closedByChild = lhs.d_closedByChild;  // children close the initial
                                                 // writing ends of the pipes
                                                 // to the 1st process
 #endif
 
-    rhs.d_oChildInPipe.swap(lhs.d_iChildOutPipe); 
+    rhs.d_oChildInPipe.swap(lhs.d_iChildOutPipe);
 
                             // copy the input fm the lhs's child to the rhs's
                             // output. lhs.iChildOutPipe only has an open
@@ -44,7 +44,7 @@ Process &operator|(Process &lhs, Process &rhs)
                             // child process to read via its stdin, thus
                             // connecting lhs's output to the rhs's input
 
-    if (lhs.d_oChildIn.rdbuf() != 0)      
+    if (lhs.d_oChildIn.rdbuf() != 0)
     {
         lhs.d_oChildIn.rdbuf(0);
         rhs.d_oChildInbuf.reset(lhs.d_oChildInbuf.fd(), 200);
@@ -60,5 +60,3 @@ Process &operator|(Process &lhs, Process &rhs)
 
 
 }
-
-

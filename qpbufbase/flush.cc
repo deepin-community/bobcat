@@ -36,6 +36,5 @@ void QPBufBase::flush()
     }
 
     d_buffer += d_pending;
-    d_pending.clear();            
+    d_pending.clear();
 }
-

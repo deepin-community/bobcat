@@ -1,7 +1,7 @@
 template <class Derived>
 struct Div
 {
-    Derived &operator/=(Derived const &rhs) &; 
+    Derived &operator/=(Derived const &rhs) &;
     Derived &&operator/=(Derived const &rhs) &&;
 };
 

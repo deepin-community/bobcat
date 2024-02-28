@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 
     Log log;
 
-    log << ": message to cout" << nl << 
+    log << ": message to cout" << nl <<
             "<-- No timestamp here " << '\n' <<
             "<-- But timestamp here " << endl;
 
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
     log.level(1) << "Shown" << "\n";
     log << "This one too" << endl;
-    
+
 
     log << level(0) << "Again not shown\n";
     log << level(1) << "Shown again\n";

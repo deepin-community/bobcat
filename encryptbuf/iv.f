@@ -1,4 +1,6 @@
 inline std::string const &EncryptBuf::iv() const
 {
-    return d_iv;
+    static std::string ret;
+
+    return ret;
 }

@@ -48,5 +48,3 @@ void PerlSetFSA::w_Nest()
 {
     d_target += "[:alnum:]";
 }
-
-

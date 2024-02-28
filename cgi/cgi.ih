@@ -12,10 +12,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-//#include "../a2x/a2x"
-//#include "../x2a/x2a"
-
-#include "../exception/exception"
 #include "../string/string"
 #include "../stat/stat"
 #include "../fswap/fswap"
@@ -27,7 +23,7 @@ using namespace FBB;
 namespace FBB
 {
 
-typedef pair<char const *const, int (*const)(int)> PairCPPFunP;
+using PairCPPFunP =  pair<char const *const, int (*const)(int)>;
 
 class CGIFSA
 {
@@ -36,9 +32,9 @@ class CGIFSA
         DEFAULT = 256,
         SET,
         END,
-    };            
+    };
     enum State         // change data.cc s_stateName when this changes
-    {   
+    {
         START,
         CHECKSET,
         DEFINESET,
@@ -68,7 +64,7 @@ class CGIFSA
     string d_buffer;
     size_t  d_setIdx;
     istream &d_in;
-           
+
     struct Transition
     {
         size_t  token;
@@ -101,7 +97,7 @@ class CGIFSA
         size_t tokenIdx();
 
         void setEscape(size_t idx);                 // .i
-    
+
         size_t charToken();
         size_t wordToken();
 

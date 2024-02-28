@@ -16,4 +16,3 @@ std::string DateTime::seconds2str(time_t seconds)
                                         // zoneshift as -hh:mm
     return sign + to_string(seconds / 60) + ':' + to_string(seconds % 60);
 }
-

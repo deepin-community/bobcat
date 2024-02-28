@@ -9,12 +9,14 @@
 #include <mutex>
 #include <memory>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
     // DateTime objects define d_utcSec as the time since the epoch
     // in seconds, and d_thisZone as the computer's time zone shift in
-    // seconds. 
+    // seconds.
 
 class DateTime
 {
@@ -28,7 +30,7 @@ class DateTime
     friend bool operator>(DateTime const &left, DateTime const &right);
     friend bool operator>=(DateTime const &left, DateTime const &right);
 
-    typedef struct tm TM;
+    using TM =  struct tm;
 
     public:
         enum TimeType
@@ -95,8 +97,9 @@ class DateTime
             };
             Data d_data;
 
-            typedef std::unordered_map<std::string, 
-                                        std::unique_ptr<Zone>> ZoneMap;
+            using ZoneMap =  
+                    std::unordered_map<std::string, std::unique_ptr<Zone>>;
+
             static ZoneMap *s_zone;
 
             static time_t s_thisZoneShift;
@@ -113,8 +116,8 @@ class DateTime
 
                 Zone(std::string const &shift,                          // 3
                      std::string const &dstSpec,        // "=" means std
-                     std::string const &dstBegin = "", 
-                     std::string const &dstEnd   = ""); 
+                     std::string const &dstBegin = "",
+                     std::string const &dstEnd   = "");
 
                 std::string const &spec() const;                        // .f
                 int dstSeconds() const;         // only use when mktime // .f
@@ -126,10 +129,10 @@ class DateTime
                 static Zone const &get(std::string const &name);
 
                 static Zone const &store(                               // 2
-                            std::string const &name, 
+                            std::string const &name,
                             std::string const &shift,     // maybe :X/Y
                             std::string const &dstSpec = "",  // "=": std DST
-                            std::string const &dstBegin = "", 
+                            std::string const &dstBegin = "",
                             std::string const &dstEnd = "");
 
                 static std::string const &defaultTZ();                  // .f
@@ -139,7 +142,7 @@ class DateTime
 
                 static time_t thisZoneShift();                          // .f
                                                             // this computer's
-                                                            // zone shift in 
+                                                            // zone shift in
                                                             // seconds
 
             private:
@@ -147,30 +150,30 @@ class DateTime
                 Zone(Data &&data);                                      // 4.f
 
                 static Zone const &storeIUO(
-                            std::string const &name, 
+                            std::string const &name,
                             std::string const &shift,
                             std::string const &dstSpec = "", // "=": std DST
-                            std::string const &dstBegin = "", 
+                            std::string const &dstBegin = "",
                             std::string const &dstEnd = "");
 
                 static Data data(
                         std::string const &name,
-                        std::string shift, 
+                        std::string shift,
                         std::string dstSpec = "",           // "=" means std
-                        std::string dstBegin = "", 
+                        std::string dstBegin = "",
                         std::string dstEnd = "");
 
                 static void checkDST(std::string const &dstSpec,
-                                     std::string &dstBegin, 
+                                     std::string &dstBegin,
                                      std::string &dstEnd);
 
                 static void negate(std::string &shift);
 
-                static int add(std::string &dstSpec, 
+                static int add(std::string &dstSpec,
                                std::string const &shift);
 
                                         // spec starts with '+' or '-'
-                static int seconds(std::string const &spec); 
+                static int seconds(std::string const &spec);
 
                 static std::string convert(std::string const &dstSpec);
 
@@ -180,13 +183,13 @@ class DateTime
 
                 static time_t thisZone(); // define the computer's current zone
 
-                static void addZone(std::string const &line, 
-                                    std::string const &fname, 
+                static void addZone(std::string const &line,
+                                    std::string const &fname,
                                     unsigned lineNr);
 
-                typedef std::vector<std::string> StringVector;
+                using StringVector =  std::vector<std::string>;
 
-                static std::pair<std::string, std::string> 
+                static std::pair<std::string, std::string>
                     dstFromVector(StringVector const &vs);
 
                 static std::string dstConcatenate(
@@ -210,17 +213,17 @@ class DateTime
 
             public:
                 Parse(std::istream &in, TM &tm);
-        
+
                 int format() const;                                 // .f
                 int zoneSeconds() const;                              // .f
                 std::string const &zoneName() const;                // .f
-        
+
             private:
                 void fromYear();
                 void fromDayName();
                 void dateR();
                 void fromMonth();
-        
+
                 void setZoneShift(bool negative, int minutes, int sign = 0);
                 void setMonth(std::string const &month);    // throws 1 on err
         };
@@ -228,7 +231,7 @@ class DateTime
         TimeType    d_type;     // current type of info in d_tm member
                                 // (LOCALTIME (implied when using displayZone)
                                 // or UTC)
-        time_t      d_utcSec;   // UTC time in seconds (since the epoch: 
+        time_t      d_utcSec;   // UTC time in seconds (since the epoch:
                                 //                      time(0) )
 
         Zone        d_zone;     // the object's current zone info
@@ -255,7 +258,7 @@ class DateTime
         explicit DateTime(Zone const &spec);                        // 5.f
 
                                                 // specify UTC/LOCAL time in
-        DateTime(time_t time, TimeType type);  // seconds          // 6
+        DateTime(time_t time, TimeType type = UTC);  // seconds     // 6
 
                                                 // Local time: zone, no DST
         DateTime(time_t time, std::chrono::minutes zoneMinutes);   // 7.f
@@ -268,15 +271,15 @@ class DateTime
                                                 // UTC or LOCALTIME
         explicit DateTime(TM const &tm, TimeType type = UTC);       // 9
 
-                                                // tm fields specify a 
-                                                // LOCALTIME time point in 
+                                                // tm fields specify a
+                                                // LOCALTIME time point in
                                                 // Zone `zone'
         explicit DateTime(TM const &tm, Zone const &zone);          // 10
 
-                                                // UTC/LOCAL text time, 
-        DateTime(std::string const &timeStr, TimeType type);       // 12
-        DateTime(std::istream &in, TimeType type);                 // 13
-        DateTime(std::istream &&in, TimeType type);                // 14.f
+                                                // UTC/LOCAL text time,
+        DateTime(std::string const &timeStr, TimeType type = UTC); // 12
+        DateTime(std::istream &in, TimeType type = UTC);           // 13
+        DateTime(std::istream &&in, TimeType type = UTC);          // 14.f
 
 
         DateTime &operator+=(std::chrono::seconds  seconds);       // 1.
@@ -315,7 +318,7 @@ class DateTime
         void setMonth(int month);       // 0-based                  // 1.cc
         void setMonth(Month month);                                 // 2.f
         void setMonth(Month month, Relative where);                 // 3.cc
-        void setMonthNr(int month);     // 1-based                  // .f 
+        void setMonthNr(int month);     // 1-based                  // .f
         void setSeconds(int seconds);
         void setUTCseconds(time_t utcSeconds);
         void setWeekday(Weekday weekday, Relative where);
@@ -335,11 +338,11 @@ class DateTime
 
         static void setTZ(std::string const &spec);     // use "" for UTC
         static void resetTZ();
-                                            // use "" to use a local time 
+                                            // use "" to use a local time
                                             // TM specification as UTC spec.
         static time_t utcForZone(std::string const &zoneSpec, TM &tm);
 
-                                            // show d_tm's clock time as 
+                                            // show d_tm's clock time as
                                             // hh::mm::ss
         std::ostream &clockTime(std::ostream &out) const;
 

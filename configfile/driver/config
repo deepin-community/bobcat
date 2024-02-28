@@ -1,4 +1,4 @@
-# these options are also defined by driver.cc 
+# these options are also defined by driver.cc
 option
 option-value: \#xyz
 option-value: #xyz
@@ -21,9 +21,3 @@ line: this one is
         it's extending over multiple lines
 
 and there may, of course, be more lines in this file
-
-
-
-
-
-

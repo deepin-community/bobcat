@@ -29,7 +29,7 @@ int main(int argc, char **argv)
         if (he.beginAlias() != he.endAlias())
         {
             cout << "Aliases:\n";
-            copy(he.beginAlias(), he.endAlias(), 
+            copy(he.beginAlias(), he.endAlias(),
                     ostream_iterator<char const *>(cout, "\n"));
         }
 
@@ -43,5 +43,3 @@ int main(int argc, char **argv)
         return 1;
     }
 }
-
-

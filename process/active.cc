@@ -9,6 +9,6 @@ bool Process::active()
         if (retChild == d_child.pid)
             d_child.pid = 0;               // process has ended
     }
-        
+
     return d_child.pid;
 }

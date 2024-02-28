@@ -19,5 +19,3 @@ string String::escape(string const &str, char const *series)
         left = right + 1;
     }
 }
-
-

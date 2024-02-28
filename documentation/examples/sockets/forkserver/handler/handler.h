@@ -21,5 +21,5 @@ class Handler: public FBB::Fork
         }
 };
 
-        
+
 #endif

@@ -1,6 +1,6 @@
 #include "configfile.ih"
 
-ConfigFile_::ConfigFile_(string const &fname, Comment cType, 
+ConfigFile_::ConfigFile_(string const &fname, Comment cType,
                             SearchCasing sType, Indices iType)
 :
     ConfigFile_(cType, sType, iType)
@@ -9,10 +9,8 @@ ConfigFile_::ConfigFile_(string const &fname, Comment cType,
 }
 
 
-ConfigFile::ConfigFile(string const &fname, Comment cType, 
+ConfigFile::ConfigFile(string const &fname, Comment cType,
                        SearchCasing sType, Indices iType)
 :
     d_ptr(new ConfigFile_(fname, cType, sType, iType))
 {}
-
-

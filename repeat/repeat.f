@@ -3,6 +3,6 @@ void repeat(Counter counter, First &&first, Params &&...params)
 {
     for (; counter; --counter)
         Repeat__<TypeTrait<First>::isClass>::call(
-                                std::forward<First>(first), 
+                                std::forward<First>(first),
                                 std::forward<Params>(params)...);
-}    
+}

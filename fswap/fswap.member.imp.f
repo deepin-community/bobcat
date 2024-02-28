@@ -4,7 +4,7 @@ template <typename Type, typename Member, typename ...List>
 void FSwap<ModeType<SwapMode::SWAPMEMBER>, Type, Member, List...>::
     swap(FSwapPOD<Type> &pod, Member &&member, List ...memberSpecs)
 {
-    typedef typename std::remove_reference<Member>::type MemberType;
+    using MemberType =  typename std::remove_reference<Member>::type;
 
     member.swap(                // use the swap member with the
                                 // member in the rhs object
@@ -14,5 +14,3 @@ void FSwap<ModeType<SwapMode::SWAPMEMBER>, Type, Member, List...>::
     FSwap<ModeType<SwapMode::SWAPMEMBER>, Type, List...>:: // then do the tail
         swap(pod, std::forward<List>(memberSpecs) ...);
 }
-
-

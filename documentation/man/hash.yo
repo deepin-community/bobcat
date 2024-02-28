@@ -37,7 +37,7 @@ hash's value type.
 manpagesection(CONSTRUCTORS)
 
     Variants of the tt(FBB::Hash) container are available for tt(char const *)
-or tt(std::string) keys, used case sensitively or case insensitively. 
+or tt(std::string) keys, used case sensitively or case insensitively.
 
 All variants support default and move construction (as well as move
 assignment), support construction from initializer lists. and support
@@ -46,7 +46,7 @@ values.
 
     The following variants are available (showing their default
 constructors). tt(Value) refers to the value type stored in the hash table.
-    
+
     itemization(
     itb(HashCharPtr<Value>()) this hash table uses em(case sensitive) bf(char
 const *) keys;
@@ -75,16 +75,16 @@ manpagesection(EXAMPLE)
         verb(
     #include <iostream>
     #include <bobcat/hash>
-    
+
     using namespace std;
     using namespace FBB;
-    
+
     pair<char const *, size_t> ap[] =
     {
         pair<char const *, size_t>("one", 1),
         pair<char const *, size_t>("two", 2),
     };
-    
+
     int main()
     {
         HashCharPtr<size_t> hcp;
@@ -92,7 +92,7 @@ manpagesection(EXAMPLE)
         HashCharPtr<size_t> hcp3(hcp2);
 
         hcp = hcp2;
-    
+
         cout << hcp2["one"] << endl;
     }
         )

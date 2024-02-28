@@ -21,16 +21,16 @@ try
     int fd = client.connect();
     string line;
 
-    unsigned long addr = 
+    unsigned long addr =
         const_cast<ClientSocket const &>(client).sockaddr_inPtr()->
                                                             sin_addr.s_addr;
 
     cout << "Connecting to socket " << fd << endl <<
-            "address = " << client.dottedDecimalAddress() << ", (" << 
+            "address = " << client.dottedDecimalAddress() << ", (" <<
                                                                  addr << ")\n"
             "communication through port " << client.port() << endl;
 
-    IFdStream in(fd);                 // stream to read from        
+    IFdStream in(fd);                 // stream to read from
     OFdStream out(fd);                // stream to write to
 
     unsigned long sPort;
@@ -43,12 +43,12 @@ try
     while (true)
     {
                                 // Ask for a textline, stop if empty / none
-        cout << "? ";                   
+        cout << "? ";
         if (!getline(cin, line) || line.length() == 0)
             return 0;
         cout << "Line read: " << line << endl;
                                 // Return the line to the server
-        out << line.c_str() << endl;    
+        out << line.c_str() << endl;
         cout << "wrote line\n";
 
                                 // Wait for a reply from the server
@@ -62,4 +62,3 @@ catch (exception const &err)
             "Can't connect to " << argv[1] << ", port " << argv[2] << endl;
     return 1;
 }
-

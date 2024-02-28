@@ -7,13 +7,15 @@
 #include <vector>
 #include <iosfwd>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
 class CSV4180
 {
-    typedef std::vector<std::string>    StrVector;
-    typedef std::vector<StrVector>      DataVector;
+    using StrVector =  std::vector<std::string>;
+    using DataVector =  std::vector<StrVector>;
 
     enum State
     {
@@ -60,9 +62,9 @@ class CSV4180
 
     public:
                                             // 1: determine nFields from the
-                                            //  1st line or specify the 
+                                            //  1st line or specify the
                                             //  # required fields
-        explicit CSV4180(size_t nFields = 0, bool header = false, 
+        explicit CSV4180(size_t nFields = 0, bool header = false,
                             char fieldSep = ',');
 
                                             // 2: specs specify requirements
@@ -71,26 +73,26 @@ class CSV4180
                                             //  d_data lines and
                                             //  d_header. Throws exception if
                                             //  unsopported specification is
-                                            //  encountered. 
+                                            //  encountered.
         explicit CSV4180(std::string const &specs, bool header = false,
                             char fieldSep = ',');
 
         // Copy and move operations are implicitly available
 
 
-        std::istream &read1(std::istream &in);  // in.fail(): error in input 
-                                                // data 
+        std::istream &read1(std::istream &in);  // in.fail(): error in input
+                                                // data
 
-        size_t read(std::istream &in, size_t nLines = 0);    // read all csv 
-                                                // lines or specify the 
+        size_t read(std::istream &in, size_t nLines = 0);    // read all csv
+                                                // lines or specify the
                                                 // # lines to read.
 
         size_t nValues() const;                 // # CSVs (available after
                                                 // reading at least one line)
 
-        StrVector const &header() const;        // the header (or empty) 
+        StrVector const &header() const;        // the header (or empty)
 
-        std::string const &lastLine() const;    // the most recently read 
+        std::string const &lastLine() const;    // the most recently read
                                                 // line from the istream
 
         DataVector const &data() const;         // all csv lines
@@ -126,5 +128,5 @@ class CSV4180
 #include "lastline.f"
 
 
-} // FBB        
+} // FBB
 #endif

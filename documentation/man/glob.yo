@@ -9,7 +9,7 @@ manpagename(FBB::Glob)
 
 manpagesynopsis()
     bf(#include <bobcat/glob>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     The bf(FBB::Glob) class is a wrapper around the bf(C) function
@@ -23,7 +23,7 @@ manpagesection(INHERITS FROM)
 
 manpagesection(ENUMERATIONS)
 
-    bf(Glob::Type): nl() 
+    bf(Glob::Type): nl()
         This enumeration, which is identical to the bf(stat)(3bobcat) tt(Type)
 enumeration, defines the following values:
    includefile(gs.inc)
@@ -60,21 +60,21 @@ enumeration, defines the following values:
 manpagesection(CONSTRUCTORS)
     itemization(
     itb(Glob(std::string const &pattern = "*", int flags = PERIOD,
-             Dots dots = FIRST)) 
+             Dots dots = FIRST))
        This constructor (which can also be used as the default constructor)
         determines all elements matching tt(pattern).
-    
+
         An tt(Exception) exception is thrown if the constructor could not
         properly complete it tasks.
-    
-        Multiple flags may be specified, separated by the tt(bitor) operator. 
-    
+
+        Multiple flags may be specified, separated by the tt(bitor) operator.
+
         This constructor properly completes its task if only defined bf(Flag)
         values were specified and if the bf(glob)(3) function returned without
         errors;
 
     itb(Glob(Type type, std::string const &pattern = "*", int flags = PERIOD,
-             Dots dots = FIRST)) 
+             Dots dots = FIRST))
        This constructor determines all elements of tt(pattern) when their
         types `tt(elementType)' are equal to the value of tt(elementType &
         type). The specified tt(type) value may consist of any tt(bitor)-ed
@@ -83,10 +83,10 @@ manpagesection(CONSTRUCTORS)
         tt(DIRECTORY), elements that are tt(BLOCK_DEVICEs) or tt(SOCKETs) are
         also accepted. The next constructor can be used to avoid this
         confusion;
-        
-    itb(Glob(std::unordered_set<Type> const &typeSet, 
+
+    itb(Glob(std::unordered_set<Type> const &typeSet,
             std::string const &pattern = "*", int flags = PERIOD,
-            Dots dots = FIRST)) 
+            Dots dots = FIRST))
        This constructor determines all elements of tt(pattern) when their
         types are found in tt(typeSet). Different from the previous
         constructor, for an element to be accepted its type must exactly match
@@ -127,18 +127,18 @@ manpagesection(EXAMPLES)
             cout << "Provide glob-expression as 1st arg\n";
             return 1;
         }
-    
+
         cout << "General:\n";
-    
+
         Glob general;
-    
+
         for (size_t idx = 0; idx < general.size(); idx++)
             cout << idx << ": " << general[idx] << endl;
-    
+
         cout << "Pattern: " << argv[1] << "\n";
-    
+
         Glob pattern(argv[1], Glob::PERIOD, Glob::DEFAULT);
-    
+
         for (size_t idx = 0; idx < pattern.size(); idx++)
             cout << idx << ": " << pattern[idx] << endl;
     }

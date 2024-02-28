@@ -11,10 +11,3 @@ User::User(User &&tmp)
     d_uid(tmp.d_uid),
     d_gid(tmp.d_gid)
 {}
-
-
-
-
-
-
-

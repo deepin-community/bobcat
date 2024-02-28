@@ -8,8 +8,8 @@ CSVTabIns &CSVTabIns::insert(ios_base &(*func)(ios_base &))
         FMT::Align align = func == std::left  ? FMT::LEFT  :
                            func == std::right ? FMT::RIGHT :
                                                 FMT::UNUSED;
-        
-        align == FMT::UNUSED 
+
+        align == FMT::UNUSED
     )                           // manipulators other than left/right
         *d_out << func;         // are directly inserted
     else
@@ -17,4 +17,3 @@ CSVTabIns &CSVTabIns::insert(ios_base &(*func)(ios_base &))
 
     return *this;
 }
-

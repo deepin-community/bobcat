@@ -5,7 +5,7 @@ ServerSocket::ServerSocket(size_t port)
     SocketBase(port),       // uses INADDR_ANY -> current host.
     d_msg(0)
 {
-    int val = 1;    
+    int val = 1;
                             // Make sure the socket is reusable upon restarts
     if (setsockopt(socket(), SOL_SOCKET, SO_REUSEADDR, &val, sizeof(int)))
     {

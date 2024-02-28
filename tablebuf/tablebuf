@@ -2,7 +2,9 @@
 #define INCLUDED_BOBCAT_TABLEBUF_
 
 #include <streambuf>
+
 #include <bobcat/tablebase>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -10,7 +12,7 @@ namespace FBB
 class TableBuf: public TableBase, public std::streambuf
 {
     friend std::ostream &operator<<(std::ostream &str,              // 1.f
-                                    TableBuf &table); 
+                                    TableBuf &table);
 
     friend std::ostream &fs(std::ostream &out);
     friend std::ostream &rs(std::ostream &out);
@@ -23,10 +25,10 @@ class TableBuf: public TableBase, public std::streambuf
 
     public:
         TableBuf(size_t nColumns, FillDirection direction,          // 0
-                                WidthType widthType = COLUMNWIDTH); 
+                                WidthType widthType = COLUMNWIDTH);
 
         TableBuf(TableSupport &tableSupport,                        // 1
-                size_t nColumns, FillDirection direction,             
+                size_t nColumns, FillDirection direction,
                 WidthType widthType = COLUMNWIDTH);
 
         TableBuf &def();                // fillup an incomplete table  1.f
@@ -63,8 +65,5 @@ std::ostream &rs(std::ostream &out);
 #include "opinsert2.f"  // TableBuf << Align
 
 } // FBB
-        
+
 #endif
-
-
-

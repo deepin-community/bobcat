@@ -35,4 +35,3 @@ int main()
     while (getline(cin, line))
         out << line << '\n';
 }
-

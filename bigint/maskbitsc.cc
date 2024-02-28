@@ -6,4 +6,3 @@ BigInt BigInt::maskBitsc(size_t lowerNBits) const
     ret.maskBits(lowerNBits);
     return ret;
 }
-

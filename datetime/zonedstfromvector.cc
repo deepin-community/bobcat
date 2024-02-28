@@ -9,7 +9,7 @@ pair<string, string> DateTime::Zone::dstFromVector(StringVector const &vs)
     auto iter = find(vs.begin(), vs.end(), "until");
 
     if (iter == vs.end())           // info beyond dst, but 'until' not
-        throw 1;                    // specified 
+        throw 1;                    // specified
 
     return {
                 dstConcatenate(vs.begin() + 3, iter),

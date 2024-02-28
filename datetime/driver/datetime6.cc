@@ -16,4 +16,3 @@ int main()
 
     cout << "Current LOCALTIME = " << dateTime << '\n';
 }
-

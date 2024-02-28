@@ -9,7 +9,7 @@ manpagename(FBB::ConfigFile)
 
 manpagesynopsis()
     bf(#include <bobcat/configfile>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     This class is deprecated: the class bf(FBB::Config)
@@ -20,8 +20,8 @@ files.  Lines are stored with initial white-space (blanks and tabs) removed.
 If a line ends in \, then the next line (initial white-space removed) is
 appended to the current line.
 
-    If the tt(rmComment) flag is set to tt(true) blanks lines and 
-information on lines from the first tt(#) are removed. If the comment 
+    If the tt(rmComment) flag is set to tt(true) blanks lines and
+information on lines from the first tt(#) are removed. If the comment
 character (tt(#)) is
 prefixed by a backslash (i.e., tt(\#)) it is not considered comment, but
 replaced by a single tt(#) character. Likewise, if the tt(rmComment) flag was
@@ -58,13 +58,13 @@ lines must be kept; nl()
         bf(ConfigFile::RemoveComment) is used to indicate that comment on
 lines must be removed;
     itb(SearchCasing)
-        This enumeration also has two values:nl() 
+        This enumeration also has two values:nl()
         bf(ConfigFile::SearchCaseSensitive) is used to do case sensitive
 searches for targets;nl()
         bf(ConfigFile::SearchCaseInsensitive) is used to do case
 insensitive searches for targets.
     itb(Indices)
-        This enumeration also has two values:nl() 
+        This enumeration also has two values:nl()
         bf(ConfigFile::IgnoreIndices) when used, the line numbers of the
 original configuration file are not available;nl()
         bf(ConfigFile::StoreIndices) when used, the line numbers of the
@@ -74,7 +74,7 @@ original configuration file are also available;nl()
 manpagesection(TYPES)
     The following types are defined by the class tt(ConfigFile):
     itemization(
-    itb(const_iterator) 
+    itb(const_iterator)
         a tt(const_iterator) is an iterator pointing to a
 line (tt(std::string)) of the configuration file;
     itb(const_RE_iterator) a tt(const_RE_iterator) is an iterator pointing to
@@ -98,7 +98,7 @@ below for a description of the functions used in the next example):
         verb(
     ConfigFile cf(...)
     auto iters = cf.beginEndRE("^hello");
-    cout << "There are " << (iters.second - iters.first) << 
+    cout << "There are " << (iters.second - iters.first) <<
             " lines starting with hello\n";
         )
     The two tt(const_RE_iterator) objects should refer to the same regular
@@ -119,7 +119,7 @@ be used for that. The parameters can be used to specify specific handling of
 comment, letter-casing and storage of line numbers in the original
 configuration file.
     itb(ConfigFile(std::string const &fname, Comment cType = KeepComment,
-            SearchCasing sType = SearchCaseSensitive, 
+            SearchCasing sType = SearchCaseSensitive,
             Indices iType = IgnoreIndices))
         This constructor is used to create a bf(ConfigFile) object, which
 is filled with the information from a file whose name is provided as the
@@ -133,7 +133,7 @@ manpagesection(OVERLOADED OPERATORS)
     itemization(
     itb(std::string const &operator[](size_t idx) const)
         This member returns the (0-based) tt(idx)-th line of the configuration
-    file. 
+    file.
     )
 
     Copy and move constructors (and assignment operators) are available.
@@ -153,7 +153,7 @@ of the configuration file.
         A pair of tt(const_RE_iterators) is returned. The tt(first)
 field of the pair is a tt(const) iterator to the first element (i.e.,
 line) of the bf(ConfigFile) object in which the regular expression tt(target)
-is found. 
+is found.
 
         The tt(second) field is a tt(const) iterator marking the end of the
 series of lines started at the the first line matching the regular expression
@@ -163,7 +163,7 @@ If the tt(RemoveComment) flag was specified, then comment-text is not
 searched.  The iterator returned in the pair's tt(first) field can be
 incremented until the iteratr returned in the pair's tt(second) field is
 reached; all iterators (unequal the iterator in tt(second)) point to lines
-matching the specified regular expression.  
+matching the specified regular expression.
 
     The iterator's increment operator searches the next line matching the
 specified regular expression.
@@ -190,7 +190,7 @@ determine the end-iterator. It is not guaranteed that all lines between the
 returned iterator and tt(end) contain tt(target).  This member also
 interprets the tt(SearchCasing) flag.
 
-    itb(std::string findKey(std::string const &keyPattern, 
+    itb(std::string findKey(std::string const &keyPattern,
                                                      size_t count = 1) const)
         This member can be used to retrieve information from lines having the
 general pattern `tt(keyPattern value)'. Initial and trailing white space on
@@ -203,7 +203,7 @@ matching tt(keyPattern value) (i.e., `tt(value)' is returned). If tt(value) is
 empty or if fewer than tt(count) lines match tt(keyPattern) an empty string is
 returned. An tt(FBB::Exception) exception is thrown if tt(count) equals 0.
 
-    itb(std::string findKeyTail(std::string const &keyPattern, 
+    itb(std::string findKeyTail(std::string const &keyPattern,
                                                     size_t count = 1) const)
         This member can be used to retrieve information from lines having the
 general pattern `tt(keyPattern value)', merely followed by white
@@ -272,7 +272,7 @@ configuration file according to the last setting of the letter-casing flag.
 
 manpagesection(EXAMPLE)
     Assume the configuration file is called tt(config.rc) and contains the
-following lines: 
+following lines:
 
     COMMENT(Keep the blank following the backslashes below:)
     verb(
@@ -288,7 +288,7 @@ this is not a line containing line: at the beginning \
 
 line: this one is
 
-    line: what about this one? \ 
+    line: what about this one? \
         it's extending over multiple lines
 
 and there may, of course, be more lines in this file
@@ -304,14 +304,14 @@ and there may, of course, be more lines in this file
 
 using namespace std;
 using namespace FBB;
-    
+
 int main(int argc, char **argv)
 {
-    ConfigFile cf(argv[1]);     
+    ConfigFile cf(argv[1]);
 
     cout << *cf.find("this one") << '\n'; // find text within a line
 
-                                         // find all lines matching 
+                                         // find all lines matching
     auto [begin, end] = cv.beginEndRE("^line:"); // `^line:'
 
     copy(begin, end, ostream_iterator<string>(cout, "\n"));
@@ -330,7 +330,7 @@ manpagefiles()
     em(bobcat/configfile) - defines the class interface
 
 manpageseealso()
-    bf(argconfig)(3bobcat), bf(bobcat)(7), bf(config)(3bobcat) 
+    bf(argconfig)(3bobcat), bf(bobcat)(7), bf(config)(3bobcat)
     bf(exception)(3bobcat), bf(pattern)(3bobcat)
 
 manpagebugs()

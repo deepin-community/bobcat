@@ -16,5 +16,5 @@ DateTime::Zone const &DateTime::Zone::get(std::string const &name)
     if (iter == s_zone->end())
         throw Exception{ 1 } << "Unknown Zone `" << name << '\'';
 
-    return *(iter->second);    
+    return *(iter->second);
 }

@@ -18,10 +18,13 @@ ReadLineBuf::ReadLineBuf(string const &prompt, size_t historySize, Type type)
             d_readline = &ReadLineBuf::expandLine;
         using_history();
         stifle_history(
-            historySize > static_cast<size_t>(numeric_limits<int>::max()) ? 
-                numeric_limits<int>::max() 
-                    : 
+            historySize > static_cast<size_t>(numeric_limits<int>::max()) ?
+                numeric_limits<int>::max()
+                    :
                 historySize
         );
     }
 }
+
+
+

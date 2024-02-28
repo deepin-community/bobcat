@@ -23,5 +23,5 @@ Cidr::MaskPair Cidr::parse(string const &cidr)
         throw Exception{1} << "Cidr: " << "invalid CIDR: `" << cidr << '\'';
     }
 
-    return ret;   
+    return ret;
 }

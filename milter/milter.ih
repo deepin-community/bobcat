@@ -1,7 +1,59 @@
 #include "milter"
 
-#include "../exception/exception"
+using namespace FBB;
+
+inline sfsistat Milter::mConnect(SMFICTX *ctx, char *hostname,
+                                     _SOCK_ADDR *hostaddr)
+{
+    return install(ctx)->connect(hostname, hostaddr);
+}
+
+inline sfsistat Milter::mAbort(SMFICTX *ctx)
+{
+    return install(ctx)->abort();
+}
+inline sfsistat Milter::mBody(SMFICTX *ctx, unsigned char *body, size_t len)
+{
+    return Milter::install(ctx)->body(body, len);
+}
+inline sfsistat Milter::mSender(SMFICTX *ctx, char **argv)
+{
+    return install(ctx)->sender(argv);
+}
+inline sfsistat Milter::mRecipient(SMFICTX *ctx, char **argv)
+{
+    return install(ctx)->recipient(argv);
+}
+inline sfsistat Milter::mEoh(SMFICTX *ctx)
+{
+    return install(ctx)->eoh();
+}
+inline sfsistat Milter::mEom(SMFICTX *ctx)
+{
+    return install(ctx)->eom();
+}
+inline sfsistat Milter::mHeader(SMFICTX *ctx, char *headerf, char *headerv)
+{
+    return install(ctx)->header(headerf, headerv);
+}
+inline sfsistat Milter::mHelo(SMFICTX *ctx, char *helohost)
+{
+    return install(ctx)->helo(helohost);
+}
+
+#if SMFI_VERSION > 2
+inline sfsistat Milter::mUnknown(SMFICTX *ctx, char const *ptr)
+{
+    return install(ctx)->unknown(ptr);
+}
+#endif /* SMFI_VERSION > 2 */
+
+#if SMFI_VERSION > 3
+inline sfsistat Milter::mData(SMFICTX *ctx)
+{
+    return install(ctx)->data();
+}
+#endif /* SMFI_VERSION > 3 */
 
 using namespace std;
 using namespace FBB;
-

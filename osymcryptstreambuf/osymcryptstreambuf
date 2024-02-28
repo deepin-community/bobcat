@@ -1,0 +1,51 @@
+#ifndef INCLUDED_BOBCAT_OSYMCRYPTSTREAMBUF_
+#define INCLUDED_BOBCAT_OSYMCRYPTSTREAMBUF_
+
+#include <bobcat/fbb>
+#include <bobcat/osymcryptbase>
+
+namespace FBB
+{
+    // generic class name, only 2 specializations exist: ENCRYPT and DECRYPT
+    // defined in FBB::CryptType
+
+template <CryptType>
+class OSymCryptStreambuf;
+
+template <>
+class OSymCryptStreambuf<ENCRYPT>: public IUO::OSymCryptBase
+{
+    public:
+        template <typename StreamSpec>
+        OSymCryptStreambuf(                                     // 1.f
+            StreamSpec &streamSpec,
+            std::string const &cipherName,
+            std::string const &key,
+            std::string const &iv,
+            size_t inBufSize = 100
+        );
+
+        // inherits static size_t keyLength(char const *cipherName) and
+        // size_t ivLength(char const *cipherName)
+};
+
+template <>
+class OSymCryptStreambuf<DECRYPT>: public IUO::OSymCryptBase
+{
+    public:
+        template <typename StreamSpec>
+        OSymCryptStreambuf(                                     // 2.f
+            StreamSpec &streamSpec,
+            std::string const &cipherName,
+            std::string const &key,
+            std::string const &iv,
+            size_t inBufSize = 100
+        );
+};
+
+#include "osymcryptstreambuf1.f"
+#include "osymcryptstreambuf2.f"
+
+}   // namespace FBB
+
+#endif

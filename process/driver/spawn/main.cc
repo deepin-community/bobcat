@@ -8,7 +8,7 @@ try
     Spawn spawn(argv[1]);
 
     ifstream in(argv[2]);
-    
+
     spawn.fork();
 
     spawn << in.rdbuf();

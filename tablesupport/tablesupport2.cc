@@ -10,4 +10,3 @@ TableSupport::TableSupport(TableSupport &&tmp)
     d_tableWidth( move(tmp.d_tableWidth) ),
     d_elements( move(tmp.d_elements) )
 {}
-

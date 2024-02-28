@@ -2,23 +2,23 @@ includefile(include/header)
 
 COMMENT(manpage, section, releasedate, archive, short name)
 manpage(FBB::Exception)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
-                    (Error handler)
+                    (insertable exception class)
 
 manpagename(FBB::Exception)(std::exception objects acception stream insertions)
 
 manpagesynopsis()
     bf(#include <bobcat/exception>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
        bf(FBB::Exception) objects derived from tt(std::exception), but accept
 stream insertions. Their intended use consists of throwing an anonymous
-object, into which the text of the tt(std::exception::what) 
+object, into which the text of the tt(std::exception::what)
 message has been inserted.
 
     tt(Exception) exceptions are thrown by several Bobcat classes. These
 classes are tt(
-Arg, 
+Arg,
 ArgConfig,
 BigInt,
 Cgi,
@@ -80,9 +80,9 @@ manpagesection(CONSTRUCTORS)
     itemization(
     itb(Exception())
    The default constructor (assigns 0 to tt(FBB::g_errno), see the next
-    constructor). 
+    constructor).
 
-    itb(Exception(int errnoValue)) 
+    itb(Exception(int errnoValue))
    This constructor stores the provided tt(errnoValue) value in a thread-local
     variable tt(int FBB::g_errno). Before Bobcat 4.04.00 tt(errnoValue) was
     only stored in the global tt(::errno) variable (it still is), but as this
@@ -106,7 +106,7 @@ manpagesection(MEMBER FUNCTIONS)
      All members of bf(std::exception) are
 available, as bf(FBB::Exception) inherits from this class.
     itemization(
-    itb(char const *what() const noexcept(true) override) 
+    itb(char const *what() const noexcept(true) override)
     Returns the text that was inserted into the bf(FBB::Exception) object.
     )
 
@@ -129,7 +129,7 @@ members, like those provided by tt(std::ifstream) and tt(std::ofstream).
 If the stream  was already open it is first closed.
 
 If opening fails an tt(FBB::Exception) exception is thrown containing a
-short message stating that the named stream could not be opened. 
+short message stating that the named stream could not be opened.
 
     itemization(
     itb(static StreamType factory<StreamType>(std::string const &name))
@@ -139,7 +139,7 @@ short message stating that the named stream could not be opened.
     auto out{ Exception::factory<ofstream>("/tmp/out") };
             )
 
-    itb(static StreamType factory<StreamType>(int errnoValue, 
+    itb(static StreamType factory<StreamType>(int errnoValue,
                                               std::string const &name))
         Returns an open tt(StreamType>) stream object which can be used to
         move-construct a tt(StreamType) object. If constructing
@@ -169,9 +169,9 @@ short message stating that the named stream could not be opened.
         to open the stream fail, then an tt(Exception) is thrown.  The
         returned stream can be used to move-construct a tt(StreamType) object.
         This member can be used to open an tt(std::fstream) which may or may
-        not yet exist for both reading and writing. E.g., 
+        not yet exist for both reading and writing. E.g.,
             verb(
-    auto out{ Exception::factory<fstream>("/tmp/out", 
+    auto out{ Exception::factory<fstream>("/tmp/out",
                 ios::in | ios::out,
                 ios::in | ios::out | ios::trunc) };
             )
@@ -197,7 +197,7 @@ short message stating that the named stream could not be opened.
     itb(static void open(StreamType &stream, std::string const &name))
         Opens the stream object, using its default tt(open) member.
 
-    itb(static void open(int errnoValue, 
+    itb(static void open(int errnoValue,
                          StreamType &stream, std::string const &name))
        Opens the stream object, using its default tt(open) member. If opening
         the stream fails, then the thrown bf(FBB::Exception) assigns
@@ -229,7 +229,7 @@ short message stating that the named stream could not be opened.
         to open the stream fail, then an tt(Exception) is thrown, assigning
         tt(errnoValue) to tt(FBB::g_errno).
 
-    itb(static size_t protection(std::string const &path, size_t protect, 
+    itb(static size_t protection(std::string const &path, size_t protect,
                           Protection type = EQUAL))
        Returns the protection bits (cf. bf(open)(2)) of tt(path). The
         tt(protect) parameter is used to specify the requested protection
@@ -241,10 +241,10 @@ short message stating that the named stream could not be opened.
         permission bits must be identical to tt(protect), or an exception is
         thrown. If tt(path) does not yet exist a file tt(path) with permission
         tt(protect) is created. This member returns tt(path)'s permission
-        bits. 
+        bits.
 
         If tt(path) is created by tt(protection), then opening a stream for
-        tt(path) does not change tt(path)'s protection. 
+        tt(path) does not change tt(path)'s protection.
     )
 
 manpagesection(MANIPULATOR)
@@ -253,7 +253,7 @@ manpagesection(MANIPULATOR)
 bf(FBB::Exception), class, but em(is) defined in the bf(FBB) namespace) can be
 inserted into the bf(FBB::Exception) object:
     itemization(
-    itb(FBB::errnodescr) 
+    itb(FBB::errnodescr)
         The descriptive text associated with the current tt(errno) value is
 inserted into the bf(FBB::Exception) object (it can also be used to insert the
 descriptive text in a tt(std::ostream) object). No text is inserted if

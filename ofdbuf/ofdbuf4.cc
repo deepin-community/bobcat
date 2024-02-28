@@ -6,4 +6,3 @@ OFdBuf::OFdBuf(int fd, Mode mode, size_t size)
 {
     reset(fd, CLOSE_FD, size);
 }
-

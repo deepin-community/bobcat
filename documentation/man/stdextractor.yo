@@ -8,21 +8,21 @@ manpagename(FBB::StdExtractor)(Runs external programs writing standard error)
 
 manpagesynopsis()
     bf(#include <bobcat/cerrextractor>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     The bf(FBB::StdExtractor) class offers a basic interface for calling
 external programs (so-called em(child processes)) writing their standard
 output and error streams. The standard input stream of the child processes are
-by default not handled by ttStdExtractor) objects. The child's standard output
-and standard error streams are read through the tt(StdExtractor) object:
-information written by the child process to these streams is extracted or read
-from tt(StdExtractor) object. The tt(PATH) environment variable is not used
-when calling child processes: child process programs must be specified using
-paths.
+by default not handled by tt(StdExtractor) objects. The child's standard
+output and standard error streams are read through the tt(StdExtractor)
+object: information written by the child process to these streams is extracted
+or read from tt(StdExtractor) object. The tt(PATH) environment variable is not
+used when calling child processes: child process programs must be specified
+using paths.
 
 tt(StdExtractor) objects may repeatedly be used to execute the same or
-different child processes. 
+different child processes.
 
 Arguments passed to child processes may be surrounded by double or single
 quotes. Arguments surrounded by double quotes have their double quotes
@@ -67,7 +67,7 @@ manpagesection(MEMBERS)
         streams may be extracted from the tt(StdExtractor) object.
 
         Once tt(execute) has returned it can be called again, either using the
-        same or another command. 
+        same or another command.
 
         Arguments passed to the program to be executed as child process may
         optionally be specified using single or double quotes, as described in
@@ -98,9 +98,9 @@ manpagefiles()
     em(bobcat/cerrextractor) - provides the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(cerrextractor)(3bobcat), 
-    bf(cininserter)(3bobcat), bf(coutextractor)(3bobcat), 
-    bf(execl)(3), bf(exec)(3bobcat), 
+    bf(bobcat)(7), bf(cerrextractor)(3bobcat),
+    bf(cininserter)(3bobcat), bf(coutextractor)(3bobcat),
+    bf(execl)(3), bf(exec)(3bobcat),
     bf(fork)(3bobcat), bf(process)(3bobcat).
 
 manpagebugs()

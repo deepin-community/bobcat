@@ -3,7 +3,7 @@
 ln -sf ../arg .
 ln -sf ../arg.ih .
 
-tput clear
+#tput clear
 
 case $1 in
     (b)
@@ -26,5 +26,6 @@ case $1 in
     echo $0 o links to the files in ../tmp/o
     echo $0 c links to the files in the current dir only
     echo $0 w links to libarg.a and the existing bobcat library
+    echo '        (to avoid linker confusion: temp. rename Arg to Xarg)'
     ;;
 esac

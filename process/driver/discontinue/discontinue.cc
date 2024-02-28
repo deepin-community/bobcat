@@ -16,10 +16,10 @@ pid_t discontinue(pid_t procId)
     if ((ret = kill(procId, SIGHUP)) && (ret = kill(procId, SIGHUP)))
         ret = kill(procId, SIGKILL);
 
-    cout << "Process " << procId << " killed with return value " << ret << 
+    cout << "Process " << procId << " killed with return value " << ret <<
                                                                     endl;
     if (!ret)
-        wait(0);    
+        wait(0);
 
     return 0;
 }

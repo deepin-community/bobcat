@@ -8,4 +8,3 @@ void fswap(First *firstAddr, Type &lhs, Type &rhs, MemberList &&...swapList);
 template <SwapMode::Enum mode = SwapMode::SWAPMEMBER,
           typename Type, typename ...MemberList>
 inline void fswap(Type &lhs, Type &rhs, MemberList &&...swapList);
-

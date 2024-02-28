@@ -8,7 +8,7 @@ manpagename(FBB::RandBuffer)(std::streambuf generating random numbers)
 
 manpagesynopsis()
     bf(#include <bobcat/randbuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -43,7 +43,7 @@ random numbers by one blanks space. Random values between tt(min) and tt(max)
 
 manpagesection(INHERITED MEMBERS)
 
-    Since the class uses public derivation from 
+    Since the class uses public derivation from
 bf(std::streambuf), all members of this class can be used.
 
 manpagesection(EXAMPLE)
@@ -53,7 +53,7 @@ manpagefiles()
     em(bobcat/randbuf) - defines the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(irandstream)(3bobcat), bf(rand)(3), bf(srand)(3),
+    bf(bobcat)(7), bf(irandstream)(3bobcat), bf(randommt)(3bobcat),
     bf(std::streambuf)
 
 manpagebugs()

@@ -1,7 +1,5 @@
 #include "qpbufbase"
 
-#include "../exception/exception"
-
 using namespace std;
 using namespace FBB;
 using namespace IUO;

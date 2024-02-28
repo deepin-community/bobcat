@@ -9,7 +9,7 @@ manpagename(FBB::CmdFinder)
 
 manpagesynopsis()
     bf(#include <bobcat/cmdfinder>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -18,9 +18,9 @@ call given a command. Although associations between commands and (member)
 functions are often defined in a switch, a switch is not the preferred way to
 define these associations because of the fect that the maintainability and
 clarity of switches suffer for even moderately large command sets. Moreover,
-the switch is hardly ever self-supporting, since usually 
+the switch is hardly ever self-supporting, since usually
 some command-processing is required to determine command/bf(case)-value
-associations. 
+associations.
 
     The alternative (and preferred) approach, which is also taken by
 bf(CmdFinder) is to define an array of pointers to (member) functions, and to
@@ -70,20 +70,20 @@ manpagesection(ENUMERATION)
 contains the following values, which may be combined by the bf(bit_or)
 operator to specify the bf(CmdFinder) object's required mode of operation:
     itemization(
-    itb(USE_FIRST) 
+    itb(USE_FIRST)
         This value can be specified when the first word (any white-space
 separated series of characters) of a provided textual command should be used
 as the command to find. Both the command that is used and any trailing
 information that may be present can be obtained from the bf(CmdFinder)
 object. By default, the complete content of the a provided command is used.
-    itb(UNIQUE) 
+    itb(UNIQUE)
         This value can be specified when any unique abbreviation of a command
 may be accepted. Assuming that the commands tt(help) and tt(version) are
 defined, then the following (non-exhaustive) series are all accepted as
 specifications of the tt(help) command if bf(UNIQUE) is specified: tt(h, he,
 el, p). By default the command must match a command-key as found in the array
 of command-function associations exactly.
-    itb(INSENSITIVE) 
+    itb(INSENSITIVE)
         When this value is specified, commands may be specified disregarding
 letter-casing. E.g., when bf(INSENSITIVE) is specified, both tt(Help) and
 tt(HELP) are recognized as tt(help). By default, letter casing is obeyed.
@@ -100,12 +100,12 @@ derived from bf(CmdFinder)).
 
 manpagesection(PROTECTED DEFINED TYPES)
     The following (bf(protected)) types are defined by the template class
-bf(CmdFinder): 
+bf(CmdFinder):
     itemization(
-    itb(FunctionPtr) 
+    itb(FunctionPtr)
         This type represents a pointer to the functions whose addresses are
 stored in the array of command-function associations.
-    itb(Entry) 
+    itb(Entry)
         This type represents the type bf(std::pair<char const *,
 FunctionPtr>). Its em(first) field is the name of a command, its em(second)
 field is the function address associated with the command name.
@@ -160,7 +160,7 @@ new call of bf(findCmd()).
 returns the address of the function to call given the provided command. By
 default, if no match was found, the address of the function stored in the last
 element of the array of command-function associations is returned (i.e,
-element tt(end[-1])). 
+element tt(end[-1])).
     itb(void swap(CmdFinderBase &other))
         The current and tt(other) object are swapped.
    )

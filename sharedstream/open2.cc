@@ -6,4 +6,3 @@ void SharedStream::open(int id, std::ios::openmode openMode)
     setOpenMode(openMode);
     clear();
 }
-

@@ -1,7 +1,7 @@
 template <class Derived>
 struct Or
 {
-    Derived &operator|=(Derived const &rhs) &; 
+    Derived &operator|=(Derived const &rhs) &;
     Derived &&operator|=(Derived const &rhs) &&;
 };
 

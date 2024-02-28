@@ -1,7 +1,6 @@
 #include <iostream>
 #include <ostream>
-#include <bobcat/exception>
-#include "../digestbuf"
+#include <bobcat/digestbuf>
 
 using namespace std;
 using namespace FBB;
@@ -9,7 +8,7 @@ using namespace FBB;
 int main(int argc, char **argv)
 try
 {
-    DigestBuf digestbuf(argv[1]);
+    DigestBuf digestbuf(argc == 1 ? "sha256" : argv[1]);
     ostream out(&digestbuf);
 
     string hw("hello world\n");

@@ -26,14 +26,14 @@ try
         p.readFrom(STDIN_FILENO);   // read what goes into the pipe from cin
 
         string s;
-    
-        getline(cin, s);
-    
-        cout << "CHILD: Got `" << s << "'" << endl;    
 
         getline(cin, s);
-    
-        cout << "CHILD: Got `" << s << "'" << endl;    
+
+        cout << "CHILD: Got `" << s << "'" << endl;
+
+        getline(cin, s);
+
+        cout << "CHILD: Got `" << s << "'" << endl;
 
         return 0;
     }
@@ -50,5 +50,3 @@ catch (exception const &err)
     cout << err.what() << endl;
     return 1;
 }
-
-

@@ -1,19 +1,21 @@
 #include "cryptbuf.ih"
 
+namespace
+{
+    bool called = false;
+}
+
 CryptBuf::CryptBuf(char const *type, size_t bufSize)
 :
     EoiBuf(bufSize)
 {
-    OpenSSL_add_all_ciphers();
+    deprecated__(called, "CryptBuf");
 
-    d_md = EVP_get_cipherbyname(type);
+    if (type == 0)
+        throw Exception{} << "CryptBuf: invalid type";
 
-    if (!d_md)
-    {
-        if (type == 0)
-            type = "** unspecified cipher type **";
+    d_md = EVP_CIPHER_fetch(0, type, 0);
 
-        throw Exception{ 1 } << "CryptBuf `" << type << "' not available";
-    }
-   
+    if (d_md == 0)
+        throw Exception{} << "EVP_CIPHER_fetch " << type << " failed";
 }

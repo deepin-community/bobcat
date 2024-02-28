@@ -6,4 +6,3 @@ void Selector::addFd(fd_set *set, int fd)
     if (fd >= d_max)
         d_max = fd + 1;
 }
-

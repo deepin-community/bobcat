@@ -12,12 +12,12 @@ template <typename Derived>
 class BinopsBase
 {
     template <typename Der>
-    friend std::ostream &operator<<(std::ostream &out, 
+    friend std::ostream &operator<<(std::ostream &out,
                                     BinopsBase<Der> const &rhs);
 
     template <typename Der>
     friend std::istream &operator>>(std::istream &in, BinopsBase<Der> &rhs);
-    
+
     void eWrap(std::istream &in);
     void iWrap(std::ostream &out) const;
 };
@@ -41,6 +41,3 @@ class BinopsBase
 } // FBB
 
 #endif
-
-
-

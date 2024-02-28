@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 
+#include <bobcat/exception>
 #include <bobcat/fmt>
 #include <bobcat/csvtabins>
 #include <bobcat/csvtabdef>
@@ -26,7 +27,7 @@ class CSVTable
 {
     std::vector<FMT> d_format;          // column format specifications
 
-                                                // stream used by the 2nd/3rd 
+                                                // stream used by the 2nd/3rd
     std::unique_ptr<std::ofstream> d_strPtr;    // constructors
 
     std::ostream *d_out;                // stream to write to
@@ -58,7 +59,7 @@ class CSVTable
         std::vector<FMT> const &columns() const;    //                      .f
 
 
-                                // fmt(...) requires 
+                                // fmt(...) requires
                                 // idx <= d_format.size()
         CSVTabDef fmt(unsigned idx = 0);            // define fields      1.cc
                                                     // using insertions
@@ -77,13 +78,13 @@ class CSVTable
 
                                                     // insert trimmed comma-
                                                     // separated text elements
-                                                    // (no comma 
+                                                    // (no comma
                                                     // after the last d_format
-                                                    // field) in subsequent 
-                                                    // columns fields using 
+                                                    // field) in subsequent
+                                                    // columns fields using
         void operator()(std::string const &text);   // the default formats.
 
-                                                    // insert one line, 
+                                                    // insert one line,
                                                     // starting at idx (or
         CSVTabIns row(unsigned idx = ~0U);          // at d_idx if ~0U)   1.cc
 
@@ -93,7 +94,7 @@ class CSVTable
                                                     // empty
         void row(std::string const &text, unsigned idx = ~0U);  //        2.cc
 
-                                                    
+
         operator CSVTabIns();                       // row();              .f
 
         void stream(std::ostream &out);             // switch stream      1.cc
@@ -116,7 +117,7 @@ class CSVTable
                                                     // retrieve the stream's
         void streamFlags();                         // current flags
 
-                                                    // reset the stream's 
+                                                    // reset the stream's
         void streamReset();                         // original settings
 
                                                     // reset at the begin of
@@ -124,7 +125,7 @@ class CSVTable
 
         void check(unsigned idx) const;             // check valid initial idx
 
-                                                    // limit idx to 
+                                                    // limit idx to
         unsigned limit(unsigned idx) const;         // d_format.size()     .f
 
                                                     // check/update column idx
@@ -145,6 +146,6 @@ class CSVTable
 #include "sep1.f"
 #include "sep2.f"
 
-} // FBB        
+} // FBB
 
 #endif

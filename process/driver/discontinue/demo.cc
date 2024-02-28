@@ -74,7 +74,7 @@ int main(int argc, char **argv)
         cout << "Enter a command\n";
         getline(cin, cmd);
         cout << "Command entered: " << cmd << endl;
-        
+
         if (p1)
         {
             if (waitpid(p1, 0, WNOHANG) > 0)    // p1 has changed
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
                 p1 = 0;
                 p2 = discontinue(p2);
             }
-        }                
+        }
         if (p2)
         {
             if (waitpid(p2, 0, WNOHANG) > 0)    // p1 has changed
@@ -94,10 +94,9 @@ int main(int argc, char **argv)
                 p2 = 0;
                 p1 = discontinue(p1);
             }
-        }                
+        }
     }
     cout << "Ending. All child processes should have disappeared\n"
             "(Press enter to end this program) ";
     getline(cin, cmd);
 }
-

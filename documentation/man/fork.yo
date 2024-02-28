@@ -9,7 +9,7 @@ manpagename(FBB::Fork)
 
 manpagesynopsis()
     bf(#include <bobcat/fork>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::Fork) objects may be used to implement the bf(fork)(2) call as part
@@ -22,17 +22,17 @@ the members tt(childProcess) and tt(parentProcess) as part of the
 Terminating child processes send tt(SIGCHLD) signals to their parents. The
 bf(C) library offers the following em(macros) to analyze the em(status) values
 received by the parent process using a bf(wait)(2) or bf(waitpid)(2) system
-call: 
+call:
     itemization(
     itb(int WIFEXITED(int status))
         This macro returns a nonzero value if the child process terminated
      normally with `exit' or `_exit'.
     itb(int WEXITSTATUS(int status))
         If `WIFEXITED' is true of `tt(status)', this macro returns the
-        low-order 8 bits of the exit status value from the child process.  
+        low-order 8 bits of the exit status value from the child process.
     itb(int WIFSIGNALED(int status))
         This macro returns a nonzero value if the child process terminated
-     because it received a signal that was not handled.  
+     because it received a signal that was not handled.
     itb(int WTERMSIG(int status))
         If `WIFSIGNALED' is true of `tt(status)', this macro returns the
         signal number of the signal that terminated the child process.
@@ -42,7 +42,7 @@ call:
     itb(int WIFSTOPPED(int status))
         This macro returns a nonzero value if the child process is stopped.
     itb(int WSTOPSIG(int status))
-        If `WIFSTOPPED' is true of `tt(status)', this macro returns the signal 
+        If `WIFSTOPPED' is true of `tt(status)', this macro returns the signal
         number of the signal that caused the child process to stop.
     )
 
@@ -53,8 +53,7 @@ manpagesection(INHERITS FROM)
 
 manpagesection(CONSTRUCTORS)
 
-    Only the default constructor is available. 
-    )
+    Only the default constructor is available.
 
 manpagesection(DESTRUCTOR)
     itemization(
@@ -74,34 +73,20 @@ is thrown.
 
 manpagesection(PROTECTED MEMBER FUNCTIONS)
     itemization(
-    itb(virtual void childProcess() = 0)
-        This member em(must) be implemented by derived classes. It defines the
-actions that are performed by the child process, following the bf(fork)(2)
-system call. Just before tt(childProcess) is called, tt(childRedirections)
-(see below) has been executed. The tt(childProcess()) function should
-terminate the child process. A good way to do this is to throw an exception
-which is caught by tt(main())'s function try block. Terminating a process 
-using bf(exit)(2) is deprecated in bf(C++).
-    itb(virtual void childRedirections())
-        This function em(may) be redefined in derived classes to set up the
-redirections that are necessary to communicate with the parent process. See
-also the classes bf(redirector)(3bobcat) and bf(pipe)(3bobcat). By default,
-tt(childRedirections) does nothing.
-    itb(virtual void parentProcess() = 0)
-        This member em(must) be implemented by derived classes. It defines the
-actions that are performed by the parent process, following the bf(fork)(2)
-system call. Just before tt(parentProcess) is called,
-tt(parentRedirections) (see below) has been executed.
-    itb(virtual void parentRedirections())
-        This function em(may) be redefined in derived classes to set up the
-redirections that are necessary to communicate with, e.g., the parent. See,
-e.g., the classes bf(redirector)(3bobcat) and bf(pipe)(3bobcat). By default,
-tt(parentRedirections) does nothing.
+    itb(int endChild() const)
+        This member may be called by tt(parentProcess) to end the child
+process. To end the child process a tt(SIGTERM) is sent to the child process,
+followed by a tt(SIGKILL) (cf. bf(signal)(7)). If the child process has
+already ended then the child process's exit value is returned, otherwise the
+child process's end is forced (by calling tt(kill)) and -2 is returned. This
+member also calls tt(waitForChild) (see below).
+
     itb(pid_t pid() const)
         Returns the child's process id in the parent's code (i.e., in the
 bf(parent-)members below), and 0 in the child's code (i.e., in the
-bf(child-)members below). Note that the value of tt(pid) is bf(undefined)
-when called em(before) the member tt(fork) has been called.
+bf(child-)members below). The tt(pid) member returns -1 when called em(before)
+the member tt(fork) has been called.
+
     itb(void prepareDaemon() const)
         Prepares for a daemon childprocess. This function may (should) be
 called from tt(childProcess) to ensure that the child process changes its
@@ -113,6 +98,7 @@ streams by associating them with tt(/dev/null) to prevent ghost input and
 output actions from interfering with the daemon's actions. An
 tt(FBB::Exception) is thrown if changing directory to the root directory
 fails.
+
     itb(void prepareDaemon(std::string const &out, std::string const &err,
         mode_t mode = 0600) const)
         Prepares for a daemon childprocess like the previous member function,
@@ -123,7 +109,8 @@ append-mode (and created if not yet existing), by default using mode 0600
 (read/write mode for the user only). An tt(FBB::Exception) is thrown if
 changing directory to the root directory or if using the specified file(s)
 fails.
-    itb(int waitForChild()) 
+
+    itb(int waitForChild() const)
         This member may be called by tt(parentProcess) to wait for the
 completion of the child-process. The return value (exit-code) of the child
 process is returned as a value between 0 and 255. If the child process
@@ -134,6 +121,45 @@ bf(exit)(2)) while the child process is still alive. This is the normal way to
 create a em(daemon) process.
     )
 
+manpagesection(PRIVATE (VIRTUAL) MEMBER FUNCTIONS)
+    itemization(
+    itb(virtual void childProcess() = 0)
+        This member em(must) be implemented by derived classes. It defines the
+actions that are performed by the child process, following the bf(fork)(2)
+system call. Just before tt(childProcess) is called, tt(childRedirections)
+(see below) has been executed. The tt(childProcess()) function should
+terminate the child process. A good way to do this is to throw an exception
+which is caught by tt(main())'s function try block. Terminating a process
+using bf(exit)(2) is deprecated in bf(C++).
+
+    itb(virtual void childRedirections())
+        This function em(may) be redefined in derived classes to set up the
+redirections that are necessary to communicate with the parent process. See
+also the classes bf(redirector)(3bobcat) and bf(pipe)(3bobcat). By default,
+tt(childRedirections) does nothing.
+
+    itb(virtual void parentProcess() = 0)
+        This member em(must) be implemented by derived classes. It defines the
+actions that are performed by the parent process, following the bf(fork)(2)
+system call. Just before tt(parentProcess) is called,
+tt(parentRedirections) (see below) has been executed. 
+
+    When deriving classes from tt(Fork) their tt(parentProcess)
+implementation preferably handles all actions to perform by the parent
+process. If the child process remains active when the parent process decides
+that the program has performed its duties (e.g., the child process
+is replaced by a program started by an tt(exec..) function, continuously
+producing output, interpreted by the parent process) then the parent process
+can call tt(endChild) to end the child process before ending the
+tt(parentProcess) function.
+
+    itb(virtual void parentRedirections())
+        This function em(may) be redefined in derived classes to set up the
+redirections that are necessary to communicate with, e.g., the parent. See,
+e.g., the classes bf(redirector)(3bobcat) and bf(pipe)(3bobcat). By default,
+tt(parentRedirections) does nothing.
+    )
+
 manpagesection(EXAMPLES)
     verbinclude(../../fork/driver/driver.cc)
 
@@ -141,18 +167,16 @@ Here's a more extensive example:
 
     verbinclude(../../fork/driver/redirectedchild)
 
-
 manpagefiles()
     em(bobcat/fork) - defines the class interface
 
 manpageseealso()
     bf(bobcat)(7), bf(cerrextractor)(3bobcat), bf(cininserter)(3bobcat),
-    bf(coutextractor)(3bobcat), bf(exec)(3bobcat), bf(fork)(2), 
-    bf(pipe)(3bobcat), bf(redirector)(3bobcat), 
+    bf(coutextractor)(3bobcat), bf(exec)(3), bf(exec)(3bobcat), bf(fork)(2),
+    bf(kill)(2), bf(pipe)(3bobcat), bf(redirector)(3bobcat),
     bf(stdextractor)(3bobcat), bf(wait)(2), bf(waitpid)(2).
 
 manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-

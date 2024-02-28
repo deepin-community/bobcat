@@ -1,4 +1,4 @@
-# these options are also defined by driver.cc 
+# these options are also defined by driver.cc
 option
 option-value: \#x\\yz   \\
 option-value: #xyz

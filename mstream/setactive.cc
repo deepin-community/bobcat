@@ -6,7 +6,6 @@ bool Mstream::setActive(bool ifTrue)
         on();
     else
         off();
-    
+
     return ifTrue;
 }
-

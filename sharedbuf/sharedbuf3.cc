@@ -6,10 +6,10 @@ SharedBuf::SharedBuf(int id, std::ios::openmode openMode)
     d_currentMode(openMode & (ios::in | ios::out)),
     d_memory(id)
 {
-    if 
+    if
     (
-        openMode & ios::trunc 
-        || 
+        openMode & ios::trunc
+        ||
         (openMode & ios::out and not (openMode & ios::in))
     )
         d_memory.clear();
@@ -17,4 +17,3 @@ SharedBuf::SharedBuf(int id, std::ios::openmode openMode)
     setg(0, 0, 0);
     setp(0, 0);
 }
-

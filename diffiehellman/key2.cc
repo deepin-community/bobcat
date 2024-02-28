@@ -1,9 +1,8 @@
 #include "diffiehellman.ih"
 
-string DiffieHellman::key(std::string const &peerPublicFileName)
+BigInt const &DiffieHellman::key(std::string const &peerFileName)
 {
-    ifstream in;
-    Exception::open(in, peerPublicFileName);
+    ifstream in = Exception::factory<ifstream>(peerFileName);
 
     return key(in);
 }

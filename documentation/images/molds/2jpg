@@ -6,6 +6,6 @@ rm $1.pdf
 
 if [ -e ../$1-0.jpg ]
 then
-    mv ../$1-0.jpg ../$1.jpg 
+    mv ../$1-0.jpg ../$1.jpg
     rm ../$1-1.jpg
 fi

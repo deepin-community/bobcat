@@ -1,11 +1,12 @@
 #ifndef INCLUDED_BOBCAT_LOCALCLIENTSOCKET_
 #define INCLUDED_BOBCAT_LOCALCLIENTSOCKET_
 
-#include <bobcat/localsocketbase>
-
 #include <string>
 #include <sys/socket.h>
 #include <sys/un.h>
+
+#include <bobcat/localsocketbase>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -22,7 +23,7 @@ class LocalClientSocket: public LocalSocketBase
         LocalClientSocket(LocalClientSocket const &other) = delete;
 };
 
-inline LocalClientSocket::LocalClientSocket(std::string const &name) 
+inline LocalClientSocket::LocalClientSocket(std::string const &name)
 :
     LocalSocketBase(name)
 {}

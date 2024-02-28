@@ -7,4 +7,3 @@ inline Config::const_iterator Config::begin() const
 {
     return d_ptr->begin();
 }
-   

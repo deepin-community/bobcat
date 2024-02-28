@@ -7,5 +7,5 @@ int OneKey::get() const
     if (d_useEcho)
         cout << static_cast<char>(c) << flush;
 
-    return c;                     
+    return c;
 }

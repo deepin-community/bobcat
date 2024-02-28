@@ -22,11 +22,10 @@ Config::const_iterator CF_Pimpl::find(string const &needle,
     }
 
     return find_if(
-                from, end(), 
+                from, end(),
                 [&](CF_Line const &haystack)
                 {
                     return finder(haystack.line(), *needlePtr);
                 }
             );
 }
-

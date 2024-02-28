@@ -4,12 +4,12 @@
 CSVTabDef &CSVTabDef::insert(FMT const &fmt)
 {
     if (fmt.d_nCols != 1)
-        throw Exception{} << 
+        throw Exception{} <<
             "table column definitions cannot span multiple columns (col. " <<
             d_idx << ')';
 
     if (FMT::lrcFun(fmt.d_align) == 0)
-        throw Exception{} << 
+        throw Exception{} <<
             "table column alignments must be "
                 "left, right or center (col. " << d_idx << ')';
 

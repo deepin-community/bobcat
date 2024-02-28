@@ -3,7 +3,7 @@ The `build' script uses -O3 as one of its compiler flags. Why -O3 and not -O2?
 (See also changelog 2.09.05 (2010/12/13) explaining why I reverted back to
 -O2)
 
-    Compared to -O2, the compiler applies the following additional 
+    Compared to -O2, the compiler applies the following additional
 optimizations:
 
        -finline-functions
@@ -22,7 +22,7 @@ compiler will find it useful to integrate, but for the inline members. But in
 the case of the inline members (especially with the accessors) the overhead of
 the additional call seems to be needlessly spillfull. After all, C++
 explicitly offers the in-class function definition for these kinds of
-functions, and thus, integrating their code rather than calling them 
+functions, and thus, integrating their code rather than calling them
 seems like the right thing to do.
 
        -funswitch-loops
@@ -44,7 +44,7 @@ This refers to things like: removing dead code and reusing where possible
 values that can be proven to be already available in some registers. In
 `Contributions to the GNU Compiler Collection' the following paragraph is
 found:
-          
+
      The first case, where redundant loads appear before register allocation,
      is handled by redundancy elimination optimization. Redundancy elimination
      removes redundant calculations of expressions by reusing previously
@@ -57,7 +57,7 @@ found:
      elimination pass so that it would also consider stores as expressions,
      and hence replace subsequent loads from the same location with register
      copies.
- 
+
      The second case of load-hit-store events was due to poor register
      spilling (i.e., the reload pass in GCC). (43) We handled this case in two
      ways.  First, we added a "cleanup" pass after the reload that removed
@@ -74,7 +74,3 @@ Again, this optimization is considered a desirable one and thus it was decided
 to use -O3 rather than -O2.
 
 Frank.
-
-
-
-

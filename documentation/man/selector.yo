@@ -8,7 +8,7 @@ manpagename(FBB::Selector)(Timed delays, Alarms and Multiple File I/O.)
 
 manpagesynopsis()
     bf(#include <bobcat/selector>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::Selector) objects are wrappers around the bf(select)(2) system
@@ -48,7 +48,7 @@ available in the em(exception) category. Otherwise the next available file
 descriptor in the em(exception) category is returned. Returning from
 tt(wait), this function can be called repeatedly until -1 is returned,
 servicing each available filedescriptor in turn.
-    itb(void noAlarm()) 
+    itb(void noAlarm())
         This member prevents any timeout-alarm from occurring.
     itb(int nReady())
         Returns the number of available file descriptors.  0 is returned at a
@@ -62,8 +62,8 @@ that the file whose file descriptor is returned by tt(readFd) may also be at
 its end-of-file position. The file is `ready for reading', but no characters
 will be returned when trying to read from it due to its end-of-file status. In
 that case the file descriptor is probably best removed from the set of active
-file descriptors. 
-    itb(void rmExceptFd(int fd)) 
+file descriptors.
+    itb(void rmExceptFd(int fd))
         Removes a filedescriptor from the set of file descriptors that are
 monitored for exceptions (note these are not bf(C++) exceptions. See tt(man 2
 select) for details).

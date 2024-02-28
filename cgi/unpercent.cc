@@ -18,18 +18,17 @@ std::string CGI::unPercent(std::string const &text)
             ret[pos] = ' ';
         //                              // viable % found
         else if ((sub = ret.substr(pos + 1, 2)).length() == 2)
-        {            
+        {
             istringstream convert(sub);
             size_t value;
             if (convert >> hex >> value)    // successfully converted
             {
                 replacement[0] = value;
-                ret.replace(pos, 3, replacement);
+                if (pos < ret.length())
+                    ret.replace(pos, 3, replacement);
             }
         }
         ++pos;                          // next char
-    }        
+    }
     return ret;
 }
-
-

@@ -10,7 +10,7 @@ manpagename(FBB::Semaphore)
 manpagesynopsis()
     bf(#include <bobcat/semaphore>)nl()
 
-    Linking option: tt(-lpthread -lbobcat) 
+    Linking option: tt(-lpthread -lbobcat)
 
 manpagedescription()
 
@@ -24,7 +24,7 @@ A useful way to think of a semaphore is as a record of how many units of a
 particular resource are available, coupled with operations to safely (i.e.,
 without race conditions) adjust that record as units are required or become
 free, and, if necessary, wait until a unit of the resource becomes
-available. 
+available.
 
 Semaphores are a useful tool in the prevention of race conditions.  Semaphores
 allowing an arbitrary resource count are called counting semaphores, while
@@ -63,7 +63,7 @@ manpagesection(MEMBER FUNCTIONS)
         waiting threads (cf. the tt(wait) members below) are notified. Only
         one waiting thread will be able to obtain the semaphore's lock and to
         reduce tt(available), and that particular thread is thereupon
-        reactivated. 
+        reactivated.
     itb(void set(size_t available))
        This member blocks until it has obtained the lock of the tt(std::mutex)
         which is maintained internally by the tt(Semaphore) object. Next the
@@ -107,7 +107,7 @@ manpagesection(MEMBER FUNCTIONS)
         return. When multiple threads are waiting only one thread will stop
         waiting, while the remaining threads will continue to wait for another
         notification.
-    itb(std::cv_status wait_until(std::chrono::time_point<Clock, Duration> 
+    itb(std::cv_status wait_until(std::chrono::time_point<Clock, Duration>
                                                             const &absTime))
        This member blocks for as long as the internally stored value
         (tt(available)) equals zero and the time specified by tt(absTime)
@@ -125,7 +125,7 @@ manpagesection(MEMBER FUNCTIONS)
 manpagesection(EXAMPLE)
     verb(
     #include <bobcat/semaphore>
-    
+
     using namespace FBB;
 
     Semaphore produce(10);          // storage area size
@@ -142,7 +142,7 @@ manpagesection(EXAMPLE)
             size_t item = itemQueue.front();
             itemQueue.pop();
 
-            produce.notify();   // notify the producer 
+            produce.notify();   // notify the producer
 
             process(item);      // not implemented
         }
@@ -167,7 +167,7 @@ manpagesection(EXAMPLE)
         thread cons(consumer);
         thread prod(producer);
 
-        cons.join();            // ending the threads not implemented 
+        cons.join();            // ending the threads not implemented
         prod.join();
     }
     )

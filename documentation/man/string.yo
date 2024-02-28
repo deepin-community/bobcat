@@ -8,7 +8,7 @@ manpagename(FBB::String)(Several operations on bf(std::string) objects)
 
 manpagesynopsis()
     bf(#include <bobcat/string>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     This class offers facilities for often used transformations on
@@ -17,7 +17,7 @@ class itself. All members of bf(FBB::String) are static.
 
     Initially this class was derived from bf(std::string). Deriving from
 tt(std::string), however, is considerd bad design as tt(std::string) was
-not designed as a base-class. 
+not designed as a base-class.
 
     bf(FBB::String) offers a series of em(static) member functions
 providing the facilities originally implemented as non-static members. One of
@@ -28,7 +28,7 @@ characters. Escape characters are converted to their implied byte-values
 (e.g., tt(\n) is converted to byte value 10) unless they are embedded in
 single-quoted (sub) strings. Quotes surrounding double- and single-quoted
 (sub) strings are removed from the elements returned by the tt(split)
-members. 
+members.
 
 includefile(include/namespace)
 
@@ -52,7 +52,7 @@ the matching ending double quote was lacking.
             bf(ESCAPED_END),  the content of the string that was
 parsed by the tt(split) members ended in a mere backslash.
 
-            bf(NORMAL), a normal string; 
+            bf(NORMAL), a normal string;
 
             bf(SEPARATOR), a separator;
 
@@ -66,7 +66,7 @@ the matching ending quote was lacking.
     itb(SplitType)
        This enumeration is used to specify how tt(split) members should
         split the information in the string objects that are passed to these
-        members: 
+        members:
 
        bf(TOK): the tt(split) member acts like the standard bf(C) function
         bf(strtok)(3). The essence here is that no empty elements are
@@ -97,9 +97,9 @@ the matching ending quote was lacking.
         element,
     )
 
-manpagesection(TYPEDEF)
+manpagesection(NESTED TYPE)
 
-    The bf(typedef SplitPair) represents bf(std::pair<std::string,
+    The struct bf(SplitPair) defines a bf(std::pair<std::string,
 String::Type>) and is used by some overloaded bf(split) members (see
 below).
 
@@ -111,7 +111,7 @@ manpagesection(STATIC MEMBER FUNCTIONS)
 strings stored in the vector tt(words). The caller is responsible for
 returning the array of pointers to the common pool, but should em(not) delete
 the bf(C)-strings to which the pointers point. The last element of the
-returned array is guaranteed to be a 0-pointer. 
+returned array is guaranteed to be a 0-pointer.
 
     itb(int casecmp(std::string const &lhs, std::string const &rhs))
         Performs a case-insensitive comparison of the content of two
@@ -120,7 +120,7 @@ ordered before tt(rhs); 0 is returned if the two strings have identical
 content; a positive value is returned if the tt(lhs) object should be ordered
 beyond tt(rhs).
 
-    itb(std::string escape(std::string const &str, 
+    itb(std::string escape(std::string const &str,
             char const *series = "'\"\\"))
        Returns a copy of tt(str) in which all characters in tt(series) are
         prefixed by a backslash character.
@@ -129,7 +129,7 @@ beyond tt(rhs).
        The elements of the tt(words) vector are returned as one string,
         separated from each other by the tt(sep) character;
 
-    itb(std::string join(std::vector<SplitPair> const &entries, char sep, 
+    itb(std::string join(std::vector<SplitPair> const &entries, char sep,
                                                         bool all = true))
        The tt(first) fields of the elements in tt(entries) are returned as one
         string, separated from each other by the tt(sep) character. If the
@@ -158,7 +158,7 @@ beyond tt(rhs).
     itb(size_t split(std::vector<String::SplitPair> *entries, std::string
         const &str, SplitType mode, char const *sep = " \t"))
        Same functionality as the first tt(split) member, but this member
-        stores the tt(SplitPair) elements in the vector pointed at by the 
+        stores the tt(SplitPair) elements in the vector pointed at by the
         tt(entries) parameter, first clearing the vector. This member returns
         the new value of tt(entries->size()).
 
@@ -200,15 +200,15 @@ beyond tt(rhs).
        This member acts like the previous one, using tt(addEmpty == false)
         to select tt(mode TOK) and tt(addEmpty == true) to select tt(mode
         TOKSEP).
-    
+
 
 
     itb(std::string trim(std::string const &str))
        Returns a copy of tt(str) from which leading and trailing blank
         characters were removed.
 
-    itb(std::string uc(std::string const &str)) 
-       Returns a copy of tt(str) in which all letters were capitalized. 
+    itb(std::string uc(std::string const &str))
+       Returns a copy of tt(str) in which all letters were capitalized.
 
     itb(std::string unescape(std::string const &str))
        Returns a copy of tt(str) in which the escaped (i.e., prefixed by a

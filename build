@@ -12,7 +12,7 @@ int g_all = 1;          // if 0: only compile the classes not requiring
                         // additional libaries. see icmake/special
 int g_test;             // run in testing mode
 
-string  
+string
     g_logPath,
     g_cwd,              // current WD, ends in /.
     g_file,             // used to store the name of a file from a list
@@ -191,7 +191,7 @@ void main(int argc, list argv)
         "   [-q]:   run quietly, do not show executed commands\n"
         "   [-p]:   used with build light, build libraries and build l\n"
         "           when specified, the precompiled headers are kept after\n"
-        "           constructing the libraries\n"   
+        "           constructing the libraries\n"
         "   [-P]:   do not use precompiled headers\n"
         "`what' is one of:\n"
         "   clean               - clean up remnants of previous compilations\n"
@@ -240,4 +240,3 @@ void main(int argc, list argv)
         "                         purposes\n"
     );
 }
-

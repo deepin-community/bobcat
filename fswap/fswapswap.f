@@ -4,7 +4,7 @@ class FSwapSwap
     Type &d_member;
 
     public:
-        typedef Type type;
+        using type =  Type;
 
         FSwapSwap(Type &member);
         Type &member();
@@ -12,4 +12,3 @@ class FSwapSwap
 
 FSwapSwap<
 #include "fswapswapimp.f"
-

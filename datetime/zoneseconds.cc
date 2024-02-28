@@ -13,5 +13,5 @@ int DateTime::Zone::seconds(string const &spec)
 
     int seconds = hours * 3600 + minutes * 60;
 
-    return sign == '-' ? -seconds : seconds;    
+    return sign == '-' ? -seconds : seconds;
 }

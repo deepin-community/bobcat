@@ -7,4 +7,3 @@ void SharedMemory::unlock(size_t idx)
     if (d_lockCount && --d_lockCount == 0)
         d_sharedSegment->unlock(idx);
 }
-

@@ -9,4 +9,3 @@ int SyslogBuf::overflow(int ch)
 
     return ch;
 }
-    

@@ -49,7 +49,7 @@ int main(int argc, char **argv)
             default:
                 cout << "Default return. c = " << ch << ", optopt = " <<
                                     optopt << endl;
-            break;    
+            break;
         }
     }
 }

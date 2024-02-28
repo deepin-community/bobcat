@@ -7,7 +7,7 @@
 namespace FBB
 {
 
-class ReadLineStream: public HistoryExpansion, 
+class ReadLineStream: public HistoryExpansion,
                       public std::istream
 {
     ReadLineBuf &d_readLineBuf;
@@ -16,7 +16,7 @@ class ReadLineStream: public HistoryExpansion,
         explicit ReadLineStream(std::string const &prompt,              // 1.f
                                 Type type = DONT_EXPAND_HISTORY);
         explicit ReadLineStream(std::string const &prompt,              // 2.f
-                                size_t historySize, 
+                                size_t historySize,
                                 Type type = DONT_EXPAND_HISTORY);
 
         void setPrompt(std::string const &prompt = "");                 // .f
@@ -36,6 +36,5 @@ class ReadLineStream: public HistoryExpansion,
 #include "expansionerror.f"
 #include "usetimestamps.f"
 
-} // FBB        
+} // FBB
 #endif
-

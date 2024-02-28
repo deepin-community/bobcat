@@ -14,18 +14,11 @@ bool QPBufBase::encode()
         }
 
         if (ch != '\n')
-            insert(ch);       
+            insert(ch);
         else
             (this->*d_encode)();
-    
+
         if (d_buffer.length() > 100)
             return true;
-    }                
+    }
 }
-
-
-
-
-
-
-

@@ -2,6 +2,7 @@
 #define INCLUDED_BOBCAT_HOSTNAME_
 
 #include <bobcat/hostent>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -24,8 +25,3 @@ class Hostname: public Hostent
 } // FBB
 
 #endif
-
-
-
-
-

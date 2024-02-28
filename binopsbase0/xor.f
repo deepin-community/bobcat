@@ -1,7 +1,7 @@
 template <class Derived>
 struct Xor
 {
-    Derived &operator^=(Derived const &rhs) &; 
+    Derived &operator^=(Derived const &rhs) &;
     Derived &&operator^=(Derived const &rhs) &&;
 };
 

@@ -4,6 +4,7 @@
 #include <string>
 
 #include <bobcat/localsocketbase>
+#include <bobcat/exception>
 
 namespace FBB
 {

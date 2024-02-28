@@ -8,8 +8,6 @@
 #include "../string/string"
 #include "../user/user"
 #include "../fswap/fswap"
-#include "../exception/exception"
 
 using namespace std;
 using namespace FBB;
-

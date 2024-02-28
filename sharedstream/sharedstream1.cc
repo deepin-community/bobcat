@@ -5,4 +5,3 @@ SharedStream::SharedStream()
     istream(this),
     ostream(this)
 {}
- 

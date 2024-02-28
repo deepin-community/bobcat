@@ -5,7 +5,7 @@
 #include <bobcat/ofdbuf>
 
 namespace FBB
-{    
+{
 
 class OFdStream: private OFdBuf, public std::ostream
 {

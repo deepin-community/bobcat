@@ -3,9 +3,9 @@
 
     // fmt insertion:
     //     hline: inserts hline unless beyond the last column
-    //     
+    //
     //     left/right/center formatting:
-    //          beyond the last column: 
+    //          beyond the last column:
     //              at LEFT: align left, otherwise right
     //              set precision unless d_size (acting as precision) == ~0U
     //              d_nCols is ignored
@@ -15,7 +15,7 @@
 
 CSVTabIns &CSVTabIns::insert(FMT const &fmt)
 {
-    if (fmt.align() == FMT::HLINE)          // fmt contains total width 
+    if (fmt.align() == FMT::HLINE)          // fmt contains total width
         hline(fmt);                         // and nCols used by the hline
     else if (d_idx == d_format.size())      // ignore beyond the last column
     {

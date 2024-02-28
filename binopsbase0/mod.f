@@ -1,7 +1,7 @@
 template <class Derived>
 struct Mod
 {
-    Derived &operator%=(Derived const &rhs) &; 
+    Derived &operator%=(Derived const &rhs) &;
     Derived &&operator%=(Derived const &rhs) &&;
 };
 

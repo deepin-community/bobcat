@@ -8,11 +8,7 @@
 #include <iostream>
 #include <string>
 
-#include "../exception/exception"
 #include "../pattern/pattern"
 
 using namespace std;
 using namespace FBB;
-
-
-

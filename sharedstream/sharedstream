@@ -9,7 +9,7 @@
 namespace FBB
 {
 
-struct SharedStream: private SharedBuf, 
+struct SharedStream: private SharedBuf,
                     public std::istream, public std::ostream,
                     public virtual SharedEnum__
 {
@@ -21,10 +21,10 @@ struct SharedStream: private SharedBuf,
             size_t access = 0600);
 
     SharedStream(                                           // 3
-            int id, 
+            int id,
             std::ios::openmode openMode = std::ios::in | std::ios::out);
 
-    
+
     using SharedBuf::attachSharedCondition;
 
     void clear();
@@ -54,5 +54,5 @@ struct SharedStream: private SharedBuf,
 #include "clear.f"
 #include "truncate.f"
 
-} // FBB        
+} // FBB
 #endif

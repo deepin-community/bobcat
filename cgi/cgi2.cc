@@ -25,4 +25,3 @@ CGI::CGI(CGI &&tmp)
 {
     memcpy(d_escape, tmp.d_escape, sizeof(d_escape));
 }
-

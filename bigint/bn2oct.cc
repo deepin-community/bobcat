@@ -7,7 +7,7 @@ char *BigInt::bn2oct(BIGNUM const *bn)
     char *ret = new char[nBits + 3];        // 1 for the -, 1 for the 0
                                             // 1 for the asciiZ
     char *cp = ret;
-    
+
     if (BN_is_negative(bn))
         *cp++ = '-';
 
@@ -37,5 +37,5 @@ char *BigInt::bn2oct(BIGNUM const *bn)
 
     *cp = 0;
 
-    return ret;    
+    return ret;
 }

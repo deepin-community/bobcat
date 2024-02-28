@@ -1,6 +1,6 @@
 #include "tablesupport.ih"
 
-TableSupport::HLine::HLine(ColumnType margins, 
+TableSupport::HLine::HLine(ColumnType margins,
                             size_t row, size_t begin, size_t end)
 :
     d_row(row),
@@ -15,4 +15,3 @@ TableSupport::HLine::HLine(ColumnType margins,
         d_type &= ~RIGHT_MID;
 
 }
-

@@ -5,7 +5,6 @@
 
 #include "../fswap/fswap"
 #include "../stat/stat"
-#include "../exception/exception"
 
 using namespace std;
 using namespace FBB;
@@ -22,5 +21,3 @@ struct Glob::GlobShare
 
 #include "mbegin.f"
 #include "mend.f"
-
-

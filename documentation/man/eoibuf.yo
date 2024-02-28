@@ -10,7 +10,7 @@ manpagename(FBB::EoiBuf)(std::streambuf class offering an eoi manipulator)
 
 manpagesynopsis()
     bf(#include <bobcat/eoibuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     The class tt(EoiBuf) inherits from tt(Eoi) and may therefore be
@@ -19,12 +19,17 @@ provides a configurable character buffer for storing characters received from
 their devices. Often, when deriving classes from tt(std::streambuf) the
 derived classes must implement storage to and retrieval from a character
 buffer. By deriving from tt(EoiBuf) buffer-handling is automatically
-provided. 
+provided: it contains a (resizable) character buffer, and offers a tt(setp)
+member as well as a tt(setg) member that can be used to specify the index rage
+of the buffer from which extractions receive characters. Also, when overriding
+its base class's tt(eoi_) member it can be used to signal the end of input
+inserted into tt(std::ostream) classes using tt(EoiBuf) objects as
+tt(std::streambuf) objects.
 
 includefile(include/namespace)
 
 manpagesection(INHERITS FROM)
-    tt(Eoi) (and thus from: tt(std::streambuf))
+    tt(FBB::Eoi) (and thus from: tt(std::streambuf))
 
 manpagesection(PROTECTED CONSTRUCTOR)
 
@@ -46,7 +51,7 @@ manpagesection(PROTECTED CONSTRUCTOR)
     Copy and move constructors (and assignment operators) are not available.
 
 
-manpagesection(PROTECTED MEMBER FUNCTIONS) 
+manpagesection(PROTECTED MEMBER FUNCTIONS)
 
    All members of tt(std:streambuf) and tt(Eoi) are available, as
     bf(FBB::EoiBuf) inherits from these classes.
@@ -82,7 +87,7 @@ manpagesection(PROTECTED MEMBER FUNCTIONS)
         immutable unsigned character.
     )
 
-manpagesection(PROTECTED STATIC MEMBER FUNCTIONS) 
+manpagesection(PROTECTED STATIC MEMBER FUNCTIONS)
 
     The following two static members are provided as convenient functions for
         derived classes to convert the address of the first character of
@@ -96,12 +101,26 @@ manpagesection(PROTECTED STATIC MEMBER FUNCTIONS)
        Same as the previous member, but this time the address of the first
         character of tt(str) is returned as a pointer to an immutable unsigned
         character.
-    
+
 
 manpagesection(EXAMPLE)
-    Here is an example from the implementation of tt(EncryptBuf):
+    The following two functions are defined in the (internally used only)
+class tt(FBB::OSymCryptBase), which is the base class of
+bf(osymcryptstreambuf)(3bobcat).
+    itemization(
+    itt(evpUpdate) updates the ongoing encryption or decryption, e.g., using
+        the openssl function tt(EVP_EncryptUpdate), using tt(ucharPtr) to
+        access characters currently in tt(EoiBuf's) buffer:
 
-    verbinclude(../../encryptbuf/flushbuffer.cc)
+        verbinclude(../../osymcryptbase/evpupdate.cc)
+
+    itt(eoi_) overrides tt(FBB::Eoi::eoi_()) function, preventing new
+        information from being inserted into the tt(FBB::OSymCryptBase) object
+        (and thus from being inserted into its tt(FBB::OSymCryptStreambuf)
+        derived class):
+
+        verbinclude(../../osymcryptbase/eoi.cc)
+    )
 
 manpagefiles()
     em(bobcat/eoibuf) - defines the class interface

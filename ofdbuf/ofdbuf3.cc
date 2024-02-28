@@ -8,4 +8,3 @@ OFdBuf::OFdBuf(int fd, size_t bufSize)
 {
     reset(fd, CLOSE_FD, bufSize);
 }
-

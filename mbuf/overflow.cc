@@ -6,4 +6,3 @@ int Mbuf::overflow(int c)
     d_ostr.put(c);
     return c;
 }
-

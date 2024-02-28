@@ -1,5 +1,5 @@
 /*
-            class const_iterator: public 
+            class const_iterator: public
                     std::iterator<std::input_iterator_tag, std::string const>
             {
                 friend MailHeaders;
@@ -9,13 +9,13 @@
                 Hdr::const_iterator d_end;
 
                 public:
-                    const_iterator(MailHeaders const &mh, 
+                    const_iterator(MailHeaders const &mh,
                              char const *hdr, Match match, Where where);
 
                     const_iterator &operator++();
                     const_iterator const operator++(int);
 
-                    const *operator->() 
+                    const *operator->()
                     {
                         return ;
                     }
@@ -32,7 +32,7 @@
                     {
                         return !operator==(rvalue);
                     }
-                private:                              
+                private:
                     const_iterator &operator--();
                     const_iterator const operator--(int);
             };

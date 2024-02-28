@@ -16,6 +16,5 @@ int TableBuf::overflow(int ch)
         d_insertEmptyRow = false;
     }
 
-    return ch;        
+    return ch;
 }
-

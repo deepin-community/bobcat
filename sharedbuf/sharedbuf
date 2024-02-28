@@ -30,7 +30,7 @@ class SharedBuf: public std::streambuf, public virtual SharedEnum__
                 std::ios::openmode openMode = std::ios::in | std::ios::out);
 
         void clear();                   // clear all existing data and reduce
-                                        // until only the segment at 
+                                        // until only the segment at
                                         // d_sharedData
 
         int id() const;                 // id of the shared Memory segment
@@ -49,9 +49,9 @@ class SharedBuf: public std::streambuf, public virtual SharedEnum__
         SharedCondition attachSharedCondition(std::ios::off_type offset = 0,
                         std::ios::seekdir way = std::ios::beg);
         SharedCondition createSharedCondition();
-        void setOpenMode(std::ios::openmode openMode);        
+        void setOpenMode(std::ios::openmode openMode);
         SharedMemory &sharedMemory();
-        
+
     private:
         bool mode(std::ios::openmode flag);
 
@@ -59,17 +59,17 @@ class SharedBuf: public std::streambuf, public virtual SharedEnum__
         std::streamsize showmanyc() override;
         int underflow() override;
         std::streamsize xsgetn(char *buf, std::streamsize n) override;
-  
+
         int overflow(int c) override;
         std::streamsize xsputn(char const *buf, std::streamsize n) override;
 
         std::ios::pos_type seekoff(
-            std::ios::off_type offset, 
+            std::ios::off_type offset,
             std::ios::seekdir way = std::ios::beg,
             std::ios::openmode mode = std::ios::in | std::ios::out) override;
 
         std::ios::pos_type seekpos(
-            std::ios::pos_type offset, 
+            std::ios::pos_type offset,
             std::ios::openmode mode = std::ios::in | std::ios::out) override;
 };
 
@@ -82,5 +82,5 @@ class SharedBuf: public std::streambuf, public virtual SharedEnum__
 #include "setopenmode.f"
 #include "sharedmemory.f"
 
-} // FBB        
+} // FBB
 #endif

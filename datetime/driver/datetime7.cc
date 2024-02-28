@@ -11,9 +11,8 @@ int main()
     cout << "current UTC time: " << utc << "\n\n";
 
     DateTime dt1{ time(0) + 3600,   // no DST, local time: utc + 1 + 3 hrs
-                  chrono::hours{ 3 } };  
+                  chrono::hours{ 3 } };
 
-    cout << "no DST, LOCAL time = UTC + 4 hours: " << dt1 << 
+    cout << "no DST, LOCAL time = UTC + 4 hours: " << dt1 <<
                 ", dst = " << dt1.dst() << "\n\n";
 }
-

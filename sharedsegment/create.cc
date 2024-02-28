@@ -1,7 +1,7 @@
 #include "sharedsegment.ih"
 
-SharedSegment *SharedSegment::create(int *id, 
-                                     size_t nBlocks, size_t segmentSize, 
+SharedSegment *SharedSegment::create(int *id,
+                                     size_t nBlocks, size_t segmentSize,
                                      size_t access)
 {
     *id = newSegment(segmentSize, access);

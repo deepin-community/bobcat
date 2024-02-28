@@ -9,8 +9,7 @@ Table &Table::append(string const &str, char const *sep, bool addEmpty)
 
     String::split(&words, str, sep, addEmpty);
 
-    copy(words.begin(), words.end(), back_inserter(*this)); 
+    copy(words.begin(), words.end(), back_inserter(*this));
 
     return *this;
 }
-

@@ -4,44 +4,47 @@
 #include <sys/types.h>
 
 #include <iosfwd>
+#include <bobcat/exception>
 
 namespace FBB
-{    
+{
 
 class Fork
 {
-    pid_t d_pid;
+    pid_t d_pid = -1;
 
     public:
         virtual ~Fork();
         void fork();
 
     protected:
+        int endChild() const;               // forces the childProcess's end
+
         pid_t pid() const;                                  // .f
-
-        virtual void childRedirections();   // do child redirections
-        virtual void childProcess() = 0;    // must be implemented
-
-        virtual void parentRedirections();  // do parent redirections
-        virtual void parentProcess() = 0;   // must be implemented
 
         void prepareDaemon() const;         // prepares for a daemon
         void prepareDaemon(std::string const &out,
                            std::string const &err,
                            mode_t mode = 0600) const;
 
-        int waitForChild();                 // returns the status
+        int waitForChild();                 // returns the status       1.cc
+        int waitForChild() const;           // for Fork const &obj.     2.f
 
     private:
+        virtual void childRedirections();   // do child redirections
+        virtual void childProcess() = 0;    // must be implemented
+
         static void reopen(std::string const &out, mode_t mode);
+
+        virtual void parentRedirections();  // do parent redirections
+        virtual void parentProcess() = 0;   // must be implemented
+
 
 };
 
 #include "pid.f"
+#include "waitforchild2.f"
 
 } // FBB
 
 #endif
-
-
-

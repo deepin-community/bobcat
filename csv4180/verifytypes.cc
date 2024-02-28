@@ -28,8 +28,8 @@ try
 
             case 'D':
                 stold(*src);
-            break;             
-            
+            break;
+
             default:                    // accept all other (just 'S') as-is
             break;
         }
@@ -45,7 +45,4 @@ catch (...)
 {
     d_in->setstate(ios::failbit);
     return false;
-}        
-
-
-
+}

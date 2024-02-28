@@ -4,13 +4,14 @@
 #include <iosfwd>
 
 #include <bobcat/sharedblock>
+#include <bobcat/exception>
 
 namespace FBB
 {
 
 class SharedSegment
 {
-    friend std::ostream &operator<<(std::ostream &out, 
+    friend std::ostream &operator<<(std::ostream &out,
                                     SharedSegment const &sharedData);
     size_t      d_access;
     size_t      d_segmentSize;
@@ -21,7 +22,7 @@ class SharedSegment
                                     // ever written)
     size_t      d_nBlocks;
     SharedBlock d_block[1];         // Mutexes and IDs of shared data blocks
-                                    // in fact SharedBlock block[nBlocks]   
+                                    // in fact SharedBlock block[nBlocks]
 
     public:
         SharedSegment(SharedSegment const &other) = delete;
@@ -55,20 +56,20 @@ class SharedSegment
 
         static void *attach(int id);
 
-        static SharedSegment *create(int *id, 
+        static SharedSegment *create(int *id,
                                      size_t nBlocks, size_t segmentSize,
                                      size_t access);
 
         static void deleteSegment(int id);  // delete shared segment `id'
 
-                                    // attach/detach refer to the mapping 
+                                    // attach/detach refer to the mapping
                                     // on the current process's memory space
 
         template <typename Type>
-        static Type *detach(Type *sharedPtr, bool requireOK = true);   
-                                            // if sharedPtr != 0 the shared 
+        static Type *detach(Type *sharedPtr, bool requireOK = true);
+                                            // if sharedPtr != 0 the shared
                                             // segment is detached. throws
-                                            // exception if requireOK == true 
+                                            // exception if requireOK == true
                                             // but detaching fails.
                                             // always returns 0
 
@@ -80,8 +81,8 @@ class SharedSegment
         std::ostream &insert(std::ostream &out) const;
 
         static void rawDetach(void *sharedPtr, bool requireOK);  // detaches
-                                            // throws exception if 
-                                            // requireOK == true 
+                                            // throws exception if
+                                            // requireOK == true
                                             // but detaching fails
 
                                     // returns the ID of new shared memory
@@ -100,8 +101,5 @@ class SharedSegment
 #include "segmentsize.f"
 #include "unlock.f"
 
-} // FBB        
+} // FBB
 #endif
-
-
-

@@ -1,5 +1,5 @@
-#ifndef INCLUDED_BOBCAT_EXTRACTORFORK_
-#define INCLUDED_BOBCAT_EXTRACTORFORK_
+#ifndef INCLUDED_BOBCAT_EXTRACTORBASE_
+#define INCLUDED_BOBCAT_EXTRACTORBASE_
 
 #include <istream>
 
@@ -13,9 +13,9 @@ namespace FBB
 namespace IUO
 {
 
-class ExtractorBase: public CloseMode, protected Exec, 
+class ExtractorBase: public CloseMode, protected Exec,
                      private IFdBuf, public std::istream
-                     
+
 {                    // the child process inserts into the pipe,
     size_t d_bufSize;
     Pipe d_iChildOutPipe;           // cout written by the CHILD
@@ -42,5 +42,5 @@ inline Pipe &ExtractorBase::childOutPipe()
 } // namespace IUO
 
 } // namespace FBB
-        
+
 #endif

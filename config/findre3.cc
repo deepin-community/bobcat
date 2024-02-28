@@ -1,10 +1,10 @@
 #include "config.ih"
 
 Config::const_iterator CF_Pimpl::findRE(
-                                            const_iterator const &from) const 
+                                            const_iterator const &from) const
 {
-    return 
-        find_if(from, end(), 
+    return
+        find_if(from, end(),
             [&](CF_Line const &elem)
             {
                 try

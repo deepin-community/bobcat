@@ -20,4 +20,3 @@ void changeHours()
 
     showTM(ts, "Changed hours");
 }
-

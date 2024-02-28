@@ -1,7 +1,7 @@
 #include "process.ih"
 
 // On entry, `begin' points at the beginning of the stand-alone escape
-// character. 
+// character.
 // On exit, the character is unescaped and returned, and `begin' points
 // immediately beyond the characters defining the escape-sequence.
 
@@ -20,12 +20,9 @@ int Process::escapedString(ConstIter &begin, ConstIter const &end)
                                     // unescape the escape-sequence
     escaped = String::unescape(escaped);
 
-                                    // reposition begin beyond the chars of 
+                                    // reposition begin beyond the chars of
                                     // the escape sequence
     begin += 1 + preLength - escaped.length();
 
     return escaped[0];              // return the escaped character
 }
-
-
-

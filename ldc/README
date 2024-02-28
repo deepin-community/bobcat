@@ -1,0 +1,161 @@
+Herer are some examples, conversions with 0-digits, to decimal:
+
+    Start (decimal):     167772160
+              (hex):     0x0a.00.00.00
+
+Each hex digit is stored in a nibble. There are 2 nibbles in a byte. In the
+illustrations below the bytes are visually separated by .-characters.
+
+The dividend is split up in blocks of 2 bytes. So 0a.00 and 00.00. The
+procedure also works for larger and smaller numbers, and also for uint64_t (8
+bytes).
+
+When dividing by 10 (0xa) (example below) the 'rest' will be the beginning of
+the next dividend; 'quot' is the beginning of the divident of the next
+division. The mask ----- marks the two bytes targeted by the operation:
+
+   dividend:     rest       quot
+   0a.00.00.00      0       01.00
+   -----
+       0                    if 'rest' == 0 then 0-bytes are added up to the
+                            first byte != 0 (or until the final bytes has been
+                            reached). At that point that byte's value is
+                            assigned to 'rest', here resulting in:
+   dividend:     rest       quot
+   0a.00.00.00      0       01.00
+         00.00      0       01.00.00.00     added2 bytes
+         -----      ~
+             0              The next dividend concatenates quotients: here
+                            it's 1 quotient: 01.00.00.00
+                            (01000000 * a = 0a000000)
+
+Next round:
+   dividend:     rest       quot
+    01.00.00.00     6       19
+    -----
+       06.00        6       99
+       -----
+          06.00     6       99      last byte  (LB) was processed
+                    ~
+
+Next:
+   dividend:     rest       quot
+    19.99.99        3       28f
+    -----
+       03.99        1       5c      LB
+                    ~
+
+Next:
+   dividend:     rest       quot
+    02.8f.5c        5       41
+    -----
+       05.5c        2       89      LB
+                    ~
+
+Next:
+   dividend:     rest       quot
+    41.89           7       06.8d   LB
+                    ~
+
+Next:
+   dividend:     rest       quot
+    06.8d           7       a7      LB
+                    ~
+Next:
+   dividend:     rest       quot
+    00.a7           7       10      LB
+                    ~
+
+Next:
+   dividend:     rest       quot
+    00.10           6       1       LB
+                    ~
+
+Next:
+   dividend:     rest       quot
+    00.01           1       0       LB, done
+                    ~
+
+    Number decimal:             167772160
+    Decimal starting value:     167772160
+
+Match.
+
+--------------------------------------------------------------------------
+
+Another one, having repeated series of 0s:
+
+    hex:    0x 64.00.00.08.ff
+    dec:    429496731903
+
+   dividend:        rest    quot
+    64.00.00.08.ff  0      [0a.00]
+    -----
+          00.08     8       0a.00.00.00    added 2 0-bytes for 00 en 08
+          -----
+             08.ff  3       e6          LB
+             -----  ~
+
+
+   dividend:        rest    quot
+    0a.00.00.00.e6  0      [01.00]
+    -----
+          00.00.e6          01.00.00.00.00  added 3 0-bytes, for  00, 00 en e6
+          --------
+                e6  0       17          LB
+                    ~
+
+   dividend:        rest    quot
+    01.00.00.00.17  6       19
+    -----
+       06.00        6       99
+       -----
+          06.00     6       99
+          -----
+             06.17  9       9b          LB
+                    ~
+
+   dividend:        rest    quot
+    19.99.99.9b     3       28f
+    -----
+       03.99        1       5c
+       -----
+           1.9b     1       29          LB
+                    ~
+
+   dividend:        rest    quot
+    02.8f.5c.29     5       41
+    -----
+       05.5c        2       89
+       -----
+          02.29     3       37          LB
+                    ~
+
+   dividend:        rest    quot
+    41.89.37        7       68d
+    -----
+       07.37        7       b8          LB
+                    ~
+
+   dividend:        rest    quot
+    06.8d.b8        7       a7
+    -----
+       07.b8        6       c5          LB
+                    ~
+
+   dividend:        rest    quot
+    a7.c5           9       10c6        LB
+                    ~
+
+   dividend:        rest    quot
+    10.c6           4       0x1ad       LB
+                    ~
+
+   dividend:        rest    quot
+    01.ad           9       2a          LB
+                    ~
+   dividend:        rest    quot
+    00.2a           2       4           LB
+                    ~
+
+    429496731903: correct.

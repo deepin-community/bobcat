@@ -10,5 +10,3 @@ int main()
 {
     DateTime::Zone::read("zoneread.txt");
 }
-
-

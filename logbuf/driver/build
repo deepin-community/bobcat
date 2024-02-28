@@ -1,4 +1,4 @@
 #!/bin/bash
 
-g++ --std=c++2a -o driver driver.cc -lbobcat
-# g++ --std=c++2a -o driver driver.cc -L../tmp -llogbuf -lbobcat
+#g++ -o driver driver.cc -lbobcat
+ g++ -o driver driver.cc -L../tmp -llogbuf -lbobcat

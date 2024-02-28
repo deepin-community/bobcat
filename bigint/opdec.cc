@@ -6,5 +6,3 @@ BigInt BigInt::operator--(int)
     --*this;
     return tmp;
 }
-
-

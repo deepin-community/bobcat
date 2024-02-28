@@ -10,4 +10,3 @@ FMT FBB::join(unsigned nCols, FMT::Align align, unsigned precision)
 
     return { align, precision, 0, nCols };
 }
-

@@ -3,7 +3,7 @@ perform the following steps:
 
     0. To install bobcat icmake should be used, for which a top-level script
         (build) and support scripts in the ./icmake/ directory are
-        available. Icmake is available on many architectures. 
+        available. Icmake is available on many architectures.
 
     1. Inspect the values of the variables in the file INSTALL.im, in
         particular the #defines below COMPONENTS TO INSTALL. Modify
@@ -17,14 +17,14 @@ perform the following steps:
 
             ./build libraries
 
-        to compile the bobcat libraries. 
+        to compile the bobcat libraries.
 
         Optionally add the argument 'strip' if you want the libraries to be
         stripped. Unless you need the symbolic information in the compiled
         object modules, it is probably a good idea to provide this
         argument. So in that case issue:
 
-            ./build libraries strip 
+            ./build libraries strip
 
         Several Bobcat classes depend on additional, non standard,
         libraries. They are libmilter, libssl, libX11, and libreadline. By
@@ -56,13 +56,13 @@ perform the following steps:
         dependencies/required.classes as 'build select' depends on its
         contents.
 
-    4. Run (probably as root) 
+    4. Run (probably as root)
 
-            ./build install 'LOG:path' 'what' 'base' 
+            ./build install 'LOG:path' 'what' 'base'
 
         to install components of the bobbat library.
 
-        Here, 
+        Here,
             'LOG:path' is an optional item specifying the absolute or relative
                 path of a log file to contain a log of all installed files (see
                 also the next item). Using LOG:~/.bobcat usually works
@@ -77,10 +77,10 @@ perform the following steps:
                            h (header files),
                            l (libraries),
                            m (man-pages)
-                E.g., use 
+                E.g., use
                     ./build install hl 'base'
                 if you only want to install the header files and the library.
-    
+
                 When requesting non-existing elements (e.g., ./build install x
                 was requested, but the man-pages weren't constructed) then
                 these non-existing elements are silently ignored by the
@@ -114,8 +114,3 @@ e.g., #include <bobcat/errno>. No `bobcat' headers have (.h) extensions.
 By default the manual pages are stored under /usr/share/man/man1,
 /usr/share/man/man3, and /usr/share/man/man7, which are normally in the `man'
 program's set of visited directories.
-
-
-
-
-

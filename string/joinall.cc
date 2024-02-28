@@ -12,5 +12,3 @@ string String::joinAll(SplitPairVector const &entries, char sep)
 
     return ret;
 }
-
-

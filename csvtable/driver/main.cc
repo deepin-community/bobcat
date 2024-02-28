@@ -3,12 +3,11 @@
 int main()
 try
 {
-//    CSVTable tab;
-    CSVTable tab("table");
+    CSVTable tab;
+//    CSVTable tab("table");
 
 //    tab.fmt() << "case" << right("length", 2) << right("weight", 1) <<
 //                           right("length", 2) << right("weight", 1);
-
 
     tab.fmt() << "case";
     tab.fmt(1) << right("length", 2) << right("weight", 1) <<
@@ -23,7 +22,7 @@ try
 
     tab.row(1) << hline();
 
-    tab.more(1) << join(2, FMT::CENTER) << "Female"; 
+    tab.more(1) << join(2, FMT::CENTER) << "Female";
     tab.row()   << join(2, FMT::CENTER) << "Male";
 
 

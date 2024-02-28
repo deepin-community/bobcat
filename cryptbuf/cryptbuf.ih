@@ -1,11 +1,7 @@
 #include "cryptbuf"
 
-//#include <iostream>
-//#define XERR std::cerr << __FILE__": "
-
-#include <openssl/evp.h>
-
 #include "../exception/exception"
+#include "../iuo/iuo"
 
 using namespace std;
 using namespace FBB;

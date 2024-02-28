@@ -1,6 +1,6 @@
 #include "syslogbuf.ih"
 
-SyslogBuf::SyslogBuf(std::string const &ident, 
+SyslogBuf::SyslogBuf(std::string const &ident,
                      Priority priority, Facility facility, int option)
 :
     d_priority(priority),
@@ -9,16 +9,3 @@ SyslogBuf::SyslogBuf(std::string const &ident,
     reset(ident, facility, option);
     setp();                             // no buffer yet
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

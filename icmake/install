@@ -11,14 +11,14 @@ void install(string request, string dest)
 
     if (request == "x")
         components = 15;
-    else 
+    else
     {
         if (strfind(request, "d") != -1)
-            components |= 1;                
+            components |= 1;
         if (strfind(request, "h") != -1)
             components |= 2;
         if (strfind(request, "l") != -1)
-            components |= 4;                
+            components |= 4;
         if (strfind(request, "m") != -1)
             components |= 8;
     }
@@ -26,7 +26,7 @@ void install(string request, string dest)
     if (components & 1)
     {
         printf("\n  installing documentation\n");
-        logZip("", 
+        logZip("",
                    "READLINE "
                    "README "
                    "README.X11 "
@@ -40,24 +40,24 @@ void install(string request, string dest)
                    "process-pipe.pdf "
                    "TODO",
                 base + DOC "/");
-    
+
         logRecursive("documentation/examples", base + DOC "/examples");
-    
+
         logZip("scripts", "", base + DOC "/scripts");
 
         logInstall("documentation/images", "*.jpg", base + DOC "/images");
-     
+
         target = base + DOC + "/man";
-    
+
         logInstall("tmp/manhtml", "", target);
-    
+
         logInstall("documentation/man",  LIBRARY ".jpg", target);
-  
+
         chdir(g_cwd + target);
         run("ln -sf " LIBRARY ".7.html index.html");
-    
+
         run("ln -sf iterator.3.html reverseiterator.3.html");
-    
+
         chdir(g_cwd + target);
         logZip("", "README", base + DOC);
     }
@@ -83,11 +83,11 @@ void install(string request, string dest)
     if (components & 8)
     {
         printf("\n  installing the manual pages\n");
-    
+
         logZip("tmp/man/man3",  "", base + MAN "/man3");
-    
+
         run("ln -sf iterator.3bobcat.gz reverseiterator.3bobcat.gz");
-    
+
         logZip("tmp/man/man7",  "", base + MAN "/man7");
     }
 

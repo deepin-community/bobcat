@@ -21,6 +21,3 @@ catch(Token end)
 {
     acceptAll();
 }
-
-
-

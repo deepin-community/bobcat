@@ -8,7 +8,7 @@ manpagename(FBB::User)(Provides the tt(/etc/passwd) info of the current user)
 
 manpagesynopsis()
     bf(#include <bobcat/user>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     This class retrieves the information of the current user from the
@@ -23,7 +23,7 @@ manpagesection(INHERITS FROM)
 manpagesection(CONSTRUCTORS)
     itemization(
     itb(User())
-        The default constructor determines the current user's data.  
+        The default constructor determines the current user's data.
         This constructor throws an tt(Exception) exception if it did not
         properly complete because the current user name could not be found in
         tt(/etc/passwd).
@@ -58,7 +58,7 @@ manpagesection(MEMBER FUNCTIONS)
         Returns the user's user-name.
     itb(std::string password() const)
         Returns the user's encrypted password. But see also the bf(BUGS) \
-        section. 
+        section.
     itb(std::string realname() const)
         Returns the user's real name, as listed in the tt(/etc/passwd)'s \
         em(gecos) field.

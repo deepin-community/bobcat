@@ -14,7 +14,7 @@ string DateTime::Zone::convert(string const &dstSpec)
         throw 1;
 
     string monthNr = to_string(1 + stdFind(s_month, 12, vs[0]));
-                                                        
+
     char wkSpec =                                       // handle 1st, etc.
             "1234"s.find(vs[1][0]) != string::npos ?    // Otherwise: '5'
                 vs[1][0]                                // for last

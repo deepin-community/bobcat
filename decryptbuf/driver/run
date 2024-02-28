@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if [ $# -eq 0 ] ; then
-    method=aes-128-cbc
-else
-    method=$1
-fi
-
-./driver $method theKeyOfRunAES 1234567890qwertyuiop /tmp/enc

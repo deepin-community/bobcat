@@ -14,7 +14,7 @@ vector<string> Process::split(ConstIter begin, ConstIter const &end)
                 next += dquotedString(begin, end);
             break;
 
-            case '\'':          // quoted string: accept all until 
+            case '\'':          // quoted string: accept all until
                                 // the next ', without unescaping
                 next += quotedString(begin, end);
             break;

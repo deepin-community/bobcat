@@ -10,12 +10,3 @@ void LocalServerSocket::open(string const &name, Socket action)
         throw Exception{} << "LocalServerSocket::open(" << name << "): " <<
                                                             errnodescr;
 }
-            
-
-
-
-
-
-
-
-

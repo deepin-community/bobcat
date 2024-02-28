@@ -10,5 +10,3 @@ Xpointer::Xpointer()
     if (!s_theDisplay)
         throw Exception{1} << "Can't open the display";
 }
-    
-    

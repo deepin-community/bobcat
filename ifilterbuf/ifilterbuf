@@ -30,7 +30,5 @@ class IFilterBuf: public EoiBuf
 
 #include "setbuffer.f"
 
-} // FBB        
+} // FBB
 #endif
-
-

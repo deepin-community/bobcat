@@ -13,4 +13,3 @@ size_t Arg::option(size_t *idx, string *value, int optChar) const
 {
     return d_ptr->option(idx, value, optChar);
 }
-

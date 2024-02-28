@@ -20,9 +20,9 @@ bool CSV4180::end()
         if ( (this->*d_verifyTypes)() )
             d_data.push_back(move(d_last));
     }
-    else 
+    else
     {
-        d_header = move(d_last);            // setting the header clears 
+        d_header = move(d_last);            // setting the header clears
                                             //  d_last
         (this->*d_dropFields)();
         d_setHeader = false;
@@ -30,8 +30,3 @@ bool CSV4180::end()
 
     return false;
 }
-
-
-
-
-

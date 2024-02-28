@@ -1,4 +1,4 @@
-// compile with 
+// compile with
 //  gx splitdriver.cc -L ../tmp/ -lstring -lbobcat
 
 #include <iostream>
@@ -7,7 +7,7 @@
 using namespace std;
 using namespace FBB;
 
-char const *typeName[] = 
+char const *typeName[] =
 {
     "DQUOTE_UNTERMINATED",    // unterminated d-quoted element
     "SQUOTE_UNTERMINATED",    // unterminated s-quoted element
@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     while (true)
     {
         cout << "? ";
-    
+
         int type;
         cin >> type;
         cin.ignore();
@@ -42,29 +42,29 @@ int main(int argc, char **argv)
 
 //        vector<String::SplitPair> vect{
 //                type >= 10 ?
-//                    String::split(line, ",", type == 11) 
+//                    String::split(line, ",", type == 11)
 //                :
-//                    String::split(line, 
+//                    String::split(line,
 //                            static_cast<String::SplitType>(type), ",") };
 
         vector<String::SplitPair> vect;
         if (type >= 10)
             String::split(&vect, line, ",", type == 11);
         else
-            String::split(&vect, line, 
+            String::split(&vect, line,
                           static_cast<String::SplitType>(type), ",");
 
-        
+
         for (auto const &element: vect)
-            cout << '`' << element.first << "': " << 
+            cout << '`' << element.first << "': " <<
                                 typeName[element.second] << '\n';
 
 //        String::Type strType;
-//        vector<string> vect{ 
+//        vector<string> vect{
 //                type >= 10 ?
 //                    String::split(&strType, line, ",", type == 11)
 //                :
-//                    String::split(&strType, line, 
+//                    String::split(&strType, line,
 //                            static_cast<String::SplitType>(type), ",")
 //                };
 //
@@ -74,14 +74,10 @@ int main(int argc, char **argv)
 //                if (type >= 10)
 //                    String::split(&vect, line, ",", type == 11);
 //                else
-//                    String::split(&vect, line, 
+//                    String::split(&vect, line,
 //                            static_cast<String::SplitType>(type), ",");
 //
 //        for (auto const &element: vect)
 //            cout << '`' << element << "'\n";
    }
 }
-
-
-
-

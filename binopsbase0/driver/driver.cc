@@ -64,9 +64,3 @@ int main()
     d2a ^= d2b;
     d2c = Demo2{} ^ d2b;
 }
-
-
-
-
-
-

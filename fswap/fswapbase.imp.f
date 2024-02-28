@@ -3,8 +3,8 @@
 template <typename Type>
 void FSwapBase::rawswap(FSwapPOD<Type> &pod, char *two, int size)
 {
-    memcpy(pod.d_buffer, pod.d_from, size);  
-    memcpy(pod.d_from, two,  size); 
+    memcpy(pod.d_buffer, pod.d_from, size);
+    memcpy(pod.d_from, two,  size);
     memcpy(two, pod.d_buffer, size);
 }
 
@@ -19,7 +19,7 @@ constexpr char *FSwapBase::addr(Type &type)
 template <typename Type>
 constexpr char *FSwapBase::addr(Type *type)
 {
-    return reinterpret_cast<char *>(type);  
+    return reinterpret_cast<char *>(type);
 }
 
     // use specified swap method
@@ -27,7 +27,7 @@ constexpr char *FSwapBase::addr(Type *type)
 template <typename Type, typename FSwapMode>
 void FSwapBase::explicitSwap(FSwapPOD<Type> &pod, FSwapMode &&member)
 {
-    typedef typename FSwapMode::MemberType MemberType;
+    using MemberType =  typename FSwapMode::MemberType;
 
     MemberType &rhsSwap =     // stdSwap's address in the rhs object
             *reinterpret_cast<MemberType *>
@@ -62,7 +62,7 @@ void FSwapBase::explicitSwap(FSwapPOD<Type> &pod, FSwapMode &&member)
 template <typename ReturnType, typename Type, typename Member>
 ReturnType &FSwapBase::preRawSwap(FSwapPOD<Type> &pod, Member &&member)
 {
-    ReturnType *ret = 
+    ReturnType *ret =
 
             reinterpret_cast<ReturnType *>
             (
@@ -88,4 +88,3 @@ ReturnType &FSwapBase::preRawSwap(FSwapPOD<Type> &pod, Member &&member)
 
     return *ret;
 }
-

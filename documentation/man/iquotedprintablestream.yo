@@ -2,7 +2,7 @@ includefile(include/header)
 
 COMMENT(manpage, section, releasedate, archive, short name)
 manpage(FBB::IQuotedPrintableStream)(3bobcat)(_CurYrs_)
-(libbobcat-dev__CurVers_)  
+(libbobcat-dev__CurVers_)
                     (QuotedPrintable encoding/decoding std::istream)
 
 manpagename(FBB::IQuotedPrintableStream)
@@ -11,7 +11,7 @@ manpagename(FBB::IQuotedPrintableStream)
 
 manpagesynopsis()
     bf(#include <bobcat/iquotedprintablestream>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::IQuotedPrintableStream) objects may be used to quoted-printable
@@ -27,7 +27,7 @@ includefile(include/namespace)
 
 manpagesection(INHERITS FROM)
     bf(FBB::IQuotedPrintableBuf) (private), nl()
-    bf(std::istream) 
+    bf(std::istream)
 
 manpagesection(CONSTRUCTORS)
     itemization(
@@ -41,7 +41,7 @@ manpagesection(CONSTRUCTORS)
     - tt(IQuotedPrintableStream<ENCODE>) objects perform quoted printable
         encodi ng;nl()
     - tt(IQuotedPrintableStream<DECODE>) objects perform quoted printable
-        decoding;nl() 
+        decoding;nl()
     - tt(IQuotedPrintableStream<CodeType>) objects obtain the bytes to encode
         or decode from tt(std::istream &in);nl()
     - The internally used tt(IFilterBuf) is initialized with a buffer of
@@ -65,7 +65,7 @@ manpagesection(EXAMPLE)
     verbinclude(../../iquotedprintablestream/driver/driver.cc)
 
     See also the example in the bf(iquotedprintablebuf)(3bobcat)
-        man-page. 
+        man-page.
 
 manpagefiles()
     em(bobcat/iquoted printablestream) - defines the class interface
@@ -77,5 +77,3 @@ manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-
-

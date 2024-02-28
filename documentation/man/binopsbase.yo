@@ -25,7 +25,7 @@ a swap member (tt(void Derived::swap(Derived &rhs))), and is publicly derived
 from tt(FBB::BinopsBase<Derived>) then once tt(Derived) defines a member
         verb(
     void Class::operator@=(Rhs const &rhs) &&
-        ) 
+        )
     defining the compound tt(@)-operator for anonymous, temporary tt(Derived)
 objects and a tt(Rhs) type for its right-hand side operand the following
 operators are also available:
@@ -48,7 +48,7 @@ tt(out). Analogously, to make the extraction operator available a private
 member
         verb(
     void Derived::extract(std::istream &in)
-        ) 
+        )
     must be defined extrating the calling object from tt(in).
 
 manpagesection(INHERITS FROM)
@@ -76,9 +76,9 @@ and
 the extraction operator becomes available after defining a private member
         verb(
     void Derived::extract(std::istream &in)
-        ) 
+        )
     (extracting the calling object from tt(in)).
-    
+
 manpagesection(FRIEND DECLARATION)
 
     To make the insertion and/or extraction operators available the class
@@ -101,6 +101,3 @@ manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-
-
-

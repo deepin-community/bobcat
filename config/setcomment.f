@@ -7,4 +7,3 @@ inline void Config::setComment(Comment type)
 {
     d_ptr->setComment(type);
 }
-

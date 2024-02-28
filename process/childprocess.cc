@@ -18,7 +18,7 @@ void Process::childProcess()
     if (d_closedByChild != 0)
         close(d_closedByChild);
 #endif
-                          
+
     (*(d_processType == USE_PATH ? execvp : execv))
         (ec.argv[0], const_cast<char * const *>(ec.argv));
 
@@ -30,10 +30,3 @@ void Process::childProcess()
 //    for (char const **cp = ec.argv; *cp; ++cp)
 //        std::cerr << "  " << *cp << endl;
 //    std::cerr << "======================\n";
-
-
-
-
-
-
-

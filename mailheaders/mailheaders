@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <bobcat/string>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -13,9 +14,9 @@ namespace FBB
 class MailHeaders
 {
     public:
-        typedef std::vector<std::string>::const_iterator const_iterator;
-        typedef std::vector<std::string>::const_reverse_iterator 
-                                                    const_reverse_iterator;
+        using const_iterator = std::vector<std::string>::const_iterator;
+        using const_reverse_iterator = 
+                            std::vector<std::string>::const_reverse_iterator;
         enum Mode
         {
             DONT_READ,
@@ -47,13 +48,18 @@ class MailHeaders
         Match                   d_match;
 
     public:
-        class const_hdr_iterator:
-            public std::iterator<std::input_iterator_tag, 
-                                std::string const>
+        struct const_hdr_iterator
         {
+            using iterator_category = std::input_iterator_tag;
+            using difference_type   = std::ptrdiff_t;
+            using value_type        = std::string const;
+            using pointer           = value_type *;
+            using reference         = value_type &;
+
+
             friend MailHeaders;
-            typedef bool(*Comparator)(std::string const &header, 
-                                      std::string const &key);
+            using Comparator = 
+                bool(*)(std::string const &header, std::string const &key);
 
             MailHeaders const  *d_mh;
             std::string         d_key;
@@ -89,10 +95,10 @@ class MailHeaders
                 const_hdr_iterator operator++(int);             // oppostinc.f
 
                 // not used, but potentially available in consthdropdec.cc
-                // const_hdr_iterator operator--(int);       
+                // const_hdr_iterator operator--(int);
 
                 bool operator==(const_hdr_iterator const &other)    // opeq.f
-                                                            const; 
+                                                            const;
 
                 bool operator!=(const_hdr_iterator const &other)    // opneq.f
                                                             const;
@@ -102,8 +108,8 @@ class MailHeaders
         };
 
 
-        typedef std::reverse_iterator<const_hdr_iterator>
-                                            const_reverse_hdr_iterator; 
+        using const_reverse_hdr_iterator = 
+                        std::reverse_iterator<const_hdr_iterator>;
 
         explicit MailHeaders(std::istream &in, Mode mode = READ);
         MailHeaders(MailHeaders &&tmp);
@@ -152,5 +158,5 @@ class MailHeaders
 #include "opstar.f"
 
 } // FBB
-        
+
 #endif

@@ -4,4 +4,3 @@ OSharedStream::OSharedStream()
 :
     ostream(this)
 {}
- 

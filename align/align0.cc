@@ -6,4 +6,3 @@ Align::Align(int row, size_t col, Manipulator manip)
     d_col(col),
     d_manip(manip)
 {}
-

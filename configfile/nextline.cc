@@ -22,4 +22,3 @@ bool ConfigFile_::nextLine(istream &inStream, string &dest)
 
     return dest.length();
 }
-

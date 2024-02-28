@@ -5,7 +5,7 @@
 struct tm const &DateTime::assignTM() const
 {
     setTZ(zone().spec());
-    
+
     if (not localtime_r(&d_utcSec, &d_tm))
         throw Exception{ 1 } << "can't compute time for " <<
                                 zone().spec() << '\n';

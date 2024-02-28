@@ -45,11 +45,11 @@ Hoi Frank,
 
 > moet-ie ook worden geinitialiseerd. Maar de volgende truuk leert je dat een
 > iterator normaliter op 0 is geinitialiseerd:
-> 
+>
 >     int main(int argc, char *argv[])
 >     {
 >         vector<string>::iterator vi;
->     
+>
 >         cout << &*vi << endl;
 >     }
 
@@ -113,11 +113,10 @@ over te horen, omdat jij er daadwerkelijk mee gewerkt hebt.
 Bedankt en groeten (uit een druilerig Hawaii)
 	Hein
 
->-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-< 
- Unix is user friendly. It's just very particular about who 
+>-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<
+ Unix is user friendly. It's just very particular about who
  it's friends are.
 
  Hein Zelle                     hein@icce.rug.nl
 	                        http://www.icce.rug.nl/~hein
 >-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<
-

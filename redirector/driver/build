@@ -67,7 +67,7 @@ void parser()
             system("./grambuild");
         #endif
         chdir("..");
-    
+
         if
         (
             exists("grammar")
@@ -79,7 +79,7 @@ void parser()
         #else
             exec("bisonc++", "grammar");
         #endif
-            
+
         chdir("..");
     #endif
 }
@@ -90,11 +90,11 @@ void scanner()
 {
     string
         interactive;
-    
+
     #ifdef INTERACTIVE
         interactive = "-I";
     #endif
-    
+
     #ifdef GRAMBUILD
         chdir("scanner");
         if
@@ -105,7 +105,7 @@ void scanner()
                 "lexer" younger "yylex.cc"
                 ||
                 (
-                    exists("../parser/parser.h") 
+                    exists("../parser/parser.h")
                     &&
                     "../parser/parser.h" younger "yylex.cc"
                 )
@@ -144,15 +144,15 @@ void initialize()
         if (exists("parser"))                  // subdir parser exists
         {
             CLASSES += "parser ";
-            parser(); 
+            parser();
         }
         if (exists("scanner"))                  // subdir scanner exists
         {
             CLASSES += "scanner ";
-            scanner(); 
+            scanner();
         }
     #endif
-    
+
     setClasses();                           // remaining classes
 
     classes = strtok(CLASSES, " ");         // list of classes
@@ -199,7 +199,7 @@ list altered(list files, string target)
     for (i = 0; i < sizeof(files); i++)     // try all elements of the list
     {
         file = element(i, files);           // use element i of the list
-            
+
         if (file older target)              // a file is older than the target
         {
             files -= (list)file;            // remove the file from the list
@@ -274,11 +274,11 @@ void prefix_class(string class_id)
         int
             index,
             n;
-    
+
         n = strlen(ofile);
         for (index = strlen(class_id); index < n; index++)
             ret += element(index, ofile);
-    
+
         return ret;
     }
 #endif
@@ -292,7 +292,7 @@ void rm_class_prefix(string class_id)
             o_file;
         int
             i;
-    
+
         chdir("o");
         o_files = makelist("*.o");
         for (i = 0; o_file = element(i, o_files); i++)
@@ -310,14 +310,14 @@ void c_compile(list cfiles)
                 nextfile;
         int
                 i;
-                
+
     if (!exists("o"))
         system("mkdir o");
-                                                      
+
     if (sizeof(cfiles))                 // files to compile ?
     {
         printf("\ncompiling: ", current, "\n\n");
-        
+
                                         // compile all files separately
         for (i = 0; nextfile = element(i, cfiles); i++)
             exec(COMPILER,
@@ -341,17 +341,17 @@ void updatelib(string library)
         string
             to,
             from;
-    
+
         objlist = makelist("o/*.o");
-    
+
         if (!sizeof(objlist))
             return;
-    
+
         printf("\n");
-    
+
         exec("ar", "rvs", library, "o/*.o");
         exec("rm", "o/*.o");
-    
+
         printf("\n");
     #endif
 }
@@ -391,7 +391,7 @@ void cpp_make(string mainfile, string library)
     int
         index;
     string class;
-        
+
     if (nClasses)
         ofiles += " */o/*.o";               // set ofiles for no LIBRARY use
 
@@ -416,14 +416,14 @@ void cpp_make(string mainfile, string library)
     current = "auxiliary " + sources + " files";
     std_cpp(libxxx);                        // compile all files in current dir
 
-    
+
     #ifdef BUILD_LIBRARY
                                         // prefix class-number for .o files
         for (index = 0; index < nClasses; index++)
         {
             current = element(index, classes);  // determine class name
             chdir( current);              // chdir to a class directory.
-            prefix_class((string)index);  
+            prefix_class((string)index);
             updatelib(libxxx);
             chdir(cwd);                // go back to parent dir
         }
@@ -452,7 +452,7 @@ void setlibs()
             index;
         list
             cut;
-            
+
         cut = strtok(LIBS, " ");        // cut op libraries
         n = sizeof(cut);
         for (index = 0; index < n; index++)

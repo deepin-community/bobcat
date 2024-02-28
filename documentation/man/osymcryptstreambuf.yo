@@ -1,0 +1,145 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::OSymCryptStreambuf)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (Symmetric en- and decryption)
+
+manpagename(FBB::OSymCryptStreambuf)(std::streambuf performing symmetric
+                                     en/decryption)
+
+manpagesynopsis()
+    bf(#include <bobcat/osymcryptstreambuf>)nl()
+    Linking option: tt(-lbobcat -lcrypto)
+
+manpagedescription()
+    bf(FBB::OSymCryptStreambuf) objects can be used as tt(std::streambuf)
+objects of tt(std::ostream) objects, and encrypt or decrypt
+information, that is made available via separate tt(std::istream) streams.
+
+     The class tt(OSymCryptStreambuf) is a class template, using a
+tt(FBB::CryptType) template non-type parameter. Objects of the class
+tt(FBB::OSymCryptStreambuf<FBB::ENCRYPT>) encrypt the information they receive,
+objects of the class tt(FBB::OSymCryptStreambuf<FBB::DECRYPT>) decrypt the
+information they receive.
+
+    All symmetric encryption methods defined by the OpenSSL library that can
+be selected by name may be used to en/decrypt information. To select a
+particular encryption method an identifier is passed to the constructor. E.g.,
+tt("aes-256-gcm"). For an overview of the currently supported cipher
+algorithms issue the command
+        verb(
+    openssl list -cipher-algorithms
+        )
+
+tt(OSymCryptStreambuf) objects read the information to en/decrypt from an
+external source (e.g., from tt(std::istream) objects).  The characters that
+are encrypted or decrypted by tt(OSymCryptStreambuf) objects are written to
+tt(std::ostream) objects which are at construction-time specified as
+tt(ostream) references or by filename.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    bf(FBB::OSymCryptBase) (public)
+
+    The class tt(FBB::OSymCryptBase) is an `internal use only' class, derived
+from tt(std::streambuf), and therefore tt(OSymCryptStreambuf) is a
+tt(std::streambuf) class.
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(OSymCryptStreambuf<CryptType>(std::ostream &outStreambuf,
+                    std::string const &cipherName,
+                    std::string const &key,
+                    std::string const &iv,
+                    size_t inBufSize = 100))
+       This constructor defines a tt(std::streambuf) encrypting or decrypting
+        the characters it receives.
+
+    - tt(OSymCryptStreambuf<FBB::ENCRYPT>) objects perform encryption;nl()
+        tt(OSymCryptStreambuf<FBB::DECRYPT>) objects perform decryption;
+
+    - tt(OSymCryptStreambuf<CryptType>) objects write the encrypted or decrypted
+        characters to tt(outStreambuf);nl()
+    - The encryption method to use is specified by the tt(cipherName)
+        parameter. E.g., tt("AES-256-GCM");nl()
+    - The symmetric key to use is specified by the tt(key) parameter;nl()
+    - The initialization vector is specified by the tt(iv) parameter;nl()
+    - The tt(FBB::OSymCryptStreambufbuf) internally used buffer will hold
+        tt(inBufSize) characters. The default value is the smallest value that
+        is used. When specifying a smaller tt(bufSize) value the default value
+        is used;nl()
+
+    itb(OSymCryptStreambuf<CryptType>(std::string const &outStreambufName,
+                    std::string const &cipherName,
+                    std::string const &key,
+                    std::string const &iv,
+                    size_t inBufSize = 100))
+       Same constructor as the previous one, but this constructor's first
+        parameter specifies the name of the file to receive the encrypted or
+        decrypted characters.
+    )
+
+    If the construction fails an exception is thrown, mentioning the openssl
+function that failed to complete (see also tt(errorMsg) below).
+
+    The move constructor is available, the copy constructor and assignment
+operators are not available,
+
+manpagesection(INHERITED MEMBERS)
+
+    Since the class is publicly derived from bf(std::ostream), all
+tt(std::streambuf) members can be used.
+
+manpagesection(MEMBER FUNCTIONS)
+    itemization(
+    itb(static std::string errorMsg())
+        If an openssl function fails an exception is thrown mentioning the
+name of the failing function. In those cases the function tt(errorMsg) can be
+called returning a tt(std::string) containing the openssl error code (returned
+by tt(ERR_get_error)) and its textual representation (returned by
+tt(ERR_error_string)). If the reported error code is zero, then in fact no
+error has occurred and the exception was spuriously reported;
+
+    itb(static size_t keyLength(std::string const &cipherName))
+        returns the minimum key length required for cipher tt(cipherName);
+
+    itb(static size_t ivLength(std::sting const &cipherName))
+        returns the minimum length of the initialization vector that is
+        required for cipher tt(cipherName).
+    )
+
+    The latter two functions throw exceptions if tt(cipherName) does not
+contain the name of a supported cipher algorithm.
+
+manpagesection(MANIPULATOR)
+    itemization(
+    itb(std::ostream &FBB::eoi(std::ostream &out))
+       By inserting the tt(eoi) manipulator into an tt(std::ostream) object
+        that uses a tt(OSymCryptStreambuf) streambuf insertion is considered
+        complete. It completes the insertion of information into the
+        tt(std::ostream) specified at construction time as the
+        tt(OSymCryptStreambuf's) first argument. That way, you don't have to
+        wait until the tt(OSymCryptStreambuf) object's destructor flushes that
+        stream. The example provided at the bf(osymcryptstream)(3bobcat)
+        man-page illustrates the use of the tt(eoi) manipulator.
+    )
+
+manpagesection(EXAMPLE)
+    See the example in the bf(osymcryptstream)(3bobcat) man-page. Instead of
+defining an tt(OSymCryptStream) an tt(OSymCryptStreamBuf) can be defined,
+passing its address to a tt(std::ostream) which can then be used as the
+tt(OSymCryptStream) used in the example.
+
+manpagefiles()
+    em(bobcat/osymcryptstreambuf) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7),
+    bf(isymcryptstream)(3bobcat), bf(isymcryptstreambuf)(3bobcat),
+    bf(osymcryptstream)(3bobcat)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

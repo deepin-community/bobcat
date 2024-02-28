@@ -12,4 +12,3 @@ Glob::~Glob()
         delete d_share;
     }
 }
-

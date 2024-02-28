@@ -18,9 +18,9 @@ class Exception: public std::exception
     friend Exception &&operator<<(Exception &&tmp, Type const &value);
 
     std::string d_what;
-    
+
     public:
-        enum 
+        enum
         {
             STRERROR_BUFSIZE = 100
         };
@@ -36,7 +36,7 @@ class Exception: public std::exception
 
         ~Exception() noexcept(true) override;
 
-        static size_t protection(std::string const &name, size_t protect, 
+        static size_t protection(std::string const &name, size_t protect,
                           Protection type = EQUAL);
 
         template <typename StreamType>
@@ -44,7 +44,7 @@ class Exception: public std::exception
 
         template <typename StreamType>
         static StreamType factory(int errnoValue,               // factory2.f
-                                  std::string const &name);     
+                                  std::string const &name);
 
         template <typename StreamType>
         static StreamType factory(std::string const &name,      // factory3.f
@@ -62,7 +62,7 @@ class Exception: public std::exception
 
         template <typename StreamType>
         static StreamType factory(int errnoValue,               // factory6.f
-                                std::string const &name,      
+                                std::string const &name,
                                 std::ios::openmode mode1,
                                 std::ios::openmode mode2);
 
@@ -119,6 +119,5 @@ std::ostream &errnodescr(std::ostream &out);
 
 } // FBB
 
-   
-#endif
 
+#endif

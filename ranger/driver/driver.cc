@@ -22,8 +22,8 @@ int main()
         cout << el << ' ';
     cout << '\n';
 
-    int intArray[] = {1, 2, 3, 4, 5};  
-                                    // display and modify elements 
+    int intArray[] = {1, 2, 3, 4, 5};
+                                    // display and modify elements
                                     // in a pointer-based range
     for(auto &el: ranger(intArray + 1, intArray + 3))
         cout << el++ << ' ';
@@ -45,4 +45,3 @@ int main()
         cout << el << ' ';
     cout << '\n';
 }
-

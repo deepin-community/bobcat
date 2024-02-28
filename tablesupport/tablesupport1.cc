@@ -8,4 +8,3 @@ TableSupport::TableSupport()
     d_align(0),
     d_tableWidth(0)
 {}
-

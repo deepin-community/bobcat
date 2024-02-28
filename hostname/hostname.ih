@@ -4,9 +4,5 @@
 #include "../gethostent/gethostent"
 #include <netdb.h>
 
-#include "../exception/exception"
-
 using namespace std;
 using namespace FBB;
-
-

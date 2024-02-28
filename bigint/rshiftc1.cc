@@ -6,5 +6,3 @@ BigInt BigInt::rshiftc() const
     ret.rshift();
     return ret;
 }
-
-

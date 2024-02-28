@@ -4,7 +4,7 @@
 void CSVTabDef::add(unsigned width)
 {
     if (d_idx == d_format.size())                   // new format field
-        d_format.push_back(                         // R-aligned, 'width' 
+        d_format.push_back(                         // R-aligned, 'width'
                     FMT{ FMT::RIGHT, width, ~0U }); // characters
 
                                         // keep the format, enlarge the width

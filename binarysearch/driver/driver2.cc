@@ -20,7 +20,7 @@ bool operator<(string const &str, Words const &word)
     return str < word.str;
 }
 
-Words words[] = 
+Words words[] =
 {
     { "eight", 0 },                // alphabetically sorted number-names
     { "five", 0 },
@@ -36,7 +36,7 @@ Words words[] =
 
 int main()
 {
-    auto ret = FBB::binary_search(words, words + 10, "five", 
+    auto ret = FBB::binary_search(words, words + 10, "five",
         [&](Words const &element, string const &value)
         {
             return element < value;
@@ -45,12 +45,3 @@ int main()
 
     cout << (ret != words + 10 ? "found it" : "not present") << '\n';
 }
-
-
-
-
-
-
-
-
-

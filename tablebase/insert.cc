@@ -34,7 +34,7 @@ ostream &TableBase::insert(ostream &ostr)
 
                 if (size_t skip = available >> 1)
                     ostr << setw(skip) << " ";
-        
+
                 ostr << element.d_text;
 
                 if (size_t skip = available - (available >> 1))
@@ -48,5 +48,3 @@ ostream &TableBase::insert(ostream &ostr)
 
     return ostr;
 }
-
-

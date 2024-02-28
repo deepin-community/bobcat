@@ -21,18 +21,18 @@ try
 
     cout << "Connecting to socket " << fd << endl;
 
-    IFdStream in(fd);                 // stream to read from        
+    IFdStream in(fd);                 // stream to read from
     OFdStream out(fd);                // stream to write to
 
     while (true)
     {
                                 // Ask for a textline, stop if empty / none
-        cout << "? ";                   
+        cout << "? ";
         if (!getline(cin, line) || line.length() == 0)
             return 0;
         cout << "Line read: " << line << endl;
                                 // Return the line to the server
-        out << line.c_str() << endl;    
+        out << line.c_str() << endl;
         cout << "wrote line\n";
 
                                 // Wait for a reply from the server
@@ -46,4 +46,3 @@ catch (exception const &err)
             "Can't connect to " << argv[1] << endl;
     return 1;
 }
-

@@ -29,7 +29,7 @@ try
             continue;
                             // set environment vars simulating
                             // a GET form
-        if (setenv(line.substr(0, pos).c_str(),     
+        if (setenv(line.substr(0, pos).c_str(),
                line.substr(pos + 1).c_str(), true) == 0)
         {
             if (arg.option('e'))
@@ -51,9 +51,9 @@ try
 
     CGI::Method method = cgi.method();
 
-    cout << "To escape:\n" << 
+    cout << "To escape:\n" <<
             cgi << "\n"
-            "Method: " << (method == CGI::GET ? "GET" : "POST") << 
+            "Method: " << (method == CGI::GET ? "GET" : "POST") <<
             '\n';
 
     cout << "Query string: " << cgi.query() << '\n';

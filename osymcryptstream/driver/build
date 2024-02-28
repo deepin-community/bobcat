@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# # using libbobcat:
+g++ `cat ../../c++std` -O2 -Wall -o driver driver.cc -lbobcat -lcrypto
+exit 0
+
+# using local libraries and libbobcat for other requirements:
+g++ `cat ../../c++std` -O2 -Wall -o driver driver.cc \
+            -L../../symcryptbase/tmp/ \
+            -L../../osymcryptbase/tmp/ \
+            -losymcryptbase -lsymcryptbase -lbobcat -lcrypto
+
+# g++ `cat ../../c++std` -O2 -Wall -o driver -isystem ../../tmp driver.cc \
+#     -L ../../tmp/lib/ -lbobcat -lcrypto

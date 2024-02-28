@@ -1,7 +1,7 @@
 template <class Derived>
 struct Shr
 {
-    Derived &operator>>=(Derived const &rhs) &; 
+    Derived &operator>>=(Derived const &rhs) &;
     Derived &&operator>>=(Derived const &rhs) &&;
 };
 

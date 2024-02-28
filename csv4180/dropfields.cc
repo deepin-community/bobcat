@@ -28,4 +28,3 @@ bool CSV4180::dropFields()
     d_header.resize(dest - d_header.begin());   // remove superfluous entries
     return true;
 }
-

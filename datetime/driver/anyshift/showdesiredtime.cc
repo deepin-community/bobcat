@@ -20,4 +20,3 @@ void showDesiredTime()
 
     showTM(ts, "Desired time");
 }
-

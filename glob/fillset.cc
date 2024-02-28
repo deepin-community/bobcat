@@ -7,7 +7,7 @@ unordered_set<Glob::Type> Glob::fillSet(Type type)
 
     for (auto value: initializer_list<Type>{
                         BLOCK_DEVICE,
-                        CHARACTER_DEVICE,   
+                        CHARACTER_DEVICE,
                         DIRECTORY,
                         FIFO,
                         REGULAR_FILE,

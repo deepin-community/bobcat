@@ -7,7 +7,7 @@ using namespace FBB;
 
 void margins(ostream &out)
 {
-    cout << OFoldStream::leftMargin(out) << ", " << 
+    cout << OFoldStream::leftMargin(out) << ", " <<
             OFoldStream::rightMargin(out) << endl;
 }
 

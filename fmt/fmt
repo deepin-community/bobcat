@@ -4,12 +4,14 @@
 #include <ostream>
 #include <string>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
 struct FMT
 {
-                                        // update s_align (data.cc) 
+                                        // update s_align (data.cc)
     enum Align                          // when this enum is altered
     {
         UNUSED,                         // extraFMT's d_align is not used
@@ -17,14 +19,14 @@ struct FMT
                                         // has just been inserted.
 
         CENTER,                         // FMTFunCH
-        HLINE, 
+        HLINE,
 
         LEFT,                           // FMTFunLR
         RIGHT,
     };
-    
-    typedef FMT (*FMTFun)(unsigned, unsigned);
-    typedef FMT (*FMTHline)(unsigned);
+
+    using FMTFun = FMT (*)(unsigned, unsigned);
+    using FMTHline = FMT (*)(unsigned);
 
     friend class CSVTabDef;
     friend class CSVTabIns;
@@ -33,10 +35,10 @@ struct FMT
 
             // when inserting and used with arguments the current column fmt
             // is altered for that insertion, when defining: the next column
-            // is defined as specified. 
-            // When used without arguments and inserting then the alignment 
+            // is defined as specified.
+            // When used without arguments and inserting then the alignment
             // of then next column is altered as specified. Instead of
-            // FBB::left and FBB::right std::left and std::right can also be 
+            // FBB::left and FBB::right std::left and std::right can also be
             // used.
     friend FMT center(unsigned width, unsigned precision);              // 1.f
     friend FMT left(unsigned width, unsigned precision);                // 1.f
@@ -56,15 +58,15 @@ struct FMT
 
     private:
         Align d_align;
-    
+
         unsigned d_width = 1;       // width of a single column (nCols == 1)
 
-                                    // if <= d_width then precision is also 
+                                    // if <= d_width then precision is also
         unsigned d_precision = ~0U; // used
 
                                     // if > 1: use the widths of subsequent cols
-        unsigned d_nCols = 1;       // + the width of in =-between separators 
-    
+        unsigned d_nCols = 1;       // + the width of in =-between separators
+
         static char const *s_align[];       // Align labels
         static FMTFun s_lrcFun[];           // L,R,C function given Align spec
 
@@ -114,10 +116,6 @@ struct FMT
 FMT join(unsigned nCols, FMT::Align align, unsigned precision = ~0U);  // 1.cc
 #include "join2.f"
 
-} // FBB        
+} // FBB
 
 #endif
-
-
-
-

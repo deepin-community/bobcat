@@ -4,7 +4,7 @@
 
 size_t ArgConfig::option(string *value, int optChar)
 {
-    static size_t const zero = 0;       // prevents amd64 ambiguities where 
+    static size_t const zero = 0;       // prevents amd64 ambiguities where
     size_t ret = Arg::option(zero, value, optChar);     // (size_t)0 != 0U
 
     if (ret != 0)
@@ -20,7 +20,3 @@ size_t ArgConfig::option(string *value, int optChar)
 
     return iterators.second - iterators.first;
 }
-
-
-
-

@@ -21,7 +21,7 @@ class A2x: public std::istringstream
         template <typename Type>
         operator Type();                        // .f
 
-        template <typename Type>    
+        template <typename Type>
         Type to();                              // .f
 
         A2x &operator=(char const *txt);        // 1.cc

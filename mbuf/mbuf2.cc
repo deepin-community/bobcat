@@ -1,6 +1,6 @@
 #include "mbuf.ih"
 
-Mbuf::Mbuf(streambuf *buf, size_t maxCount, string const &tag, 
+Mbuf::Mbuf(streambuf *buf, size_t maxCount, string const &tag,
                             bool throwing)
 :
     d_ostr(buf),

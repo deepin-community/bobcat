@@ -9,7 +9,7 @@ namespace FBB
 class EoiBuf: public Eoi
 {
     std::string d_buffer;
-    
+
     protected:
         EoiBuf() = default;
         EoiBuf(size_t size);                                        // 2.f
@@ -42,6 +42,6 @@ class EoiBuf: public Eoi
 #include "ucharptr4.f"
 
 
-} // FBB        
+} // FBB
 
 #endif

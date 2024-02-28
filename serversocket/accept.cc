@@ -13,13 +13,10 @@ SocketBase ServerSocket::accept()
                 reinterpret_cast<sockaddr *>(&address),
                 &size
             );
-        
+
     if (sock < 0)
         throw Exception{} << "ServerSocket::accept(): " << errnodescr;
 
 
     return makeBase(sock, address);
 }
-
-
-

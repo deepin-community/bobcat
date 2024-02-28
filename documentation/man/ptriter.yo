@@ -2,7 +2,7 @@ includefile(include/header)
 
 COMMENT(manpage, section, releasedate, archive, short name)
 manpage(FBB::PtrIter)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
-                    (Error handler)
+                    (Iterator pointing to pointers)
 
 manpagename(FBB::PtrIter)(Iterator returning pointer when dereferenced )
 
@@ -70,10 +70,10 @@ manpagesection(OVERLOADED OPERATORS)
         tt(true) is returned if the two iterators are unequal;
     )
 
-manpagesection(DEFINED TYPE)
-    tt(PtrIter) defines the following type:
-    itemization(   
-    itb(typedef decltype(&*Iterator()) PtrType)
+manpagesection(USING DECLARATION)
+    The tt(PtrIter) class template defines tt(PtrType):
+    itemization(
+    itb(using PtrType = decltype(&*Iterator()))
     )
 
 manpagesection(MEMBER FUNCTIONS)

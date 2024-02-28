@@ -3,14 +3,14 @@
 
 #include <streambuf>
 #include <string>
+#include <bobcat/randommt>
 
 namespace FBB
 {
 
 class RandBuf: public std::streambuf
 {
-    int d_min;
-    double d_max;
+    RandomMT<int> d_randomMT;
     std::string d_buffer;
 
     public:

@@ -7,4 +7,3 @@ ostream &FBB::indent(ostream &out)
 
     return out;
 }
-

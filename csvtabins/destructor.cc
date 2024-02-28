@@ -9,7 +9,7 @@ CSVTabIns::~CSVTabIns()
         return;
     }
 
-    for (; d_idx != d_format.size(); )  // fill remaining columns with 
+    for (; d_idx != d_format.size(); )  // fill remaining columns with
         insert(' ');                    // spaces
 
     *d_out << '\n';                     // then end the row

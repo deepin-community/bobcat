@@ -1,9 +1,6 @@
+#include <fstream>
 #include <iostream>
-#include <ostream>
-#include <cstring>
-#include <iomanip>
-#include <bobcat/exception>
-#include "../hmacbuf"
+#include <bobcat/hmacbuf>
 
 using namespace std;
 using namespace FBB;
@@ -11,22 +8,33 @@ using namespace FBB;
 int main(int argc, char **argv)
 try
 {
-    if (argc < 3)
-        throw Exception{} << "Arg1: key, arg2: digest method required";
+                        // using the default (sha256) digest algorithm
+    if (argc == 1)
+        throw Exception{} <<
+                "Usage: arg1: 16-byte key, arg2: file to process,\n"
+                "       arg3 (opt) buf size (default 1024)";
 
-    string key(argv[1]);
+    HMacBuf hmacbuf{ argv[1], "aes-128-cbc", "sha256",
+                     argc == 3 ? 1024 : stoul(argv[3]) };
 
-    HMacBuf hmacbuf{ key, argv[2] };
-    ostream out(&hmacbuf);
+    HMacBuf empty;                              // Demo: an empty HMacBuf
+    empty = HMacBuf{ argv[1], "sha256", 100 };  // Demo: move assignmeent
 
-    string hw{ "hello world\n" };
+    ostream out(&hmacbuf);              // the ostream receiving the
+                                        // input to compute the hmac of
 
-    out << hw << eoi;
-    cout << ">" << hmacbuf << "<" << endl;
+    ifstream in{ argv[2] };             // the file to process
 
-//    hmacbuf.reset();
-//    out.write(hw.c_str(), hw.length()) << eoi;
-//    cout << ">" << hmacbuf << "<" << endl;
+    out << in.rdbuf() << eoi;           // compute the hmac
+                                        // and show the hmac value
+    cout << "  computed hmac value: >" << hmacbuf << "<\n";
+
+    in.seekg(0);                        // to illustrate 'reset': do it
+    hmacbuf.reset();                    // again
+
+    out << in.rdbuf();
+    eoi(out);                           // calling eoi as a function
+    cout << "recomputed hmac value: >" << hmacbuf << "<\n";
 }
 catch(exception const &err)
 {

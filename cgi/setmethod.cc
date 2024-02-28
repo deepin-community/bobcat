@@ -23,14 +23,14 @@ void CGI::setMethod()
                 string type(cp);
                 string::size_type pos;
 
-                if 
+                if
                 (
-                    type.find("multipart/form-data") == 0 
+                    type.find("multipart/form-data") == 0
                     &&
                     (pos = type.find("boundary=")) != string::npos
                 )
                 {                               // don't count trailing \0
-                    d_boundary = type.substr(pos + sizeof("boundary=") - 1); 
+                    d_boundary = type.substr(pos + sizeof("boundary=") - 1);
                     d_boundary.insert(0, "--"); // actual boundary has two
                                                 // additional - chars
                 }
@@ -41,4 +41,3 @@ void CGI::setMethod()
     }
     d_status = "GET/POST REQUEST_METHOD not found";
 }
-

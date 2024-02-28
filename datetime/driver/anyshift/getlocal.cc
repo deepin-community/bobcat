@@ -12,7 +12,7 @@ void getLocal()
 
     thisDST = ts.tm_isdst == 1 ? 3600 : 0; // the computer thinks DST is used
 
-    
-    cout << "Local zone = " << thisZone / 3600. << 
+
+    cout << "Local zone = " << thisZone / 3600. <<
                 " hour(s), local DST: " << thisDST / 3600 << " hour(s)\n\n";
 }

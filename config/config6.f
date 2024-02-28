@@ -3,5 +3,3 @@ inline Config::Config(std::istream  &&stream, uint16_t lineNr,
 :
     Config(stream, lineNr, sType, cType)
 {}
-
-

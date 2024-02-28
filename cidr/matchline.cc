@@ -1,7 +1,7 @@
 #include "cidr.ih"
 
-// Here we get one line, and want to obtain all its elements matching 
-// the pattern. 
+// Here we get one line, and want to obtain all its elements matching
+// the pattern.
 // Return true once a match is found, else false
 
 bool Cidr::matchLine(string const &line)    //, Cidr &cidr)
@@ -16,7 +16,7 @@ bool Cidr::matchLine(string const &line)    //, Cidr &cidr)
         string const &matched = sl_pattern.matched();
 
         d_iter = find_if(
-                    d_cidr.begin(), end, 
+                    d_cidr.begin(), end,
                     [&, this](MaskPair const &mp)
                     {
                         return this->compare(mp, matched);
@@ -29,5 +29,5 @@ bool Cidr::matchLine(string const &line)    //, Cidr &cidr)
         inspect = sl_pattern.beyond();
     }
 
-    return false;        
+    return false;
 }

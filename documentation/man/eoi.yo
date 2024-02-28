@@ -10,7 +10,7 @@ manpagename(FBB::Eoi)(std::streambuf class offering an eoi manipulator)
 
 manpagesynopsis()
     bf(#include <bobcat/eoi>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     The class tt(Eoi) inherits from tt(std::streambuf) and may therefore be
@@ -27,7 +27,7 @@ document). If tt(out) is initialized with the address of an tt(EncryptBuf
 std::streambuf) then the true end of the input can be indicated by inserting
 the tt(eoi) manipulator. The resulting expression becomes tt(std::cout <<
 in.rdbuf() << eoi), and the manipulator ensures that the correct padding is
-handled. 
+handled.
 
 includefile(include/namespace)
 
@@ -55,16 +55,30 @@ manpagesection(VIRTUAL MEMBER FUNCTION)
         overridden by derived classes. By default it performs no actions.
     )
 
-manpagesection(MANIPULATORS)
+manpagesection(MANIPULATOR)
     itemization(
     itb(std::ostream &FBB::eoi(std::ostream &out))
-       If the tt(ostream out's streambuf's) address can be downcasted to an
-        tt(Eoi *) then its tt(eoi_) member is called. Otherwise the
-        manipulator performs no actions, and merely returns tt(out).
+        The tt(eoi) manipulator can be inserted into the tt(ostream) using a
+streambuf which is inherited from tt(FBB::EoiBuf) to stop further insertions
+into the tt(ostream). If it is inserted into a plain
+tt(std::ostream) nothing happens.
+
+        tt(eoi) can also be called as a function, receiving the stream that
+uses an tt(FBB::EoiBuf) as its tt(streambuf). By default the tt(eoi)
+manipulator performs no actions. To use the manipulator in a class derived
+from tt(EoiBuf) the following approach can be used:
+        verb(
+    1. define a tt(bool d_eoi) data member, initialized to tt(false);
+    2. define a tt(void eoi_() override) member;
+    3. tt(eoi_) returns if tt(d_eoi == true), otherwise:
+    4. it sets tt(d_eoi) to tt(true) and performs the actions normally
+        performed by the class's destructor;
+    5. the class's destructor calls tt(eoi_()).
+        )
     )
 
 manpagesection(EXAMPLE)
-    See the example provided in the tt(encryptbuf)(3bobcat) man-page
+    See the example provided in the tt(osymcryptstream)(3bobcat) man-page
 
 manpagefiles()
     em(bobcat/eoi) - defines the class interface

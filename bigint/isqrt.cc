@@ -42,4 +42,3 @@ BigInt &BigInt::isqrt()
 
     return *this;
 }
-

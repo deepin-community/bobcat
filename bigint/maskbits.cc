@@ -6,4 +6,3 @@ BigInt &BigInt::maskBits(size_t lowerNBits)
         throw Exception{} << "BigInt::maskBits failed";
     return *this;
 }
-

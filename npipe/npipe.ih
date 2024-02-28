@@ -1,0 +1,9 @@
+#include "npipe"
+
+#include <unistd.h>
+
+#include "../exception/exception"
+#include "../redirector/redirector"
+
+using namespace std;
+using namespace FBB;

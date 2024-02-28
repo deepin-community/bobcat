@@ -3,8 +3,7 @@
 Pipe &Pipe::operator=(Pipe &&tmp)
 {
     close();
-    FBB::fswap(*this, tmp);
+    swap(tmp);
 
     return *this;
 }
-

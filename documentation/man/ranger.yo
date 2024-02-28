@@ -2,7 +2,7 @@ includefile(include/header)
 
 COMMENT(manpage, section, releasedate, archive, short name)
 manpage(FBB::Ranger)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
-                    (Error handler)
+                    (for-loop iterators)
 
 manpagename(FBB::Ranger)(generalizes ranges for range-based for-loops)
 
@@ -16,7 +16,7 @@ for-loops. The standard range-based for-loop requires for its
 range-specificiation an array or an iterator range as offered by, e.g.,
 containers (through their tt(begin) and tt(end) members). Ranges defined by a
 pair of pointers or by a subrange defined by iterator expressions cannot
-currently be used in combination with range-based for-loops. 
+currently be used in combination with range-based for-loops.
 
 tt(Ranger) extends the applicability of range-based for-loops by turning pairs
 of pointers, an initial pointer and a pointer count, or a pair of iterators
@@ -48,7 +48,7 @@ tt(ranger) function templates.
         defined by the two pointers tt(begin) and tt(end);
     itb(Ranger<Data *> ranger(Data *begin, size_t count))
         this function template returns a tt(Ranger) object for the (sub)range
-        defined by the two pointers tt(begin) and tt(begin + count). 
+        defined by the two pointers tt(begin) and tt(begin + count).
     )
 
 manpagesection(CONSTRUCTORS)
@@ -77,10 +77,10 @@ must be defined as tt(int const), which is automatically the case when passing
 tt(int const *) data. See the bf(EXAMPLE) section for an illustration.
     itb(Iterator const &end() const)
         returns (a copy of) the tt(end) iterator passed to the tt(Ranger)'s
-constructor. 
+constructor.
     )
-    If reverse iterators are passed to tt(Ranger)'s constructor, then 
-    the tt(begin) and tt(end) members return em(reverse iterators). Since 
+    If reverse iterators are passed to tt(Ranger)'s constructor, then
+    the tt(begin) and tt(end) members return em(reverse iterators). Since
 the intended use of tt(Ranger) objects is to define a range for range-base
 for-loops, members like tt(rbegin) and tt(rend) can be omitted from
 tt(Ranger).
@@ -92,7 +92,7 @@ manpagefiles()
     em(bobcat/ranger) - defines the class interface
 
 manpageseealso()
-    bf(bobcat)(7)
+    bf(bobcat)(7), bf(reverse)(3bobcat)
 
 manpagebugs()
     None Reported.

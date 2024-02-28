@@ -1,31 +1,29 @@
 #include "milter.ih"
 
-void Milter::initialize(string const &name, Milter &milter, 
+void Milter::initialize(string const &name, Milter &milter,
                         callback_set callbacks, flag_set flags)
 {
     if (s_mp)
-        throw Exception{1} << 
+        throw Exception{1} <<
                 "Milter::initialize(): can't define multiple Milters";
 
     if (flags & ~ALL_FLAGS)
-        throw Exception{1} <<  "Milter::initialize(): invalid flag(s): " << 
+        throw Exception{1} <<  "Milter::initialize(): invalid flag(s): " <<
                                 hex << (flags & ~ALL_FLAGS)<< dec;
     if (!callbacks)
         throw Exception{1} << "Milter::initialize(): no callbacks requested";
 
     if (callbacks & ~ALL_CALLBACKS)
-        throw Exception{1} << 
-                "Milter::initialize(): illegal callback(s) requested: " << 
+        throw Exception{1} <<
+                "Milter::initialize(): illegal callback(s) requested: " <<
                 hex << (callbacks & ~ALL_CALLBACKS) << dec;
 
-    struct smfiDesc descr = {const_cast<char *>(name.c_str()), 
+    struct smfiDesc descr = {const_cast<char *>(name.c_str()),
                              SMFI_VERSION, flags, 0};
-    
+
     s_name = name;
     s_mp = &milter;
 
-    s_callClose = callbacks & CLOSE;        // Milter has its own close
-                                            // function
     callbacks |= CLOSE;                     // always call mClose()
 
     for (size_t callback = 1; callback & ALL_CALLBACKS; callback <<= 1)
@@ -83,12 +81,9 @@ void Milter::initialize(string const &name, Milter &milter,
             break;
 #endif /* SMFI_VERSION > 3 */
         }
-    }    
+    }
 
     if (smfi_register(descr) == MI_FAILURE)
-        throw Exception{} << "Milter::initialize(): defining Milter " << 
+        throw Exception{} << "Milter::initialize(): defining Milter " <<
                                                     s_name << " failed";
 }
-
-
-

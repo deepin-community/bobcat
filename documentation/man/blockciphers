@@ -1,12 +1,12 @@
     Block ciphers use one of the following four encryption modes:
     itemization(
-    itb(CBC (Cipher Block Chaining)) 
+    itb(CBC (Cipher Block Chaining))
         The first block is XOR-ed by the initialization vector and then
 encrypted using the specified method. Subsequent blocks are XOR-ed by the
 encrypted version of the preceding block. Due to the initialization vector
 dictionary attacks are infeasible, as long as the initialization vector is
 truly random.
-    itb(ECB (Electronic Code Book)) 
+    itb(ECB (Electronic Code Book))
         Each block is encrypted by itself, using the specified encryption
 method. Although an em(initialization vector) may be specified, it is not
 used. This method is susceptible to dictionary attacks and should therefore be

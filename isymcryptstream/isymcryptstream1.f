@@ -1,15 +1,19 @@
 template <CryptType cryptType>
+template <typename StreamSpec>
 ISymCryptStream<cryptType>::ISymCryptStream(
-    std::istream &in,       char const *type,
-    std::string const &key, std::string const &iv,
-    size_t bufSize,         size_t filterBufSize,
-    ENGINE *engine)
+    StreamSpec &streamSpec,
+    std::string const &cipherName,
+    std::string const &key,
+    std::string const &iv,
+    size_t inBufSize
+)
 :
     ISymCryptStreambuf<cryptType>(
-        in,      type, 
-        key,     iv, 
-        bufSize, filterBufSize, 
-        engine
+        streamSpec,
+        cipherName,
+        key,
+        iv,
+        inBufSize
     ),
     std::istream(this)
 {}

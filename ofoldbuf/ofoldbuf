@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <bobcat/ofilterbuf>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -13,7 +14,7 @@ namespace FBB
 class lm
 {
     size_t d_value;
-    
+
     public:
         lm(int value);                                  // 1.f
         std::ostream &modify(std::ostream &out) const;  // 1.f
@@ -22,7 +23,7 @@ class lm
 class mlm
 {
     int d_value;
-    
+
     public:
         mlm(int value);                                 // 1.f
         std::ostream &modify(std::ostream &out) const;  // 2.f
@@ -41,11 +42,11 @@ struct OFoldBufEnums
         TABS
     };
 };
-    
+
     // 'virtual public OFoldBufBlanks is used to avoid 'base class not
     // accessible' warnings when classes inherit from OFoldBuf like
-    // OFoldStream. 
-class OFoldBuf: virtual public OFoldBufEnums, 
+    // OFoldStream.
+class OFoldBuf: virtual public OFoldBufEnums,
                       public OFilterBuf
 {
     friend std::ostream &lm::modify(std::ostream &) const;
@@ -74,7 +75,7 @@ class OFoldBuf: virtual public OFoldBufEnums,
     size_t d_indentWidth;
     bool d_handleTrailingBlanks;
 
-    typedef std::vector<OFoldBuf const *>::iterator BufIt;
+    using BufIt =  std::vector<OFoldBuf const *>::iterator;
     static std::vector<OFoldBuf const *> s2_buffers;
 
     public:
@@ -124,7 +125,7 @@ class OFoldBuf: virtual public OFoldBufEnums,
         void modifyIndent(int delta);
         void setIndent(int value);                      // .f
 
-        void writeWs() const;                           // .f    
+        void writeWs() const;                           // .f
         void writeNonWs() const;                        // .f
         void put(int ch) const;                         // .f
 

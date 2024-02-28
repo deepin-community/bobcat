@@ -9,13 +9,13 @@ manpagename(FBB::level)
 
 manpagesynopsis()
     bf(#include <bobcat/level>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     An bf(FBB::level) object is used to specify insertion `forces' of
 information that is inserted into bf(FBB::Log) objects. When inserted into
 tt(Log) objects it defines the `force' of subsequent insertions (or tt(write)
-calls) into those tt(Log) objects. 
+calls) into those tt(Log) objects.
 
 Conversely, tt(Log) objects may specify insertion `resistances' through their
 tt(setLevel) members. If the tt(level's) `force' is equal to or exceeds the
@@ -39,15 +39,15 @@ manpagesection(CONSTRUCTORS)
     itemization(
     itb(level(size_t force))
         This constructor is used in insertion statements, usually inserting it
-as anonymous object into an tt(FBB::Log) object. 
+as anonymous object into an tt(FBB::Log) object.
     )
 
     Copy and move constructors (and assignment operators) are available.
 
 manpagesection(OVERLOADED OPERATOR)
     itemization(
-    itb(std::ostream &::operator<<(std::ostream &ostr, 
-            FBB::level const &force))  
+    itb(std::ostream &::operator<<(std::ostream &ostr,
+            FBB::level const &force))
         If the tt(ostr) can be downcasted to an tt(FBB::Log) object then
 subsequent insertions are performed if tt(force) exceeds the tt(Log) object's
 `resistance' as specified by its tt(setLevel) member.  If tt(ostr) does not

@@ -1,5 +1,5 @@
 #   This file is read from icmake/special
 
-readlinebuf 
+readlinebuf
 readlinehistory
 readlinestream

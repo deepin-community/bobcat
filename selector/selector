@@ -3,6 +3,8 @@
 
 #include <sys/select.h>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
@@ -24,8 +26,8 @@ class Selector
     public:
         Selector();
 
-        int wait();             // nReady() and the get...() members 
-                                // perform defined behavior only after 
+        int wait();             // nReady() and the get...() members
+                                // perform defined behavior only after
                                 // wait() returns.
 
         int nReady();           // number of available fd's. 0: timeout    .f
@@ -33,7 +35,7 @@ class Selector
 
         int exceptFd();                                                 // .f
         int readFd();               // -1 if no more available             .f
-                                    // descriptors otherwise the next 
+                                    // descriptors otherwise the next
                                     // available fd in each category
         int writeFd();                                                  // .f
         void setAlarm(int sec, int usec = 0);
@@ -67,4 +69,3 @@ class Selector
 } // FBB
 
 #endif
-
