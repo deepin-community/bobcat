@@ -1,6 +1,6 @@
 #include "syslogbuf.ih"
 
-void SyslogBuf::reset(std::string const &ident, 
+void SyslogBuf::reset(std::string const &ident,
                      Priority priority, Facility facility, int option)
 {
     eoi();

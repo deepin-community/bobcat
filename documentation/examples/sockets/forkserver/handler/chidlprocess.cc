@@ -1,6 +1,6 @@
 #include "handler.ih"
 
-void Handler::childProcess() 
+void Handler::childProcess()
 try
 {
     IFdStream in(d_descriptor); // stream to read from client
@@ -18,7 +18,7 @@ try
 catch (int ret)
 {
     close(d_descriptor);        // the connection is terminated
-    cerr << "Child process " << getpid() << " exits with status " << 
+    cerr << "Child process " << getpid() << " exits with status " <<
                                                             ret << endl;
 
     exit(ret);

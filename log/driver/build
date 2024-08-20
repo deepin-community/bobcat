@@ -1,5 +1,10 @@
 #!/bin/bash
 
-g++ --std=c++2a -o driver driver.cc -lbobcat
-#g++ --std=c++2a -o driver driver.cc -L../tmp -L../../logbuf/tmp \
-#                                    -llogbuf -llog -lbobcat
+# g++ driver.cc -lbobcat
+
+#g++ driver.cc -L../tmp -L../../logbuf/tmp -L../../level/tmp \
+#                        -llog -llevel -llogbuf -lbobcat
+
+#g++ driver.cc -L../tmp -L../../logbuf/tmp -llog -llogbuf -lbobcat
+
+g++ driver.o -L../tmp -llog -lbobcat

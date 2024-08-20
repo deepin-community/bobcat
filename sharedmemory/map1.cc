@@ -9,6 +9,3 @@ void SharedMemory::map()
     if (not blockAvailable(idx))
         map(idx);
 }
-
-
-

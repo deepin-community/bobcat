@@ -9,4 +9,3 @@ String::SplitPairVector String::split(string const &str, SplitType stype,
 
     return ret;
 }
-

@@ -5,6 +5,8 @@
 #include <ostream>
 #include <string>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
@@ -34,10 +36,10 @@ class LogBuf: public std::streambuf
         LogBuf(LogBuf const &other) = delete;
 
         explicit LogBuf(         // output to cerr
-                TimeStamps timestamps = TIMESTAMPS,  
+                TimeStamps timestamps = TIMESTAMPS,
                 bool active = true,
                 char const *delim = " ");
-        explicit LogBuf(std::ostream &stream, 
+        explicit LogBuf(std::ostream &stream,
                 TimeStamps timestamps = TIMESTAMPS,
                 bool active = true,
                 char const *delim = " ");
@@ -57,7 +59,7 @@ class LogBuf: public std::streambuf
     private:
         int sync() override;
         int overflow(int c) override;
-        std::streamsize xsputn(char const *buffer, std::streamsize n) 
+        std::streamsize xsputn(char const *buffer, std::streamsize n)
                                                                 override;
 
         size_t newLine(char const *buffer, size_t begin, size_t n) const;
@@ -65,13 +67,8 @@ class LogBuf: public std::streambuf
         void insertTimestamp();
 };
 
-#include "empty.f"
-#include "setactive1.f"
-#include "setactive2.f"
-#include "active.f"
-#include "setempty.f"
-#include "setstream.f"
+#include "logbuf.f"
 
 } // FBB
-        
+
 #endif

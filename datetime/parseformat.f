@@ -1,4 +1,4 @@
-inline int DateTime::Parse::format() const
+inline int FBB::DateTime::Parse::format() const
 {
     return d_format;
 }

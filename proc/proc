@@ -1,0 +1,362 @@
+#ifndef INCLUDED_BOBCAT_PROC_
+#define INCLUDED_BOBCAT_PROC_
+
+#include <signal.h>
+
+#include <string>
+#include <fstream>
+#include <thread>
+#include <vector>
+
+#include <bobcat/fork>
+#include <bobcat/string>
+#include <bobcat/pipe>
+
+#include <bobcat/ofdbuf>
+#include <bobcat/iostream>
+#include <bobcat/semaphore>
+
+// 0:  not specified
+// i:  IGNORE_
+// +:  specified
+// d:  default (use cout/cerr)
+// f:  forwards to parent
+// O:  thread to toOut      
+// OI:  thread to toOut, ignore
+// E:  thread to toErr      
+// EI:  thread to toErr, ignore
+// u:  unused (no thread)
+// 
+//    -------------------------------------------------------------
+//           d_mode               action              child
+//    ---------------------   -------------   ---------------------
+//    COUT    CERR    MERGE   d_out   d_err   cout    cerr
+//    -------------------------------------------------------------
+//     0       0       +       O       u       f       f (->STDOUT)
+//     0       0       0       u       u       d       d
+//    -------------------------------------------------------------
+//     i       0       0       OI      u       f       d
+//     i       i       0       OI      EI      f       f
+//     i       +       0       OI      E       f       f
+//    -------------------------------------------------------------
+//     0       0       0       u       u       d       d
+//     0       i       0       u       EI      d       f
+//     0       +       0       u       E       d       f
+//    -------------------------------------------------------------
+//     +       0       0       O       u       f       d
+//     +       i       0       O       EI      f       f
+//     +       +       0       O       E       f       f
+//    -------------------------------------------------------------
+//   
+// Piping:
+//     ---------------------------------------
+//             x | y       in  | x     x | out
+//     -------------       -------     -------
+//     in      ?   +             +     ?
+//     out     +   ?             ?     +
+//     err     d   d             d     d        
+//     ---------------------------------------
+
+namespace FBB
+{
+
+class Proc: private Fork, public std::ostream
+{
+    struct Activator
+    {
+        std::vector<Proc *> d_procPtr;     // sequence of piped Proc objects
+        std::vector<Pipe> *d_pipesPtr;      // pipes passed to Proc objects
+    
+        Activator(Proc &proc);              // activator1.cc
+        Activator(Activator &&tmp);         // .ih
+        ~Activator();                       // activatordestr.cc
+
+        void add(Proc &proc);
+        //void setOut(std::ostream &out);     // actsetout.f
+    };
+
+                                                            // opistrproc.cc
+    friend Activator operator|(std::istream &in, Proc &proc); 
+                                                            // opstrproc.f
+    friend Activator operator|(std::string const &fname, Proc &proc); 
+
+    friend Activator operator|(Proc &lhs, Proc &rhs);       // opprocproc.f
+    friend Activator operator|(Activator &&lhs, Proc &rhs); // opactproc.cc
+    friend void operator|(Proc &proc, std::ostream &out);   // opprocostr.f
+                                                            // opactcostr.cc
+    friend void operator|(Activator &&lhs, std::ostream &out); 
+                                                            // opactfname.cc
+    friend void operator|(Activator &&lhs, std::string const &fname); 
+
+    enum Admin
+    {
+        BUFSIZE     = 200,
+        ACTIVE      = 1 << 0,
+        LOCAL_PIPES = 1 << 1,   // Proc is used stand-alone, no operator| used
+        USE_OUT     = 1 << 2,   // d_out has been set by a use... member
+        USE_ERR     = 1 << 3,   // d_err has been set by a use... member
+        THREAD_OUT  = 1 << 4,   // d_outThread is active
+        THREAD_ERR  = 1 << 5,   // d_errThread is active
+        DELETE_D_IN = 1 << 6,   // when using 'fname | proc'
+        PIPE_SIGNAL = 1 << 7,   // when set, broken CIN pipe breaks (default)
+    };
+
+    struct ExecContext;
+
+    class Out
+    {
+        std::ostream *d_stream;
+        bool d_alloc;
+
+        public:
+            Out(std::ostream *str, bool alloc = false);     // 1.cc
+            ~Out();                                 // outdestructor.cc
+            Out &operator=(Out &&tmp);              // outopis.cc
+            std::ostream &operator()();             // outopfun.cc
+    };
+
+    struct RetPid
+    {
+        int     ret;
+        pid_t   pid;
+        
+        RetPid(int ret = -1, pid_t pid = 0);            //  .ih
+    };
+
+    public:
+        enum ProcType
+        {
+            NO_PATH,
+            USE_PATH,
+            USE_SHELL
+        };
+    
+        enum IOMode: size_t
+        {
+            NONE                = 0,        // no piping/redirection
+    
+            CIN                 = 1 << 0,   // all inserted info goes to the 
+                                            // child's std input
+    
+            COUT                = 1 << 1,
+            CERR                = 1 << 2,
+            ALL                 = CIN | COUT | CERR,
+    
+            IGNORE_COUT         = 1 << 3,
+            IGNORE_CERR         = 1 << 4,
+            IGNORE_COUT_CERR    = IGNORE_COUT |  IGNORE_CERR,
+    
+            MERGE_COUT_CERR     = 1 << 5,
+    
+            REPLACE             = 1 << 6,
+    
+            IOMODES             = (1 << 7) - 1,
+        };
+
+    private:
+        struct ForkData
+        {
+            size_t bufSize;
+            IOMode mode;
+            ProcType type;
+            bool pipeSignal;
+        };
+        void           *d_ptr;          // unused, but defined for future
+                                        // extra (bridging) members
+
+                                        // LOCAL_PIPES when defining a
+        unsigned        d_admin;        // stand-alone process.
+
+        size_t          d_bufSize;
+        RetPid          d_child;
+
+        std::thread     d_errThread;    // receives cerr from the child
+        std::thread     d_outThread;    // receives cout from the child
+    
+        std::string     d_cmd;
+
+        Out             d_err;          // CERR output produced by Proc
+
+        ForkData        d_forkData;
+                                        // by default: ->cin, or set by 
+                                        // 'istr | proc'. When using 
+                                        // 'name | proc' d_in is deleted
+        std::istream   *d_in;           // after use (Admin::DELETE_D_IN)
+
+        IOMode          d_mode;
+
+        OFdBuf          d_oBuf;         // info into the pipe to the child
+
+        Out             d_out;          // COUT output produced by Proc
+
+                                        // When LOCAL_PIPES: pipes defined by
+                                        // start. When piping (no LOCAL_PIPES)
+        std::vector<Pipe> *d_pipesPtr;     // pipes received by pipe()
+
+        ProcType        d_procType;
+
+                                        // d_read, d_writeErr and d_writeOut
+                                        // are set by start1.cc
+        size_t          d_read;         // idx of the pipe read by the child
+
+        size_t          d_timeLimit;    // seconds allowed to child-proc
+        Semaphore       d_timerSem;     // ends the child process at notify
+        std::thread     d_timerThread;  // handles the child's time-limit
+
+        size_t          d_writeErr;     // cerr pipe idx written by the child
+        size_t          d_writeOut;     // cout pipe idx written by the child
+
+                                        // handles output with IGNORE_COUT
+        static std::ofstream s_ignored; // and IGNORE_CERR          // data.cc
+    
+        static          size_t s_id;
+        size_t          d_id;
+
+    public:
+        explicit Proc(std::string const &command = "",              // 1.cc
+                    IOMode mode = ALL, ProcType type = NO_PATH,
+                    size_t bufSize = BUFSIZE, size_t timeLimit = 0,
+                    bool pipeSignal = true);
+        Proc(Proc const &other) = delete;
+        ~Proc() override;                       // stop()s any ongoing proc
+
+        bool active() const;                    // child process is active .f
+        std::string const &cmd() const;         // returns d_cmd           .f
+        int exitStatus() const;                                         // .f
+        int finish();           // ends an active child (cf. stop)        2.f
+
+        std::string mode() const;
+        IOMode ioMode() const;
+
+        int operator=(std::string const &cmd);  // set & start a cmd  opis.cc
+
+                                                            // adds to d_cmd
+        Proc &operator+=(std::string const &text);          //       opaddis.f
+
+        using Fork::pid;
+
+        void pipeSignal(bool on);                   // true: SIG_DFL
+
+        size_t procIdx() const;                                     // .f
+
+        ProcType procType() const;                                  // .f
+
+                // set members returning values the previous values
+                // values set are used at the next run:
+        size_t setBufSize(size_t bufSize);
+        void setCommand(std::string const &cmd);                    // .f
+        IOMode setIOMode(IOMode ioMode);     
+        ProcType setProcType(ProcType type);
+        size_t setTimeLimit(size_t timeLimit = 0);  // 0 means: no time monitor
+
+
+        void start(size_t timeLimit, IOMode mode = ALL,                // 1.cc
+                   ProcType type = NO_PATH, size_t bufSize = BUFSIZE);
+        void start();                   // uses the current defaults    // 2.f
+        void start(IOMode mode, ProcType type = NO_PATH,                // 3.f
+                   size_t bufSize = BUFSIZE);
+
+        int stop();                     // forces a child process's end   1.f
+
+        void system(IOMode mode = ALL, size_t bufSize = BUFSIZE);       // .f
+        void system(size_t timeLimit, IOMode mode = ALL,                // .f
+                                      size_t bufSize = BUFSIZE);
+
+        size_t timeLimit() const;                                       // .f
+
+            // By specifying useX(...) the associated IOMode flag (COUT/CERR)
+            // is set and the IGNORE_... flag is unset.
+        void useErr(std::ostream &out);                                 // 1.f
+        void useErr(std::string const &fname);                          // 2.f
+
+        void useMerge(std::ostream &out);                               // 1.f
+        void useMerge(std::string const &fname);                        // 2.f
+
+        void useOut(std::ostream &out);                                 // 1.f
+        void useOut(std::string const &fname);                          // 2.f
+
+        int waitForChild();
+
+        void cerrAdmin(char const *lab = "") const;
+        void cerrMode(char const *lab = "") const;
+        void cerrPipe(size_t idx) const;
+        void cerrPipes(char const *lab = "") const;
+
+    private:
+        ExecContext analyzeCmd() const;
+
+        void beginTimerThread();        // begins the timer thread in start
+
+
+        void checkErrThread();          // join d_errThread if active
+
+        void closePipe(size_t idx);                                 //  .ih
+
+        int finish(bool endChild);      // true: uses Fork::endChild    1.cc
+
+        void getPipes();                // get pipes with ourPipes
+
+        void endTimerThread();          // ends the timer thread in finish
+
+        bool localPipes() const;                                        // .ih
+
+                                        // set 'out' depending on d_mode's
+        void output(Out &out);          // use or IGNORE_ bits
+
+        void pipes(std::vector<Pipe> *pipes, size_t read);
+
+        void preFork(IOMode mode, ProcType type, size_t bufSize, 
+                     size_t timeLimit);
+
+        void readCin();                         // reads cin at start3
+        void rmBackticks();
+
+        Proc &setIn(std::string const &fname);  // used by 'fname | proc'
+
+                                        // ends the child process after 
+        void timerThread();             // d_timeLimit seconds
+
+        void toOut();                           // called by d_outThread
+        void toErr();                           // called by d_errThread
+
+        Out &use(IOMode bit);                   // bit is set in d_mode 
+        void useStream(std::ostream &str, IOMode bit);              // 1.cc
+        void useStream(std::string const &fname, IOMode bit);       // 2.cc
+
+        void childProcess()       override;
+        void childRedirections()  override;
+        void parentProcess()      override;           // no actions
+
+
+};
+
+#include "active.f"
+#include "cmd.f"
+#include "exitstatus.f"
+#include "finish2.f"
+#include "iomode.f"
+#include "iomodeoperators.f"
+#include "opaddis.f"
+#include "opprocostr.f"
+#include "opprocproc.f"
+#include "opstrproc.f"
+#include "procidx.f"
+#include "proctype.f"
+#include "setcommand.f"
+#include "start2.f"
+#include "start3.f"
+#include "stop.f"
+#include "system.f"
+#include "useerr1.f"
+#include "useerr2.f"
+#include "usemerge1.f"
+#include "usemerge2.f"
+#include "useout1.f"
+#include "useout2.f"
+
+
+} // FBB        
+
+#endif
+
+

@@ -1,4 +1,4 @@
-inline bool ConfigFile__::finder(string const &haystack, string const &needle)
+inline bool ConfigFile__::finder(std::string const &haystack, std::string const &needle)
 {
-    return haystack.find(needle) != string::npos;
+    return haystack.find(needle) != std::string::npos;
 }

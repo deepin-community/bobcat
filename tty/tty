@@ -4,12 +4,14 @@
 #include <termios.h>
 #include <iosfwd>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
 class Tty
 {
-    struct termios d_tty; 
+    struct termios d_tty;
     int d_fd;
 
     public:
@@ -41,7 +43,5 @@ inline std::ostream &operator<<(std::ostream &out, Tty const &tty)
 }
 
 
-} // FBB        
+} // FBB
 #endif
-
-

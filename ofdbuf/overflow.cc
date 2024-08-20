@@ -2,7 +2,7 @@
 
 int OFdBuf::overflow(int ch)
 {
-    sync();                                     
+    sync();
     if (ch != EOF)
     {
         *pptr() = ch;
@@ -10,4 +10,3 @@ int OFdBuf::overflow(int ch)
     }
     return ch;
 }
-    

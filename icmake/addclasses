@@ -16,4 +16,3 @@ void addClasses(string filename)
             g_classes += (list)elem;
     }
 }
-

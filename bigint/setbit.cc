@@ -7,4 +7,3 @@ BigInt &BigInt::setBit(size_t index)
 
     return *this;
 }
-

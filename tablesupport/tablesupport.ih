@@ -4,11 +4,13 @@
 
 #include "../fswap/fswap"
 
-using namespace std;
-using namespace FBB;
 
 #include "leftseparator.f"
 #include "rightseparator.f"
 #include "element.f"
 #include "lefttype.f"
 #include "righttype.f"
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

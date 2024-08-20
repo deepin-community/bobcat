@@ -6,6 +6,7 @@
 #include <sstream>
 #include <algorithm>
 
+#include <bobcat/exception>
 #include <bobcat/string>
 #include <bobcat/fmt>
 
@@ -32,8 +33,8 @@ class CSVTabDef
         CSVTabDef(std::vector<FMT> &format, unsigned idx);
 
                                                     // split the string into
-                                                    // words, add their  
-                                                    // lengths as R-aligned 
+                                                    // words, add their
+                                                    // lengths as R-aligned
         void split(std::string const &fields);      // columns
 
         void add(std::string const &field);         // add one column    1.f
@@ -52,6 +53,6 @@ class CSVTabDef
 #include "opinsert1.f"
 #include "opinsert2.f"
 
-} // FBB        
+} // FBB
 
 #endif

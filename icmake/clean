@@ -8,7 +8,7 @@ void setRemovals()
                     "build-stamp configure-stamp debian/*substvars";
 
     // unless `minimal':
-        remove2 = "*/driver/driver tmp release.yo */tmp */oa */os */o "
+        remove2 = "*/driver/driver tmp spch release.yo */tmp */oa */os */o "
                     "*/*.ih.gch";
 }
 
@@ -22,7 +22,3 @@ void clean()
 
     exit(0);
 }
-
-
-
-

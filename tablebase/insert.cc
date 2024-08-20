@@ -1,5 +1,7 @@
 #include "tablebase.ih"
 
+std::ios_base &(*ctr)(std::ios_base &stream) = FBB::center;
+
 ostream &TableBase::insert(ostream &ostr)
 {
     def();
@@ -24,7 +26,8 @@ ostream &TableBase::insert(ostream &ostr)
             if (!manip)
                 manip = columnManip(col);
 
-            if (manip != FBB::center)
+            // if (manip != FBB::center)
+            if (manip != ctr)
                 ostr << manip << setw(colwidth) << element.d_text;
             else
             {
@@ -34,7 +37,7 @@ ostream &TableBase::insert(ostream &ostr)
 
                 if (size_t skip = available >> 1)
                     ostr << setw(skip) << " ";
-        
+
                 ostr << element.d_text;
 
                 if (size_t skip = available - (available >> 1))
@@ -48,5 +51,3 @@ ostream &TableBase::insert(ostream &ostr)
 
     return ostr;
 }
-
-

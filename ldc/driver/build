@@ -1,0 +1,25 @@
+#!/bin/bash
+
+tput clear
+
+LIBS=" -lbobcat -lcrypto"
+GPP="g++ `cat ../../c++std`"
+
+# link against ../tmp/libldc.a
+CMD="$GPP -o driver -Wall -I../ driver.cc -L../tmp -lldc ${LIBS} -s"
+
+
+# CMD="$GPP -o driver -Wall -I../../tmp driver.cc -L../../tmp/lib ${LIBS} -s"
+# CMD="$GPP -o driver -Wall -I../ driver.cc -L../tmp ${LIBS} -s"
+
+# link against object files in ..
+# CMD="$GPP -o driver -Wall -I../ driver.cc ../*.o ${LIBS} -s"
+
+# link against the standard bobcat library
+# CMD="$GPP -o driver -Wall *.cc ${LIBS} -s"
+
+echo $CMD
+$CMD || exit 1
+
+echo Ready...
+./driver

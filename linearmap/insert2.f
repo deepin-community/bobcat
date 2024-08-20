@@ -2,7 +2,7 @@
 
 template <typename Key, typename Value>
 typename LinearMap<Key, Value>::iterator
-    LinearMap<Key, Value>::insert(iterator pos, 
+    LinearMap<Key, Value>::insert(iterator pos,
               value_type const &keyvalue)
 {
     auto iter = find(keyvalue.first);

@@ -1,0 +1,100 @@
+#ifndef INCLUDED_BOBCAT_MAPBASE_
+#define INCLUDED_BOBCAT_MAPBASE_
+
+#include <streambuf>
+#include <string>
+#include <ios>
+
+// d_absPos holds the current absolute position. It is used when seek
+// operations specify ios::cur, and updated when xs{get,put}
+// 
+
+namespace FBB
+{
+
+class MapBase: public std::streambuf
+{
+    bool d_writing;                         // writing is OK
+    bool d_mMapped;
+
+    std::string d_fname;
+
+    std::ios::openmode d_mode;
+
+    size_t d_fileSize;                      // filesize (may be enlarged when
+                                            // writing)
+    size_t d_orgSize;                       // original fileSize
+    size_t d_enlargedSize;                  // enlarged fileSize
+
+    size_t d_bufferSize;                    // configured buffer size
+    size_t d_mapLength;                     // length of the mmap buffer
+
+    size_t d_offset;                        // always x * s_pageSize
+
+    size_t d_absPos;                        // the abs. pos 
+    bool d_absolute;                        // if true: use d_absPos with
+                                            // relative position computations
+
+    char *d_cp;                             // begin of the mmap area
+
+    static size_t s_pageSize;
+
+    protected:
+        using IOS = std::ios;
+
+        MapBase();  // only used when moving                        // 1.
+
+                // bufSize 0 means: the file's size     
+                // used for create()            
+                // append K, M or G for KB, MB  
+                // or GB. BufSize is at least   
+                // 10 * s_pageSize
+                // mode is only used for create(): for non-existing 
+                // writable files
+        MapBase(std::string const &fname,  IOS::openmode iosMode,   // 2.
+                char const *bufSize, mode_t mode = 0);
+
+        ~MapBase();
+
+        void moveAssign(MapBase &&tmp);
+
+        IOS::off_type setAbsPos(IOS::off_type pos, IOS::seekdir where);
+
+        bool readingMapLength();
+        void writingMapLength();
+
+        void setpBuf();                     // calls setp() when writing
+
+        bool map(int protection);           // PROT_READ, PROT_WRITE or both
+
+        size_t absPos() const;                                      // .f
+        bool append() const;                                        // .f
+        std::string const &fname() const;                           // .f
+        size_t fileSize() const;                                    // .f
+        size_t offset() const;                                      // .f
+        size_t mapLength() const;                                   // .f
+        IOS::openmode mode() const;                                 // .f
+        size_t realSize() const;                                    // .f
+
+        char *begin();                                              // .f
+        char *next();                                               // .f
+        char *end();                                                // .f
+
+        void osync();
+
+    private:
+        void unmap();
+        void setFileSize(mode_t mode);          // mode: used with creat()
+        void setBufLength(char const *bufSize);
+};
+
+#include "mapbase.f"
+
+//        bool nextOffset();
+//        void setPos(size_t pos);                                    // .f
+
+} // FBB
+        
+#endif
+
+

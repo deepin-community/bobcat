@@ -8,4 +8,3 @@ SharedStream::SharedStream(
     std::istream(this),
     std::ostream(this)
 {}
-

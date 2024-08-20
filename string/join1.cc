@@ -15,5 +15,3 @@ string String::join(vector<string> const &words, char sep)
 
     return ret;
 }
-
-

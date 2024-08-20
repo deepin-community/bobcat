@@ -1,7 +1,7 @@
 #include "process.ih"
 
 Process &Process::operator()(IOMode mode, ProcessType type, size_t timeLimit,
-                             size_t bufSize) 
+                             size_t bufSize)
 {
     d_bufSize = bufSize;
     d_timeLimit = timeLimit;

@@ -7,4 +7,3 @@ inline void Config::setCasing(Casing type)
 {
     d_ptr->setCasing(type);
 }
-

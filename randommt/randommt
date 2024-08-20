@@ -1,0 +1,49 @@
+#ifndef INCLUDED_BOBCAT_RANDOMMT_
+#define INCLUDED_BOBCAT_RANDOMMT_
+
+#include <random>
+#include <type_traits>
+
+#include <bobcat/exception>
+
+namespace FBB
+{
+
+template <typename Type = size_t>
+class RandomMT
+{
+    using Distribution =
+                typename std::conditional<std::is_integral<Type>::value,
+                    std::uniform_int_distribution<Type>,
+                    std::uniform_real_distribution<Type>
+                >::type;
+
+    std::mt19937 d_engine;
+    Distribution d_dist;
+
+    public:
+        RandomMT(Type minimum, Type maximum, size_t mtSeed);
+
+        Type operator()();            // returns the next random value
+};
+
+template <typename Type>
+RandomMT<Type>::RandomMT(Type minimum, Type maximum, size_t mtSeed)
+:
+    d_engine(mtSeed)
+{
+    if (maximum < minimum)
+        throw Exception{} << "RandomMt{ minimum, maximum ... } "
+                        " requires minimum <= maximum";
+
+    d_dist.param(typename Distribution::param_type{ minimum, maximum } );
+}
+
+template <typename Type>
+inline Type RandomMT<Type>::operator()()
+{
+    return d_dist(d_engine);
+}
+
+} // FBB
+#endif

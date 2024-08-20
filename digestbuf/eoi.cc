@@ -13,7 +13,7 @@ void DigestBuf::eoi_()
        EVP_DigestUpdate(d_ctx, ucharPtr(), pptr() - pbase());
 
     unsigned int digestbufLen;
-         
+
     EVP_DigestFinal_ex(d_ctx, ucharPtr(d_digest), &digestbufLen);
     d_digest.resize(digestbufLen);
 

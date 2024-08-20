@@ -14,7 +14,7 @@ the odp slides / pdf pages):
     child using stdin; iChildOut is the Pipe read by the parent process and
     written to by its child when writing its stdout.
 
-2. operator| calls lhs.start(). 
+2. operator| calls lhs.start().
 
     Since lhs is the first process for which operator| is called (which can be
     deducted by operator| as lhs does not have the PIPE_IN flag set) it sets
@@ -32,7 +32,7 @@ the odp slides / pdf pages):
     child, as shown in page/slide 2.
 
 3. operator| copies lhs.iChildOut to rhs.oChildIn
-    
+
     This too looks initially looks a but weird as an (for the parent) IN-pipe
     is copied to an OUT-pipe. However, when rhs.start() is called its child
     receives a copy of its parent oChildIn from which the child will read. So,
@@ -41,7 +41,7 @@ the odp slides / pdf pages):
     process will actually read the lhs's child process's output, setting up
     the pipe between lhs and rhs.
 
-4. Next p2 and p3 are passed to operator|. 
+4. Next p2 and p3 are passed to operator|.
 
     Now p2 acts as lhs, p3 as rhs
 

@@ -4,14 +4,16 @@
 
 #include <bobcat/datetime>
 #include <bobcat/readlinestream>
-#include <bobcat/readlinehistory>
+
+//#include <bobcat/readlinehistory>
+#include "../readlinehistory"
 
 using namespace std;
 using namespace FBB;
 
 void showHis(ReadLineHistory::HistoryElement const &element)
 {
-    cout << element.timestamp() << ": " << element.line() << '\n';
+    cout << element.timestamp() << " " << element.line() << '\n';
 }
 
 string timestamp()
@@ -36,6 +38,10 @@ int main(int argc, char **argv)
     for_each(history.begin(), history.end(), showHis);
 
     cout << "\n"
+            "Again: all lines, from the first to the last:\n";
+    for_each(history.begin(), history.end(), showHis);
+
+    cout << "\n"
             "All lines, from the last to the first:\n";
     for_each(history.rbegin(), history.rend(), showHis);
 
@@ -54,7 +60,15 @@ int main(int argc, char **argv)
 
     cout << "All lines, from the first to the last:\n";
     for_each(history.begin(), history.end(), showHis);
+
+    cout << "\n"
+            "All lines, from the last to the first:\n";
+    for_each(history.rbegin(), history.rend(), showHis);
+
 }
+
+
+
 
 
 

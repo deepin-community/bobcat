@@ -8,7 +8,7 @@ manpagename(FBB::Hostname)(Contains name/address info about a host)
 
 manpagesynopsis()
     bf(#include <bobcat/hostname>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::Hostname) objects inherit from tt(Hostent), and offers information

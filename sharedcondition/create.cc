@@ -9,11 +9,3 @@ SharedCondition SharedCondition::create(SharedMemory &shmem)
             // memory and the Condition's offset
     return SharedCondition(shmem, offset);
 }
-
-
-
-
-
-
-
-

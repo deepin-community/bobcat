@@ -16,6 +16,3 @@ dt -= era;                          // subtract from dt and display
 cout << dt << endl;
 //=
     }
-
-
-

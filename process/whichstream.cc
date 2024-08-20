@@ -10,16 +10,16 @@ Process::ChildOutput Process::whichStream()
         return NOTHING_AVAILABLE;
 
         case 1:
-        return d_selector.readFd() == d_iChildOutPipe.readFd() ? 
-                    CHILD_COUT 
-                : 
+        return d_selector.readFd() == d_iChildOutPipe.readFd() ?
+                    CHILD_COUT
+                :
                     CHILD_CERR;
         case 2:
         return CHILD_COUT | CHILD_CERR;
 
         default:
             throw Exception{} << "Process::whichStream(): internal error. "
-                                        "d_selector.nReady() returns " << 
+                                        "d_selector.nReady() returns " <<
                          count << " (should be <= 2)";
     }
 }

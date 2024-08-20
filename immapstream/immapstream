@@ -1,0 +1,37 @@
+#ifndef INCLUDED_BOBCAT_IMMAPSTREAM_
+#define INCLUDED_BOBCAT_IMMAPSTREAM_
+
+#include <iosfwd>
+#include <istream>
+#include "../mmapbuf/mmapbuf"
+
+namespace FBB
+{
+
+struct ImmapStream: private MmapBuf, public std::istream
+{
+    ImmapStream();                                                      // 1
+    ImmapStream(std::string const &fname, char const *bufSize = 0);     // 2
+
+    ImmapStream(ImmapStream &&tmp) = default;                
+    ImmapStream &operator=(ImmapStream &&tmp) = default;                
+
+    void open(std::string const &fname, char const *bufSize = 0);       // 1
+
+    size_t bufSize() const;
+    size_t fileSize() const;
+};
+        
+inline size_t ImmapStream::bufSize() const
+{
+    return static_cast<MmapBuf const &>(*this).bufSize();
+}
+
+inline size_t ImmapStream::fileSize() const
+{
+    return static_cast<MmapBuf const &>(*this).fileSize();
+}
+
+} // FBB
+
+#endif

@@ -9,7 +9,7 @@ namespace FBB
 
 class IRandStream: private RandBuf, public std::istream
 {
-    public:    
+    public:
         explicit IRandStream(int max);
         IRandStream(int min, int max);
         IRandStream(int min, int max, size_t seed);
@@ -22,4 +22,3 @@ class IRandStream: private RandBuf, public std::istream
 } // FBB
 
 #endif
-

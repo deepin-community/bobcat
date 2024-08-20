@@ -8,7 +8,7 @@ manpagename(FBB::SharedBlock)(Shared memory data block info)
 
 manpagesynopsis()
     bf(#include <bobcat/sharedblock>)nl()
-    Linking option: tt(-lpthread, -lbobcat ) 
+    Linking option: tt(-lpthread, -lbobcat )
 
 manpagedescription()
     bf(FBB::SharedBlock) objects are used by tt(FBB::SharedSegment) to access
@@ -50,18 +50,16 @@ manpageseealso()
     bf(bobcat)(7)
         bf(isharedstream)(3bobcat),
         bf(osharedstream)(3bobcat),
-        bf(sharedcondition)(3bobcat), 
+        bf(sharedcondition)(3bobcat),
         bf(sharedmemory)(3bobcat),
         bf(sharedmutex)(3bobcat),
-        bf(sharedpos)(3bobcat), 
-        bf(sharedreadme)(7bobcat), 
-        bf(sharedsegment)(3bobcat), 
-        bf(sharedstream)(3bobcat), 
+        bf(sharedpos)(3bobcat),
+        bf(sharedreadme)(7bobcat),
+        bf(sharedsegment)(3bobcat),
+        bf(sharedstream)(3bobcat),
         bf(sharedbuf)(3bobcat)
 
 manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-
-

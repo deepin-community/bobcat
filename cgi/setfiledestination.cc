@@ -1,6 +1,6 @@
 #include "cgi.ih"
 
-void CGI::setFileDestination(std::string const &path, 
+void CGI::setFileDestination(std::string const &path,
                                 std::string const &prefix,
                                 Create create)
 {
@@ -9,7 +9,7 @@ void CGI::setFileDestination(std::string const &path,
         d_filePath += "/";
 
     Stat destPath(d_filePath);
-    
+
     if (!destPath.isType(Stat::DIRECTORY) && create == CREATE_PATH)
     {
         string::size_type pos = 0;
@@ -17,7 +17,7 @@ void CGI::setFileDestination(std::string const &path,
         while (true)
         {
             pos = path.find('/', pos);
-            if 
+            if
             (
                 pos == string::npos
                 ||

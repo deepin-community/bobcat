@@ -20,7 +20,7 @@ try
 
     cerr << "server using `" << argv[1] << "'" << endl;
 
-    cout << 
+    cout <<
         "The server terminates when it receives a single `q' on a line\n"
         "A connection is terminated when no input is received anymore.\n"
         "Then another connection is possible" << endl;
@@ -36,7 +36,7 @@ try
         IFdStream in(fd);           // stream to read from client
         OFdStream out(fd);          // stream to write to client
         string cmd;
-        
+
         while (getline(in, cmd))
         {
             cout << "Got: " << cmd << endl;
@@ -52,8 +52,7 @@ catch (exception const &err)
 {
     cerr <<
         err.what() << endl <<
-        "Server socket on " << argv[1] << 
+        "Server socket on " << argv[1] <<
         " can't be opened" << endl;
     return -1;
-}        
-
+}

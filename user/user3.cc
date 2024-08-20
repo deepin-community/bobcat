@@ -3,7 +3,7 @@
 User::User(size_t uid)
 {
     passwd *pwd;
-    
+
     while ((pwd = getpwent()))
     {
         if (pwd->pw_uid == uid)
@@ -15,8 +15,3 @@ User::User(size_t uid)
 
     failure();
 }
-
-
-
-
-

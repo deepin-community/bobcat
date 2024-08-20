@@ -9,8 +9,8 @@
 #include "../pattern/pattern"
 #include "../fswap/fswap"
 #include "../ranger/ranger"
-#include "../exception/exception"
 
-
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

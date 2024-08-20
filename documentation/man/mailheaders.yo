@@ -8,7 +8,7 @@ manpagename(FBB::MailHeaders)(Handles SMTP Mail Headers)
 
 manpagesynopsis()
     bf(#include <bobcat/mailheaders>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -53,7 +53,7 @@ headers must exactly match a specified header name.
     Used by  tt(setHeaderIterator) (see below) to indicate that the
 initial part of the headers must match the specified header text.
     itb(PARTIAL)
-    Used by  tt(setHeaderIterator) (see below) to indicate that the 
+    Used by  tt(setHeaderIterator) (see below) to indicate that the
 headers must contain the specified header text.
     itb(CASE_FULL)
     Used by tt(setHeaderIterator) (see below) to indicate that the
@@ -91,7 +91,7 @@ dereferenced type is tt(std::string).
 
 manpagesection(CONSTRUCTORS)
     itemization(
-    itb(MailHeaders(std::istream &in, Mode mode = READ)) 
+    itb(MailHeaders(std::istream &in, Mode mode = READ))
     This constructor defines the file containing the e-mail to be
 processed. The second parameter is by default bf(MailHeaders::READ), causing
 the object to start reading the e-mail immediately. If set to
@@ -116,7 +116,7 @@ manpagesection(MEMBER FUNCTIONS)
 
     itb(const_hdr_iterator beginh() const)
     Returns the begin-iterator corresponding to the first header selected by
-the tt(setHeaderIterator) member. 
+the tt(setHeaderIterator) member.
 
     itb(const_iterator end() const)
     Returns an iterator beyond the last line of the mail headers.
@@ -131,9 +131,9 @@ tt(vector<string>::end) member.
 
     itb(const_reverse_hdr_iterator rbeginh() const)
     Returns the reversed begin-iterator corresponding to the last header
-selected by the tt(setHeaderIterator) member.  
+selected by the tt(setHeaderIterator) member.
 
-    itb(void read()) 
+    itb(void read())
     Reads the mail-headers from the file passed to the bf(FBB::MailHeaders)
 object's constructor. An bf(FBB::Exception) object is thrown if the mailheaders
 were already read or if the file is incomplete (i.e., the (obligatory) blank
@@ -143,7 +143,7 @@ line wasn't found).
     Returns an iterator before the first line of the mail headers.
 
     itb(const_reverse_hdr_iterator rendh() const)
-    Returns the reversed end-iterator matching tt(rbeginh). 
+    Returns the reversed end-iterator matching tt(rbeginh).
 
      itb(void setHeaderIterator(char const *header, Match match = FULL))
     Sets the header-iterators to the specified tt(header). The parameter
@@ -153,7 +153,7 @@ tt(header) must match exactly an e-mail header. nl()
     When matching headers the
 colon terminating the header is em(not) considered and should therefore
 em(not) be specified by tt(setHeaderIterator). nl()
-    Alternative matching strategies are used when other values of 
+    Alternative matching strategies are used when other values of
 the enumeration bf(FBB::Match) are specified.nl()
     The member tt(setHeaderIterator) em(must) have been called at least once
 or the members tt(beginh) and tt(rendh) will throw an bf(FBB::Exception)
@@ -181,11 +181,11 @@ manpagesection(EXAMPLE)
 
     cout << "There are " << mh.size() << " header lines\n";
 
-                // look for the Received: headers    
+                // look for the Received: headers
     mh.setHeaderIterator("Received");
 
                 // show the Received headers
-    copy(mh.beginh(), mh.endh(), 
+    copy(mh.beginh(), mh.endh(),
             ostream_iterator<std::string const>(cout, "\n"));
     )
 

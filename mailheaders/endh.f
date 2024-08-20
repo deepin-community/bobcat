@@ -1,5 +1,5 @@
-inline MailHeaders::const_hdr_iterator MailHeaders::endh() const
+inline FBB::MailHeaders::const_hdr_iterator FBB::MailHeaders::endh() const
 {
                                         // returns address of the sentinel
-    return const_hdr_iterator(this, end()); 
+    return const_hdr_iterator(this, end());
 }

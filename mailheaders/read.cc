@@ -24,7 +24,7 @@ void MailHeaders::read()
 
         if (line[0] != ' ' && line[0] != '\t')  // add the new header line
             d_lines.push_back(line);
-        else 
+        else
         {
             if (not d_lines.size())             // no header yet: error
                 throw Exception{} << funName << "Invalid begin of headers";
@@ -32,8 +32,3 @@ void MailHeaders::read()
         }
     }
 }
-
-
-
-
-

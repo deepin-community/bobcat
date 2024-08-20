@@ -22,4 +22,3 @@ int SharedMemory::writeBlock(char const *data, size_t len)
 
     return len;
 }
-

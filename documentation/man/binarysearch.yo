@@ -6,7 +6,7 @@ manpage(FBB::binary_search)(3bobcat)(_CurYrs_)
                 (Binary search function)
 
 manpagename(FBB::binary_search)(Extensions to the STL binary_search function
-template) 
+template)
 
 manpagesynopsis()
     bf(#include <bobcat/binarysearch>)nl()
@@ -22,7 +22,7 @@ The bf(bool) value returned by the STL tt(binary_search) function template is
 often not the kind of information the caller of the function is interested
 in. Rather, the caller will often want to use tt(binary_search) in the way
 tt(find_if) is used: returning an iterator to an element or returning
-the end-iterator if the element was not found. 
+the end-iterator if the element was not found.
 
 Whereas tt(find_if) does not require the elements in the iterator range to be
 sorted, and therefore uses a linear search, tt(binary_search) benefits from
@@ -48,24 +48,24 @@ manpagesection(OVERLOADED FUNCTIONS)
     In the following description several template type parameters are
 used. They are:
     itemization(
-    it() bf(Iterator) represents an iterator type; 
+    it() bf(Iterator) represents an iterator type;
     it() bf(Type) represents a value of the type to which tt(Iterator)
-points. 
+points.
     it() bf(Comparator) represents a comparator function or class type object
 which was used to sort the elements to which the tt(Iterator) range refer;
     )
 
     itemization(
     itb(Iterator binary_search(Iterator begin, Iterator end, Type const
-        &value)) 
+        &value))
        Using a binary search algorithm tt(value) is searched for in the range
 of elements referred to by the provided iterator range. If the value is found
 an iterator pointing to this value is returned, otherwise tt(end) is
 returned. The elements in the range must have been sorted by the
-tt(Type's operator<) function. 
+tt(Type's operator<) function.
 
     itb(Iterator binary_search(Iterator begin, Iterator end, Type const
-        &value, Comparator comparator)) 
+        &value, Comparator comparator))
        Using a binary search algorithm tt(value) is searched for in the range
 of elements referred to by the provided iterator range. If the value is found
 an iterator pointing to this value is returned, otherwise tt(end) is

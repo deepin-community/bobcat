@@ -6,31 +6,32 @@ manpage(FBB::DigestBuf)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
 
 manpagename(FBB::DigestBuf)
            (Computes Message Digests from information inserted into a
-std::ostream) 
+std::ostream)
 
 manpagesynopsis()
     bf(#include <bobcat/digestbuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat -lcrypto)
 
 manpagedescription()
     bf(FBB::DigestBuf) objects are bf(std::streambuf) objects that can be used
 to initialize tt(std::ostream) objects with.
 
-    All information inserted into such a tt(std::ostream) is used to compute a
-message digest from. 
+    The message digest of all information inserted into such an
+tt(std::ostream) is computed.
 
     All the message digests defined by the OpenSSL library that can be
 selected by name may be used in combination with tt(DigestBuf) objects.
 
-    The following message digest algorithms are currently supported: mull,
-md2, md5, sha, sha1, sha224, sha256, sha384, sha512, dss, dss1, ecdsa, mdc2,
-ripemd160. These very names are the ones to use to select the particular
-digest algorithms for the class's constructor, below. It is quite possible that
-future releases of the openssl library will support additional message digest
-algorithms. The header file tt(openssl/evp.h) lists all available digest
-algorithms (in that file look for tt(EVP_MD *EVP_): a message digest algorithm
-immediately follows the 2nd underscore. E.g., tt(const EVP_MD *EVP_md4(void))
-which refers to the md4 message digest algorithm).
+    The currently supported message digest algorithms are shown by the
+tt(openssl list -digest-commands). The names of the digest algorithms can be
+used to select a digest algorithms for the class's constructor, below.
+
+COMMENT(
+   The header file tt(openssl/evp.h) lists all available digest algorithms (in
+    that file look for tt(EVP_MD *EVP_): a message digest algorithm
+    immediately follows the 2nd underscore. E.g., tt(const EVP_MD
+    *EVP_md4(void)) which refers to the md4 message digest algorithm).
+END)
 
 includefile(include/namespace)
 
@@ -39,24 +40,24 @@ manpagesection(INHERITS FROM)
 
 manpagesection(CONSTRUCTORS)
     itemization(
-    itb(DigestBuf(char const *type, size_t bufsize = 1024))
+    itb(DigestBuf(char const *digestName, size_t bufsize = 1024))
         This constructor initializes the streambuf, setting it up for the
 message digest algorithm specified with tt(type). The message digest
 algorithms specified in the bf(DESCRIPTION) section may be used here. E.g., to
-use the sha256 algorithm specify tt("sha256"). 
+use the sha256 algorithm specify tt("sha256").
 
-    The tt(bufsize) argument specifies the internal buffer used by
+    The tt(bufsize) argument specifies the size of the internal buffer used by
 tt(DigestBuf) to store incoming characters temporarily. The provided default
-argument should be OK in all normal cases. 
+argument should be OK in all normal cases.
     )
 
     The copy and move constructors and assignment operators are not
-available. 
+available.
 
 manpagesection(OVERLOADED OPERATOR)
 
     itemization(
-    itb(std::ostream &operator<<(std::ostream &out, 
+    itb(std::ostream &operator<<(std::ostream &out,
                                  DigestBuf const &digestbuf))
         The insertion operator is a free function defined in the namespace
 tt(FBB). It inserts a hash value as a series of hexadecimally displayed values
@@ -66,7 +67,7 @@ into the provided tt(ostream). See the example below for an illustration.
 manpagesection(MEMBER FUNCTIONS)
 
      All members of bf(std::streambuf) are available, as bf(FBB::DigestBuf)
-inherits from this class. 
+inherits from this class.
 
     itemization(
     itb(void eoi())
@@ -76,12 +77,12 @@ for deciding whether all information to compute the digest for has yet been
 received or not. The general approach to follow when computing a message
 digest is therefore:
         verb(
-    create a DigestBuf object
-    use it to create a std::ostream object
-    insert information into the ostream object
-    call the DigestBuf object's eoi() member or insert the
+    1. create a DigestBuf object
+    2. use it to create a std::ostream object
+    3. insert information into the ostream object
+    4. call the DigestBuf object's eoi() member or insert the
         eoi manipulator into the ostream (see below)
-    obtain/process the hash value from the DigestBuf object.
+    5. obtain/process the hash value from the DigestBuf object.
         )
 
     itb(std::string const &hash() const)

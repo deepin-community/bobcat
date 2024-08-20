@@ -14,9 +14,9 @@ try
 {
     if (argc == 1)
     {
-        cout << 
+        cout <<
             "Argument:\n"
-            "   c: create a shared memory segment, display its ID\n" 
+            "   c: create a shared memory segment, display its ID\n"
             "   k <id>: kill shared memory segment <id>\n"
             "   l <id>: lock a SharedMutex in shared memory segment <id>\n"
             "   L <id>: create mutex, condition variable and count in "
@@ -53,13 +53,13 @@ try
             smPtr->unlock();
             break;
         }
-            
+
         case 'L':
         {
             SharedMemory shmem(stoll(argv[2]));
 
                 // room for the variables
-            shmem.seek(sizeof(pthread_mutex_t) + sizeof(int) + 
+            shmem.seek(sizeof(pthread_mutex_t) + sizeof(int) +
                         sizeof(pthread_cond_t));
 
                 // set up the pointers to the variables
@@ -104,13 +104,13 @@ try
 
             break;
         }
-            
+
         case 'W':
         {
             SharedMemory shmem(stoll(argv[2]));
 
                 // room for the variables
-            shmem.seek(sizeof(pthread_mutex_t) + sizeof(int) + 
+            shmem.seek(sizeof(pthread_mutex_t) + sizeof(int) +
                         sizeof(pthread_cond_t));
 
                 // set up the pointers to the variables
@@ -132,10 +132,10 @@ try
 
                 // unlock
             pthread_mutex_unlock(mPtr);
-            
+
             break;
         }
-            
+
         case 'k':
         {
             SharedMemory shmem(stoll(argv[2]));
@@ -159,6 +159,3 @@ catch (exception const &exc)
 {
     cout << "Exception: " << exc.what() << endl;
 }
-
-
-

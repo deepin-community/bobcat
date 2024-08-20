@@ -1,6 +1,6 @@
 #include "tablebase.ih"
 
-TableBase::TableBase(size_t nColumns, FillDirection direction, 
+TableBase::TableBase(size_t nColumns, FillDirection direction,
                                                         WidthType widthType)
 :
     d_tabulated(false),
@@ -10,7 +10,6 @@ TableBase::TableBase(size_t nColumns, FillDirection direction,
     d_align(nColumns),
     d_ptr(new TableSupport()),
     d_tableSupport(*d_ptr),
-    d_indexFun(direction == ROWWISE  ? &TableBase::hIndex : 
+    d_indexFun(direction == ROWWISE  ? &TableBase::hIndex :
                                        &TableBase::vIndex)
 {}
-

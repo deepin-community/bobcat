@@ -2,13 +2,13 @@
 #include <iostream>
 
 // returns true if the buffer must be flushed, otherwise return false
-//  
+//
 
 bool QPBufBase::decode()
 {
     // read d_in character by character
     //  if the character != '=' then store the character in the buffer
-    //  otherwise if the next char is \n then store \n, otherwise 
+    //  otherwise if the next char is \n then store \n, otherwise
     //  convert the character from the next two hex-value representing
     //  characters, otherwise (at EOF) return false.
 
@@ -33,13 +33,6 @@ bool QPBufBase::decode()
         d_buffer.push_back(b0);
 
         if (d_buffer.size() > 100)  // flush if the buffer is full
-            return true;            
+            return true;
     }
 }
-
-
-
-
-
-
-

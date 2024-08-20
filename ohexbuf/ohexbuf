@@ -5,6 +5,7 @@
 #include <string>
 
 #include <bobcat/ofilterbuf>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -18,11 +19,11 @@ class OHexBuf: public OFilterBuf
 
     std::string d_separator;
 
-    void (OHexBuf::*d_separated)(int ch); 
-    void (OHexBuf::*d_widthHandler)(); 
+    void (OHexBuf::*d_separated)(int ch);
+    void (OHexBuf::*d_widthHandler)();
 
     public:
-        OHexBuf(std::ostream &out, size_t width = 0, 
+        OHexBuf(std::ostream &out, size_t width = 0,
                                          std::string const &separator = "");
         ~OHexBuf() override;
         size_t size() const;                                            // .f
@@ -33,8 +34,8 @@ class OHexBuf: public OFilterBuf
         void separator(std::string const &sep, bool reset = true);  // 2
 
         void eoi();                                                 // .f
-        
-        static std::string text2bin(std::string const &in); // length and 
+
+        static std::string text2bin(std::string const &in); // length and
                                                             // contents not
                                                             // checked
     private:
@@ -53,10 +54,5 @@ class OHexBuf: public OFilterBuf
 
 #include "size.f"
 
-} // FBB        
+} // FBB
 #endif
-
-
-
-
-

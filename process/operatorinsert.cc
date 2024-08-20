@@ -7,4 +7,3 @@ Process &Process::operator<<(std::ostream &(*pf)(std::ostream &))
 
     return *this;
 }
-

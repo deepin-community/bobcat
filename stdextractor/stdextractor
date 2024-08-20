@@ -20,5 +20,5 @@ class StdExtractor: public IUO::ExtractorBase
 };
 
 } // namespace FBB
-        
+
 #endif

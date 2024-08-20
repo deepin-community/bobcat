@@ -6,5 +6,3 @@ BigInt BigInt::lshiftc(size_t nBits) const
     ret.lshift(nBits);
     return ret;
 }
-
-

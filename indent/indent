@@ -30,7 +30,7 @@ class Indent
 
 std::ostream &indent(std::ostream &out);
 
-#include "nlindent.f"
+//#include "nlindent.f"
 
 std::ostream &incindent(std::ostream &out);
 std::ostream &indentinc(std::ostream &out);

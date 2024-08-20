@@ -10,7 +10,7 @@
 using namespace std;
 using namespace FBB;
 
-namespace 
+namespace
 {
     ArgConfig::LongOption lo[] =
     {
@@ -46,7 +46,7 @@ void X::function()
             "Now opening config file `" << d_arg[0] << "'\n";
 
     d_arg.open(d_arg[0]);       // Now open the config file explicitly
-                            // (alternatively: use a constructor expecting 
+                            // (alternatively: use a constructor expecting
                             // a file name)
 
     cout << "\n"
@@ -55,7 +55,7 @@ void X::function()
     cout << "\n"
             "Counting " << d_arg.option('o') << " instances of -o or "
                                                             "--option\n";
-    
+
     string optval;
     size_t count = d_arg.option(&optval, 'v');
 
@@ -72,7 +72,7 @@ void X::function()
         cout << line << "\n";
         if (pattern << line)
             cout << "Tail: " << pattern[1] << '\n';
-    }        
+    }
 }
 
 int main(int argc, char **argv)
@@ -94,6 +94,3 @@ catch (exception const &err)
     cout << "Terminating " << err.what() << endl;
     return 1;
 }
-
-
-

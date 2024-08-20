@@ -2,8 +2,7 @@
 
 #include <algorithm>
 
-#include "../exception/exception"
-
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
-
+#endif

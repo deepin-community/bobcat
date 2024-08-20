@@ -27,7 +27,5 @@ class IBase64Buf<DECRYPT>: public IUO::Base64BufBase
 #include "ibase64buf1.f"
 #include "ibase64buf2.f"
 
-} // FBB        
+} // FBB
 #endif
-
-

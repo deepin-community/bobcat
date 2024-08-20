@@ -8,7 +8,7 @@ namespace
     char dashes[] = "--";
 }
 
-Arg__::Arg__(int accept, char const *optstring, 
+Arg__::Arg__(int accept, char const *optstring,
          LongOption const *const begin, LongOption const *const end,
          int argc, char **argv)
 :
@@ -23,7 +23,7 @@ Arg__::Arg__(int accept, char const *optstring,
     {
         char acceptOpt[] = { '-', static_cast<char>(accept), 0  };
 
-        d_dashes = find_if(argv, argv + argc, 
+        d_dashes = find_if(argv, argv + argc,
                                     [&](string const &arg)
                                     {
                                         return arg.find(acceptOpt) == 0;
@@ -47,8 +47,9 @@ Arg__::Arg__(int accept, char const *optstring,
                                     // (returns : when a required argument is
                                     // missing)
     opts += optstring;
-
-    OptStructArray optStructs(end - begin + 1); // create array of n + 1 
+                                    // cf. ../iuo/iuo: Object containing 'n'
+                                    //                 OptStructs
+    OptStructArray optStructs(end - begin + 1); // create array of n + 1
                                                 // structs for long options
 
     fillLongOptions(optStructs.get(), optstring, begin, end);
@@ -60,7 +61,7 @@ Arg__::Arg__(int accept, char const *optstring,
     while (true)
     {
         d_getOpt = getopt_long(argc,
-                        argv, opts.c_str(), optStructs.get(), 
+                        argv, opts.c_str(), optStructs.get(),
                         &longOptionIndex);
 
         switch (d_getOpt)
@@ -69,7 +70,7 @@ Arg__::Arg__(int accept, char const *optstring,
             {
                 d_dashes += (d_dashes != argc) - optind;
 
-                copy(argv + optind, argv + optind + d_dashes, 
+                copy(argv + optind, argv + optind + d_dashes,
                         back_inserter(d_argv));
 
                 size_t idx = d_argv.size();
@@ -77,7 +78,7 @@ Arg__::Arg__(int accept, char const *optstring,
                 if (not dashesArg.empty())
                     d_argv.push_back(dashesArg);
 
-                copy(argv + optind + d_dashes, argv + argc, 
+                copy(argv + optind + d_dashes, argv + argc,
                     back_inserter(d_argv));
 
                 d_dashes = idx;
@@ -116,7 +117,7 @@ Arg__::Arg__(int accept, char const *optstring,
 
             default:
                 addCharOption();
-            break;    
+            break;
         }
     }
 }

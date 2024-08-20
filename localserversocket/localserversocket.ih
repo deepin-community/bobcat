@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "../exception/exception"
-
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

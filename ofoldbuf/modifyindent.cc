@@ -6,4 +6,3 @@ void OFoldBuf::modifyIndent(int delta)
     if (static_cast<int>(d_indent) < 0)
         d_indent = 0;
 }
-

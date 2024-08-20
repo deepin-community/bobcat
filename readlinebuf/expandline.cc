@@ -10,7 +10,7 @@ size_t ReadLineBuf::expandLine()
         return 0;
 
     char *expanded;
-    switch (d_expansion = static_cast<Expansion>(1 + 
+    switch (d_expansion = static_cast<Expansion>(1 +
                                        history_expand(buf, &expanded)))
     {
         case ERROR:
@@ -28,5 +28,3 @@ size_t ReadLineBuf::expandLine()
 
     return nextLine(buf);
 }
-
-

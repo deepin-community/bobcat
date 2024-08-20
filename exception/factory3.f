@@ -1,5 +1,5 @@
 template <typename StreamType>
-StreamType Exception::factory(std::string const &name, 
+StreamType Exception::factory(std::string const &name,
                              std::ios::openmode mode)
 {
     StreamType stream{ name, mode };
@@ -9,14 +9,3 @@ StreamType Exception::factory(std::string const &name,
 
     return stream;
 }
-
-
-
-
-
-
-
-
-
-
-

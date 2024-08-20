@@ -1,5 +1,9 @@
 #include "readlinebuf"
 
+#include <fstream>                  // TMP
+#include <iostream>                 // TMP
+#include <bobcat/exception>         // TMP
+
 #include <cstring>
 #include <stdexcept>
 #include <algorithm>

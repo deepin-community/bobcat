@@ -15,10 +15,3 @@ void uninstall(string logfile)
 
     exit(0);
 }
-
-
-
-
-
-
-

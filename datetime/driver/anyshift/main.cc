@@ -26,7 +26,7 @@ int main(int argc, char **argv)
             2018
         };
 
-    t1.tm_sec += thisZone - remoteShift; 
+    t1.tm_sec += thisZone - remoteShift;
     time_t t1sec = mktime(&t1);
 
     t1sec += remoteShift;  // correction for remote time
@@ -36,12 +36,12 @@ int main(int argc, char **argv)
     t1 = tm
         {
             11, 29, 13, 3,          // local time specification (+ 3 hrs UTC)
-              5,                    
+              5,
             2018
         };
 
                                     // local computer time: WITHOUT DST!!
-    t1.tm_sec += thisZone - remoteShift; 
+    t1.tm_sec += thisZone - remoteShift;
     t1sec = mktime(&t1);
 
     t1sec += remoteShift;  // correction for remote time
@@ -49,5 +49,3 @@ int main(int argc, char **argv)
     cout << "specified hour 13, reconstructed hour: " << t1.tm_hour << '\n';
 
 }
-
-

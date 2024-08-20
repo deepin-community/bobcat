@@ -23,7 +23,7 @@ class TypeTrait
         enum { isR_Ref   = false };
         enum { isRef     = false };
 
-        typedef U Plain;
+        using Plain =  U;
     };
     template <typename U> struct Type<U const>
     {
@@ -33,7 +33,7 @@ class TypeTrait
         enum { isRef     = false };
         enum { isR_Ref   = false };
 
-        typedef U Plain;
+        using Plain =  U;
     };
     template <typename U> struct Type<U *>
     {
@@ -43,7 +43,7 @@ class TypeTrait
         enum { isRef     = false };
         enum { isR_Ref   = false };
 
-        typedef U Plain;
+        using Plain =  U;
     };
     template <typename U> struct Type<U const *>
     {
@@ -53,7 +53,7 @@ class TypeTrait
         enum { isRef     = false };
         enum { isR_Ref   = false };
 
-        typedef U Plain;
+        using Plain =  U;
     };
     template <typename U> struct Type<U &>
     {
@@ -63,7 +63,7 @@ class TypeTrait
         enum { isRef     = true };
         enum { isR_Ref   = false };
 
-        typedef U Plain;
+        using Plain =  U;
     };
     template <typename U> struct Type<U const &>
     {
@@ -73,7 +73,7 @@ class TypeTrait
         enum { isRef     = true };
         enum { isR_Ref   = false };
 
-        typedef U Plain;
+        using Plain =  U;
     };
     template <typename U> struct Type<U &&>
     {
@@ -83,7 +83,7 @@ class TypeTrait
         enum { isRef     = false };
         enum { isR_Ref   = true  };
 
-        typedef U Plain;
+        using Plain =  U;
     };
     template <typename U> struct Type<U const &&>
     {
@@ -93,7 +93,7 @@ class TypeTrait
         enum { isRef     = false };
         enum { isR_Ref   = true  };
 
-        typedef U Plain;
+        using Plain =  U;
     };
 
     public:
@@ -102,8 +102,8 @@ class TypeTrait
         enum { isConst   = Type<T>::isConst };
         enum { isRef     = Type<T>::isRef };
         enum { isR_Ref   = Type<T>::isR_Ref };
-        
-        typedef typename Type<T>::Plain Plain;
+
+        using Plain =  typename Type<T>::Plain;
 };
 
 template <typename L, typename R>
@@ -125,16 +125,11 @@ class LpromotesR
 template <typename LHS, typename RHS>
 struct Use
 {
-    typedef typename std::conditional<
-                           LpromotesR<LHS, RHS>::yes, LHS, RHS>::type type;
+    using type =  
+        typename std::conditional< LpromotesR<LHS, RHS>::yes, LHS, RHS>::type;
 };
 
 
 } // FBB
 
 #endif
-
-
-
-
-

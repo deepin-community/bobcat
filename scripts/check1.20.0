@@ -11,7 +11,7 @@ Press Enter to continue and search for files or ^C to abort"
     read
 else
     OPT=-l
-fi    
+fi
 
 /bin/grep -E $OPT \
     '\b(Arg|Glob|OneKey|Pipe|ServerSocket|SocketBase|User|Xpointer)\b'\

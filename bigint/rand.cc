@@ -1,5 +1,6 @@
 #include "bigint.ih"
 
+// static
 BigInt BigInt::rand(size_t size, Msb msb, Lsb lsb)
 {
     BigInt ret;

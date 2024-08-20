@@ -6,4 +6,3 @@ void Spawn::childRedirections()
 //    d_extractPipe.writtenBy(STDOUT_FILENO);
 //    d_errPipe.writtenBy(STDERR_FILENO);
 }
-

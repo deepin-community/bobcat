@@ -58,38 +58,38 @@ class CSVTabIns
         ~CSVTabIns();
 
     private:
-        CSVTabIns(unsigned *idx, std::ostream &out, 
-                  std::vector<FMT> const &format, 
+        CSVTabIns(unsigned *idx, std::ostream &out,
+                  std::vector<FMT> const &format,
                   unsigned startIdx, std::string const &sep, bool more);
-       
-                                                    // inserts 1 row, via 
+
+                                                    // inserts 1 row, via
         void operator()(std::string const &text);   // CSVTable.operator()
-        
+
         template <typename Type>
         std::string centered(FMT const &fmt,                        //     .f
                              unsigned fieldWidth, Type const &value);
-        
+
                                             // total width incluing seps
                                             // (not using end's sep) from cols
         unsigned width(unsigned begin, unsigned end) const;     //      1.cc
         unsigned width(FMT const &fmt) const;       // see README       2.cc
-        
+
         template <typename Type>                  // also updates d_idx
         void insertFormatted(FMT const &fmt,        //                     .f
-                             Type const &value);    
-        
+                             Type const &value);
+
         template <typename Type>
         CSVTabIns &insert(Type const &value);       //                    1.f
-        
+
         CSVTabIns &sep(Sep const &sep);             //                     .f
-        
+
         CSVTabIns &hline(FMT const &fmt);   // insert hline over fmt.nCols()
-        
+
             // inserting FMT in col. d_idx means: if nCols() == 1: use the
             // FMT's width as precision, then use d_format[d_idx]'s width, and
             // set that format at d_extraFMT if nCols > 1: use the combined
             // width of the next nCols columns as width.
-        
+
         CSVTabIns &insert(FMT const &fmt);          //                    2.cc
         CSVTabIns &insert(FMT::Align align);        //                    3.cc
         CSVTabIns &insert(std::ios_base &(*func)(std::ios_base &)); //    6.cc
@@ -108,8 +108,5 @@ class CSVTabIns
 #include "opinsert6.f"
 
 
-} // FBB        
+} // FBB
 #endif
-
-
-

@@ -12,8 +12,8 @@ class FSwapPOD
 
         // FSwapPOD constructing function
         //
-    template <typename Tp>          
-    friend FSwapPOD<Tp> PODfactory(char *buffer, char *from, 
+    template <typename Tp>
+    friend FSwapPOD<Tp> PODfactory(char *buffer, char *from,
                                    Tp &lhs, Tp &rhs);
 
     template <typename Mode, typename Tp, typename ...SwapModes>
@@ -21,4 +21,3 @@ class FSwapPOD
 };
 
 #include "fswappod.imp.f"
-

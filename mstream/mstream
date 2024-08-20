@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 #include <bobcat/mbuf>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -15,7 +16,7 @@ namespace FBB
     std::ostream &noid(std::ostream &os);
     std::ostream &noidl(std::ostream &os);
 
-    // http://www.drdobbs.com/184401357:  
+    // http://www.drdobbs.com/184401357:
     //      A slightly more serious concern is that the virtual functions in a
     //      class that's derived from streambuf might throw exceptions;
     //      perhaps, for example, a user-defined class for network I/O might
@@ -31,29 +32,29 @@ namespace FBB
 class Mstream: private Mbuf, public std::ostream
 {
     public:
-        Mstream();                                  // 1.f initializes to cout 
+        Mstream();                                  // 1.f initializes to cout
 
         explicit Mstream(std::ostream &ostr,        // 2.f writes to ostr
-                            size_t maxCount = UINT_MAX, 
-                            std::string const &tag = "", 
+                            size_t maxCount = UINT_MAX,
+                            std::string const &tag = "",
                             bool throwing = false);
 
         explicit Mstream(std::streambuf *buf,       // 3.f writes to buf
-                            size_t maxCount = UINT_MAX, 
-                            std::string const &tag = "", 
+                            size_t maxCount = UINT_MAX,
+                            std::string const &tag = "",
                             bool throwing = false);
 
                                                 // uses a named ofstream,
         explicit Mstream(std::string const &name,   // 4.f
-                            size_t maxCount = UINT_MAX, 
-                            std::string const &tag = "", 
+                            size_t maxCount = UINT_MAX,
+                            std::string const &tag = "",
                             bool throwing = false);
 
         static void echo(bool trueIsOn, int fd = STDIN_FILENO);
 
         // rdbuf members are still available but will turn a Mstream into
         // the kind of stream the streambuf handles. Except for one if the
-        // reset members below Mstream assumes an Mbuf 
+        // reset members below Mstream assumes an Mbuf
 
         long id() const;                                        // .f
 
@@ -116,5 +117,5 @@ extern Mstream fmsg;
 extern Mstream imsg;
 extern Mstream wmsg;
 
-} // FBB        
+} // FBB
 #endif

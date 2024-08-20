@@ -1,9 +1,9 @@
 #include "gethostent.ih"
 
-hostent const *GetHostent::gethostent(char const *prefix, string const &host) 
+hostent const *GetHostent::gethostent(char const *prefix, string const &host)
 {
                                     // 4 series of . separated digits.
-    Pattern address("(\\d+\\.){3}\\d+"); 
+    Pattern address("(\\d+\\.){3}\\d+");
 
     try
     {
@@ -17,10 +17,3 @@ hostent const *GetHostent::gethostent(char const *prefix, string const &host)
 
     return &s_hp;
 }
-
-
-
-
-
-
-

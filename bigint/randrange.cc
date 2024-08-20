@@ -1,5 +1,6 @@
 #include "bigint.ih"
 
+// static
 BigInt BigInt::randRange(BigInt const &max)
 {
     BigInt ret;

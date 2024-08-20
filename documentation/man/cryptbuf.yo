@@ -7,17 +7,25 @@ manpage(FBB::CryptBuf)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
                     (Base class for DecryptBuf and EncryptBuf)
 
 manpagename(FBB::CryptBuf)(std::streambuf derived base class for DecryptBuf
-            and EncryptBuf) 
+            and EncryptBuf)
 
 manpagesynopsis()
     bf(#include <bobcat/cryptbuf>)nl()
-    Linking option: tt(-lbobcat -lcrypto) 
+    Linking option: tt(-lbobcat -lcrypto)
 
 manpagedescription()
-    The class tt(CryptBuf) inherits from tt(EoiBuf) and may therefore be
-used as a base class of classes specializing tt(std::streambuf). It is used as
-base class for the classes tt(DecryptBuf) and tt(EncryptBuf), offering a
-protected member for accessing cipher information.
+    This class is deprecated and will be removed from Bobcat in a future
+release. It inherits from tt(FBB::EoiBuf). Classes using tt(CryptBuf) may use
+tt(EoiBuf) instead. tt(CryptBuf's) member tt(EVP_CIPHER const *md()) can be
+implemented as follows:
+        verb(
+    #include <openssl/evp.h>
+
+    EVP_CIPHER const *md(char const *cipherName)
+    {
+        return EVP_CIPHER_fetch(0, cipherName, 0);
+    }
+        )
 
 includefile(include/namespace)
 
@@ -35,13 +43,12 @@ manpagesection(PROTECTED CONSTRUCTOR)
         method. E.g., tt(aes-128-cbc). For an overview see the
         bf(encryptbuf)(3bobcat) man-page. The tt(bufSize) parameter defines
         the initial size of the internally used buffer (defined by
-        tt(EoiBuf)). 
+        tt(EoiBuf)).
     )
 
     Copy and move constructors (and assignment operators) are not available.
 
-
-manpagesection(PROTECTED MEMBER FUNCTION) 
+manpagesection(PROTECTED MEMBER FUNCTION)
 
    All members of tt(std:streambuf) and tt(EoiBuf) are available, as
     bf(FBB::CryptBuf) inherits from these classes.
@@ -51,20 +58,14 @@ manpagesection(PROTECTED MEMBER FUNCTION)
        A pointer to the cipher information is returned.
     )
 
-manpagesection(EXAMPLE)
-    Here is an example from the implementation of tt(EncryptBuf's)
-        constructor:
-
-    verbinclude(../../encryptbuf/encryptbuf1.cc)
-
 manpagefiles()
     em(bobcat/cryptbuf) - defines the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(decryptbuf)(3bobcat), bf(encryptbuf)(3bobcat),
-        bf(eoibuf)(3bobcat), bf(eoi)(3bobcat)
+    bf(bobcat)(7), bf(eoibuf)(3bobcat), bf(eoi)(3bobcat)
 
 manpagebugs()
-    None Reported.
+    This class is deprecated and will be removed from Bobcat in a future
+release.
 
 includefile(include/trailer)

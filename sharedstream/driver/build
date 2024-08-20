@@ -2,5 +2,5 @@
 
 g++ -o driver `cat ../../c++std` -Wall -pthread driver.cc -lbobcat
 
-echo Start ./driver for an interactive menu. 
+echo Start ./driver for an interactive menu.
 echo Optionally remove ./driver after the demo-run

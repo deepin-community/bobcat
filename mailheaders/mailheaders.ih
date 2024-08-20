@@ -3,10 +3,7 @@
 #include <algorithm>
 
 #include "../fswap/fswap"
-#include "../exception/exception"
 
-using namespace std;
-using namespace FBB;
 
 #include "casefull.f"
 #include "caseinitial.f"
@@ -15,3 +12,7 @@ using namespace FBB;
 #include "full.f"
 #include "initial.f"
 #include "partial.f"
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

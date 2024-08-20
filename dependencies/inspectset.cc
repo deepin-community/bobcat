@@ -9,7 +9,7 @@ bool inspectSet(ValueType &value, Map &table)
     {
         StringSet updated{requiredSet};       // possibly extended set
 
-                                                // the required set of a 
+                                                // the required set of a
                                                 // required class:
         StringSet const &reqByRequired = table[required].first;
 
@@ -19,7 +19,7 @@ bool inspectSet(ValueType &value, Map &table)
         if (requiredSet.size() < updated.size())
         {
             string const &key = value.first;
-            if 
+            if
             (
                 not value.second.second
                 and reqByRequired.find(key) != reqByRequired.end()

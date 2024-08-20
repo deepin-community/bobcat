@@ -1,0 +1,164 @@
+#ifndef INCLUDED_LDC_
+#define INCLUDED_LDC_
+
+#include <ostream>
+#include <string>
+
+#include <bobcat/exception>
+
+    // in the sources:  MSB means most significant byte
+    //                  LSB: least significant byte.
+
+namespace FBB
+{
+
+class BigInt;
+
+class LDC
+{
+    using CHAR = unsigned char;
+    using VALUE = size_t;           // usually sizeof(size_t) >=
+                                    //         sizeof(uint64_t)
+
+    enum
+    {
+        SIZE = sizeof(VALUE)
+    };
+
+    union Ptrs
+    {
+        CHAR *ptr;
+        VALUE *valuePtr;             // interpret byte sequence as VALUE
+    };
+
+    union Cpt
+    {
+        VALUE value;
+        CHAR bytes[SIZE];
+    };
+
+    size_t d_size;                      // size of the buffers
+    size_t d_radix;
+
+    bool d_cb = false;                  // index of the d_buffer element
+                                        // containing the cpv bytes
+
+    Ptrs d_begin;                       // address and value of the currently
+                                        // processed value (cpv)
+    CHAR *d_lsb;                        // location of the full value's LSB
+    CHAR *d_end;                        // beyond the cpv
+
+    CHAR *d_divEnd;                     // beyond the bytes of the div10 value
+    CHAR *d_divBegin;                   // the first byte of the div10 value
+
+        // beyond the quotient's bytes pointed at by d_divEnd there are SIZE
+        // bytes so when a small value is stored in the buffer the value at
+        // d_divBegin always points to a VALUE value
+    CHAR *d_buffer[2];                  // buffers containing the cpb ([0])
+                                        // and cpb / 10 ([1]) + SIZE / 2
+                                        // spare bytes at the end so at least
+                                        // VALUE values fit.
+
+    std::string d_converted;
+    std::string d_digits;
+
+
+    public:
+        LDC();                                                          // 1
+
+        LDC(std::string const &hexNr,   // input is a hex number in a      2
+           size_t radix = 10);          // string e.g., deadbeef
+                                        // (no 0x prefix)
+
+                                        // bytes contains the
+                                        // binary big endian representation of
+                                        // the number using nBytes
+        LDC(size_t nBytes, char const *bytes, size_t radix = 10);       // 3
+
+        LDC(BigInt const &bigInt, size_t radix = 10);                   // 4
+
+        LDC(std::string const &hexNr,   // input is a hex number in a      5
+            std::string const &digits); // string e.g., deadbeef
+                                        // (no 0x prefix)
+
+                                        // bytes contains the
+                                        // binary big endian representation of
+                                        // the number using nBytes
+        LDC(size_t nBytes, char const *bytes,                           // 6
+                           std::string const &digits);
+
+        LDC(BigInt const &bigInt, std::string const &digits);           // 7
+
+        LDC(LDC const &other);                                          // 8
+        LDC(LDC &&tmp);                                                 // 9
+
+       ~LDC();
+
+        LDC &operator=(LDC const &rhs);                                 // 1
+        LDC &operator=(LDC &&tmp);                                      // 2
+        LDC &operator=(std::string const &hexNr);  // uses radix 10        3
+
+        std::string operator()(size_t power, char sep = '\'') const;
+
+        void set(std::string const &hexNr, size_t radix = 10);          // 1
+        void set(size_t nBytes, char const *bytes, size_t radix = 10);  // 2
+
+        void set(std::string const &hexNr, std::string const &digits);  // 3
+        void set(size_t nBytes, char const *bytes,                      // 4
+                                std::string const &digits);
+
+        std::string const &str() const;                                 // .f
+
+        void swap(LDC &other);                                          // 1
+
+    private:
+        static std::pair<size_t, char *> bigIntBytes(BigInt const &bigInt);
+
+        static void bytes2hex(std::string &arg);
+
+        void compress(std::string const &hexNr);
+
+        void compressDigits(std::string const &hexNr);
+
+        void convert();                         // convert to d_radix
+
+        void guardBegin();                      // ensure d_begin.ptr >= d_lsb
+
+        int idx(CHAR *ptr, bool bufIdx) const;
+
+                                                // inserts current and next
+                                                // buffer indices into out
+        std::ostream &indices(std::ostream &out) const;
+
+                    // called by LDC(string const &hexStr, ...)
+        void init(std::string const &hexStr);                           // 1
+
+                    // called by LDC(size_t nBytes, char const *bytes, ...)
+        void init(size_t nBytes, char const *bytes);                    // 2
+
+                                                // install div_10 in
+        void installDiv(VALUE div10Value);      // d_begin[not d_cpt]
+
+        void prepareBuffers();
+
+        void reduce();                          // reduced digits to d_ret
+
+        void setDivPtrs();                      // initialize the div-ptrs
+
+        void setRadix(size_t radix);                                    // 1
+        void setRadix(std::string const &digits);                       // 2
+
+        static std::ostream &show(std::ostream &out,
+                                  std::string const &digits);
+        std::ostream &showCb(std::ostream &out) const;
+        std::ostream &showDiv(std::ostream &out) const;
+
+        void swap();                            // swap begin/end with      2
+                                                // nextBegin/nextEnd
+};
+
+#include "ldc.f"
+
+}   // namespace FBB
+
+#endif

@@ -12,4 +12,3 @@ char const **String::argv(std::vector<string> const &lines)
 
     return ret;
 }
-

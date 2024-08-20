@@ -6,7 +6,7 @@ int OFoldBuf::overflow(int ch)
 
     switch (d_mode)
     {
-        case INDENT: 
+        case INDENT:
             indent(ch);
         break;
 

@@ -6,4 +6,3 @@ BigInt BigInt::negatec() const
     ret.negate();
     return ret;
 }
-

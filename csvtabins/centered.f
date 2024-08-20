@@ -6,7 +6,7 @@ std::string CSVTabIns::centered(FMT const &fmt,
 
     ostringstream stream;                  // format value in 'stream'
 
-    stream.copyfmt(*d_out);                     // xfer d_out's format to 
+    stream.copyfmt(*d_out);                     // xfer d_out's format to
     stream.fill(d_out->fill());                 // stream
 
     if (fmt.d_precision < fieldWidth)           // maybe set the precision
@@ -18,16 +18,12 @@ std::string CSVTabIns::centered(FMT const &fmt,
 
                                                 // extra spaces needed
     if (unsigned length = ret.length();  length < fieldWidth)
-    {                                           
-                                                // prefix this #spaces 
-        ret.insert(ret.begin(), (fieldWidth - length) / 2, ' '); 
+    {
+                                                // prefix this #spaces
+        ret.insert(ret.begin(), (fieldWidth - length) / 2, ' ');
         ret.resize(fieldWidth, ' ');
     }
 
 
     return ret;
 }
-
-
-
-

@@ -1,4 +1,4 @@
-inline void String::tolower(char &chr)
+inline void FBB::String::tolower(char &chr)
 {
     chr = ::tolower(chr);
 }

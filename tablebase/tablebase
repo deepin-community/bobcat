@@ -14,7 +14,7 @@ namespace FBB
 
 class TableBase
 {
-    friend std::ostream &operator<<(std::ostream &str, TableBase &table); 
+    friend std::ostream &operator<<(std::ostream &str, TableBase &table);
 
     public:
         enum FillDirection
@@ -38,7 +38,7 @@ class TableBase
         {
             std::string d_text;
             std::ios_base &(*d_manip)(std::ios_base &);
-    
+
             Element(std::string text = "",                              // .f
                     std::ios_base &(*manip)(std::ios_base &) = 0);
             size_t length() const;                                      // .f
@@ -53,11 +53,11 @@ class TableBase
         std::vector<Element>    d_string;               // table contents
         TableSupport           *d_ptr;
         TableSupport           &d_tableSupport;
-    
-        Element                &(TableBase::*d_indexFun)(size_t row, 
+
+        Element                &(TableBase::*d_indexFun)(size_t row,
                                                                 size_t col);
 
-            
+
         TableBase(size_t nColumns, FillDirection direction,
                                                         WidthType widthType);
 
@@ -69,7 +69,7 @@ class TableBase
         void setAlign(Align const &align);    // set an alignment
 
         void def();                         // fillup an incomplete table
-                                            // automatically called at 
+                                            // automatically called at
                                             // insertions into ostreams
         size_t columnWidth(size_t col) const;                       // .f
         Manipulator columnManip(size_t col) const;                  // .f
@@ -101,5 +101,5 @@ class TableBase
                         // display the table
 #include "opinsert1.f"  // ostream << TableBase
 
-} // FBB        
+} // FBB
 #endif

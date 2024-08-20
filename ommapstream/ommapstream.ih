@@ -1,0 +1,6 @@
+#include "ommapstream"
+
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

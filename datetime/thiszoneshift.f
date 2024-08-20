@@ -1,4 +1,4 @@
-inline time_t DateTime::Zone::thisZoneShift()
+inline time_t FBB::DateTime::Zone::thisZoneShift()
 {
     return s_thisZoneShift;
 }

@@ -16,5 +16,3 @@ int SharedMemory::put(int ch)
 
     return ch;
 }
-
-

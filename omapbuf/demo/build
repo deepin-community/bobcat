@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd ../../mapbase
+icmbuild || exit 1
+
+cd ../omapbuf
+icmbuild || exit 1
+
+cd demo
+icmbuild

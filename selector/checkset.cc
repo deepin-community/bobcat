@@ -9,4 +9,3 @@ int Selector::checkSet(int *index, fd_set const &set)
 
     return idx == d_max ? -1 : idx++;
 }
-

@@ -1,0 +1,18 @@
+l 1
+o 5000
+l 1
+o 10000
+l 1
+o 0
+l 1
+o 11000
+b
+q
+
+use with 
+    cat main.cc main.cc main.cc main.cc > big
+    a.out big 1K < in2 | diff - out2
+which should show no output and $? == 0
+
+valgrind reports no errors
+

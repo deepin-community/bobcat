@@ -3,7 +3,9 @@
     // accept: use -'accept' instead of --
     // opstring[0] == '+': accept undefined options
 
-Arg::Arg(int accept, char const *optstring, 
+    // Arg__: workhorse class, interface in arg.ih
+
+Arg::Arg(int accept, char const *optstring,
          LongOption const * const begin, LongOption const * const end,
          int argc, char **argv)
 :

@@ -7,6 +7,8 @@
 #include <ostream>
 #include <string>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
@@ -37,8 +39,8 @@ struct MultiBuf: public std::streambuf
             static void setOnce(stream &os);            // .f
     };
 
-    typedef std::vector<stream>::iterator iterator;
-    typedef std::vector<stream>::const_iterator const_iterator;
+    using iterator =  std::vector<stream>::iterator;
+    using const_iterator =  std::vector<stream>::const_iterator;
 
     private:
         std::string d_buffer;
@@ -60,16 +62,16 @@ struct MultiBuf: public std::streambuf
         const_iterator end() const;                                     // 2.f
         size_t size() const;                                            //  .f
         void setOnce();             // reset all `RESET' modes to `ONCE'
-        
+
     private:
         int overflow(int c) override;
-        std::streamsize xsputn(char const *buffer, std::streamsize n) 
+        std::streamsize xsputn(char const *buffer, std::streamsize n)
                                                                 override;
         int sync() override;
 
         struct Insert;
 
-        static void insertStruct(stream &os, Insert &insert); 
+        static void insertStruct(stream &os, Insert &insert);
 };
 
 #include "mode.f"
@@ -89,5 +91,5 @@ struct MultiBuf: public std::streambuf
 #include "insert2.f"
 
 } // namespace FBB
-        
+
 #endif

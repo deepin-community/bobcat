@@ -8,11 +8,9 @@
 #include <iostream>
 #include <string>
 
-#include "../exception/exception"
 #include "../pattern/pattern"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
-
-
-
+#endif

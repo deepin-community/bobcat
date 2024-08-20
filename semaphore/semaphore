@@ -10,7 +10,7 @@ namespace FBB
 
 class Semaphore
 {
-    mutable std::mutex d_mutex;
+    std::mutex d_mutex;
     std::condition_variable d_condition;
     size_t d_nAvailable;
 
@@ -21,15 +21,15 @@ class Semaphore
         bool wait(Fun fun, Params &&...args);        // wait # available
 
         void wait();        // wait # available
-                                        
+
                             // wait for duration timeunits
         template <typename Rep, typename Period>
-        std::cv_status wait_for(std::chrono::duration<Rep, Period> 
+        std::cv_status wait_for(std::chrono::duration<Rep, Period>
                                                             const &relTime);
 
                             // wait until abs. time has been reached
-        template <typename Clock, typename Duration>  
-        std::cv_status wait_until(std::chrono::time_point<Clock, Duration> 
+        template <typename Clock, typename Duration>
+        std::cv_status wait_until(std::chrono::time_point<Clock, Duration>
                                                             const &absTime);
 
         void notify();      // notify a single waiting thread if initially 0

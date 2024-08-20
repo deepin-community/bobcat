@@ -28,19 +28,10 @@ void Process::showMode(char const *lab) const
     if (d_setMode & CLOSE_ON_EXEC)
         std::cerr << "CLOSE_ON_EXEC ";
 
-    std::cerr << 
+    std::cerr <<
         d_oChildInPipe.readFd() << ' ' << d_oChildInPipe.writeFd() << ' ' <<
         d_iChildOutPipe.readFd() << ' ' << d_iChildOutPipe.writeFd() << ' ' <<
         d_iChildErrPipe.readFd() << ' ' << d_iChildErrPipe.writeFd();
 
     std::cerr << '\n';
 }
-
-
-
-
-
-
-
-
-

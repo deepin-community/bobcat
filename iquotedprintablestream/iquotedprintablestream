@@ -9,7 +9,7 @@ namespace FBB
 {
 
 template <CryptType type>
-struct IQuotedPrintableStream: private IQuotedPrintableBuf<type>, 
+struct IQuotedPrintableStream: private IQuotedPrintableBuf<type>,
                                public std::istream
 {
     IQuotedPrintableStream(std::istream &in, size_t bufSize = 1000);    // 1.f
@@ -17,5 +17,5 @@ struct IQuotedPrintableStream: private IQuotedPrintableBuf<type>,
 
 #include "iquotedprintablestream1.f"
 
-} // FBB        
+} // FBB
 #endif

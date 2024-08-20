@@ -6,4 +6,3 @@ BigInt BigInt::subModc(BigInt const &rhs, BigInt const &mod) const
     ret.subMod(rhs, mod);
     return ret;
 }
-

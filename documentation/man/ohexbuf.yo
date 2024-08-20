@@ -9,7 +9,7 @@ values)
 
 manpagesynopsis()
     bf(#include <bobcat/ohexbuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -32,7 +32,7 @@ manpagesection(CONSTRUCTOR)
     itemization(
     itb(OHexBuf(std::ostream &stream, size_t width = 0, std::string
         const &separator = ""))
-    The hexadecimal characters produced by the tt(OFilterBuf) object 
+    The hexadecimal characters produced by the tt(OFilterBuf) object
 are inserted into tt(stream). Optionally the maximum line width (in number of
 characters) may be specified using tt(width). The (default) value 0 indicates
 that no line breaks are requested. The parameter tt(separator) defines the
@@ -80,7 +80,7 @@ tt(size()) does not return 0 then the last line inserted was not terminated by
 a tt('\n') character. See also the example below.
 
     This member's return value is undefined if  no maximum line length was
-requested. 
+requested.
     )
 
 manpagesection(MANIPULATOR)
@@ -112,12 +112,12 @@ manpagesection(EXAMPLE)
         verb(
     #include <iostream>
     #include <bobcat/ohexbuf>
-    
+
     using namespace std;
     using namespace FBB;
-    
+
     int main()
-    {   
+    {
         OHexBuf ohex(cout, 40);
         ostream out(&ohex);
         out << cin.rdbuf();

@@ -24,6 +24,3 @@ int main()
     cout << dt << "\n\n";
 
 }
-
-
-

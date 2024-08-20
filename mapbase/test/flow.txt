@@ -1,0 +1,27 @@
+currentpos initially 0
+
+READ                                                WRITE
+-----------------------------------------------------------------
+                        get filesize
+                                                set realSize
+
+seekg:                                          seekp:
+(reducelength()?)
+reduce nTodo (pos) to                           pos > fileSize ->
+# bytes to fileSize                             enlarge fileSize (setwrite)
+-> EOF if nTdoDo
+(setRead)
+
+                        map:
+                        fd = open
+                        cpt offet, bufSize
+                        bufPos = pos - offset
+                        d_cp = mmap(bufSize, offset)
+
+                                                
+imapbuf:                                        omapbuf:
+setg...                                         setp...
+                                                maybe enlarge realSize
+
+                                                at destruction:
+                                                resize file to realSize

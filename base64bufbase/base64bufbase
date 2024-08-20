@@ -3,10 +3,10 @@
 
 //  See also https://en.wikipedia.org/wiki/Base64
 // And  https://www.ietf.org/rfc/rfc4648.txt
-// 
-// 
+//
+//
 //                       Table 1: The Base 64 Alphabet
-// 
+//
 //      Value Encoding  Value Encoding  Value Encoding  Value Encoding
 //          0 A            17 R            34 i            51 z
 //          1 B            18 S            35 j            52 0
@@ -25,8 +25,8 @@
 //         14 O            31 f            48 w         (pad) =
 //         15 P            32 g            49 x
 //         16 Q            33 h            50 y
-// 
-// 
+//
+//
 // Bit offset   | 7               0 | 7               0 | 7               0 |
 // Text content |          M        |        a          |        n          |
 // ASCII        |        77 (0x4d)  |     97 (0x61)     |    110 (0x6e)     |
@@ -38,12 +38,13 @@
 // If the last group of four ends in '==' (i.e., b2 equals '=') then only one
 // char is written;
 // If the last group of four ends in '='  (i.e., b3 equals '=') then only two
-// chars are written; 
+// chars are written;
 
 #include <istream>
 #include <string>
 
 #include <bobcat/ifilterbuf>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -71,7 +72,7 @@ class Base64BufBase: public FBB::IFilterBuf
 
     private:
         bool filter(char const **srcBegin, char const **srcEnd) override;
-        bool encrypt(); // false means: don't call again, but there 
+        bool encrypt(); // false means: don't call again, but there
                         // may still be input waiting in d_buffer
         bool decrypt();
 
@@ -85,6 +86,6 @@ class Base64BufBase: public FBB::IFilterBuf
 #include "bits.f"
 
 }   // IUO
-}   // FBB        
+}   // FBB
 
 #endif

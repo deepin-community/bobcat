@@ -1,0 +1,42 @@
+#ifndef INCLUDED_BOBCAT_IOMMAPSTREAM_
+#define INCLUDED_BOBCAT_IOMMAPSTREAM_
+
+#include <iosfwd>
+#include <iostream>
+
+#include "../mmapbuf/mmapbuf"
+
+namespace FBB
+{
+
+struct IOmmapStream: private MmapBuf, public std::iostream
+{
+    IOmmapStream();                                                     // 1
+    IOmmapStream(std::string const &fname, char const *bufSize = 0,     // 2
+                IOS::openmode openMode = IOS::in | IOS::out, 
+                mode_t mode = 0644); 
+
+    IOmmapStream(IOmmapStream &&tmp) = default;                
+    IOmmapStream &operator=(IOmmapStream &&tmp) = default;                
+
+    void open(std::string const &fname, char const *bufSize = 0,        // 1
+              IOS::openmode openMode = IOS::in | IOS::out, 
+              mode_t mode = 0644);
+
+    size_t bufSize() const;
+    size_t fileSize() const;
+};
+        
+inline size_t IOmmapStream::bufSize() const
+{
+    return static_cast<MmapBuf const &>(*this).bufSize();
+}
+
+inline size_t IOmmapStream::fileSize() const
+{
+    return static_cast<MmapBuf const &>(*this).fileSize();
+}
+
+} // FBB
+
+#endif

@@ -1,6 +1,6 @@
 #include "process.ih"
 
-Process::Process(IOMode mode, ProcessType processType, 
+Process::Process(IOMode mode, ProcessType processType,
                  size_t timeLimit, size_t bufSize, string const &command)
 :
     d_active(false),
@@ -14,7 +14,7 @@ Process::Process(IOMode mode, ProcessType processType,
 
     d_oChildInPipe(false),    // cin read by the CHILD
     d_iChildOutPipe(false),   // cout written by the CHILD
-    d_iChildErrPipe(false),   // cerr written by the CHILD    
+    d_iChildErrPipe(false),   // cerr written by the CHILD
 
     d_oChildIn(0),          // initialize the streams with 0-buffers
     d_iChildOut(0),
@@ -29,5 +29,3 @@ Process::Process(IOMode mode, ProcessType processType,
             // connect the input and output streams to Process
     open(d_iChildOut, d_oChildIn);
 }
-
-

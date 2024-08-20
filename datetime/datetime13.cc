@@ -19,7 +19,7 @@ DateTime::DateTime(istream &in, TimeType type)
         case 2:
             zoneName = parse.zoneName();
         break;
-            
+
         case 3:                 // Mon, 3 Dec 2018 13:29:11 +0100
         case 4:                 // 2018-12-03 13:29:11+01:00
             if (type == UTC)
@@ -38,6 +38,3 @@ DateTime::DateTime(istream &in, TimeType type)
     d_utcSec = utcFromTM(d_tm);
     assignTM();
 }
-
-
-

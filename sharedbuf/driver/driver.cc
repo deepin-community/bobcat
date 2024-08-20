@@ -12,7 +12,7 @@ try
 {
     if (argc == 1)
     {
-        cout << 
+        cout <<
             "argument i <id> shows info about the shared memory segment id\n"
             "argument W uses write() to write info to a shared stream,\n"
             "           displaying its id\n"
@@ -81,13 +81,13 @@ try
             buf.memInfo(cout);
             break;
         }
-            
+
         case 'k':
         {
             SharedMemory(stoul(argv[2])).kill();
             break;
         }
-            
+
     }
 }
 catch (exception const &exc)

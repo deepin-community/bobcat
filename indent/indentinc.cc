@@ -6,4 +6,3 @@ ostream &FBB::indentinc(ostream &out)
     Indent::inc();
     return out;
 }
-

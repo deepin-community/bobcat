@@ -19,7 +19,7 @@ struct ISharedStream: private SharedBuf, public std::istream,
             size_t access = 0600);
 
     ISharedStream(
-            size_t id, 
+            size_t id,
             std::ios::openmode openMode = std::ios::in);
 
     using SharedBuf::attachSharedCondition;
@@ -45,5 +45,5 @@ struct ISharedStream: private SharedBuf, public std::istream,
 
 #include "truncate.f"
 
-} // FBB        
+} // FBB
 #endif

@@ -10,7 +10,7 @@ manpagename(FBB::IBase64Buf)
 
 manpagesynopsis()
     bf(#include <bobcat/ibase64buf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     The information made available by bf(IBase64Buf) objects has been
@@ -69,10 +69,10 @@ manpagesection(EXAMPLE)
 
     The example shows the construction of tt(IBase64Buf<ENCRYPT>)
 objects tt(encode) which are used to initialize a tt(std::istream) object. The
-information read from this tt(istream) is base64 encoded. 
+information read from this tt(istream) is base64 encoded.
 
 tt(IBase64Buf<DECRYPT>) objects (tt(decode) reads base64 encoded
-information from tt(std::istream) objects and decodes it again). 
+information from tt(std::istream) objects and decodes it again).
 
 The tt(std::istream din) object is initialized with the
 tt(IBase64Buf<DECRYPT>) object, and its content is sent to
@@ -93,5 +93,3 @@ manpagebugs()
     None reported.
 
 includefile(include/trailer)
-
-

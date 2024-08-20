@@ -1,10 +1,10 @@
 #include "string.ih"
 
-String::Unescape String::unescape(ConstIter begin, ConstIter const &end) 
+String::Unescape String::unescape(ConstIter begin, ConstIter const &end)
 {
                                 // no chars, no backslash or nothing beyond
-                                // the backslash? Then no escape sequence 
-    if (begin == end || *begin != '\\' || ++begin == end) 
+                                // the backslash? Then no escape sequence
+    if (begin == end || *begin != '\\' || ++begin == end)
         return Unescape{ "", 0 };
 
                                 // a standard escape char
@@ -24,7 +24,7 @@ String::Unescape String::unescape(ConstIter begin, ConstIter const &end)
 
     if (nDigits != 0)                      // got octal digit escape seq.
         return Unescape{ string(
-                            1, static_cast<char>(stoul(str, 0, 8)) 
+                            1, static_cast<char>(stoul(str, 0, 8))
                          ), nDigits + 1 };
 
     if (*begin == 'x')                 // maybe hex escape seq. ?
@@ -40,8 +40,8 @@ String::Unescape String::unescape(ConstIter begin, ConstIter const &end)
         return nDigits == 0 ?                      // no hex, only \x
                     Unescape{ "x", 2 }
                 :
-                    Unescape{ string( 
-                                1, static_cast<char>(stoul(str, 0, 16)) 
+                    Unescape{ string(
+                                1, static_cast<char>(stoul(str, 0, 16))
                               ), nDigits + 2 };
     }
 

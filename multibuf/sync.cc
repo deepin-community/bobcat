@@ -13,4 +13,3 @@ int MultiBuf::sync()
     d_buffer.erase();
     return istruct.ok ? 0 : 1;
 }
-

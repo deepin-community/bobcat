@@ -1,4 +1,6 @@
 #include "ibase64stream"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

@@ -1,0 +1,29 @@
+#ifndef INCLUDED_BOBCAT_OSYMCRYPTSTREAM_
+#define INCLUDED_BOBCAT_OSYMCRYPTSTREAM_
+
+#include <bobcat/osymcryptstreambuf>
+
+namespace FBB
+{
+
+template <CryptType cryptType>
+struct OSymCryptStream: private OSymCryptStreambuf<cryptType>,
+                        public std::ostream
+{
+    template <typename StreamSpec>
+    OSymCryptStream(                                            // 1.f
+        StreamSpec &streamSpec,
+        std::string const &cipherName,
+        std::string const &key,
+        std::string const &iv,
+        size_t inBufSize = 100
+    );
+    using OSymCryptStreambuf<cryptType>::keyLength;
+    using OSymCryptStreambuf<cryptType>::ivLength;
+};
+
+#include "osymcryptstream1.f"
+
+}   // namespace FBB
+
+#endif

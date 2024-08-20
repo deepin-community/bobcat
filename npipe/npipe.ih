@@ -1,0 +1,11 @@
+#include "npipe"
+
+#include <unistd.h>
+
+#include "../exception/exception"
+#include "../redirector/redirector"
+
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

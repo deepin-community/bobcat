@@ -13,7 +13,7 @@ using namespace FBB;
 int main()
 {
     TableLines tablelines;
-                        
+
     tablelines << 0;            // set separator widths
     for (size_t sep = 0; sep != 8; ++sep)
         tablelines << 3;
@@ -28,4 +28,3 @@ int main()
 
     cout << tab << '\n';            // complete the table and insert
 }
-

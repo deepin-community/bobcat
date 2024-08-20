@@ -17,4 +17,3 @@ Spawn::Spawn(std::string const &command)
     rdbuf(&d_insertBuffer);
 //    rdbuf(&d_extractBuffer);
 }
-

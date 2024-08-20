@@ -2,11 +2,11 @@
 
 int LogBuf::overflow(int ch)
 {
-    if (d_active == OFF)            // ignore the char if we're not active 
+    if (d_active == OFF)            // ignore the char if we're not active
         return ch;
                                     // if the ch. is not fnl (forced \n)
-    if (ch != 1 and d_active == NOT_ACTIVE) 
-    {                                   
+    if (ch != 1 and d_active == NOT_ACTIVE)
+    {
         if (ch == '\n')
             d_empty = true;
 
@@ -24,13 +24,13 @@ int LogBuf::overflow(int ch)
             ch = '\n';       // fallthrough (continue) as \n
         [[fallthrough]];
 
-        case '\n':          // at '\n', set d_empty to true. This generates 
+        case '\n':          // at '\n', set d_empty to true. This generates
                             // a timestamp at the next insertion
             d_empty = true;
         break;
     }
 
-    return 
+    return
         d_stream->write(reinterpret_cast<char const *>(&ch), sizeof(char)) ?
             ch
         :

@@ -5,7 +5,7 @@ tput clear
 LIBS=" -lbobcat -lcrypto"
 GPP="g++ `cat ../../c++std`"
 
-# WHEN LINKING TO A STATIC LIBRARY DON'T FORGET TO LINK AGAINST 
+# WHEN LINKING TO A STATIC LIBRARY DON'T FORGET TO LINK AGAINST
 # crypto (-lcrypto)
 
 # link against ../tmp/libbigint.a
@@ -25,4 +25,3 @@ $CMD || exit 1
 
 echo Ready...
 driver
-

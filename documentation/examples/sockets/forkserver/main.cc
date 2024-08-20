@@ -15,11 +15,11 @@ void sigchld_handler(int signum)
 
     stop = (WEXITSTATUS(status) != 0);
 
-    cerr << "Process " << pid << " returns exit status " << 
+    cerr << "Process " << pid << " returns exit status " <<
             WEXITSTATUS(status) << ", stop = " << stop << endl;
 
     if (stop)                           // terminate when done
-        exit(0);                            
+        exit(0);
 }
 
 
@@ -30,7 +30,7 @@ try
     {
         cout << "port number required\n";
         return 1;
-    }        
+    }
 
     signal(SIGCHLD, sigchld_handler);       // handle terminating children
 
@@ -46,15 +46,15 @@ try
 
         SocketBase fdb = server.accept();   // wait for incoming
         int fd = fdb.socket();
-        
+
         cerr << "Client FD = " << fd << ", " << endl <<
                 "address = " << fdb.dottedDecimalAddress() << ", " <<
                 endl <<
                 "communication through port " << fdb.port() << endl;
-        
+
         Handler handler(fd);        // create separate process for each
         handler.fork();             // connection
-    }  
+    }
 
 }
 catch(exception const &error)

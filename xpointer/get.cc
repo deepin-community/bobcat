@@ -9,8 +9,7 @@ bool Xpointer::get(int *x, int *y) const
     int dum_x;
     int dum_y;
 
-    return 
+    return
         XQueryPointer(s_theDisplay, root, &rootret, &child,
                         x, y, &dum_x, &dum_y, &keys);
 }
-

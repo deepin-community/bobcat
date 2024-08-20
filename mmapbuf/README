@@ -1,0 +1,111 @@
+MmapBuf implements a streambuf using the mmap function for for its file I/O.
+
+Data members are
+
+    string d_fname                - the name of the used file
+    std::ios:openmode d_openMode  - mode flags like ios::in, ios::out,
+                                    but also, e.g, ios::ate and ios::app  
+
+    char *d_buffer                - the memory buffer returned by mmap
+    size_t d_bufSize              - the size of the buffer returned by mmap
+    size_t d_readBufSize          - the maybe reduced buffer size when reading
+
+    size_t d_enlargedSize         - when writing is allowed: the largest used
+                                    offset + bufSize value 
+    size_t d_fileSize             - original file size, increased when writing
+                                    to positions beyond d_fileSize. The
+                                    Mapbase object's destructor resizes the
+                                    file to d_fileSize.
+    size_t d_pos                  - the current offset within the file
+                                    (returned by tellp/tellg)
+
+    bool d_activeBuffer           - true: under/overflow has set a buffer with
+                                    setp/setg
+
+    size_t d_offset               - the current offset used by mmap 
+                                    (cf. underflow.cc) 
+
+    char *d_maxPtr                - the maximum pptr() value used in the 
+                                    current buffer.
+    
+    bool d_sync                   - used by IOmmapStream: true when sync is
+                                    required when reading information after
+                                    writing 
+
+    static size_t s_pageSize;     - the page size returned by 
+                                    sysconf(_SC_PAGE_SIZE) (e.g., 4096). This
+                                    variable defines the smallest size of the
+                                    buffer used by mmap.
+
+Flow used by seek:
+            
+    The data member d_activeBuffer keeps track of whether or not an active
+    mmap buffer exists.
+
+    When seeking with ios::beg or ios::end d_pos is set according to the
+    specified argument. 
+
+    When seeking with ios::cur, 
+        no active buffer:
+            the pos paramater is added to d_pos.
+        active buffer:
+            when writing was used (pbase() != 0) the offset after the last
+                writing action is determined. 
+               (if that position exceeds the last used position in the mmap
+                buffer then d_maxPtr is updated, so when the buffer is flushed
+                the file size can be updated)
+            when reading was used (eback() != 0) the offset after the last
+                reading action is determined. 
+            next d_pos is updated to the max(writePos, readPos) + pos
+
+    Next the read/write buffers are reset to 0, forcing over/underflow at the
+    next read/write request. At that point d_activeBuffer is set to false (as
+    there's no active buffer anymore) and d_pos, the new current position in
+    the file is returned.
+
+Flow used by overflow:
+
+    if there's an active buffer, then it was completely filled, and the next
+        d_pos is the beginning of a new buffer.
+    otherwise there's no active buffer:
+
+        maybe d_buffer exists (i.e., d_activeBuffer = true), resulting from
+        the last mmap call.  
+        If d_pos is located inside the current buffer then the overflowing
+            char is written into that position.
+        otherwise the current buffer is sync-ed (unmapped) to file and a new
+            mmap buffer is loaded. d_pos is then located inside the new buffer
+            and the overflowing char is written into that position.
+
+        When writing the overflowing char d_sync is set to true, allowing
+            read-operations to sync the last written buffer, possibly
+            enlarging the file's size.
+
+Flow used by underflow: 
+
+    When underflow is called and IOmmapStream is used information may have
+    been written to file by a previous write action (in which case d_sync is
+    true). If so the currernt mmapped buffer is written to file, possibly
+    updating the file's size so reading can cover the fully updated file.
+
+    If d_activeBuffer is true, then reading exhausted the current buffer and
+    d_pos is set to just beyond the current buffer.
+
+    otherwise there's no active buffer:
+
+        maybe d_buffer exists, resulting from the last mmap call.  
+        If d_pos is located inside the current buffer then there is an active
+            buffer, buffer's gptr() location is updated and the char. at that
+            position is returned.
+        otherwise a possibly existing mmapped buffer is unmapped, the
+            parameters of the next buffer are determined, and the
+            character at position d_pos in that buffer is returned
+
+When mapping for reading the maximum position in the mapped buffer cannot
+exceed the file's size. The max. usable position is stored in d_readBufSize by
+the function readBuffer. If d_pos exceeds the current file size EOF is
+returned. 
+
+Note that the offset plus the size of the buffer that's passed to mmap can
+exceed the current file's size.
+    

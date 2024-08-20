@@ -20,4 +20,3 @@ catch (...)
     d_status = "Content-Disposition not recognized in: " + line;
     throw false;
 }
-

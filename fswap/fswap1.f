@@ -1,5 +1,5 @@
 
-    // The full fswap function template, requiring an explicit first member 
+    // The full fswap function template, requiring an explicit first member
     // address
     //
 template <SwapMode::Enum mode,
@@ -17,4 +17,3 @@ void fswap(First *firstAddr, Type &lhs, Type &rhs, MemberList &&...swapList)
     FSwap<ModeType<mode>, Type, MemberList ...>::
         swap(pod, std::forward<MemberList>(swapList) ...);
 }
-

@@ -1,0 +1,13 @@
+#include "../../xerr/xerr.ih"
+
+#include <filesystem>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <exception>
+
+#include "../omapbuf"
+
+using namespace std;
+namespace fs = filesystem;
+

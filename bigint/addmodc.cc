@@ -6,4 +6,3 @@ BigInt BigInt::addModc(BigInt const &rhs, BigInt const &mod) const
     ret.addMod(rhs, mod);
     return ret;
 }
-

@@ -8,6 +8,8 @@
 
 #include <unistd.h>
 
-using namespace FBB;
 
+#ifndef SPCH_
+using namespace FBB;
 using namespace std;
+#endif

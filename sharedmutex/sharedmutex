@@ -3,6 +3,8 @@
 
 #include <pthread.h>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
@@ -28,6 +30,5 @@ class SharedMutex
 #include "unlock.f"
 #include "mutexptr.f"
 
-} // FBB        
+} // FBB
 #endif
-

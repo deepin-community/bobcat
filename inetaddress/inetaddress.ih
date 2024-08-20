@@ -3,5 +3,7 @@
 #include <netdb.h>
 #include "../gethostent/gethostent"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

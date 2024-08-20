@@ -3,13 +3,14 @@
 
 //  See also https://en.wikipedia.org/wiki/Quoted-printable
 // And  https://www.ietf.org/rfc/rfc2045.txt    (section 6.7)
-// 
-// 
+//
+//
 
 #include <istream>
 #include <string>
 
 #include <bobcat/ifilterbuf>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -20,7 +21,7 @@ namespace IUO   // the facilities defined here are not further documented:
 
 class QPBufBase: public FBB::IFilterBuf
 {
-    enum 
+    enum
     {
         MAX_LENGTH = 76,
         LAST_IDX = 75
@@ -49,7 +50,7 @@ class QPBufBase: public FBB::IFilterBuf
                                 // 'filter' controls the conversion
         bool filter(char const **srcBegin, char const **srcEnd) override;
 
-        bool encode(); // false means: end of input on d_in, but there 
+        bool encode(); // false means: end of input on d_in, but there
                         // may still be chars to process in d_buffer
         bool decode();
 
@@ -62,6 +63,6 @@ class QPBufBase: public FBB::IFilterBuf
 };
 
 }   // IUO
-}   // FBB        
+}   // FBB
 
 #endif

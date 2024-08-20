@@ -1,7 +1,10 @@
 
 #include <fstream>
 #include <iostream>
-#include <bobcat/diffiehellman>
+
+#include <bobcat/exception>
+
+#include "../diffiehellman"
 
 using namespace FBB;
 using namespace std;
@@ -9,36 +12,64 @@ using namespace std;
 int main(int argc, char **argv)
 try
 {
-    if (argc == 1)              // initiator: create DH parameters
+
+    if (argc == 1)
     {
-        DiffieHellman dh(1024, 5, true);
-        dh.save("init", DiffieHellman::SAVE_SECRET_KEY);
+        cout << "1: create prime and generator, write to 'params'\n"
+                "2: create secret and public parts, arg 2: 0 or 1,\n"
+                "   write secret and public parts to <arg 2>.sec and "
+                                                     "<arg 2>.pub\n"
+                "3: create common key arg 2: 0 or 1,\n"
+                "   0: write common0 using 0.pub, 0.sec and 1.pub\n"
+                "   1: write common1 using 1.pub, 1.sec and 0.pub\n"
+                ;
+        return 0;
     }
 
-    if (argc == 2)              // peer: save peer's scret key
+
+    switch (*argv[1])                       // using generator == 5
     {
-        DiffieHellman dh("init.pub");
-        dh.save("peer", DiffieHellman::SAVE_SECRET_KEY);
+        case '1':
+        {
+            ofstream out = Exception::factory<ofstream>("params");
+            out << hex << DiffieHellman::prime(1024, true, true) << '\n';
+        }
+        break;
 
-        string key = dh.key();
-        cout << "Key length: " << key.length() << '\n';
-        ofstream outkey("peerkey");
-        outkey.write(key.data(), key.length());
+        case '2':
+        {
+            char *nr = argv[2];
+
+            if (nr == 0 || "01"s.find(*nr) == string::npos)
+                throw Exception{} << "mode '2' needs 0 or 1 as 2nd argument";
+
+            ifstream in = Exception::factory<ifstream>("params");
+            BigInt prime;
+            in >> hex >> prime;
+
+            DiffieHellman dh{ prime };
+            dh.save(nr);
+        }
+        break;
+
+        case '3':
+        {
+            char *nr = argv[2];
+
+            if (nr == 0 || "01"s.find(*nr) == string::npos)
+                throw Exception{} << "mode '3' needs 0 or 1 as 2nd argument";
+
+            DiffieHellman dh{ nr + ".pub"s, nr + ".sec"s };
+            cout << "common key computed by " << nr << ":\n" <<
+                hex << dh.key((nr[0] == '0' ? '1' : '0') + ".pub"s) << '\n';
+        }
+        break;
+
+        default:
+        throw Exception{} << "undefined action `" << *argv[1] <<'\'';
     }
-
-    if (argc == 3)
-    {
-        DiffieHellman dh("init.pub", "init.sec");
-
-        string key = dh.key("peer.pub");
-        cout << "Key length: " << key.length() << '\n';
-        ofstream outkey("initkey");
-        outkey.write(key.data(), key.length());
-    }
-
 }
 catch (std::exception const &exc)
 {
     std::cout << exc.what() << '\n';
 }
-

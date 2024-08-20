@@ -1,7 +1,7 @@
 #include "bigint.ih"
 
-// static 
-BigInt BigInt::diophantus(BigInt *factor1, BigInt *factor2, 
+// static
+BigInt BigInt::diophantus(BigInt *factor1, BigInt *factor2,
                           BigInt const &value1, BigInt const &value2)
 {
     BigInt modulo = value1 % value2;

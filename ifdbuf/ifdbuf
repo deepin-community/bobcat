@@ -4,7 +4,7 @@
 #include <bobcat/eoibuf>
 
 namespace FBB
-{    
+{
 
 class IFdBuf: public EoiBuf
 {
@@ -18,8 +18,8 @@ class IFdBuf: public EoiBuf
             // mode-less open() call and for the destructor.
         enum Mode
         {
-            CLOSE_FD,
-            KEEP_FD,
+            CLOSE_FD,   // 0
+            KEEP_FD,    // 1
         };
 
     private:
@@ -40,23 +40,29 @@ class IFdBuf: public EoiBuf
 
         void reset(int xfd, Mode mode, size_t size = 1);        // .cc
         void reset(int xfd, size_t size = 1);                   // .f
-
         void close();                                           // .f
-        
         int fd() const;                                         // .f
+        Mode mode() const;                                      // .f
+
+    protected:
+        void cleanup(Mode mode);
+        void setFd(int fd);                                     // .f
+        int p_underflow();                                      // .f
+        std::streamsize p_xsgetn(char *dest, std::streamsize n);   // .f
 
     private:
         int underflow() override;
         std::streamsize xsgetn(char *dest, std::streamsize n) override;
-
-        void cleanup(Mode mode);
 };
 
 #include "reset.f"
 #include "close.f"
 #include "fd.f"
+#include "mode.f"
+#include "setfd.f"
+#include "punderflow.f"
+#include "pxsgetn.f"
 
 } // FBB
 
 #endif
-

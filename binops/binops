@@ -35,5 +35,3 @@
 #include "optimes2.f"           // LHS * RHS
 
 #endif
-
-

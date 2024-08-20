@@ -11,7 +11,7 @@ using namespace std;
 
 class Hash
 {
-    public: 
+    public:
         size_t operator()(char const *str) const
         {
             size_t ret = 0;
@@ -25,7 +25,7 @@ class Hash
 
 int main(int argc, char *const *const argv)
 {
-    pair<char const *, int> d[] = 
+    pair<char const *, int> d[] =
     {
         pair<char const *, int>("aap", 18),
         pair<char const *, int>("noot", 20),
@@ -36,7 +36,3 @@ int main(int argc, char *const *const argv)
 
     cout << hcp["noot"] << endl;
 }
-
-
-
-

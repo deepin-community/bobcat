@@ -1,4 +1,6 @@
 #include "a2x"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

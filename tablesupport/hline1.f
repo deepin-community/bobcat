@@ -1,4 +1,4 @@
-inline void TableSupport::hline() const
+inline void FBB::TableSupport::hline() const
 {
     v_hline();
 }

@@ -11,11 +11,11 @@ void deprecated__(bool &called, char const *msg);
 
 class OptStructArray
 {
-    typedef struct option  OptStruct;
+    using OptStruct =  struct option;
 
     size_t    d_n;
     OptStruct *d_opt;
-    
+
     public:
         OptStructArray(size_t n);
         ~OptStructArray();

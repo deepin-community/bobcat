@@ -13,7 +13,7 @@ void GetHostent::solveAddress(char const *prefix, string const &host)
     if (getaddrinfo(host.c_str(), 0, &hints, &res) != 0)
         hostError(prefix);
 
-    s_address = reinterpret_cast<sockaddr_in *>(res->ai_addr)->sin_addr; 
+    s_address = reinterpret_cast<sockaddr_in *>(res->ai_addr)->sin_addr;
 
     freeaddrinfo(res);
 }

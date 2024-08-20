@@ -9,10 +9,10 @@ bool Stat::setPath(int (*statFun)(char const *, stat *),
     vector<string> element;
     String::split(&element, pathlist, ":");
 
-    for 
+    for
     (
-        vector<string>::iterator it = element.begin(); 
-            it != element.end(); 
+        vector<string>::iterator it = element.begin();
+            it != element.end();
                 ++it
     )
     {
@@ -22,12 +22,3 @@ bool Stat::setPath(int (*statFun)(char const *, stat *),
 
     return false;
 }
-
-
-
-
-
-
-
-
-

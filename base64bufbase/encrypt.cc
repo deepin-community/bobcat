@@ -8,7 +8,7 @@ bool Base64BufBase::encrypt()
         int c0 = d_in.get();
         if (!d_in)
             return d_buffer.size();
-        
+
         int c1 = d_in.get();
         int c2 = d_in.get();
 
@@ -34,12 +34,5 @@ bool Base64BufBase::encrypt()
             d_buffer.push_back('\n');
             return true;
         }
-    }        
+    }
 }
-
-
-
-
-
-
-

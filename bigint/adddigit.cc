@@ -1,6 +1,6 @@
 #include "bigint.ih"
 
-bool BigInt::addDigit(char ch, BigInt &ret, BigInt const &radix, 
+bool BigInt::addDigit(char ch, BigInt &ret, BigInt const &radix,
                                             int (*pConv)(int))
 {
     if (not (*pConv)(static_cast<unsigned char>(ch)))

@@ -1,4 +1,4 @@
-inline DateTime::Zone::Zone(Data &&data)
+inline FBB::DateTime::Zone::Zone(Data &&data)
 :
     d_data(std::move(data))
 {}

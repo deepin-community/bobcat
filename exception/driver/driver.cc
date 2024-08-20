@@ -73,13 +73,6 @@ int main(int argc, char **argv)
     {
         cout << "eighth: " << e.what() << '\n';
     }
-    
+
     cout << "end of program\n";
 }
-
-
-
-
-
-
-

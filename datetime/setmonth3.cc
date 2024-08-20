@@ -30,5 +30,3 @@ void DateTime::setMonth(Month month, Relative where)
 
     setFields(ts, MONTH | YEAR);
 }
-
-

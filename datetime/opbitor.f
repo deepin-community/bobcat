@@ -1,4 +1,4 @@
-inline DateTime::TimeFields operator|(DateTime::TimeFields lhs,
+inline FBB::DateTime::TimeFields operator|(DateTime::TimeFields lhs,
                                       DateTime::TimeFields rhs)
 {
     return static_cast<DateTime::TimeFields>

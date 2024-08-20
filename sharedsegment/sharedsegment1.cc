@@ -14,5 +14,5 @@ SharedSegment::SharedSegment(size_t access, size_t nBlocks, size_t segmentSize)
             begin != end;
                 ++begin
     )
-        new (begin) SharedBlock; 
+        new (begin) SharedBlock;
 }

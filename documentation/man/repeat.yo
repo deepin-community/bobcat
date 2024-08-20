@@ -17,11 +17,11 @@ define arguments. Arguments to these functions are specified when tt(repeat)
 is called, and are perfectly forwarded by the tt(repeat) function
 template to the (member) function called by tt(repeat).
 
-The first argument of the tt(repeat) function template defines the number of 
+The first argument of the tt(repeat) function template defines the number of
 times the (member) function must be called.
 
 The tt(FBB::repeat) function template are defined tt(inline),
-allowing the compiler to `optimize away' the tt(repeat) function call 
+allowing the compiler to `optimize away' the tt(repeat) function call
 itself.
 
 includefile(include/namespace)
@@ -68,7 +68,3 @@ manpagebugs()
         likely required to disambiguate your intentions.
 
 includefile(include/trailer)
-
-
-
-

@@ -1,81 +1,111 @@
 includefile(include/header)
 
 COMMENT(manpage, section, releasedate, archive, short name)
-manpage(FBB::ISymCryptStream)(3bobcat)(_CurYrs_)
-(libbobcat-dev__CurVers_)  
+manpage(FBB::ISymCryptStream)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
                     (Symmetric en- and decryption)
 
-manpagename(FBB::ISymCryptStream)(Istream performing symmetric encryption)
+manpagename(FBB::ISymCryptStream)(Istream performing symmetric en/decryption)
 
 manpagesynopsis()
     bf(#include <bobcat/isymcryptstream>)nl()
-    Linking option: tt(-lbobcat -lcrypto) 
+    Linking option: tt(-lbobcat -lcrypto)
 
 manpagedescription()
-    bf(FBB::ISymCryptStream) objects may be used to encrypt or decrypt
-information that is available on a separate tt(std::istream).
+    bf(FBB::ISymCryptStream) objects can be used to encrypt or decrypt
+information that is available on separate tt(std::istream) streams.
 
-     The tt(class ISymCryptStream) is a class template, using a
-tt(FBB::CryptType) template non-type parameter. Objects of the class 
+     The class tt(ISymCryptStream) is a class template, using a
+tt(FBB::CryptType) template non-type parameter. Objects of the class
 tt(FBB::ISymCryptStream<FBB::ENCRYPT>) encrypt the information they receive,
 objects of the class tt(FBB::ISymCryptStream<FBB::DECRYPT>) decrypt the
 information they receive.
 
     All symmetric encryption methods defined by the OpenSSL library that can
-be selected by name may be used in combination with tt(EncryptBuf) objects. To
-select a particular encryption method an identifier is passed to the
-constructor. E.g., tt("aes-128-cbc") indicating the AES (Rijndael) method,
-using 128 bit sized keys and blocks using `cbc' mode (see below for an
-explanation).
+be selected by name may be used to en/decrypt information. To select a
+particular encryption method an identifier is passed to the constructor. E.g.,
+tt("aes-256-gcm"). For an overview of the currently supported cipher
+algorithms issue the command
+        verb(
+    openssl list -cipher-algorithms
+        )
 
-    Refer to the bf(isymcryptstreambuf)(3bobcat) man-page for a description of
-available encryption methods.
+tt(ISymCryptStream) objects read the information to en/decrypt from
+tt(std::istream) objects, which are at construction-time specified as
+tt(istream) references or by filename. The characters that are thereupon
+extracted or read from tt(ISymCryptStream) objects are en/decrypted, and
+could, e.g., be written to some output stream.
 
 includefile(include/namespace)
 
 manpagesection(INHERITS FROM)
     bf(FBB::ISymCryptStreambuf) (private), nl()
-    bf(std::istream) 
-    
+    bf(std::istream)
 
-manpagesection(CONSTRUCTOR)
+manpagesection(CONSTRUCTORS)
     itemization(
-    itb(ISymCryptStream<CryptType>(
-                   std::istream &in,        char const *type,
-                   std::string const &key,  std::string const &iv,
-                   size_t bufSize = 100,    size_t filterBufSize = 1000, 
-                   ENGINE *engine = 0))
-        This constructor initializes a tt(std::istream) providing it with an
-tt(FBB::ISymCryptStreambuf) stream buffer. The tt(ISymCryptStreambuf)'s
-constructor receives all arguments that are passed to this constructor.
+    itb(ISymCryptStream<CryptType>(std::istream &inStream,
+                    std::string const &cipherName,
+                    std::string const &key,
+                    std::string const &iv,
+                    size_t inBufSize = 100))
+       This constructor defines a tt(std::istream) object encrypting or
+        decrypting the characters which are read from tt(inStream).
 
-    - tt(ISymCryptStream<ENCRYPT>) objects perform encryption;nl()
-        tt(ISymCryptStream<DECRYPT>) objects perform decryption;nl()
-    - tt(ISymCryptStream<CryptType>) objects obtain the bytes to encrypt
-or decrypt from tt(std::istream &in);nl()
-    - The encryption method to use is specified by the tt(type)
-parameter. E.g., tt("bf-cbc") selects the Blowfish Cipher Block Chaining
-method;nl()
+    - tt(ISymCryptStream<FBB::ENCRYPT>) objects perform encryption;nl()
+        tt(ISymCryptStream<FBB::DECRYPT>) objects perform decryption;
+
+    - tt(ISymCryptStream<CryptType>) objects receive the characters to encrypt
+        or decrypt from tt(inStream);nl()
+    - The encryption method to use is specified by the tt(cipherName)
+        parameter. E.g., tt("AES-256-GCM");nl()
     - The symmetric key to use is specified by the tt(key) parameter;nl()
     - The initialization vector is specified by the tt(iv) parameter;nl()
-    - The tt(FBB::ISymCryptStreambuf) internally used buffer will contain
-tt(bufSize) characters. The default value is the smallest value that is
-used. When a smaller tt(bufSize) value is specified, the default value is
-used;nl()
-    - The internally used tt(IFilterBuf) is initialized with a buffer of
-size tt(filterBufSize), using a lower bound of 100;nl()
-    - The parameter tt(ENGINE) can be used to specify a hardware
-acceleration engine, as supported by the used encryption/decryption
-method. Its default argument value indicates that no hardware acceleration is
-available.
+    - The tt(FBB::ISymCryptStreambuf) internally used buffer will hold
+        tt(inBufSize) characters. The default value is the smallest value that
+        is used. When specifying a smaller tt(bufSize) value than the default
+        value then the default value is used;nl()
+
+    itb(ISymCryptStream<CryptType>(std::string const &inStreamName,
+                    std::string const &cipherName,
+                    std::string const &key,
+                    std::string const &iv,
+                    size_t inBufSize = 100))
+       Same constructor as the previous one, but this constructor's first
+        parameter specifies the name of the file containing the characters to
+        encrypt or decrypt.
     )
 
-    Copy and move constructors (and assignment operators) are not available.
+    If the construction fails an exception is thrown, mentioning the openssl
+function that failed to complete (see also tt(errorMsg) below).
+
+    The move constructor is available, the copy constructor and assignment
+operators are not available,
 
 manpagesection(INHERITED MEMBERS)
 
-    Since the class uses public derivation from bf(std::istream), all members
-of this class can be used.
+    Since the class is publicly derived from bf(std::istream), all
+tt(std::istream) members can be used.
+
+manpagesection(MEMBER FUNCTIONS)
+    itemization(
+    itb(static std::string errorMsg())
+        If an openssl function fails an exception is thrown mentioning the
+name of the failing function. In those cases the function tt(errorMsg) can be
+called returning a tt(std::string) containing the openssl error code (returned
+by tt(ERR_get_error)) and its textual representation (returned by
+tt(ERR_error_string)). If the reported error code is zero, then in fact no
+error has occurred and the exception was spuriously reported;
+
+    itb(static size_t keyLength(std::string const &cipherName))
+        returns the minimum key length required for cipher tt(cipherName);
+
+    itb(static size_t ivLength(std::sting const &cipherName))
+        returns the minimum length of the initialization vector that is
+        required for cipher tt(cipherName).
+    )
+
+    The latter two functions throw exceptions if tt(cipherName) does not
+contain the name of a supported cipher algorithm.
 
 manpagesection(EXAMPLE)
     verbinclude(../../isymcryptstream/driver/driver.cc)
@@ -84,17 +114,10 @@ manpagefiles()
     em(bobcat/isymcryptstream) - defines the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(isymcryptstreambuf)(3bobcat)
+    bf(bobcat)(7), bf(isymcryptstreambuf)(3bobcat),
+    bf(osymcryptstream)(3bobcat), bf(osymcryptstreambuf)(3bobcat)
 
 manpagebugs()
-
-    Sep/Oct 2013: due to a change in library handling by the linker
-(cf. lurl(http://fedoraproject.org/wiki/UnderstandingDSOLinkChange) and
-lurl(https://wiki.debian.org/ToolChain/DSOLinking)) libraries that are
-indirectly required are no longer automatically linked to your program. With
-bf(BigInt) this is tt(libcrypto), which requires programs to link to both
-tt(bobcat) and tt(crypto).
+    None Reported.
 
 includefile(include/trailer)
-
-

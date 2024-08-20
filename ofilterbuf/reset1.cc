@@ -7,4 +7,3 @@ void OFilterBuf::reset(std::string const &fname, openmode mode)
     d_dest.open(fname, mode);
     d_out = &d_dest;
 }
-

@@ -11,4 +11,3 @@ time_t DateTime::utcFromTM(TM &tm) const
 
     return ret;
 }
-

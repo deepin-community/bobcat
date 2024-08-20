@@ -18,20 +18,20 @@ class IBuf: public FBB::IFilterBuf
 
     bool filter(char const **srcBegin, char const **srcEnd) override;
 
-    
+
 };
 
 IBuf::IBuf(std::istream &in, unsigned long addr, uint16_t port)
 :
     d_in(in),
-    d_key(reinterpret_cast<char const *>(&addr), 
-          reinterpret_cast<char const *>(&addr + sizeof(long)), 
+    d_key(reinterpret_cast<char const *>(&addr),
+          reinterpret_cast<char const *>(&addr + sizeof(long)),
 {
     char const *cp = reinterpret_cast<char const *>(&port);
 
     for (auto &ch: d_key)
     {
-        ch ^= 
+        ch ^=
 }
 
 bool IBuf::filter(char const **srcBegin, char const **srcEnd)
@@ -59,8 +59,8 @@ bool IBuf::filter(char const **srcBegin, char const **srcEnd)
     return true;
 }
 
-    
-    
+
+
 int main(int argc, char **argv)
 try
 {
@@ -104,7 +104,7 @@ try
         IFdStream in(fd);           // stream to read from client
         OFdStream out(fd);          // stream to write to client
         string cmd;
-        
+
         out << (unsigned long)(fdb.port() ^ addr) << endl;
 
         while (getline(in, cmd))
@@ -122,8 +122,7 @@ catch (exception const &err)
 {
     cerr <<
         err.what() << endl <<
-        "Server socket on port " << argv[1] << 
+        "Server socket on port " << argv[1] <<
         " can't be opened" << endl;
     return -1;
-}        
-
+}

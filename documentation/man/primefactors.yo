@@ -9,7 +9,7 @@ manpagename(FBB::PrimeFactors)(Performs the prime-number factorization of
 
 manpagesynopsis()
     bf(#include <bobcat/primefactors>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -71,7 +71,7 @@ manpagesection(CONSTRUCTORS)
     itb(PrimeFactors(BigIntVector &primes))
         Prime numbers that were determined while factorizing values are
 collected in the tt(BigIntVector) that is passed as argument to this
-constructor. 
+constructor.
 
     Initially the tt(BigIntVector) passed as argument may be empty or may
 contain at least two primes (which must be, respectively, 2 and 3). The prime
@@ -88,7 +88,7 @@ tt(primes), and tt(primes) can be reused by othher tt(PrimeFactors) objects.
         Prime numbers that are determined while factorizing values are
 collected on a stream whose name is passed as argument to this constructor. By
 default tt(~/.primes) is used. If tt(name) starts with `tt(~/)', then this
-string is replaced by the user's home directory. 
+string is replaced by the user's home directory.
 
     Primes are read from the named stream in blocks of at most tt(blockSize),
 and new primes are flushed to this stream once tt(blockSize) new primes have
@@ -127,17 +127,17 @@ contains the value's smallest prime number factor.
     )
 
 manpagesection(EXAMPLE)
-    
+
         verbinclude(../../primefactors/driver/driver.cc)
 
     If this program is run with argument 1950 it produces the following
-output: 
+output:
         verb(
     Using /tmp/primes:
-    2**1 3**1 5**2 13**1 
+    2**1 3**1 5**2 13**1
     Using BigIntVector:
-    2**1 3**1 5**2 13**1 
-    Collected primes: 2 3 5 7 11 13 
+    2**1 3**1 5**2 13**1
+    Collected primes: 2 3 5 7 11 13
         )
 
 manpagefiles()

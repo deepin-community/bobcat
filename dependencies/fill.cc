@@ -15,9 +15,9 @@ void fill(Map &table)
             in >> key;
             table.insert(ValueType{ key, ValuePair{StringSet{}, false} });
         }
-        else                        // add \s+value to the table, and 
+        else                        // add \s+value to the table, and
         {                           // indicate that it depends on 'key'
-            in >> value;            
+            in >> value;
             table[value].first.insert(key);
         }
     }

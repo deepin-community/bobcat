@@ -1,0 +1,51 @@
+
+    b         - cp the file's rdbuf to cout
+    c         - clear the file
+    f         - file size
+    g         - get a single character fm the file, writing to cout
+    l nr      - insert nr lines from the file into cout
+    o offset  - seekg offset 
+    q         - quit
+    r nr      - read  nr chars from the file, writing them to cout
+    t         - tellg
+
+bufSize: 4096
+fileSize: 11148
+
+1? #include <fstream>
+inserted 1 lines
+in OK: 1, at offset 19
+
+2? in OK: 1, at offset 5000
+
+3?          value = in.gcount();
+inserted 1 lines
+in OK: 1, at offset 5030
+
+4? in OK: 1, at offset 10000
+
+5?      break;
+inserted 1 lines
+in OK: 1, at offset 10012
+
+6? in OK: 1, at offset 0
+
+7? #include <fstream>
+inserted 1 lines
+in OK: 1, at offset 19
+
+8? in OK: 1, at offset 11000
+
+9? "in OK: " << in.good() << ", at offset " << value << '\n';
+    }
+}
+catch (exception const &exc)
+{
+    cerr << exc.what() << '\n';
+    return 1;
+}
+
+
+in OK: 1, at offset 11148
+
+10? 

@@ -1,0 +1,76 @@
+#ifndef INCLUDED_BOBCAT_SYMCRYPTBASE_
+#define INCLUDED_BOBCAT_SYMCRYPTBASE_
+
+#include <iosfwd>
+#include <memory>
+#include <string>
+
+#include <openssl/evp.h>
+#include <bobcat/exception>
+
+namespace FBB
+{
+
+namespace IUO   // the facilities defined here are not further documented
+{               // elsewhere. The SymCryptBase class defined below
+                // should only be used by ISymCryptBase and OSymCryptBase.
+
+class SymCryptBase
+{
+    std::string d_cipherName;
+
+    size_t d_outBufSize = 0;
+    std::unique_ptr<char []> d_outBuf;  // buffer receiving processed chars:
+                                        // size determined by checkOutBufSize
+
+    EVP_CIPHER_CTX *d_ctx;
+    size_t d_blockSize;
+
+    public:
+        SymCryptBase(
+            std::string const &cipherName,
+            std::string const &key,
+            std::string const &iv,
+            OSSL_PARAM const *params,
+
+            int (*evpInit)(EVP_CIPHER_CTX *ctx, EVP_CIPHER const *type,
+                unsigned char const *key, unsigned char const *iv,
+                OSSL_PARAM const *params)
+        );
+
+        ~SymCryptBase();
+
+        static std::string errorMsg();
+        static size_t ivLength(std::string const &cipherName);
+        static size_t keyLength(std::string const &cipherName);
+
+    protected:
+        EVP_CIPHER_CTX *ctx();                                      // .f
+
+        size_t blockSize() const;                                   // .f
+
+        void checkOutBufSize(size_t inputSize);
+        static EVP_CIPHER *cipherOf(std::string const &cipherName);
+
+        void lengthCheck(char const *what, size_t required, size_t actual)
+                                                                        const;
+
+        static size_t lengthOf(int (*getLength)(EVP_CIPHER const *),
+                               std::string const &cipherName);
+
+        char *outBuf();                                             // .f
+        unsigned char *uOutBuf();                                   // .f
+};
+
+#include "blocksize.f"
+#include "ctx.f"
+#include "ivlength.f"
+#include "keylength.f"
+#include "outbuf.f"
+#include "uoutbuf.f"
+
+}   // IUO
+
+}   // FBB
+
+#endif

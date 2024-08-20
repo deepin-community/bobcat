@@ -1,0 +1,266 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::ECDH)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (Elliptic Curve Diffie-Hellman)
+
+manpagename(FBB::ECDH)(Elliptic Curve Diffie-Hellman PKI, computing shared keys)
+
+manpagesynopsis()
+    bf(#include <bobcat/ecdh>)nl()
+    Linking option: tt(-lbobcat -lcrypto)
+
+manpagedescription()
+
+The class bf(FBB::ECDH) computes shared keys (shared secrets) applying
+elliptic keys to the Diffie-Hellman (1976) algorithm. The Diffie-Hellman
+algorithm uses public and private information, providing a public key
+infrastructure (PKI). The public information consists of an elliptic curve
+specification and a public key, which may be shared over insecure media.
+
+The Diffie-Hellman algorithm is commonly used to compute a shared key which
+is then used to encrypt information sent between two parties. 
+
+One party, which in this man-page is called the em(initiator), specifies at
+construction time an elliptic curve, constructs a public and private key, and
+writes the public key in hexadecimal big-endian form, followed by the name of
+the used elliptic curve to file. The initiator's private key is separately
+written to file, as the private key is required for computating the shared
+key. Encryption may be used when writing the private key to file.
+
+Next the initiator passes the file containing the initiator's public key and
+the name of the used elliptic curve to the other party, which in this man-page
+is called the tt(peer).
+
+The peer, having received the initiator's (public key) file constructs an
+bf(FBB::ECDH) object. The peer's tt(ECDH) constructor computes the peer's
+public and private key, writes the peer's public key to file, and constructs
+the shared key. Once the peer's tt(ECDH) object has been constructed the peer
+can write the shared key to file. The peer's private key may optionally also
+be written to file, but that's optional, as the peer's private key is not
+required for subsequent computations. Encryption may also be used when writing
+the peer's private key to file.
+
+The file containing the peer's public key is then sent to the initator. The
+initator constructs an tt(ECDH) object specifying the names of the
+used elliptic curve, of the file containing the initiator's private key, and
+the name of the file containing the peer's public key. Once this tt(ECDH)
+object has been constructed the peer may write the shared key to file.
+
+The initiator and peer's shared keys are identical and can be used for
+symmetric encryption of sensitive information shared between the initiator and
+the peer.
+
+tt(FBB::Exception)s are thrown if the tt(ECDH) constructors  or members cannot
+complete their tasks.
+
+bf(Perfect Forward Secrecy and Ephemeral Diffie Hellman)
+
+The initiator and peer may decide not to save their private information once
+they have constructed their shared keys, resulting in em(Perfect Forward
+Secrecy) and em(Ephemeral Diffie Hellman). Here, this procedure is applied as
+follows:
+
+    itemization(
+    it() Initiator and peer have agreed upon and securely exchanged a
+long-lasting common secret, which may be used in combination with, e.g.,
+symmetric encryption methods.
+    it() Applying the procedure described in the previous section, the private
+keys are not saved on files, and the process constructing the initiator's
+tt(ECDH) object may not terminate, but must remain active until the peer's
+public key has been received. Once the initiator's process has constructed the
+public key that key is encrypted using the common secret, and is then sent to
+the peer. Alternatively, the initiator's private key may temporarily be stored
+in shared memory or may temporarily be stored encrypted on file.
+    it() The peer, having received the initiator's public key, constructs the
+shared secret, encrypts the peer's public key, and sends the encrypted public
+key to the initiator.
+    it() The initiator upon receipt of the peer's public key, computes the
+shared key, either by continuing the temporarily suspended construction
+process or by retrieving the shared key from memory or file, removing the
+storage (memory or file) thereafter.
+    it() Since the private keys and the public keys are not stored or kept on
+files the shared keys cannot be reconstructed, while a Man-In-The-Middle
+attack is prevented by only exchanging encrypted public information.
+    it() The shared key can now be used to encrypt a communication session
+    )
+
+bf(Document encryption using Diffie Hellman)
+
+As with PKI in general, the Diffie Hellman key exchange method itself is
+normally not used for encrypting documents. Instead, it is used to obtain
+a key that is used for symmetric encryption methods like 3DES or CBC. These
+symmetric encryption methods are available through, e.g., Bobcats'
+tt(ISymCryptStream) and tt(OSymCryptStream) classes.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(ENUMERATIONS)
+    The class tt(ECDH) defines two enumerations, each having one defined
+value. The enumberations are used to select specific overloaded versions of
+the tt(ECDH) constructors or tt(set) members:
+    itemization(
+    it() The t(enum TheInitiator) has value tt(Initiator) and is used to
+        select overloaded versions meant for the initiator;
+    it() The t(enum ThePeer) has value tt(Peer) and is used to
+        select overloaded versions meant for the peer.
+    )
+
+manpagesection(CONSTRUCTORS)
+
+    itemization(
+    itb(ECDH())
+       The default constructor is available merely constructing a valid
+        object. It also prepares a map of all elliptic curves predefined by
+        em(openSSL). As all other constructors use default constructor
+        delegation the map is also available after calling the other
+        constructors;
+
+    itb(ECDH(TheInitiator init, std::string const &curveName, 
+                  std::string const &initPubFname))
+       This constructor initializes the tt(ECDH) object to be used by the
+        initiator, constructing the initiator's private and public keys using
+        the elliptic curve specified by tt(curveName) (e.g., tt(secp384r1),
+        see also tt(operator<<) below). The initiator's public key (in
+        big-endian hexadecimal format) and tt(curveName) are written to
+        tt(initPubFname);
+
+       This constructor should be called by the initiator to start the
+        Diffie-Hellman shared key computation procedure;
+
+    itb(ECDH(ThePeer peer, std::string const &initPubFname,
+                           std::string const &peerPubFname))
+       This constructor is used by the peer, having received the initiator's
+        public info on the file tt(initPubFname).  It constructs the peer's
+        private and public keys as well as the shared key. The peer's public
+        key (in big-endian hexadecimal format) is written to tt(peerPubFname),
+        which file is then be sent to the initiator;
+
+    itb(ECDH(std::string const &curveName, std::string const &peerPubFname, 
+                std::string const &initSecFname,
+                std::string const passphrase = ""))
+       Once the initiator has received the peer's public key (in the file
+        tt(peerPubFname)) this constructor constructs the initiator's version
+        of the shared key. Here, the initiator has previously saved the
+        initiator's private key to tt(initSecFname), optionally using
+        encryption. If encryption was used then the then used passphrase must
+        also be specified when using this constructor.
+    )
+
+    The move constructor (and move assignment operator) is available.
+
+manpagesection(MEMBER FUNCTIONS)
+    itemization(
+    itb(std::string const &curve() const)
+        The used elliptic curve is returned;
+
+    itb(std::string privKey() const) 
+       The big-endian hex-formatted private key is returned, prefixed by a
+        line containing tt(hex);
+
+    itb(void privKey(std::string const &privKeyFname,
+                     std::string passphrase) const)
+       The private private key is encrypted using the tt(AES-256-GCM)
+        encryption algorithm, using passphrase tt(passphrase). It is then
+        written to tt(privKeyFname), prefixed by a line containing
+        tt(encrypted). The string tt(passphrase) must consist of at least five
+        characters, and may contain multiple words;
+
+    itb(std::string const &pubKey() const)
+       The public key is returned as a big-endian hexadecimal string;
+
+    itb(void set(TheInitiator init, std::string const &curveName, 
+                  std::string const &initPubFname))
+       This member should be called by the initiator, constructing the
+        initiator's private and public keys using the elliptic curve specified
+        by tt(curveName). The initiator's public key (in big-endian
+        hexadecimal format) and tt(curveName) are written to tt(initPubFname).
+        This member is automatically called by the constructor having the same
+        parameters, but it may also explicitly called after using the default
+        constructor;
+
+    itb(void set(ThePeer peer, std::string const &initPubFname,
+                           std::string const &peerPubFname))
+       This member should be called by the peer, having received the
+        initiator's public info on the file tt(initPubFname).  It constructs
+        the peer's private and public keys as well as the shared key. The
+        peer's public key (in big-endian hexadecimal format) is written to
+        tt(peerPubFname), which file is then be sent to the initiator.  This
+        member is automatically called by the constructor having the same
+        parameters, but it may also explicitly called after using the default
+        constructor;
+
+    itb(void set(std::string const &curveName, 
+                std::string const &peerPubFname,
+                std::string const &initSecFname, 
+                std::string const passphrase = ""))
+       This member should be called by the initiator, once the peer's public
+        key (in the file tt(peerPubFname)) has been received. It computes the
+        initiator's version of the shared key. When using this member the
+        initiator has previously saved the initiator's private key to
+        tt(initSecFname), optionally using encryption. If encryption was used
+        then the then used passphrase must also be specified as this member's
+        last argument.
+
+    itb(std::string const &sharedKey() const)
+       This member returns the computed shared key (in big-endian hexadecimal
+        format);
+
+    itb(std::string const &sharedKey(std::string const &peerPubFname))
+       Instead of using the tt(set(std::string const &curveName, ...)) member
+        or the tt(ECDH(std::string const &curveName, ...)) constructor, the
+        initiator may also merely call the tt(set(TheInitiator init, ...))
+        member or the tt(ECDH(TheInitiator init, ...)) constructor, suspending
+        the process in which they are called until the file containing the
+        peer's public key has been received. Then, this member can be called
+        by the constructed tt(ECDH) object to obtain the initiator's shared
+        key. The advantage of using this member is that the initiator does not
+        have to save the initiator's private key.
+    )
+
+manpagesection(OVERLOADED OPERATOR)
+
+    itemization(
+    itb(std::ostream &operator<<(ostream &out, ECDH const &ecdh))
+       The (alphabetically ordered) currently available elliptic curves and
+        their associated comment is written to tt(out), one elliptic curve on
+        a separate line.
+    )
+
+manpagesection(EXAMPLE)
+
+Start the program with one of the following arguments:
+    itemization(
+    it() curves: show the available elliptic curves on tt(cout);
+    it() init: compute the initiator's public/secret keys writing them to
+            tt(init.pub) and tt(init.sec);
+    it() peer: compute the peer's public/secret keys writing them to
+            tt(peer.pub) and tt(peer.sec), compute the peer's shared key
+            (tt(peer.shared));
+    it() priv: compute the initiator's shared key (tt(init.shared)) after making
+            tt(peer.pub) available in a separate process, using a single
+            initiator process.
+    it() shared: compute the initiator's shared key (tt(init.shared)) using a
+            separate initiator process.
+    )
+
+verbinclude(../../ecdh/driver/main.cc)
+
+manpagefiles()
+    em(bobcat/ecdh) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(bigint)(3bobcat), bf(diffiehellman)(3bobcat),
+    bf(isymcryptstream)(3bobcat), bf(osymcryptstream)(3bobcat)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)
+
+
+
+

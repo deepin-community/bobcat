@@ -1,4 +1,4 @@
-inline ConfigFile_::const_iterator ConfigFile_::begin() const
+inline FBB::ConfigFile_::const_iterator FBB::ConfigFile_::begin() const
 {
     return d_line.begin();
 }

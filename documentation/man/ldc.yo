@@ -1,0 +1,160 @@
+includefile(include/header)
+
+COMMENT(replace 'classname' by the name of the new class)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::LDC)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+       (Convert (large) digital values to characters)
+
+manpagename(FBB::LDC)(Converts (large) digital values to characters)
+
+manpagesynopsis()
+    bf(#include <bobcat/LDC>)nl()
+    Linking option: tt(-lbobcat)
+
+manpagedescription()
+    Objects of the class tt(LDC) (Large Digital Converter) convert (large)
+digital values (like values handled by the class tt(BigInt)
+(cf. bf(bigint)(3bobcat))) to character representations using radices from 2
+through 36. For radices larger than 10 letters are used, using tt(a) through
+tt(z) to represent the (decimal) values 10 through 36. When specifying radices
+outside of this range an exception is thrown.
+
+Alternatively, the digits of the converted number can be provided in a
+tt(std::string) argument, where the string's first character (at index 0) is
+used for value 0, the next character for value 1, etc., until the string's
+last character. In that case the string's length defines the number system
+that is used for converting the (large) digital value. Usually the first 10
+characters will be tt("0123456789"), but LDC doesn't enforce that. Instead,
+any series of characters can be specified, in which case the character at
+index tt(idx) is used to represent value tt(idx) in the converted value
+string. E.g., when specifying tt("abcdefghij") the hexadecimal value
+tt("deadbeef") is converted to tt("dhdfjciffj") instead of tt("3735928559"),
+which is the normally used decimal digit representation. Digit strings must at
+least contain two characters or an exception is thrown.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(LDC())
+       The default constructor initializes its value to 0;
+
+    itb(LDC(std::string const &hexNr, size_t radix = 10))
+       The bytes of the string tt(hexNr) contains the character representation
+        of a hexadecimal value, which is converted to its equivalent
+        representation using the tt(radix) number system. The string tt(hexNr)
+        should not begin with tt(0x), but its first character should be the
+        value's most significant digit. E.g., tt(LDC ldc{ "12345" }) is
+        converted to decimal 74565 (in this example tt("12345") is first
+        converted to a tt(std::string), which is then passed on to tt(ldc's)
+        constructor). tt(hexNr) may not be empty or an exception is thrown;
+
+    itb(LDC(std::string const &hexNr, std::string const &digits))
+       Same as the previous constructor, but the number system is inferred
+        from tt(digits's) length, using its first character to represent value
+        0, and its last character to represent the final digit of the inferred
+        number system;
+
+    itb(LDC(size_t nBytes, char const *bytes, size_t radix = 10))
+       The bytes of the string tt(bytes) contains the character
+        representation of a hexadecimal value, which is converted to its
+        equivalent representation using tt(radix). The string tt(bytes) should
+        not begin with tt(0x), but its first character should be the value's
+        most significant digit. E.g., tt(LDC{ 5, "12345" }) is converted to
+        decimal 74565. tt(nBytes) must be at least 1 or an exception is
+        thrown;
+
+    itb(LDC(size_t nBytes, char const *bytes, std::string const &digits))
+       Same as the previous constructor, but the number system and the digit
+        characters are inferred from tt(digits);
+
+    itb(LDC(BigInt const &bigInt, size_t radix = 10))
+       tt(BigInt's) value is converted to its equivalent representation using
+        tt(radix);
+
+    itb(LDC(BigInt const &bigInt, std::string const &digits))
+       Same as the previous constructor, but the number system and the digit
+        characters are inferred from tt(digits).
+    )
+
+    Copy and move constructors (and assignment operators) are available.
+
+
+manpagesection(OVERLOADED OPERATORS)
+
+    In addition to the standard copy- and move-assignment operators the
+        following operators are available:
+    itemization(
+    itb(LDC &operator=(std::string const &hexNr))
+       The operator's rhs is the character representation of a hexadecimal
+        number, which is assigned to the tt(LDC) object. The object converts
+        tt(hexNr) to its decimal representation (see also the members tt(set),
+        below).nl()
+        Example:
+       verb(
+LDC ldc;            // initialized with some value
+ldc = "12345";      // assign a new value
+cout << ldc << '\n' // displays 74655
+        )
+       The rhs value may not be empty or an exception is thrown;
+
+    itb(std::string operator()(size_t power, char sep = '\'') const)
+       The converted value is returned using separator tt(sep) before each
+        multiple of tt(power) digits. E.g., when tt(ldc) contains the
+        converted value tt(3735928559) then tt(ldc(3)) returns the string
+        tt(3.735.928.559).
+    )
+
+manpagesection(FREE FUNCTION IN THE FBB NAMESPACE)
+
+    itemization(
+    itb(std::ostream &operator<<(std::ostream &out, LDC const &ldc))
+       The insertion operator inserts the converted value into tt(out),
+        returning tt(out).
+    )
+
+manpagesection(MEMBER FUNCTIONS)
+    itemization(
+    itb(void set(std::string const &hexNr, size_t radix = 10))
+       The tt(LDC) object's converted value is set to the hexadecimal value
+        tt(hexNr), converted to number system tt(radix). tt(hexNr) may not be
+        empty or an exception is thrown ;
+
+    itb(void set(std::string const &hexNr, std::string const &digits))
+       Same as the previous member, but converting tt(hexNr) to the number
+        system and number characters defined by tt(digits);
+
+    itb(void set(size_t nBytes, char const *bytes, size_t radix = 10))
+       The tt(LDC) object's converted value is set to the hexadecimal value
+        stored in the tt(nBytes) bytes of tt(bytes), converted to number
+        system tt(radix). tt(nBytes) must be at least 1 or an exception is
+        thrown;
+
+    itb(void set(size_t nBytes, char const *bytes, std::string const &digits))
+       Same as the previous member, but converting tt(bytes) to the number
+        system and number characters defined by tt(digits);
+
+    itb(std::string const &str() const)
+       The tt(LDC) object's converted value is returned;
+
+    itb(void swap(LDC &other))
+       The tt(other) LDC  object and the current tt(LDC) object are swapped.
+    )
+
+manpagesection(EXAMPLE)
+    verbinclude(../../ldc/driver/example.cc)
+
+manpagefiles()
+    em(bobcat/ldc) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

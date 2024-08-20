@@ -1,6 +1,6 @@
 #include "main.ih"
 
-void getDesired(int argc, char **argv)    
+void getDesired(int argc, char **argv)
 {
     if (argc == 1)
     {
@@ -21,11 +21,10 @@ void getDesired(int argc, char **argv)
 
         cout << "desired zone: " << desiredZone / 3600. << " hours\n"
                 "desired DST:  " << desiredDST / 60 << " minutes\n";
-    
+
         if (setHours)
             cout << "change hours to " << hours << '\n';
-    
+
         cout << '\n';
     }
 }
-

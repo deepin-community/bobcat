@@ -1,2 +1,7 @@
+Future release: remove CryptBuf, EncryptBuf, DecryptBuf
+
 Provide examples in the following man-pages:
     milter.yo
+
+>>> to be used by other build scripts:
+>>> hmacbuf/driver/build converts driver.cc to src.cc for local library use

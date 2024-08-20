@@ -4,5 +4,7 @@
 #include <iomanip>
 #include "../ranger/ranger"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

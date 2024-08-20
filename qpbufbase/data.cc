@@ -7,5 +7,3 @@ void (QPBufBase::*QPBufBase::s_encode[])() =
     &QPBufBase::text,
     &QPBufBase::binary
 };
-    
-

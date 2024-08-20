@@ -1,6 +1,6 @@
 #include "gethostent.ih"
 
-void GetHostent::hostError(char const *text) 
+void GetHostent::hostError(char const *text)
 {
     string msg = text;
 
@@ -26,5 +26,3 @@ void GetHostent::hostError(char const *text)
 
     throw Exception(h_errno) << msg;
 }
-
-

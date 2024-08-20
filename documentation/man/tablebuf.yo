@@ -9,7 +9,7 @@ information inserted into a std::ostream)
 
 manpagesynopsis()
     bf(#include <bobcat/tablebuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -24,7 +24,7 @@ involves the following steps:
     itemization(
     it() Optionally, a  tt(TableSupport) object is created;
     it() A tt(Tablebuf) object is created (maybe passing it a tt(TableSupport)
-object); 
+object);
     it() The tt(Tablebuf) object is used to initialize a tt(std::ostream)
     it() The elements of the table are filled by inserting information into
 that tt(std::ostream)
@@ -93,10 +93,10 @@ row of the first column.
     itb(COLUMNWIDTH)
         This value may be specified when the columns should be allowed
 variable widths. In this case each column will be as wide as its widest
-element. This is the default bf(WidthType) used by bf(Table) objects. 
+element. This is the default bf(WidthType) used by bf(Table) objects.
     itb(EQUALWIDTH)
         This value may be specified when all the table's columns should have
-equal width (i.e., equal to the width of the widest table element), 
+equal width (i.e., equal to the width of the widest table element),
     )
 
 manpagesection(CONSTRUCTORS)
@@ -132,7 +132,7 @@ manpagesection(OVERLOADED OPERATORS)
 object. Note that the tt(TableBuf) object inserted into tt(out) is a non-const
 object, as the table may have to be completed by adding empty elements for
 missing ones. The tt(out) stream should not be equal to the tt(std::ostream)
-object that is used to wrap in a tt(TableBuf) object. 
+object that is used to wrap in a tt(TableBuf) object.
     itb(TableBuf &operator<<(TableBuf &obj, Align const &align))
         This operator is used to change the default alignment of either a
 column or an element. It is a wrapper around the member tt(setAlign()) (see
@@ -198,11 +198,11 @@ manpagesection(MANPULATORS)
         This manipulator can be inserted into a a tt(TableBuf)'s wrapping
 tt(ostream) to call the table's bf(CHAR(d)ef()) member.
     itb(FBB::fs)
-        This manipulator can be inserted into a tt(TableBuf)'s wrapping 
+        This manipulator can be inserted into a tt(TableBuf)'s wrapping
 tt(ostream) to switch to the next field of the table. It is an alternative to
 using the field separator character.
     itb(FBB::rs)
-        This manipulator can be inserted into a tt(TableBuf)'s wrapping 
+        This manipulator can be inserted into a tt(TableBuf)'s wrapping
 tt(ostream) to switch to the next row of the table. It is an alternative to
 using the row separator character.
     )
@@ -214,14 +214,14 @@ manpagesection(EXAMPLE)
 manpagefiles()
     em(bobcat/tablebuf) - defines the class interface;nl()
 
-manpageseealso()
-    bf(bobcat)(7), bf(align)(3bobcat), bf(manipulator)(3bobcat),
-    bf(tablelines)(3bobcat), bf(tablesupport)(3bobcat), bf(table)(3bobcat)
-    
+manpageseealso() 
+    bf(bobcat)(7), bf(align)(3bobcat), bf(csvtable)(3bobcat),
+    bf(manipulator)(3bobcat), bf(tablelines)(3bobcat),
+    bf(tablesupport)(3bobcat), bf(table)(3bobcat)
+
 manpagebugs()
     Note that tt(CHAR(d)ef()) will reshuffle elements over the table's
 columns when new elements are added to the table subsequent to calling
 tt(CHAR(d)ef())
 
 includefile(include/trailer)
-

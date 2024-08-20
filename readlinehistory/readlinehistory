@@ -3,128 +3,120 @@
 
 #include <iterator>
 #include <string>
+#include <vector>
+#include <memory>
 
 #include <readline/history.h>
 
 namespace FBB
 {
 
-class ReadLineHistory;
-
-class ReadLineHistory
+struct ReadLineHistory
 {
-    friend std::ostream &operator<<(std::ostream &out, 
+    friend std::ostream &operator<<(std::ostream &out,
                                     ReadLineHistory const &history);
-    friend std::istream &operator>>(std::istream &out, 
+    friend std::istream &operator>>(std::istream &out,
                                     ReadLineHistory &history);
 
-    static ReadLineHistory s_readLineHistory;
-    bool d_timestamps;
+    class HistoryElement                // stores the pointers to the 
+    {                                   // relevant elements in HIST_ENTRY
+        friend struct ReadLineHistory;  // elements
 
-    public:
-        class HistoryElement
-        {
-            friend ReadLineHistory;
+        char const *d_line;     
+        char const *d_timestamp;
 
-            char const *d_line;
-            char const *d_timestamp;
+        public:
+            char const *line() const;                                   // .f
+            char const *timestamp() const;                              // .f
 
-            public:
-                char const *line() const;                               // .f
-                char const *timestamp() const;                          // .f
+        private:
+            HistoryElement() = default;
 
-            private:
-                HistoryElement();                                       // 1.f
-                HistoryElement const &set(HIST_ENTRY const *element);
-        };
+            HistoryElement &operator=(HIST_ENTRY const *element);
+    };
 
-        class const_iterator: public 
-                                std::iterator<std::input_iterator_tag, 
-                                              HistoryElement const>
-        {
+    using ElementsPtr = HistoryElement *;
+    using ElementsConstPtr = HistoryElement const *;
+
+    struct const_iterator
+    {
+        using iterator_category = std::input_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = HistoryElement const;
+        using pointer           = value_type *;
+        using reference         = value_type &;
+
+        private:
             friend ReadLineHistory;
             friend std::reverse_iterator<const_iterator>;
 
-            size_t d_idx;
-            mutable HistoryElement d_element;
+            size_t d_idx;               // idx of a history element
 
-            public:
-                const_iterator &operator++();                   //     opinc.f
-                const_iterator operator++(int);                 // opincpost.f
-                bool operator==(const_iterator const &rhs) const;   //  opeq.f
-                bool operator!=(const_iterator const &rhs) const;   // opneq.f
-                HistoryElement const &operator*() const;
-                HistoryElement const *operator->() const;       //   oparrow.f
+            ElementsConstPtr d_elements;
 
-            private:
-                const_iterator();                   // last element        1.f
-                const_iterator(size_t idx);         //                     2.f
+        public:
+            const_iterator &operator++();                               // .f
+            const_iterator operator++(int);                             // .f
+            bool operator==(const_iterator const &rhs) const;           // .f
+            bool operator!=(const_iterator const &rhs) const;           // .f
+            HistoryElement const &operator*() const;
+            HistoryElement const *operator->() const;                   // .f
 
-                                                // for the reverse iter. 
-                const_iterator &operator--();                       // opdec.f
-                const_iterator operator--(int);                 // opdecpost.f
-        };
+        private:
+            const_iterator(HistoryElement const *vect); // last element    .f
+            const_iterator(HistoryElement const *vect, size_t idx);     // .f
 
-        typedef std::reverse_iterator<const_iterator> 
-                const_reverse_iterator;
+                                            // for the reverse iter.
+            const_iterator &operator--();                               // .f
+            const_iterator operator--(int);                             // .f
+    };
 
+    using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
+    private:
+        bool d_timestamps;              // store time stamps or not
+        ElementsPtr d_elements;         // ptr to the HistoryElements
+
+                                        // singleton
+        static std::unique_ptr<ReadLineHistory> s_readLineHistory;       
+
+    public:
         ReadLineHistory(ReadLineHistory const &other)           = delete;
-        ReadLineHistory &operator=(ReadLineHistory const &rhs)  = delete;
+        ~ReadLineHistory();
+
+        static ReadLineHistory &instance(bool useTimestamps = false);
 
         const_iterator begin() const;       // begin of the history    .f
         const_iterator end() const;         // end of the history      .f
-        const_reverse_iterator rbegin() const;                      // .f    
+        const_reverse_iterator rbegin() const;                      // .f
         const_reverse_iterator rend() const;                        // .f
 
+                                            // write/read the timestamps at
+                                            // insertions/extractions
         ReadLineHistory &setTimestampsIO(bool useTimestamps);       // .f
+
         size_t size() const;                                        // .f
         size_t maxSize() const;                                     // .f
         bool timestamps() const;                                    // .f
 
-        static ReadLineHistory &instance();                         // 1.f
-        static ReadLineHistory &instance(bool useTimestamps);       // 2.f
 
     private:
-        ReadLineHistory();                                          // .f
+        ReadLineHistory();
+
+        void destroy();
+
+        std::istream &extract(std::istream &in);
+        void setElements();
 
         static void insertHistoryElement(HistoryElement const &he,
                                          std::ostream &out);
         static void insertLine(HistoryElement const &he, std::ostream &out);
 
-        static std::istream &extractTimestamps(std::istream &in);
+static std::istream &extractTimestamps(std::istream &in);
         static std::istream &extractLines(std::istream &in);
 };
 
-#include "readlinehistory1.f"
+#include "readlinehistory.f"
 
-#include "begin.f"
-#include "end.f"
-#include "instance1.f"
-#include "instance2.f"
-#include "maxsize.f"
-#include "rbegin.f"
-#include "rend.f"
-#include "settimestampsio.f"
-#include "size.f"
-#include "timestamps.f"
-
-//  ======= HistoryElement members ============
-
-#include "historyelement1.f"
-
-#include "line.f"
-#include "timestamp.f"
-
-// ======== const_iterator members
-
-#include "constiterator1.f"
-#include "constiterator2.f"
-
-#include "oparrow.f"
-#include "opeq.f"
-#include "opinc.f"
-#include "opincpost.f"
-#include "opneq.f"
-
-} // FBB        
+} // FBB
 #endif

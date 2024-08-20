@@ -1,52 +1,34 @@
 #ifndef INCLUDED_DECRYPTBUF_
 #define INCLUDED_DECRYPTBUF_
 
-// https://wiki.openssl.org/index.php/EVP_Symmetric_Encryption_and_Decryption
+#include <openssl/evp.h>
 
 #include <iosfwd>
-#include <string>
-#include <bobcat/cryptbuf>
+#include <bobcat/exception>
+#include <bobcat/eoibuf>
+
+//class EVP_CIPHER_CTX;
 
 namespace FBB
 {
 
-class DecryptBuf: public CryptBuf
+class DecryptBuf: public EoiBuf
 {
-    EVP_CIPHER_CTX *d_ctx;
-
-    std::string     d_decrypted;
-    bool            d_eoi = false;
-
-    std::string     d_iv;
-    std::string     d_key;
-
-    std::ostream   &d_outStream;
-
     public:
-        DecryptBuf(std::ostream &outStream, char const *type, 
+        DecryptBuf(std::ostream &outStream, char const *type,
                    std::string const &key, std::string const &iv,
                    size_t bufSize = 1024);
         ~DecryptBuf() override;
 
-        bool setRounds(size_t nRounds);             // RC5 8, 12 or 16
-
+        bool setRounds(size_t nRounds);
         void eoi();                                 // .f
 
     protected:
         EVP_CIPHER_CTX *cipherCtx();
-
-    private:
-        int overflow(int c) override;
-        void eoi_() override;                       // .cc
-
-        void flushBuffer();
 };
 
 #include "eoi.f"
 
 }   // FBB
-        
+
 #endif
-
-
-

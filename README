@@ -21,15 +21,15 @@ If you want to use the .deb precompiled binaries, do as follows:
     - to compile programs using the bobcat library, and to have the
       class-manual pages you must install the bobcat-dev_*.deb package.
 This distinction is not made if you compile and install the bobcat library
-yourself. 
+yourself.
 
 When installing the bobcat-dev*.deb version, or when installing bobcat
 according to the instructions in the INSTALL file, accepting the settings
-in INSTALL.im, 
+in INSTALL.im,
 
     - html versions of the manual pages are found in the directory
       /usr/share/doc/bobcat-dev/man/
-    - man bobcat          - will show the main class-index 
+    - man bobcat          - will show the main class-index
     - man -e bobcat xxx   - shows the man-page for class `xxx'
 
 Frank

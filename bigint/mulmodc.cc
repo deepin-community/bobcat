@@ -6,4 +6,3 @@ BigInt BigInt::mulModc(BigInt const &rhs, BigInt const &mod) const
     ret.mulMod(rhs, mod);
     return ret;
 }
-

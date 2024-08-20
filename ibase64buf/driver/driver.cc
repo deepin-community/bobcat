@@ -25,7 +25,7 @@ int main(int argc, char **argv)
             cout << din.rdbuf();
         }
         break;
-    
+
         case 'b':
         {
             IBase64Buf<ENCRYPT> encode(cin);
@@ -43,4 +43,3 @@ int main(int argc, char **argv)
         break;
     }
 }
-

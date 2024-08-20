@@ -17,5 +17,3 @@ void CGIFSA::charRange()
 
     acceptAll();                       // unescape any remaining chars
 }
-
-

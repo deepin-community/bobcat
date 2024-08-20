@@ -6,4 +6,3 @@ CinInserter::CinInserter(size_t bufSize)
     d_bufSize(bufSize),
     d_modeFun(noClose)
 {}
-

@@ -8,7 +8,7 @@ manpagename(FBB::Redirector)(Redirects a file descriptor to another descriptor)
 
 manpagesynopsis()
     bf(#include <bobcat/redirector>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     Objects of the class bf(FBB::Redirector) set up a system level file
@@ -16,13 +16,13 @@ redirection, using file descriptors rather than streams. tt(Redirector)
 objects are effectively em(wrappers) around the bf(dup2)(2) system
 call. System level redirection allows the programmer to send output to, e.g.,
 the standard output stream, which actually appears at another stream (e.g.,
-the standard error). 
+the standard error).
 
 
     tt(Redirector) objects are used to redirect the output sent to a stream
 having file descriptor tt(x) to another stream having file descriptor tt(y),
 much like the shell's tt(>) operator redirects the standard output to some
-file. 
+file.
 
     tt(Redirector) objects can also be used to extract the information from a
 stream having file descriptor tt(x) in fact from another stream having file
@@ -46,7 +46,7 @@ stream that actually holds the information which is extracted from the file
 descriptor that was passed to the tt(Redirector)'s constructor; or it is the
 file descriptor of the stream receiving the information which is written to
 the stream having the file descriptor that was passed to the tt(Redirector)'s
-constructor. 
+constructor.
 
     When a tt(Redirector) object goes out of scope, its file descriptor are
 left as-is. In particular, note that no bf(close)(2) operation is performed on
@@ -62,7 +62,7 @@ index into the program's file allocation table, maintained by the
 system. Another type of well-known entities which are file descriptors are
 em(sockets).
 
-    Well-known filedescriptors (defined in, e.g., tt(unistd.h)) 
+    Well-known filedescriptors (defined in, e.g., tt(unistd.h))
 having fixed values are
     itemization(
     tt() 0 (tt(STDIN_FILENO)), representing the standard input stream
@@ -93,7 +93,7 @@ manpagesection(ENUM)
     itt(STDERR) (2)
     )
     These values may be used to set up a redirection instead of the plain
-numbers. 
+numbers.
 
 manpagesection(CONSTRUCTORS)
     itemization(
@@ -113,7 +113,7 @@ manpagesection(MEMBER FUNCTIONS)
     itb(void swallow(int otherFd) const)
         This member function expects a file descriptor which should become a
 synonym of the constructor's file descriptor. The constructor's file
-descriptor is redirected to tt(otherFd). 
+descriptor is redirected to tt(otherFd).
 
         After successfully calling tt(swallow) information written to
 tt(otherFd) is in fact written to the constructor's file descriptor. E.g., if
@@ -131,7 +131,7 @@ the standard input stream is actually read from the file on disk.
     information extracted from otherFd <- is read from the constructor's Fd
     (e.g., otherFd = STDIN_FILENO)
             )
-        
+
     Following tt(swallow) both file descriptors
 are open, and refer to the constructor's file descriptor.
 
@@ -179,15 +179,15 @@ manpagesection(EXAMPLE)
     verb(
     #include <iostream>
     #include <bobcat/redirector>
-    
+
     using namespace std;
     using namespace FBB;
-    
+
     int main()
     {
         Redirector redirector(Redirector::STDOUT);
         redirector.swallow(Redirector::STDERR);
-    
+
         cerr << "This appears at the standard output stream\n"
                 "use `a.out > /dev/null' to suppress this message" << endl;
     }

@@ -17,7 +17,3 @@ int main(int argc, char **argv)
 
     sls << SyslogStream::notice << "Hello world 1" << endl;
 }
-
-
-
-

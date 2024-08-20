@@ -1,4 +1,4 @@
-inline BigInt const &PrimeFactors::iterator::lastPrime() const
+inline FBB::BigInt const &FBB::PrimeFactors::iterator::lastPrime() const
 {
     return d_lastPrime;
 }

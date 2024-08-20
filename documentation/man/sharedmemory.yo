@@ -8,7 +8,7 @@ manpagename(FBB::SharedMemory)(Shared Memory memory structure)
 
 manpagesynopsis()
     bf(#include <bobcat/sharedmemory>)nl()
-    Linking option: tt(-lbobcat ) 
+    Linking option: tt(-lbobcat )
 
 manpagedescription()
 
@@ -18,7 +18,7 @@ tt(FBB::SharedPos). It is the main building block for
 tt(FBB::SharedBuf), defining the `device' to which
 tt(FBB::SharedBuf) interfaces. All shared memory related I/O should be
 performed by bf(FBB::SharedMemory) objects, which are true objects, not
-themselves residing in shared memory. 
+themselves residing in shared memory.
 
 An bf(FBB::SharedMemory) object defines, connects to and manages access to
 shared memory, encapsulating all raw shared memory operations. In addition to
@@ -98,7 +98,7 @@ manpagesection(CONSTRUCTORS, DESTRUCTOR)
 
 manpagesection(OVERLOADED OPERATORS)
     itemization(
-    itb(std::ostream &operator<<(std::ostream &out, 
+    itb(std::ostream &operator<<(std::ostream &out,
                                     SharedMemory const &sharedMemory))
        The overloaded insertion operator inserts information about the
         tt(SharedMemory) object into the provide tt(ostream) object. The IDs
@@ -152,7 +152,7 @@ manpagesection(MEMBER FUNCTIONS)
         anymore (note that tt(operator=) can be used to re-initialize the
         bf(FBB::SharedMemory) object).
 
-    itb(SharedType *install(std::streamsize *offset, 
+    itb(SharedType *install(std::streamsize *offset,
                            Params &&...params))
        This member was implemented as a member template, using tt(typename
         SharedType) and tt(typename ...Params), allowing perfect forwarding of
@@ -169,15 +169,15 @@ manpagesection(MEMBER FUNCTIONS)
         tt(install's) first argument.
 
         A pointer to the installed tt(SharedType) is returned, with
-        tt(shmem.offset) pointing just beyond tt(SharedType's) last byte. 
+        tt(shmem.offset) pointing just beyond tt(SharedType's) last byte.
 
         The tt(SharedType) object is installed using placement new. E.g., the
         following example illustrates how a bf(SharedMutex)(3bobcat) object
-        can be installed at the first possible 
+        can be installed at the first possible
         location of tt(SharedMemory shmem):
             verb(
     std::streamsize offset;
-    FBB::SharedMutex *mutexPtr = shmem.install<FBB::SharedMutex>(&offset); 
+    FBB::SharedMutex *mutexPtr = shmem.install<FBB::SharedMutex>(&offset);
             )
        If the installed object must be destroyed, its destructor must
         explicitly be called. E.g., to destroy the tt(Mutex) pointed at by
@@ -204,7 +204,7 @@ manpagesection(MEMBER FUNCTIONS)
        The number of characters (bytes) that can be read from the beginning of
         the shared memory is returned. 0 is returned if the bf(SharedMemory)
         object has not yet been connected to a shared memory block.
-    
+
     itb(std::streamsize offset() const)
        The offset within the shared memory segment (i.e., relative to the
         segment's tt(ios::beg) position) is returned. 0 is returned if the
@@ -244,7 +244,7 @@ manpagesection(MEMBER FUNCTIONS)
         bytes read from shared memory are stored at tt(data).  The number of
         bytes actually read is returned. This member returns -1 if
         initially tt(offset) was at least equal to tt(nReadable).
-              
+
         An tt(FBB::Exception) is thrown if the bf(SharedMemory) object has not
         yet been connected to a shared memory block.
 
@@ -255,7 +255,7 @@ manpagesection(MEMBER FUNCTIONS)
         calls the first tt(read) member, passing it tt(value). The number of
         bytes actually read is returned. This member returns -1 if initially
         tt(offset) was at least equal to tt(nReadable).
-              
+
         An tt(FBB::Exception) is thrown if the bf(SharedMemory) object has not
         yet been connected to a shared memory block.
 
@@ -268,7 +268,7 @@ manpagesection(MEMBER FUNCTIONS)
         An tt(FBB::Exception) is thrown if the bf(SharedMemory) object has not
         yet been connected to a shared memory block.
 
-    itb(std::ios::pos_type seek(std::ios::off_type offset, 
+    itb(std::ios::pos_type seek(std::ios::off_type offset,
                             std::ios::seekdir origin = std::ios::beg))
        Moves the tt(offset) position relative to tt(way). The value -1 is
         returned when seeking before offset 0 or beyond tt(maxOffset),
@@ -295,7 +295,7 @@ manpagesection(MEMBER FUNCTIONS)
        If tt(offset) is not exceeding the value returned by tt(nReadable)
         tt(nReadable) is changed to tt(offset) and tt(true) is
         returned. Otherwise tt(false) is returned, and the value returned by
-        tt(nReadable) is not changed. 
+        tt(nReadable) is not changed.
 
         An tt(FBB::Exception) is thrown if the bf(SharedMemory) object has not
         yet been connected to a shared memory block.
@@ -306,7 +306,7 @@ manpagesection(MEMBER FUNCTIONS)
         tt(sizeof(Type)) as its second argument.  The number of bytes actually
         written is returned. This member returns -1 if initially tt(offset)
         was at least equal to tt(maxOffset).
-              
+
         An tt(FBB::Exception) is thrown if the bf(SharedMemory) object has not
         yet been connected to a shared memory block.
 
@@ -327,7 +327,7 @@ manpagesection(MEMBER FUNCTIONS)
         calls the first tt(write) member, passing it tt(value). The number of
         bytes actually written is returned. This member returns -1 if
         initially tt(offset) was at least equal to tt(maxOffset).
-              
+
         An tt(FBB::Exception) is thrown if the bf(SharedMemory) object has not
         yet been connected to a shared memory block.
     )
@@ -344,18 +344,16 @@ manpageseealso()
     bf(bobcat)(7), bf(chmod)(1), bf(ipcs)(1), bf(ipcrm)(1),
         bf(isharedstream)(3bobcat),
         bf(osharedstream)(3bobcat),
-        bf(sharedblock)(3bobcat), 
-        bf(sharedcondition)(3bobcat), 
-        bf(sharedmutex)(3bobcat), 
-        bf(sharedpos)(3bobcat), 
+        bf(sharedblock)(3bobcat),
+        bf(sharedcondition)(3bobcat),
+        bf(sharedmutex)(3bobcat),
+        bf(sharedpos)(3bobcat),
         bf(sharedreadme)(7bobcat),
         bf(sharedsegment)(3bobcat),
-        bf(sharedstream)(3bobcat), 
+        bf(sharedstream)(3bobcat),
         bf(sharedbuf)(3bobcat)
 
 manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-
-

@@ -1,0 +1,6 @@
+#include "../xerr/xerr.ih"
+
+#include "iomapbuf"
+
+using namespace std;
+using namespace FBB;

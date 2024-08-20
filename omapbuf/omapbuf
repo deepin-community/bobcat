@@ -1,0 +1,47 @@
+#ifndef INCLUDED_BOBCAT_OMAPBUF_
+#define INCLUDED_BOBCAT_OMAPBUF_
+
+#include "../mapbase/mapbase"
+
+// char *pbase():
+// char *pptr():
+// char *epptr():
+// void pbump(int n):
+// setp(char *beg, char *beyond):
+
+namespace FBB
+{
+
+struct Omapbuf: virtual public MapBase
+{
+    Omapbuf() = default;
+    Omapbuf(std::string const &fname, 
+            IOS::openmode iosMode = IOS::out,
+            char const *bufSize = 0, mode_t mode = 0644);
+
+    ~Omapbuf() override;
+
+    Omapbuf &operator=(Omapbuf &&tmp);
+
+    protected:
+        bool load();            // load the current file's mmap
+
+        int overflow(int ch) override;
+        int sync() override;
+
+        std::streamsize xsputn(char const *buffer, 
+                               std::streamsize nChars) override;
+
+        // -1 on error, seekoff: in MapBase
+        IOS::pos_type seekpos(IOS::pos_type offset, 
+                              IOS::openmode mode = IOS::in | IOS::out) 
+                                                                    override;
+        IOS::pos_type seekoff(IOS::off_type pos, IOS::seekdir where,
+                              IOS::openmode mode = IOS::in | IOS::out) 
+                                                                    override;
+};
+
+} // FBB
+        
+#endif
+

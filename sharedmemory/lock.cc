@@ -9,4 +9,3 @@ void SharedMemory::lock(size_t idx)
 
     ++d_lockCount;
 }
-

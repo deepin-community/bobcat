@@ -14,20 +14,11 @@ void LocalServerSocket::listen(size_t backlog, bool blocking)
     (
         fcntl
         (
-            socket(), 
-            F_SETFL, 
+            socket(),
+            F_SETFL,
             fcntl(socket(), F_GETFL, 0) | O_NONBLOCK
-        ) 
+        )
         == -1
     )
         throw Exception{} << name << errnodescr;
 }
-
-
-
-
-
-
-
-
-

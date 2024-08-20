@@ -26,4 +26,3 @@ int main()
     log << "and active again\n";
     log << "another log msg\n";
 }
-

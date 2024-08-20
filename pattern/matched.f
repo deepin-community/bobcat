@@ -1,4 +1,4 @@
-inline std::string Pattern::matched() const 
+inline std::string Pattern::matched() const
 {
     return (*this)[0];
 }

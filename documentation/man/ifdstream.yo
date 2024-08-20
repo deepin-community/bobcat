@@ -7,11 +7,18 @@ manpage(FBB::IFdStream)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
 manpagename(FBB::Ifdstream)(Input Stream initialized by a File Descriptor)
 
 manpagesynopsis()
-    bf(#include <bobcat/ifdstream>)nl()
+    bf(#include <bobcat/ifdstream>) (when using bf(FBB::IFdStream)nl()
+    bf(#include <bobcat/ifdstreams>) (when using bf(FBB::IFdStreamS)
+
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
-    bf(FBB::IFdStream) objects may be used to extract information from a
-device whose file descriptor is available.
+    bf(FBB::IFdStream) objects are used to extract information from devices
+whose file descriptors are available.
+
+    bf(FBB::IFdStreamS) objects operate like bf(FBB::IFdStream) objects but use
+bf(FBB::Selector) objects to check whether information on the object's file
+descriptor is available before reading information from the file descriptor.
 
 File descriptors are not defined within the context of bf(C++),
 but they can be used on operating systems that support the concept. Realize
@@ -26,33 +33,36 @@ manpagesection(INHERITS FROM)
 
 manpagesection(CONSTRUCTORS)
     itemization(
-    itb(IFdStream(int fd, size_t n = 1))
-        The constructor initializes the object to read from descriptor tt(fd),
-using a buffer of size tt(n), by default having size 1. 
+    itb(IFdStream(int fd, size_t n = 1)) 
+       The constructor initializes the object to read from descriptor tt(fd),
+        using a buffer of size tt(n), by default having size 1.nl() 
+       Use bf(IFdStreamS)(int fd, size_t n = 1) to construct an tt(IFdStreamS)
+        object.
     )
 
     Copy and move constructors (and assignment operators) are not available.
 
-
 manpagesection(MEMBER FUNCTIONS)
-     All members of bf(std::istream) are available, as bf(FBB::IFdStream)
+     All members of bf(std::istream) are available, as bf(FBB::IFdStream(S))
 inherits from this class. There are no additional members.
 
 manpagesection(EXAMPLE)
     See the bf(clientsocket)(3bobcat) man-page for an example showing how to
 use tt(IFdStream).
-    
+
 manpagefiles()
-    em(bobcat/ifdstream) - defines the class interface
+    em(bobcat/ifdstream) - defines the bf(FBB::IFdStream) class interface+nl()
+    em(bobcat/ifdstreams) - defines the bf(FBB::IFdStreamS) class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(ifdbuf)(3bobcat), bf(ofdstream)(3bobcat)
+    bf(bobcat)(7), bf(ifdbuf)(3bobcat), bf(ofdstream)(3bobcat), 
+    bf(selector)(3bobcat)
 
 manpagebugs()
-    The tt(IFdStream) object uses a tt(IFdStreamBuf) for its
+    The tt(IFdStream(S)) object uses an tt(IFdBuf(S)) for its
 tt(std::streambuf). This buffer is associated with the file descriptor passed
-to tt(IFdStream)'s constructor. When the tt(IFdStream) object goes out of
-scope the device (file, socket, etc.) to which the file descriptor that was
-passed to tt(IFdStream)'s constructor is em(not) closed. 
+to tt(IFdStream(S))'s constructor. When the tt(IFdStream(S)) object goes out
+of scope the device (file, socket, etc.) to which the file descriptor that was
+passed to tt(IFdStream(S))'s constructor is em(not) closed.
 
 includefile(include/trailer)

@@ -1,3 +1,3 @@
 #include "readlinehistory.ih"
 
-ReadLineHistory ReadLineHistory::s_readLineHistory;
+unique_ptr<ReadLineHistory> ReadLineHistory::s_readLineHistory;

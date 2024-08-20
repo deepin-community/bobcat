@@ -59,18 +59,18 @@ struct CF_Types
         NoCase,
     };
 
-    typedef std::vector<CF_Line> LineVect;
-    typedef std::vector<CF_Line>::const_iterator const_iterator;
+    using LineVect =  std::vector<CF_Line>;
+    using const_iterator =  std::vector<CF_Line>::const_iterator;
 
-    typedef std::vector<const_iterator> CIVect;
-    typedef std::pair<CIVect::const_iterator, CIVect::const_iterator> 
-                                                        CIVectIteratorPair;
+    using CIVect =  std::vector<const_iterator>;
+    using CIVectIteratorPair =  
+                std::pair<CIVect::const_iterator, CIVect::const_iterator>;
 };
 
 class CF_Pimpl: public CF_Types
 {
-    uint16_t d_rawNumber;        
-    LineVect d_line; 
+    uint16_t d_rawNumber;
+    LineVect d_line;
 
     bool d_rmComment;
     bool d_caseSensitive;
@@ -81,7 +81,7 @@ class CF_Pimpl: public CF_Types
 
     public:
         explicit CF_Pimpl(Casing sType, Comment cType);                 // 1
-                   
+
         explicit CF_Pimpl(std::istream &stream,                         // 2
                           uint16_t lineNr, Casing sType, Comment cType);
 
@@ -175,10 +175,10 @@ class Config: public CF_Types
         Config &operator=(Config const &rhs);                           // 2
 
         CF_Line const &operator[](size_t idx) const;                    // 1.f
- 
+
          void setCasing(Casing type);                                   // .f
          void setComment(Comment type);                                 // .f
- 
+
         void load(std::string const &fname);                            // 1.f
         void load(std::istream &stream, uint16_t firstNr = 1);          // 2.f
         void load(std::istream &&stream, uint16_t firstNr = 1);         // 3.f
@@ -235,7 +235,5 @@ class Config: public CF_Types
 #include "setcomment.f"
 #include "size.f"
 
-} // FBB        
+} // FBB
 #endif
-
-

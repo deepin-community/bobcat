@@ -4,9 +4,7 @@
 #include "../gethostent/gethostent"
 #include <netdb.h>
 
-#include "../exception/exception"
-
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
-
-
+#endif

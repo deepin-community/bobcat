@@ -11,7 +11,7 @@ export LDFLAGS = $(shell dpkg-buildflags --get LDFLAGS)
 export LDFLAGS += -lpthread -Wl,-z,now
 
 export CXXFLAGS = $(shell dpkg-buildflags --get CXXFLAGS)
-export CXXFLAGS += -Wall --std=c++2a -D_FORTIFY_SOURCE=2
+export CXXFLAGS += -Wall --std=c++23 -D_FORTIFY_SOURCE=2
 
 export CXX = g++
 
@@ -35,8 +35,8 @@ override_dh_auto_build:
 override_dh_auto_install:
 	dh_auto_install
 	./build install x debian/libbobcat-dev
-	mkdir -p debian/libbobcat5/usr/lib
-	mv debian/libbobcat-dev/usr/lib/libbobcat.so.* debian/libbobcat5/usr/lib
+	mkdir -p debian/libbobcat6/usr/lib
+	mv debian/libbobcat-dev/usr/lib/libbobcat.so.* debian/libbobcat6/usr/lib
 
 print-version:
 	@@echo "Debian version:                  $(DEBVERSION)"

@@ -1,4 +1,4 @@
-inline CmdFinderBase::CmdFinderBase(size_t mode)
+inline FBB::CmdFinderBase::CmdFinderBase(size_t mode)
 {
     setMode(mode);
 }

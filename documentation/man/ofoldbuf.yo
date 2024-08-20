@@ -8,7 +8,7 @@ manpagename(FBB::OFoldBuf)(Folds long lines written to ostream)
 
 manpagesynopsis()
     bf(#include <bobcat/ofoldbuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::OFoldBuf) is a specialization of tt(FBB::OFilterBuf)
@@ -29,7 +29,7 @@ at a white space character. The resulting lines will always appear to the
 right of a configurable left margin and to the left of a configurable right
 margin. There is a somewhat pathological exception to this: if a word is too
 long to fit in between the margins then the word will exceed the right hand
-margin. 
+margin.
 
     The indentation used for the left margins is configurable to either blanks
 (the default) or tabs. When tabs are used the width of a tab character is
@@ -93,7 +93,7 @@ of tab-characters.
 
     The enumeration tt(TrailingBlanks) is used to configure the
 tt(OFoldBuf) object with respect to any trailing blanks that may appear
-on the final line. These trailing blanks can appear on the final line it it is 
+on the final line. These trailing blanks can appear on the final line it it is
 not properly terminated with a newline character but instead ends in white
 space. By default these white space characters are ignored, but they may be
 kept as well. The enumeration has two values:
@@ -114,7 +114,7 @@ manpagesection(CONSTRUCTORS)
                     TrailingBlanks tb = IGNORE_TRAILING_BLANKS))
         This constructor initializes an tt(OFoldBuf) object but does not
 associate it with a destination stream. It can also be used as the default
-constructor. 
+constructor.
 
     itb(OFoldBuf(char const *fname,
                    size_t leftIndent = 0, size_t rightMargin = 80,
@@ -122,7 +122,7 @@ constructor.
                    TrailingBlanks tb = IGNORE_TRAILING_BLANKS))
     This constructor initializes an tt(OFoldBuf) object and opens (using
 tt(std::ios::out)) the destination stream using the name specified as its
-tt(fname) argument. 
+tt(fname) argument.
 
     itb(OFoldBuf(std::ostream &stream,
                    size_t leftIndent = 0, size_t rightMargin = 80,
@@ -182,10 +182,10 @@ manpagesection(EXAMPLE)
     #include <ostream>
     #include <string>
     #include <bobcat/ofoldbuf>
-    
+
     using namespace std;
     using namespace FBB;
-    
+
     int main()
     {
         OFoldBuf fb(cout, 4, 40);

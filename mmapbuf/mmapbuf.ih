@@ -1,0 +1,32 @@
+#include "../xerr/xerr.ih"
+
+#include "mmapbuf"
+
+#include <sys/mman.h>
+
+#include <fcntl.h>
+#include <unistd.h>
+
+#include <algorithm>
+#include <cstring>
+
+#include <filesystem>
+#include <bobcat/stat>
+#include <bobcat/exception>
+#include <bobcat/fswap>
+
+inline bool FBB::MmapBuf::writable() const
+{
+    return (d_openMode & IOS::out) != 0;
+}
+
+inline size_t st(char const *cp)
+{
+    return (size_t)cp;
+}
+
+#ifndef SPCH_
+using namespace std;
+namespace fs = filesystem;
+using namespace FBB;
+#endif

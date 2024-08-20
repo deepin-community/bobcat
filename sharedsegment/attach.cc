@@ -9,5 +9,3 @@ void *SharedSegment::attach(int id)
 
     return ret;
 }
-
-

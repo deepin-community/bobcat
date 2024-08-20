@@ -9,7 +9,7 @@ manpagename(FBB::GetHostent)
 
 manpagesynopsis()
     bf(#include <bobcat/gethostent>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::GetHostent) objects produce tt(hostent) structs which may
@@ -20,13 +20,13 @@ non-static copy may be obtained using an bf(FBB::Hostent) object.
 
 A tt(hostent) struct is defined as follows:
         verb(
-    struct hostent 
+    struct hostent
     {
-        char    *h_name;        // official name of host 
-        char    **h_aliases;    // alias list 
+        char    *h_name;        // official name of host
+        char    **h_aliases;    // alias list
         int     h_addrtype;     // host address type (always AF_INET)
-        int     h_length;       // length of address 
-        char    **h_addr_list;  // list of addresses 
+        int     h_length;       // length of address
+        char    **h_addr_list;  // list of addresses
     }
         )
     The tt(address) fields are binary values of the addresses, each address
@@ -42,11 +42,11 @@ manpagesection(INHERITS FROM)
 
 manpagesection(CONSTRUCTORS)
     All members of the class bf(FBB::GetHostent) are static. Consequently,
-there is no need to construct a bf(FBB::GetHostent) object. 
+there is no need to construct a bf(FBB::GetHostent) object.
 
 manpagesection(STATIC MEMBERS)
     itemization(
-    itb(hostent const *gethostent(char const *errorprefix, 
+    itb(hostent const *gethostent(char const *errorprefix,
                  std::string const &nameOrAddress))
         The bf(gethostent()) member returns a pointer to a static bf(struct
 hostent). It contains the information about the host whose name or dotted
@@ -54,7 +54,7 @@ decimal address was provided as its second argument. Its first argument is an
 error string prefix, prefixing the error message in an bf(FBB::Exception)
 object. Such an object is thrown as an exception when the host's information
 could not be retrieved.
-    itb(std::string addressToString(char const *errorprefix, 
+    itb(std::string addressToString(char const *errorprefix,
                               void const *ads))
         This member returns the dotted decimal address of the host whose
 binary address is provided at bf(ads). Its first argument is an error string
@@ -74,10 +74,10 @@ manpagesection(EXAMPLE)
 
     #include <bobcat/hostent>
     #include <bobcat/gethostent>
-    
+
     using namespace std;
     using namespace FBB;
-    
+
     int main(int argc, char **argv)
     try
     {
@@ -86,12 +86,12 @@ manpagesection(EXAMPLE)
             cerr << "Provide a host name or host address to solve\n";
             return 1;
         }
-    
+
         Hostent he(GetHostent::gethostent(argv[1], argv[1]));
         cout << "Hostname: " << he.hostname() << endl;
 
         cout << "Aliases:\n";
-        copy(he.beginAlias(), he.endAlias(), 
+        copy(he.beginAlias(), he.endAlias(),
                 ostream_iterator<char const *>(cout, "\n"));
 
         cout << "Addresses:\n";
@@ -111,13 +111,13 @@ manpagefiles()
 
 manpageseealso()
     bf(bind)(1),
-    bf(bobcat)(7), 
+    bf(bobcat)(7),
     bf(gethostbyaddr)(3)
-    bf(gethostbyname)(3),  
+    bf(gethostbyname)(3),
     bf(hostent)(3bobcat),
     bf(inetaddress)(3bobcat),
     bf(inet_ntop)(3)
-  
+
 manpagebugs()
     None Reported.
 

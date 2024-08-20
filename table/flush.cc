@@ -6,4 +6,3 @@ Table &Table::flush()
     str("");
     return *this;
 }
-

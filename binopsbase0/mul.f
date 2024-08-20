@@ -1,7 +1,7 @@
 template <class Derived>
 struct Mul
 {
-    Derived &operator*=(Derived const &rhs) &; 
+    Derived &operator*=(Derived const &rhs) &;
     Derived &&operator*=(Derived const &rhs) &&;
 };
 
@@ -42,4 +42,3 @@ class BinopsBase0<Derived, '*', ops...>
     public BinopsBase0<Derived, ops...>,
     public Mul<Derived>
 {};
-

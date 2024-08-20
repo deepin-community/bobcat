@@ -1,16 +1,15 @@
 #include "arg.ih"
 
-/*
-    called by fillLongOption() to create the array of `struct option'
-    (OptStruct) elements to be interpreted by getopt_long()
-*/
+//  called by fillLongOption() to create the array of `struct option'
+//  (OptStruct) elements to be interpreted by getopt_long()
+
 void Arg__::addLongOption(OptStruct *optStruct,
                             string const &optString,
                             LongOption const &longOption)
 {
     static int notUsed;
 
-    optStruct->name = longOption.d_name.c_str();
+    optStruct->name = longOption.d_name.c_str();        // set the name
 
     if (longOption.d_optionChar)       // existing option
     {

@@ -7,4 +7,3 @@ inline CSVTabIns &operator<<(CSVTabIns &&tab, FMT::FMTHline hline)
 {
     return tab << hline;
 }
-

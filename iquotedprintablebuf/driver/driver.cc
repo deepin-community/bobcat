@@ -32,7 +32,7 @@ int main(int argc, char **argv)
             cout << din.rdbuf();
         }
         break;
-    
+
         case 'b':
         {
             IQuotedPrintableBuf<ENCODE> encode(cin);
@@ -45,4 +45,3 @@ int main(int argc, char **argv)
         break;
     }
 }
-

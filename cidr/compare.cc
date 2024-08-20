@@ -4,7 +4,7 @@ bool Cidr::compare(MaskPair const &mp, string const &address)
 {
     size_t binary = dotted2binary(address);
 
-                                // ~0: all 1s, 
+                                // ~0: all 1s,
                                 // << moves in 0s over the masked bits
                                 // ~() toggles 1s/0s
                                 // | sets the masked bits to 1 in last.

@@ -4,7 +4,8 @@
 #include <sys/shm.h>
 
 #include "../ranger/ranger"
-#include "../exception/exception"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

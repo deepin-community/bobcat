@@ -2,13 +2,13 @@
 
 #include <algorithm>
 
-#include "../exception/exception"
-
-using namespace std;
-using namespace FBB;
-
-struct MultiBuf::Insert
+struct FBB::MultiBuf::Insert
 {
     std::string &buffer;
     bool ok;
 };
+
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

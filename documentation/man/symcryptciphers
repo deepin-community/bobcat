@@ -3,7 +3,7 @@ def(ROW)(5)(row(cell(ARG1)cell(ARG2)cell(ARG3)cell(ARG4)cell("ARG5")))
 
     The following table presents an overview of methods that are currently
 available. Methods for which the block size is specified as N.A. are stream
-ciphers; other methods are block ciphers: 
+ciphers; other methods are block ciphers:
     table(5)(lllll)(
     rowline()
     row(cell(method)cell(keysize)cell(blocksize)cell(mode)cell(identifier))
@@ -85,7 +85,7 @@ rowline()
     row(setmanalign(lssss)\
         cell(Key length is variable, max. 256 bytes. default length is shown))
     row(setmanalign(lssss)
-        cell(Encrypt again to decrypt. Don't use tt(DecryptBuf))) 
+        cell(Encrypt again to decrypt. Don't use tt(DecryptBuf)))
 rowline()
     ROW(RC4-40)(5)(N.A.)()(rc4-40)
     row(setmanalign(lssss)cell(obsolete: avoid))
@@ -103,4 +103,4 @@ rowline()
 
 The RC4 stream cipher is subject to a well-known attack
 (cf. lurl(http://www.wisdom.weizmann.ac.il/~itsik/RC4/Papers/Mantin1.zip))
-unless the initial 256 bytes produced by the cipher are discarded. 
+unless the initial 256 bytes produced by the cipher are discarded.

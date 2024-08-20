@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <iterator>
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
-
+#endif

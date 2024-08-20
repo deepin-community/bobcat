@@ -5,16 +5,13 @@
 
 #include "../fswap/fswap"
 #include "../stat/stat"
-#include "../exception/exception"
 
-using namespace std;
-using namespace FBB;
 
-struct Glob::GlobShare
+struct FBB::Glob::GlobShare
 {
     glob_t      globStruct;
     size_t      users;
-    unordered_set<Type> gsType;
+    std::unordered_set<Type> gsType;
     char      **begin;
     char      **end;
     size_t      size;
@@ -23,4 +20,7 @@ struct Glob::GlobShare
 #include "mbegin.f"
 #include "mend.f"
 
-
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

@@ -10,12 +10,11 @@ char const *FMT::s_align[] =           // follows the Align enum values
     "right",
 };
 
-FMT::FMTFun FMT::s_lrcFun[] = 
+FMT::FMTFun FMT::s_lrcFun[] =
 {
-    0, 
+    0,
     center,
-    0, 
+    0,
     left,
     right,
 };
-

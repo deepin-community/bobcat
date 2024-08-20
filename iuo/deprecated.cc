@@ -6,11 +6,10 @@ namespace FBB
     {
         if (called)
             return;
-    
-        cerr << "\n[Warning] " << msg << 
+
+        cerr << "\n[Warning] " << msg <<
             " is deprecated.\n"
             "Avoid its use, see the man-page for alternatives.\n";
         called = true;
     }
 }
-

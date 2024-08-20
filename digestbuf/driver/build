@@ -1,28 +1,30 @@
-#!/bin/sh
+#!/bin/bash
 
-ln -s .. bobcat
-# 
-# g++ -I. --std=c++2a -O2 -Wall -o driver driver.cc -lssl -lbobcat \
+#
+# g++ -I. --std=c++20 -O2 -Wall -o driver driver.cc -lssl -lbobcat \
 #     -L../../ohexbuf/tmp -L../tmp -lhmacbuf   -lohexbuf
-# 
+#
 
 tput clear
 
 LIBS=" -lbobcat -lcrypto"
 
-GPP="g++ --std=c++2a"
+sed 's_<bobcat/digestbuf>_"../digestbuf"_' driver.cc > src.cc
+
+GPP="g++ `cat ../../c++std`"
 
 #   Using the standard bobcat library
-# CMD="$GPP -o driver -Wall *.cc ${LIBS} -s"
+CMD="$GPP -o driver -Wall driver.cc ${LIBS} -s"
+
+#   Using the library in ../tmp/ and libbobcat
+#CMD="$GPP -o driver -Wall src.cc -L../tmp -ldigestbuf ${LIBS} -s"
+
 
 #   Using the library in ../tmp/ and bobcat as /tmp/libbob.a
-CMD="$GPP -o driver -Wall *.cc -L../tmp -lhmacbuf -L /tmp -lbob -lcrypto -s"
-
-#   Using the library in ../tmp/
-CMD="$GPP -o driver -Wall *.cc -L../tmp -ldigestbuf ${LIBS} -s"
+# CMD="$GPP -o driver -Wall src.cc -L../tmp -lhmacbuf -L /tmp -lbob -lcrypto -s"
 
 # #   Using tmp libraries and bobcat
-# CMD="$GPP -o driver -Wall -I../tmp driver.cc \
+# CMD="$GPP -o driver -Wall -I../tmp src.cc \
 #     -L../tmp -ldigestbuf \
 #     -L../../ohexbuf/tmp -lohexbuf \
 #     -L../../eoibuf/tmp -leoibuf \
@@ -32,4 +34,4 @@ CMD="$GPP -o driver -Wall *.cc -L../tmp -ldigestbuf ${LIBS} -s"
 echo ${CMD}
 ${CMD}
 
-rm bobcat
+rm src.cc

@@ -1,0 +1,93 @@
+#ifndef INCLUDED_BOBCAT_OSYMCRYPTBASE_
+#define INCLUDED_BOBCAT_OSYMCRYPTBASE_
+
+#include <memory>
+#include <iosfwd>
+#include <string>
+
+#include <openssl/evp.h>
+
+#include <bobcat/eoibuf>
+#include <bobcat/symcryptbase>
+#include <bobcat/exception>
+
+namespace FBB
+{
+
+namespace IUO   // the facilities defined here are not further documented
+{               // elsewhere. The OSymCryptBase class defined below
+                // should only be used by ISymCryptStreambuf.
+
+
+class OSymCryptBase: private SymCryptBase, public EoiBuf
+{
+    std::unique_ptr<std::ofstream> d_ofStream;  // used by the 2nd constructor
+    std::ostream &d_outStream;                  // destination stream to write
+
+    bool d_eoi = false;
+
+    int (*d_evpUpdate)(EVP_CIPHER_CTX *ctx,
+                unsigned char *out, int *outl,
+                unsigned char const *in, int inl);
+
+    int (*d_evpFinal)(EVP_CIPHER_CTX *, unsigned char *out, int *outl);
+
+    public:
+        OSymCryptBase(
+            std::ostream &outStream,
+            std::string const &cipherName,
+            std::string const &key,
+            std::string const &iv,
+            size_t inBufSize,
+            OSSL_PARAM const *params,
+
+            int (*evpInit)(EVP_CIPHER_CTX *ctx, EVP_CIPHER const *type,
+                unsigned char const *key, unsigned char const *iv,
+                OSSL_PARAM const *params),
+
+            int (*evpUpdate)(EVP_CIPHER_CTX *ctx, unsigned char *out,
+                int *outl, unsigned char const *in, int inl),
+
+            int (*evpFinal)(EVP_CIPHER_CTX *ctx, unsigned char *out,
+                int *outl)
+        );
+
+        OSymCryptBase(
+            std::string const &outStreamName,
+            std::string const &cipherName,
+            std::string const &key,
+            std::string const &iv,
+            size_t inBufSize,
+            OSSL_PARAM const *params,
+
+            int (*evpInit)(EVP_CIPHER_CTX *ctx, EVP_CIPHER const *type,
+                unsigned char const *key, unsigned char const *iv,
+                OSSL_PARAM const *params),
+
+            int (*evpUpdate)(EVP_CIPHER_CTX *ctx, unsigned char *out,
+                int *outl, unsigned char const *in, int inl),
+
+            int (*evpFinal)(EVP_CIPHER_CTX *ctx, unsigned char *out,
+                int *outl)
+        );
+
+        ~OSymCryptBase() override;
+
+        using SymCryptBase::keyLength;
+        using SymCryptBase::ivLength;
+
+    private:
+        void eoi_() override;
+        void evpFinal();
+        void evpUpdate();
+
+        int overflow(int ch) override;
+
+        int sync() override;
+};
+
+}   // IUO
+
+}   // FBB
+
+#endif

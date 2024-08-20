@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 
 #include <bobcat/inetaddress>
+#include <bobcat/exception>
 
 //    int info coming in/going out: host byte order
 
@@ -31,7 +32,7 @@ class SocketBase: public InetAddress
         SocketBase &operator=(SocketBase const &rhs) = default;
 
         SocketBase makeBase(int socket,                             // .f
-                            sockaddr_in const &address);    
+                            sockaddr_in const &address);
     private:
         SocketBase(int socket, sockaddr_in const &address);         // 1.f
 
@@ -51,6 +52,3 @@ class SocketBase: public InetAddress
 } // FBB
 
 #endif
-
-
-

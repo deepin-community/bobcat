@@ -33,9 +33,3 @@ int main()
     cout << "/bin/cat time limit of 5 seconds reached: child process ended\n";
 }
 //=
-
-
-
-
-
-

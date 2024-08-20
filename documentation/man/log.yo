@@ -18,22 +18,39 @@ a (configurable) file. Refer to the bf(logbuf)(3bobcat) man-page for
 details about tt(LogBuf).
 
 Which (parts of) messages are actually logged can be configured using
-bf(FBB::level) in combination with the tt(Log) member tt(setLevel). By default
-all information that is inserted into a tt(Log) object is logged, but
-tt(level) objects (bf(level)(3bobcat)) can be inserted specifying insertion
-`forces' of the information that is subsequently inserted into tt(Log)
-objects. These `forces' are compared to insertion `resistances' that can be
-specified by tt(Log) objects through their tt(setLevel) members.
+bf(FBB::level) in combination with the tt(Log) member tt(setLevel) or using
+the function operator in combination with the tt(str) member (see the the
+members tt(operator()) and tt(str)). By default all information that is
+inserted into a tt(Log) object is logged.
 
-If the tt(level's) `force' is equal to or exceeds the tt(Log)
-object's `resistance' then the insertion is performed, otherwise the insertion
-is ignored. A single insertion statement may contain multiple tt(level)
+Objects of the tt(level) class (cf. bf(level)(3bobcat)) can be inserted
+specifying insertion `forces' for the information that is subsequently
+inserted into tt(Log) objects. Only if these`forces' exceed the tt(Log)
+object's insertion `resistances' (see the member tt(setLevel)) then the
+information is logged.
+
+A single log-insertion statement may contain multiple tt(level)
 calls. If so, then each tt(level) call updates the `force' of insertions
-following the tt(level) call. 
+following the tt(level) call.
 
 Information inserted into tt(Log) objects without inserting tt(level) objects
 (or before the first tt(level) object) is always logged (see also the
 bf(Examples) section).
+
+Alternatively information may be logged using category-selector
+characters. The member tt(str(std::string const &active)) defines the
+characters that can be used to define a non-hierarchical logging
+process. E.g., tt(str("abc")) defines the log-identifying characters tt('a',
+'b',) and tt('c') which can then be used to define log-statements for each of
+those categories. These log-identifying characters may be redefined, activating
+only those log-statements whose identifying characters were specified in the
+last call of the tt(str) member.
+
+Although hierarchical and non-hierarchical logging can both be used in a
+single program, they operate in a mutually exclusive way: once hierarchical
+logging is defined the non-hierarchical categories are erased, and once
+non-hierarchical categories are defined the hierarchical resistance level is
+set to its maximum value, effectively suppressing hierarchical logging.
 
 By default logged messages are prepended by time stamps. Following the time
 stamps a delimiter (by default a single space character) is
@@ -115,12 +132,12 @@ stamp. The member tt(open) can be used to modify the default delimiter.
         This constructor creates a tt(Log) object logging its messages to the
 provided tt(std::ostream) object. By default, all messages are preceded by a
 time stamp (see the description of the member tt(setTimestamp) below).  The
-parameter tt(delim) is inserted immediately beyond the time stamp. If 
+parameter tt(delim) is inserted immediately beyond the time stamp. If
 a delimiter should not be used an empty string or a 0-pointer may be
 specified.
 
     itb(FBB::Log(std::string const &filename,
-            std::ios::openmode mode = std::ios::out | std::ios::app, 
+            std::ios::openmode mode = std::ios::out | std::ios::app,
             char const *delim = " "))
         This constructor creates a tt(Log) object logging its messages to the
 named file. If tt(filename == "&1") logmessages are written to the standard
@@ -138,7 +155,7 @@ manpagesection(MEMBER FUNCTIONS)
      All members of tt(std::ostream) are available, as tt(Log) inherits
 from this class.
     itemization(
-    itb(size_t level())
+    itb(size_t level() const)
         This member returns the currently set log level (i.e., the value set
 at the latest tt(setLevel()) call). By default, the level is set to zero,
 meaning that all information is inserted into the log stream;
@@ -149,7 +166,7 @@ inserted. Messages are inserted when tt(useLevel) is at least equal to the
 level specified by tt(setLevel). The maximum level is
 tt(std::numeric_limits<size_t>::max()). If not even such messages should be
 inserted into the tt(ostream), then the stream should be deactivated, using
-tt(off()) (see below). The level that is specified by this member remains 
+tt(off()) (see below). The level that is specified by this member remains
 active until another tt(level) call changes it. Alternatively, the level of
 inserted messages may be specified by inserting a tt(FBB::level) manipulator
 into a tt(Log) object (see bf(level)(3bobcat));
@@ -165,7 +182,7 @@ tt(logLevel)). Following tt(on) and unless specified otherwise (e.g., by using
 tt(level)) all inserted information is accpted by the tt(Log) object;
 
     itb(void open(std::string const &filename,
-            std::ios::openmode mode = std::ios::out | std::ios::app, 
+            std::ios::openmode mode = std::ios::out | std::ios::app,
             char const *delim = " "))
         This member (re)associates a tt(Log) object with the named file. If
 tt(filename == "&1") the logmessages will be written to the standard output
@@ -195,42 +212,82 @@ in tt(/var/log) files. E.g., tt(Aug 05 13:52:23). The parameter tt(delim) is
 inserted immediately beyond the time stamp. If a delimiter is inappropriate,
 an empty string or a 0-pointer may be specified. When specifying tt(stamps) as
 tt(FBB::NOTIMESTAMPS delim) also is ignored.
+
+    itb(std::string const &str() const)
+        The currently set of characters that can be
+specified by tt(Log's) function call operator to insert a log-entry is
+returned. By default no characters are specified;
+
+    itb(void str(std::string const &chars))
+        The argument to this member is a tt(std::string) defining the
+characters that can be specified by tt(Log's) function call operator to insert
+a log-entry. If the function call operator specifies a character which is not
+specified in tt(chars) then that log message is ignored.  By default no
+characters are specified.
     )
 
 manpagesection(STATIC MEMBERS)
     itemization(
     itb(FBB::Log &initialize(std::string const &filename,
-            std::ios::openmode mode = std::ios::out | std::ios::app, 
+            std::ios::openmode mode = std::ios::out | std::ios::app,
             char const *delim = " "))
+       Returns a reference to a static tt(Log) object. It may only be called
+        once, or an tt(FBB::Exception) exception is thrown. It associates a
+        static tt(Log) object with the named file.
         
-        Returns a reference to a static tt(Log) object. It may only be
-called once, or an tt(FBB::Exception) exception is thrown. It associates a
-static tt(Log) object with the named file. 
-
-If tt(filename == "&1") logmessages are written to the standard
-output stream. If tt(filename == "&2") logmessages are written to the standard
-error stream.  By default the file is created if not existing, and all
-messages are appended to the stream. Also by default all messages are preceded
-by time stamps (see the description of the member tt(setTimestamp) below).
-The parameter tt(delim) is inserted immediately beyond the time stamp.  If a
-delimiter should not be used an empty string or a 0-pointer may be specified.
+       If tt(filename == "&1") logmessages are written to the standard output
+        stream. If tt(filename == "&2") logmessages are written to the
+        standard error stream.  By default the file is created if not
+        existing, and all messages are appended to the stream. Also by default
+        all messages are preceded by time stamps (see the description of the
+        member tt(setTimestamp) below).  The parameter tt(delim) is inserted
+        immediately beyond the time stamp.  If a delimiter should not be used
+        an empty string or a 0-pointer may be specified;
 
     itb(FBB::Log &instance())
-        Returns a reference to a static tt(Log) object, available after
-calling tt(Log::initialize). If called before tt(Log::initialize())
-an tt(FBB::Exception) exception is thrown. 
+       Returns a reference to a static tt(Log) object, available after calling
+        tt(Log::initialize). If called before tt(Log::initialize()) an
+        tt(FBB::Exception) exception is thrown.
     )
 
-manpagesection(OVERLOADED OPERATOR)
-    The following overloaded operator is defined outside of the tt(FBB)
-namespace. It is used to insert an tt(FBB::LogManipulator) into a
-tt(Log) object. If the overloaded operator is used in combination with
-another kind of stream it performs no actions.
+manpagesection(OVERLOADED OPERATORS)
+
     itemization(
-    itb(std::ostream &::operator<<(std::ostream &str, FBB::LogManipulator)) 
-        When inserting tt(FBB::FATAL) an tt(FBB::Exception) exception is
-thrown; when inserting tt(FBB::nl) the line is terminated, but next insertions
-will not start with a time stamp (if applicable).
+    itb(Log &operator()(char ch))
+       If the function's argument is found in the characters specified at the
+        tt(str) member subsequent insertions until (including) inserting
+        tt(std::endl) or the tt(fnl) or tt(FATAL LogManipulator) are
+        logged. If the function's argument is not found in the characters
+        specified at the tt(str) member then subsequent insertions are
+        ignored. By calling this member hierarchical insertions are suppressed
+        until the tt(setLevel) member is called;
+
+    itb(Log &operator<<(Log &, LogManipulator))
+       This operator inserts a tt(LogManipulator) into a tt(Log)
+        object. When inserting tt(FBB::FATAL) an tt(FBB::Exception) is thrown;
+        when inserting tt(FBB::nl) the line is terminated, and the next
+        insertion won't start with a time stamp; when inserting tt(FBB::fnl)
+        the line is terminated, and the next insertion will start with a time
+        stamp (if applicable). After calling this insertion operator with the
+        tt(FATAL) or tt(fnl LogManipulator) value category-based insertions
+        are suppressed until the function-call operator is called;
+
+    itb(Log &operator<<(Log &log, Type const &type))
+       This operator is defined as a template, where tt(Type) represents any
+        type that can be inserted into a tt(std::ostream). The value tt(type)
+        is inserted into the tt(Log) object;
+
+    itb(Log &operator<<(Log &log, Type &(*fun)(Type &type)))
+       In this operator tt(fun) represents the standard tt(ostream) and
+        tt(ios_base) manipulators, allowing the insertion of manipulators like
+        tt(std::endl) and tt(std::setw) into tt(Log) objects;
+
+    itb(std::ostream &::operator<<(std::ostream &str, FBB::LogManipulator))
+       This operator is defined outside of the tt(FBB) namespace. It is kept
+        for backward compatibility with previous bf(bobcat) versions, and 
+        calls tt(operator<<(Log, LogManipulatr)) when tt(&str) can dynamically
+        be casted to a tt(Log *).  If not, then the operator performs no
+        actions. 
     )
 
 manpagesection(EXAMPLE)
@@ -241,7 +298,7 @@ manpagefiles()
 
 manpageseealso()
     bf(bobcat)(7), bf(exception)(3bobcat), bf(level)(3bobcat),
-    bf(logbuf)(3bobcat)
+    bf(logbuf)(3bobcat), bf(syslogstream)(3bobcat)
 
 manpagebugs()
     The tt(nl) and tt(fnl) manipulators are received by the tt(Log) objects'

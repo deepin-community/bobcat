@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include <bobcat/exception>
-
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

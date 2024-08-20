@@ -1,4 +1,4 @@
-inline size_t TableSupport::nColumns() const
+inline size_t FBB::TableSupport::nColumns() const
 {
     return d_nColumns;
 }

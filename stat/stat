@@ -8,6 +8,7 @@
 
 #include <bobcat/datetime>
 #include <bobcat/gs>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -21,7 +22,7 @@ class Stat: public GS__
     std::string d_name;
 
     public:
-        typedef struct stat stat;   // Defines Stat::stat for clients
+        using stat =  struct stat;   // Defines Stat::stat for clients
 
         enum Combine
         {
@@ -70,13 +71,13 @@ class Stat: public GS__
         Stat(Lstat, std::string const &name);                       // 4.f
         Stat(std::string const &name, std::string const &pathlist); // 5.f
         Stat(Lstat, std::string const &name,                        // 6.f
-             std::string const &pathlist); 
+             std::string const &pathlist);
 
 
         Stat &operator=(Stat const &other) = default;
         Stat &operator=(Stat &&tmp);
 
-        bool access(User const &user, size_t mode, 
+        bool access(User const &user, size_t mode,
                                        bool useEffective = true) const;
         DateTime lastAccess() const;                                    // .f
         DateTime lastChange() const;                                    // .f
@@ -145,5 +146,5 @@ class Stat: public GS__
 #include "uid.f"
 
 } // FBB
-        
+
 #endif

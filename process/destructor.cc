@@ -4,6 +4,5 @@ Process::~Process()
 {
     stop();
 
-    Signal::instance().remove(SIGCHLD, *this);  
+    Signal::instance().remove(SIGCHLD, *this);
 }
-

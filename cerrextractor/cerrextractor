@@ -20,5 +20,5 @@ class CerrExtractor: public IUO::ExtractorBase
 };
 
 } // namespace FBB
-        
+
 #endif

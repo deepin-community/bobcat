@@ -19,6 +19,6 @@ inline Sep::Sep(std::string const &sep)
     std::string(sep)
 {}
 
-} // FBB        
+} // FBB
 
 #endif

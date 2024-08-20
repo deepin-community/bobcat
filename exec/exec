@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <bobcat/fork>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -48,7 +49,7 @@ inline int Exec::ret() const
     return d_ret;
 }
 
-inline int Exec::setRet(int retVal) 
+inline int Exec::setRet(int retVal)
 {
     return d_ret = retVal;
 }

@@ -1,6 +1,6 @@
 #include "ofoldbuf.ih"
 
-OFoldBuf::OFoldBuf(string const &fname, 
+OFoldBuf::OFoldBuf(string const &fname,
                        size_t indent, size_t rightMargin,
                        TabsOrBlanks tob, TrailingBlanks tb)
 :

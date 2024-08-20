@@ -1,4 +1,6 @@
 #include "isharedstream"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

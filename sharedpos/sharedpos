@@ -5,6 +5,7 @@
 #include <ios>
 
 #include <bobcat/sharedsegment>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -15,9 +16,9 @@ class SharedPos
 
     SharedSegment *d_sharedData = 0;       // setup must have been called to
                                         // initialize data members
-                                        
+
     std::streamsize d_maxOffset = 0;    // max. possible offset, given nBlocks
-                                        
+
     std::streamsize d_offset = 0;       // next location to write
 
     size_t d_blockIdx = 0;
@@ -34,7 +35,7 @@ class SharedPos
                                         // because offset >= writeoffset
 
         std::streamsize eos() const;        // abs. offset just past
-                                            // block[blockIdx()] 
+                                            // block[blockIdx()]
 
         std::streamsize maxOffset() const;  // abs. max. possible offset
 
@@ -43,7 +44,7 @@ class SharedPos
         void reset(SharedSegment *sharedData);
 
                                                 // returns -1 if inaccessible
-        std::ios::pos_type seek(std::ios::off_type offset, 
+        std::ios::pos_type seek(std::ios::off_type offset,
                                 std::ios::seekdir way = std::ios::beg);
 
         std::streamsize showmanyc() const;
@@ -72,5 +73,5 @@ class SharedPos
 #include "operatorinsert.f"
 #include "segmentsize.f"
 
-} // FBB        
+} // FBB
 #endif

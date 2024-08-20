@@ -34,18 +34,18 @@ Demo::Demo(size_t value)
     //
 void Demo::swap(Demo &rhs)
 {
-                        // This is OK, after commenting out the 
+                        // This is OK, after commenting out the
 //  fswap(*this, rhs);  // string members
 
                         // specifying members that should be swapped
                         // using std::swap. These members MUST be
-                        // specified in their class declaration order 
+                        // specified in their class declaration order
     fswap(*this, rhs, d_v3, d_v4);
 //  fswap(*this, rhs, d_v4, d_v3);  // this won't work...
 
                             // same, explicitly requesting the
                             // swap-mode
-//  fswap<SwapMode::SWAPMEMBER>(*this, rhs, d_v3, d_v4); 
+//  fswap<SwapMode::SWAPMEMBER>(*this, rhs, d_v3, d_v4);
 
                             // explicitly requesting another
                             // swap-mode
@@ -59,12 +59,12 @@ void Demo::swap(Demo &rhs)
                             // member d_v1 (use this for derived
                             // classes whose base class do not
                             // support fast swapping.
-                            // Before using this example comment 
+                            // Before using this example comment
                             // out the class's std::string members
 //  fswap(&d_v1, *this, rhs, d_v3);
 
-                            // same, explicitly requesting the 
-                            // swap method, swapping all 
+                            // same, explicitly requesting the
+                            // swap method, swapping all
 //  fswap<SwapMode::SWAPMEMBER>(&d_v1, *this, rhs, d_v3, d_v4);
 
                             // explicitly requesting another
@@ -77,7 +77,7 @@ void Demo::swap(Demo &rhs)
 //  fswap(&d_v1, *this, rhs, d_v3, swapmember(d_v4));
 
                              // same
-//  fswap<SwapMode::STDSWAP>(&d_v1, *this, rhs, d_v3, 
+//  fswap<SwapMode::STDSWAP>(&d_v1, *this, rhs, d_v3,
 //                                              swapmember(d_v4));
 
                              // explicitly requesting the already
@@ -88,9 +88,9 @@ void Demo::swap(Demo &rhs)
 
 void Demo::show(char const *msg)
 {
-    std::cout << msg << ". " << d_v1 << 
+    std::cout << msg << ". " << d_v1 <<
                     ", " << d_v2 <<
-                    ", " << d_v3 << 
+                    ", " << d_v3 <<
                     ", " << d_v4 <<
                     ", " << d_v5 <<
                     '\n';
@@ -107,12 +107,10 @@ int main()
     d2.show("This is d2:");
 
     cout << "swapping...\n";
-    d1.swap(d2);  
+    d1.swap(d2);
 
 
     d1.show("This is d1:");
     d2.show("This is d2:");
 
 }
-
-

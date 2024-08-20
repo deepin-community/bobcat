@@ -1,0 +1,13 @@
+#include "../../xerr/xerr.ih"
+
+#include <iostream>
+#include <fstream>
+#include <exception>
+#include <filesystem>
+
+#include "../iomapbuf"
+
+using namespace std;
+using namespace FBB;
+namespace fs = filesystem;
+

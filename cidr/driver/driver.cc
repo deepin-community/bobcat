@@ -20,7 +20,7 @@ int main(int argc, char **argv)
         FILE,
         CIN
     };
-    
+
     Spec spec = CIN;
     ifstream in;
 
@@ -29,7 +29,7 @@ int main(int argc, char **argv)
         Exception::open(in, argv[1]);       // file containing cidr-specs
         spec = FILE;
     }
-    
+
     while (true)
     {
         string cidrSpec;
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
                 case CIN:
                     cidr.setCidr(cidrSpec);
             }
-        
+
             while (true)
             {
                 cout << "Specify address to test (empty to " <<
@@ -64,7 +64,7 @@ int main(int argc, char **argv)
                 string address;
                 if (!getline(cin, address) || address.empty())
                     break;
-            
+
                 if (!cidr.match(address))
                 {
                     cout << "Address " << address << " not in ";
@@ -74,7 +74,7 @@ int main(int argc, char **argv)
                         cout << "specifications in " << argv[1] << '\n';
                 }
                 else
-                    cout << "Address " << address << " in " << cidr.cidr() << 
+                    cout << "Address " << address << " in " << cidr.cidr() <<
                                                                         "\n"
                         "Lowest address: " << cidr.first() << "\n"
                         "Highest address: " << cidr.last() << "\n"
@@ -89,5 +89,3 @@ int main(int argc, char **argv)
         }
     }
 }
-
-

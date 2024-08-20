@@ -9,7 +9,7 @@ void MultiBuf::insertStruct(stream &os, Insert &insert)
         [[fallthrough]];
 
         case ON:
-            os.d_os->write(insert.buffer.data(), 
+            os.d_os->write(insert.buffer.data(),
                                                 insert.buffer.size()).flush();
             insert.ok = insert.ok && os.d_os;
         break;

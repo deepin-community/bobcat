@@ -21,13 +21,13 @@ void Background::childProcess()
         sleep(1);
     }
     throw 0;    // caught in main()
-}    
+}
 
 void Background::parentProcess()
 {
     cout << "Waiting for the child process to end...\n"
             "The child returns value " << waitForChild() << endl;
-}    
+}
 
 int main()
 try
@@ -42,5 +42,3 @@ catch(int x)
     cout << "The child terminates with: " << x << endl;
     return x;
 }
-
-

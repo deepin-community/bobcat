@@ -12,7 +12,7 @@ class TableLines: public TableSupport
     public:
         TableLines()     = default;
         TableLines(TableLines &&tmp);               // 1.f
-    
+
         TableLines &operator=(TableLines &&tmp);    // opassign.f
 
     private:
@@ -24,5 +24,5 @@ class TableLines: public TableSupport
 #include "tablelines1.f"
 #include "opassign.f"
 
-} // FBB        
+} // FBB
 #endif

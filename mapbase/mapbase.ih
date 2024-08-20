@@ -1,0 +1,17 @@
+#include "../xerr/xerr.ih"
+
+#include "mapbase"
+
+#include <iostream>
+
+#include <sys/mman.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+#include <filesystem>
+#include <bobcat/stat>
+#include <bobcat/exception>
+
+using namespace std;
+using namespace FBB;
+namespace fs = filesystem;

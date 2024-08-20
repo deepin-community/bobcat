@@ -2,16 +2,16 @@
 
 bool Stat::access(User const &user, size_t spec, bool useEffective) const
 {
-    bool userIsOwner = 
-            (spec & (UR | UW | UX)) 
-            && 
+    bool userIsOwner =
+            (spec & (UR | UW | UX))
+            &&
             (
-                user.userid() == uid() 
-                or 
+                user.userid() == uid()
+                or
                 (useEffective && user.eUserid() == uid())
             );
 
-    bool userInGroup = 
+    bool userInGroup =
             (spec & (GR | GW | GX))
             &&
             user.inGroup(gid(), useEffective);

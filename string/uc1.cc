@@ -9,4 +9,3 @@ string String::uc(string const &lhs)
 
     return ret;
 }
-

@@ -4,5 +4,7 @@
 //#define XERR std::cerr << __FILE__": "
 
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

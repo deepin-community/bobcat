@@ -8,7 +8,7 @@ manpagename(FBB::Cidr)(Compares IP4 addresses to CIDR specifications)
 
 manpagesynopsis()
     bf(#include <bobcat/cidr>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 
 manpagedescription()
@@ -32,7 +32,7 @@ is used, effectively defining an address range of only one address. Mask
 values of 0 are ignored.  Mask values of 0 are ignored by tt(Cidr) objects.
 
 When specifying CIDRs on a stream, empty lines and comment lines (having a
-hash-character (#) as their first non-blank character) are ignored. 
+hash-character (#) as their first non-blank character) are ignored.
 Non-empty lines must start with a CIDR specification, and the tt(Cidr) object
 will ignore all information on a line trailing a CIDR specification.
 
@@ -48,11 +48,11 @@ manpagesection(CONSTRUCTORS)
 
     itb(Cidr(std::istream &cidrStream))
         The tt(Cidr) object is initialized with CIDR specifications
-        read from the tt(std::istream cidrStream). 
+        read from the tt(std::istream cidrStream).
     )
 
     Default, copy and move constructors and the copy and move assignment
-operators are available. 
+operators are available.
 
 manpagesection(MEMBER FUNCTIONS)
 
@@ -61,7 +61,7 @@ manpagesection(MEMBER FUNCTIONS)
 
     itemization(
     itb(std::string const &address() const)
-        returns the address matching a CIDR. 
+        returns the address matching a CIDR.
 
     itb(std::string cidr() const)
         returns the CIDR containing a specified address.
@@ -74,13 +74,13 @@ manpagesection(MEMBER FUNCTIONS)
         returns the last address of the range of addresses defined by the
         CIDR specification. Note that tt(first, last) do not define an
         iterator range. The address returned by tt(last) still belongs to the
-        CIDR-range. 
+        CIDR-range.
 
     itb(bool match(std::istream &in))
         The value tt(true) is returned when an IP4 address found in the lines
         of tt(in) belongs to a CIDR range inspected by the tt(Cidr)
         object. The tt(match) function returns tt(true) at the first matching
-        address.  E.g., if a line contains the text 
+        address.  E.g., if a line contains the text
             verb(
     This is address 1.2.3.4 and this is 5.6.7.8
             )
@@ -90,7 +90,7 @@ manpagesection(MEMBER FUNCTIONS)
         1.2.1.1/16
             )
         were provided to the tt(Cidr) object, then the object will report a
-        match for tt(5.6.7.8). 
+        match for tt(5.6.7.8).
 
         As soon as a match is found tt(match) returns
         tt(true). If none of the addresses found in the lines of tt(in)
@@ -128,7 +128,7 @@ manpagesection(STATIC MEMBERS)
     itemization(
     itb(size_t dotted2binary(std::string const &dotted))
         Converts "a.b.c.d" to a 32-bits value
-        
+
     itb(std::string binary2dotted(size_t binary))
         Converts a 32-bits value to a dotted decimal IP4 address
     )
@@ -143,7 +143,7 @@ manpageseealso()
     bf(bobcat)(7)
 
 manpagebugs()
-    Members of tt(Cidr) use static data. The current implementation of 
-    tt(Cidr) is therefore not thread-safe. 
+    Members of tt(Cidr) use static data. The current implementation of
+    tt(Cidr) is therefore not thread-safe.
 
 includefile(include/trailer)

@@ -1,6 +1,6 @@
 #include "hostent.ih"
 
-void Hostent::copy(hostent const *other, size_t n_aliases, 
+void Hostent::copy(hostent const *other, size_t n_aliases,
                                          size_t n_addresses)
 {
     d_nAliases = n_aliases;
@@ -16,6 +16,6 @@ void Hostent::copy(hostent const *other, size_t n_aliases,
         h_aliases[idx] = xstrdup(other->h_aliases[idx]);
 
     h_addr_list = reinterpret_cast<char **>(
-                memcpy(new char [n_addresses * h_length], 
+                memcpy(new char [n_addresses * h_length],
                        other->h_addr_list, n_addresses * h_length));
 }

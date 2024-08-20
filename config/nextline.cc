@@ -22,4 +22,3 @@ bool CF_Pimpl::nextLine(istream &inStream, string &dest)
 
     return dest.length();
 }
-

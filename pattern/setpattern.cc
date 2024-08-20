@@ -1,6 +1,6 @@
 #include "pattern.ih"
 
-void Pattern::setPattern(string const &pattern, 
+void Pattern::setPattern(string const &pattern,
         bool caseSensitive, size_t nSub, int options)
 {
     delete [] d_subExpression;

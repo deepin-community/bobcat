@@ -22,7 +22,7 @@ struct CaseEqual
 {
     bool operator()(char const *s1, char const *s2) const;  // opfun2.f
     bool operator()(std::string const &s1,                  // opfun3.f
-                    std::string const &s2) const;           
+                    std::string const &s2) const;
 };
 
 struct CharPtrEqual
@@ -35,16 +35,16 @@ struct CharPtrEqual
 
 template<typename Value>
 class HashCharPtr: public std::unordered_map<
-                                char const *, Value, 
+                                char const *, Value,
                                 std::hash<std::string>,  CharPtrEqual
                              >
 {
-    typedef std::unordered_map<
-                                char const *, Value, 
+    using BaseClass =  std::unordered_map<
+                                char const *, Value,
                                 std::hash<std::string>,  CharPtrEqual
-                             > BaseClass;
+                             >;
     public:
-        typedef typename BaseClass::value_type value_type;
+        using value_type =  typename BaseClass::value_type;
 
         HashCharPtr()                   = default;
         HashCharPtr(HashCharPtr &&tmp);                             // 1.f
@@ -62,14 +62,14 @@ class HashCharPtr: public std::unordered_map<
 
 template<typename Value>
 class HashCharCasePtr: public std::unordered_map<
-                                char const *, Value, 
+                                char const *, Value,
                                 CaseHash,     CaseEqual
                              >
 {
-    typedef std::unordered_map<char const *, Value, CaseHash, CaseEqual> 
-                                                                    BaseClass;
+    using BaseClass =  
+                std::unordered_map<char const *, Value, CaseHash, CaseEqual>;
     public:
-        typedef typename BaseClass::value_type value_type;
+        using value_type =  typename BaseClass::value_type;
 
         HashCharCasePtr()                       = default;
         HashCharCasePtr(HashCharCasePtr &&tmp);                         // 1.f
@@ -88,10 +88,10 @@ class HashCharCasePtr: public std::unordered_map<
 template<typename Value>
 class HashString: public std::unordered_map<std::string, Value>
 {
-    typedef std::unordered_map<std::string, Value> BaseClass;
+    using BaseClass =  std::unordered_map<std::string, Value>;
 
     public:
-        typedef typename BaseClass::value_type value_type;
+        using value_type =  typename BaseClass::value_type;
 
         HashString()                            = default;
         HashString(HashString &&tmp);                               // 1.f
@@ -113,10 +113,10 @@ class HashStringCase: public std::unordered_map<
                                 std::string, Value, CaseHash, CaseEqual
                              >
 {
-    typedef std::unordered_map<std::string, Value, CaseHash, CaseEqual> 
-                                                            BaseClass;
+    using BaseClass =  
+                std::unordered_map<std::string, Value, CaseHash, CaseEqual>;
     public:
-        typedef typename BaseClass::value_type value_type;
+        using value_type =  typename BaseClass::value_type;
 
         HashStringCase()                        = default;
         HashStringCase(HashStringCase &&tmp);                           // 1.f

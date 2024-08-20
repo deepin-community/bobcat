@@ -10,7 +10,7 @@ std::istream &operator>>(std::istream &in, BigInt &bn)
     int flags = in.flags();
 
     int (*charType)(int) =
-            flags & ios::dec ? ::isdigit  : 
+            flags & ios::dec ? ::isdigit  :
             flags & ios::hex ? ::isxdigit :
                             FBB::isoctdigit;
 

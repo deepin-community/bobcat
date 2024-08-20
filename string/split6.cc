@@ -6,4 +6,3 @@ std::vector<std::string> String::split(
 {
     return split(type, str, addEmpty ? TOKSEP : TOK, sep);
 }
-
