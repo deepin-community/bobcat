@@ -3,4 +3,3 @@
     //
 template <typename Enum, typename Type, typename ...SwapModes>
 class FSwap;
-

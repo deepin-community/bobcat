@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # ln -s .. bobcat
-# 
+#
 # g++ -I. --std=c++2a -O2 -Wall -o driver driver.cc -lssl -lbobcat \
 #     -L../../ohexbuf/tmp -L../tmp -lhmacbuf   -lohexbuf
-# 
+#
 
 tput clear
 

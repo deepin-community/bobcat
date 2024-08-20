@@ -1,6 +1,8 @@
 #!/bin/bash
 
-LIBS="-lreadline -lbobcat"
+#LIBS="-lbobcat -lreadline"
+LIBS="-L../tmp -lreadlinehistory -lbobcat -lreadline"
+#LIBS="-L../../readlinebuf/tmp -lreadlinebuf -lbobcat -lreadline"
 
 #CMD="g++ `cat ../../c++std` -o driver -Wall -I../../tmp driver.cc -L../../tmp/lib \
 #                                                    ${LIBS} -s"

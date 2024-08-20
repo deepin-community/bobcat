@@ -12,9 +12,9 @@ bool CF_Pimpl::rmCommentAndEscapes(string &line)
                                             // change \\ to one backslash
         if ((hit = line.find("\\\\", pos)) != string::npos)
             line.erase(lastBackslash = hit, 1);
-        else if ((hit = line.find("\\#", pos)) != string::npos)
+        else if ((hit = line.find("\\#", pos)) < line.length())
             line.replace(hit, 2, "#");      // replace by #
-        else 
+        else
         {
             if ((hit = line.find('#', pos)) != string::npos)
             {
@@ -27,9 +27,9 @@ bool CF_Pimpl::rmCommentAndEscapes(string &line)
                 line.resize(line.length() - 1);
                 return true;
             }
-            return false;                   
+            return false;
         }
-        pos = hit + 1;                      // try again beyond the 
+        pos = hit + 1;                      // try again beyond the
                                             // last-checked character
     }
-}   
+}

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+g++ `cat ../../c++std` -O2 -Wall -o driver driver.cc -lbobcat

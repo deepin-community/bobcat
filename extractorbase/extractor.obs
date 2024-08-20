@@ -1,0 +1,44 @@
+#ifndef INCLUDED_BOBCAT_EXTRACTOR_
+#define INCLUDED_BOBCAT_EXTRACTOR_
+
+#include <iosfwd>
+
+#include <bobcat/exec>
+#include <bobcat/ifdbuf>
+#include <bobcat/pipe>
+
+namespace FBB
+{
+
+class ExtractorBase: protected Exec, private IFdBuf
+{
+                                    // the child process inserts into the pipe
+    size_t d_bufSize;
+    void (*d_closeFun)();
+    std::istream &d_in;
+    Pipe d_pipe;                    // cout/cerr written by the CHILD
+    int d_receiveFd;                // chilld's fd output received by the 
+                                    // parent
+    int *d_ret;
+    bool d_stopped;
+
+    public:
+        ExtractorBase(int *ret, std::istream &in,
+                  void (*closeFun)(), size_t bufSize, int receiveFd,
+                  std::string const &cmd);
+
+        ~Extractor() override;
+
+        using Exec::ret;
+        int stop();
+        int waitForChild();
+
+    private:
+        void v_childRedirections() override;
+        void v_parentRedirections() override;
+        void v_parentProcess() override;
+};
+
+} // namespace FBB
+
+#endif

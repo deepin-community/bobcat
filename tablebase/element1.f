@@ -1,4 +1,4 @@
-inline TableBase::Element::Element(std::string text, 
+inline FBB::TableBase::Element::Element(std::string text,
                                    std::ios_base &(*manip)(std::ios_base &))
 :
     d_text(text),

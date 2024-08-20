@@ -1,10 +1,10 @@
 #include "cgi.ih"
 
-void CGI::multipartFormData() 
+void CGI::multipartFormData()
 try
 {
     string line;
-    
+
     next(&line);                                // enter while with the next
                                                 // available line
     while (true)
@@ -25,7 +25,7 @@ try
                 else
                     readPart(&line);            // handle a plain part
             break;
-            // upload() and readPart() return the next line to process         
+            // upload() and readPart() return the next line to process
         }
     }
 }

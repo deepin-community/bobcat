@@ -4,4 +4,3 @@ char const **Arg::argPointers() const
 {
     return d_ptr->argPointers();
 }
-

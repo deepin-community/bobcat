@@ -8,7 +8,7 @@ manpagename(FBB::Tty)(Controls echoing of characters entered at the terminal)
 
 manpagesynopsis()
     bf(#include <bobcat/tty>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(Tty)(3bobcat) objects can be used to control the echoing of characters
@@ -26,7 +26,7 @@ manipulated.
     bf(Tty)(3bobcat)'s destructor does not reset the echo-state of
 tt(/dev/tty) to its original value. If that is required a bf(Tty)(3bobcat)
 object must be created first, calling its bf(echo(Tty::RESET)) member at the
-appropriate time. 
+appropriate time.
 
 includefile(include/namespace)
 
@@ -34,14 +34,14 @@ manpagesection(INHERITS FROM)
     -
 
 manpagesection(ENUM)
-    
+
     The tt(enum EchoType) requests the type of echo-handling:
     itemization(
     it() bf(RESET) is used to reset tt(/dev/tty)'s state to the actual state
         when a bf(Tty)(3bobcat) object was constructed
-    it() bf(ON) is used to activate echoing of characters entered at 
+    it() bf(ON) is used to activate echoing of characters entered at
         tt(/dev/tty).
-    it() bf(OFF) is used to suppress echoing of characters entered at 
+    it() bf(OFF) is used to suppress echoing of characters entered at
         tt(/dev/tty).
     )
 
@@ -90,4 +90,3 @@ manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-

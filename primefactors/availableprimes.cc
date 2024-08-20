@@ -6,7 +6,7 @@ void PrimeFactors::availablePrimes()
     {
         BigInt const &prime = **d_iterator; // get the next prime
 
-        if (prime > d_last)                 // checked the last available 
+        if (prime > d_last)                 // checked the last available
         {
             if (not d_iterator->atSentinel())
             {
@@ -21,6 +21,3 @@ void PrimeFactors::availablePrimes()
         ++*d_iterator;
     }
 }
-
-
-

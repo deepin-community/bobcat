@@ -1,4 +1,6 @@
 #include "osharedstream"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

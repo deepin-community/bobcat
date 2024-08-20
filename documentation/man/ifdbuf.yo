@@ -8,12 +8,18 @@ manpagename(FBB::IFdBuf)
             (Input stream buffer initialized by a file descriptor)
 
 manpagesynopsis()
-    bf(#include <bobcat/ifdbuf>)nl()
-    Linking option: tt(-lbobcat) 
+    bf(#include <bobcat/ifdbuf>) (when using bf(FBB::IFdBuf)nl()
+    bf(#include <bobcat/ifdbufs>) (when using bf(FBB::IFdBufS)
+
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::IFdBuf) objects may be used as a tt(std::streambuf) of
 tt(std::istream) objects to allow extractions from a file descriptor.
+
+    bf(FBB::IFdBufS) objects operate like bf(FBB::IFdBuf) objects but use
+bf(FBB::Selector) objects to check whether information on the object's file
+descriptor is available before reading information from the file descriptor.
 
 File descriptors are not defined within the context of bf(C++),
 but they can be used on operating systems that support the concept. Realize
@@ -64,25 +70,29 @@ descriptor tt(fd), and an optional unget buffer size (by default having size
 1).   When the object is destroyed or if the mode-less
 overloaded version of the tt(reset) member is called, the tt(Mode) argument
 determines whether the file descriptor will be closed or will remain open.
+
+    itb(IFdBufS constructors)
+       Use bf(IFdBufS) constructors corresponding to bf(IFdBuf) constructors
+        to construct the corresponding bf(IFdBufS) objects.
     )
 
     Copy and move constructors (and assignment operators) are not available.
 
 manpagesection(MEMBER FUNCTIONS)
      All members of tt(std::streambuf) are
-available, as tt(FBB::IFdBuf) inherits from this class.
+available, as tt(FBB::IFdBuf(S)) inherits from this class.
 
     itemization(
     itb(void close())
-        The file descriptor used by the tt(IFdBuf) is closed,
-irrespective of the tt(Mode) that was specified when the tt(IFdBuf)
-object was constructed. Following tt(close) the tt(IFdBuf) object can
+        The file descriptor used by the tt(IFdBuf(S)) is closed,
+irrespective of the tt(Mode) that was specified when the tt(IFdBuf(S))
+object was constructed. Following tt(close) the tt(IFdBuf(S)) object can
 no longer be used until one of its tt(reset) members has been called.
 
     itb(int fd() const)
-        The file descriptor used by the tt(IFdBuf) object is returned.
+        The file descriptor used by the tt(IFdBuf(S)) object is returned.
         If the tt(OFdBuf) is not associated with a file descriptor -1 is
-        returned. 
+        returned.
 
     itb(void reset(int fd, size_t n = 1))
         The streambuf is (re)initialized, using file descriptor tt(fd), and an
@@ -94,7 +104,7 @@ whether the file descriptor will be closed or will remain open.
         The streambuf is (re)initialized, using file descriptor tt(fd), a file
 descriptor closing parameter and an optional unget buffer size (by default
 having size 1). Depending on the tt(Mode) argument the object's currently used
-file descriptor will be closed or will remain open when the tt(IFdBuf)
+file descriptor will be closed or will remain open when the tt(IFdBuf(S))
 object is destroyed.
     )
 
@@ -103,10 +113,11 @@ manpagesection(EXAMPLE)
     verbinclude(../../ifdbuf/driver/driver.cc)
 
 manpagefiles()
-    em(bobcat/ifdbuf) - defines the class interface
+    em(bobcat/ifdbuf) - defines the bf(FBB::IFdBuf) class interface+nl()
+    em(bobcat/ifdbufs) - defines the bf(FBB::IFdBufS) class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(ifdstream)(3bobcat), bf(ofdbuf)(3bobcat), 
+    bf(bobcat)(7), bf(ifdstream)(3bobcat), bf(ofdbuf)(3bobcat),
     bf(std::streambuf)
 
 manpagebugs()

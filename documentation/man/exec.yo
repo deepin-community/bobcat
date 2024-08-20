@@ -8,12 +8,12 @@ manpagename(FBB::Exec)(Runs external programs)
 
 manpagesynopsis()
     bf(#include <bobcat/exec>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     The bf(FBB::Exec) class offers a basic interface for calling external
 programs (so-called em(child processes)). The standard streams of the child
-processes are not handled by ttExec) objects: the parent's standard streams
+processes are not handled by tt(Exec) objects: the parent's standard streams
 are used by the child process. The tt(PATH) environment variable is not used
 when calling child processes: child process programs must be specified using
 paths.
@@ -75,7 +75,3 @@ manpagebugs()
     None reported.
 
 includefile(include/trailer)
-
-
-
-

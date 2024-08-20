@@ -12,23 +12,23 @@ namespace FBB
 template <typename Key, typename Value>
 class LinearMap: private std::vector<std::pair<Key, Value>>
 {
-        typedef std::vector<std::pair<Key, Value>>   Base;
-        typedef LinearMap<Key, Value>                LinMap;
-        typedef std::pair<
-            typename LinearMap<Key, Value>::const_iterator,
-            typename LinearMap<Key, Value>::const_iterator
-        >                                                   ConstIterPair;
-        typedef std::pair<
-            typename LinearMap<Key, Value>::iterator,
-            typename LinearMap<Key, Value>::iterator
-        >                                                   IterPair;
+        using Base =  std::vector<std::pair<Key, Value>>;
+        using LinMap =  LinearMap<Key, Value>;
+        using ConstIterPair =  std::pair<
+                    typename LinearMap<Key, Value>::const_iterator,
+                    typename LinearMap<Key, Value>::const_iterator
+                >;
+        using IterPair = std::pair<
+                    typename LinearMap<Key, Value>::iterator,
+                    typename LinearMap<Key, Value>::iterator
+                >;
 
     public:
-        typedef std::pair<Key, Value>           value_type;
-        typedef typename Base::iterator         iterator;
-        typedef typename Base::const_iterator   const_iterator;
-        typedef typename Base::reverse_iterator       reverse_iterator;
-        typedef typename Base::const_reverse_iterator const_reverse_iterator;
+        using value_type =  std::pair<Key, Value>;
+        using iterator =  typename Base::iterator;
+        using const_iterator =  typename Base::const_iterator;
+        using reverse_iterator =  typename Base::reverse_iterator;
+        using const_reverse_iterator =  typename Base::const_reverse_iterator;
 
         LinearMap()                     = default;
 
@@ -109,5 +109,5 @@ class LinearMap: private std::vector<std::pair<Key, Value>>
 #include "upperbound1.f"
 #include "upperbound2.f"
 
-} // FBB        
+} // FBB
 #endif

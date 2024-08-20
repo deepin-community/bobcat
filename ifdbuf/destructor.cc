@@ -4,4 +4,3 @@ IFdBuf::~IFdBuf()
 {
     cleanup(d_mode);
 }
-

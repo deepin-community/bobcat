@@ -50,9 +50,8 @@ int main(int argc, char **argv)
 
     cout << st.name() << ": access: " << st.lastAccess() << "\n" <<
             st.name() << ": change: " << st.lastChange() << "\n" <<
-            st.name() << ": modif:  " << st.lastModification() << "\n"   
-            "Mode: " << oct << st.mode() <<  " (" << st.modeStr() << ")\n" 
+            st.name() << ": modif:  " << st.lastModification() << "\n"
+            "Mode: " << oct << st.mode() <<  " (" << st.modeStr() << ")\n"
             "Type: " << st.type() << " (" << st.typeStr() << ")\n"
             "Full path:  " << st.path()  << endl;
 }
-

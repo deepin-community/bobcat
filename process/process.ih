@@ -11,28 +11,18 @@
 #include <sys/wait.h>
 
 #include "../redirector/redirector"
-#include "../exception/exception"
 
-using namespace std;
-using namespace FBB;
 
-struct Process::ExecContext
+struct FBB::Process::ExecContext
 {
     size_t argc;            // must eventually be at least 1
-    char const **argv;      // 0-terminated array of pointers to the 
+    char const **argv;      // 0-terminated array of pointers to the
                             // arguments
 };
-    
+
 #include "retpid1.f"
 
-
-
-
-
-
-
-
-
-
-
-
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

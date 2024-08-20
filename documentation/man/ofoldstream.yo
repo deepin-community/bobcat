@@ -8,7 +8,7 @@ manpagename(FBB::OFoldStream)(Folds long lines)
 
 manpagesynopsis()
     bf(#include <bobcat/ofoldstream>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::OFoldStream) folds long lines written to it. The
@@ -78,7 +78,7 @@ left-margin characters and tt(TrailingBlanks) handling mode.
                    TrailingBlanks tb = IGNORE_TRAILING_BLANKS))
     This constructor initializes an tt(OFoldStream) object and opens (using
 tt(std::ios::out)) the destination stream using the name specified as its
-tt(fname) argument. 
+tt(fname) argument.
 
     itb(OFoldStream(std::ostream &stream,
                    size_t leftIndent = 0, size_t rightMargin = 80,
@@ -105,7 +105,7 @@ and then closes the destination stream.
         This member associates the tt(OFilterStream) object with an
 tt(std::ofstream) object whose filename is provided and that should receive
 the folded information.
-        
+
     itb(void open(std::ostream &out))
         This member associates the tt(OFilterStream) object with the provided
 tt(ostream) object.

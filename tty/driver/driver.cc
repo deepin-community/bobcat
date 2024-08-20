@@ -13,11 +13,8 @@ int main()
     getline(cin, line);
     cout << "\n"
             "You entered: `" << line << "'\n";
-    
+
     cout << "Enter some text (echoed): ";
     getline(cin >> Tty(Tty::ON), line);
     cout << "You entered: `" << line << "'\n";
 }
-
-
-

@@ -2,6 +2,6 @@
 
 void SyslogBuf::eoi_()
 {
-    sync();   
+    sync();
     closelog();                     // syslog.h
 }

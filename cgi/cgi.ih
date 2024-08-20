@@ -12,22 +12,16 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-//#include "../a2x/a2x"
-//#include "../x2a/x2a"
-
-#include "../exception/exception"
 #include "../string/string"
 #include "../stat/stat"
 #include "../fswap/fswap"
 #include "../ranger/ranger"
 
-using namespace std;
-using namespace FBB;
 
 namespace FBB
 {
 
-typedef pair<char const *const, int (*const)(int)> PairCPPFunP;
+using PairCPPFunP =  std::pair<char const *const, int (*const)(int)>;
 
 class CGIFSA
 {
@@ -36,9 +30,9 @@ class CGIFSA
         DEFAULT = 256,
         SET,
         END,
-    };            
+    };
     enum State         // change data.cc s_stateName when this changes
-    {   
+    {
         START,
         CHECKSET,
         DEFINESET,
@@ -60,15 +54,15 @@ class CGIFSA
         size_t  (CGIFSA::*tokenizer)();
     };
 
-    stack<char> d_stack;
+    std::stack<char> d_stack;
     bool *d_escape;
     bool d_setEscape;
     State d_state;
     size_t  d_tokenIdx;
-    string d_buffer;
+    std::string d_buffer;
     size_t  d_setIdx;
-    istream &d_in;
-           
+    std::istream &d_in;
+
     struct Transition
     {
         size_t  token;
@@ -76,7 +70,7 @@ class CGIFSA
         State   next;
     };
 
-    static vector<Transition> s_fsa[];
+    static std::vector<Transition> s_fsa[];
     static size_t (CGIFSA::*s_tokenizer[])();
     static Record const s_fsaRawData[];
     static Record const *const s_fsaRawDataEnd;
@@ -84,10 +78,11 @@ class CGIFSA
     static PairCPPFunP const *const s_charClassEnd;
     static bool s_installed;
     static char const *s_stateName[];
-    static string s_cgi;
+    static std::string s_cgi;
 
     public:
-        CGIFSA(bool *escape, istream &in = cin, bool setEscape = false);
+        CGIFSA(bool *escape, std::istream &in = std::cin, 
+                                                    bool setEscape = false);
         void run();
 
     private:
@@ -101,7 +96,7 @@ class CGIFSA
         size_t tokenIdx();
 
         void setEscape(size_t idx);                 // .i
-    
+
         size_t charToken();
         size_t wordToken();
 
@@ -113,3 +108,7 @@ class CGIFSA
 #include "setescape.f"
 
 }   // namespace
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

@@ -1,0 +1,61 @@
+includefile(include/header)
+
+COMMENT(replace 'classname' by the name of the new class)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::RandomMT)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+       (Random Generator using std::mt19937)
+
+manpagename(FBB::RandomMT)(Class template generating random numbers)
+
+manpagesynopsis()
+    bf(#include <bobcat/randommt>)nl()
+    Linking option: tt(-lbobcat)
+
+manpagedescription()
+    The class template tt(RandomMT) uses the tt(std::mt19937) Mercenne Twister
+to produce random numbers. The class template has one template type parameter,
+which can be any integral or floating point type. By default tt(size_t)-valued
+random numbers are generated.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(RandomMT<typename Type = size_t>::RandomMT(Type minimum,
+                                           Type maximum, size_t mtSeed))
+       The tt(Type) template type parameter can be any integral or floating
+        point type. If not specified tt(size_t) is used. The parameters
+        tt(minimum) and tt(maximum) define the range of the generated random
+        values. tt(minimum) must be less or equal to tt(maximum), or an
+        exception is thrown. The tt(mtSeed) parameter is used to initialize
+        (seed) the tt(mt19937) Mercenne Twister.
+    )
+
+    The default copy and move constructors and assignment operators are
+        available.
+
+manpagesection(OVERLOADED OPERATORS)
+    itemization(
+    itb(Type operator()())
+        The function call operator returns the next random value.
+    )
+
+
+manpagesection(EXAMPLE)
+    verbinclude(../../randommt/driver/driver.cc)
+
+manpagefiles()
+    em(bobcat/randommt) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(irandstream)(3bobcat), bf(rand)(3),
+    bf(randbuf)(3bobcat), bf(srand)(3)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

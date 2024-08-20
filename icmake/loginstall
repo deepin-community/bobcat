@@ -33,7 +33,3 @@ void logInstall(string src, string pattern, string dest)
     for (idx = listlen(entries); idx--; )
         run("cp " CPOPTS " " + src + entries[idx] + " " + dest);
 }
-
-
-        
-

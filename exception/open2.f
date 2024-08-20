@@ -1,5 +1,5 @@
 template <typename StreamType>
-void Exception::open(int errnoValue, StreamType &stream, 
+void Exception::open(int errnoValue, StreamType &stream,
                      std::string const &name)
 {
     if (stream.is_open())

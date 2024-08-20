@@ -1,6 +1,6 @@
 #include "string.ih"
 
-bool (*String::s_FSAtransition[][s_nCharTypes])(FSAData &) = 
+bool (*String::s_FSAtransition[][s_nCharTypes])(FSAData &) =
 {
     //  DQUOTE, SQUOTE, SEPARATOR,  ESCAPE, CHAR,   EOS,
     {   &dqIn,  &sqIn,  &sepIn,     &escIn, &chIn,  &eosIn   },  // START
@@ -14,7 +14,7 @@ void String::strsep(SplitPairVector *entries)           // no action required
 
 void (*String::s_tuneToSplitType[])(SplitPairVector *entries) =
 {
-    &tok, 
+    &tok,
     &toksep,
     &str,
     &strsep

@@ -1,4 +1,4 @@
-inline void PrimeFactors::iterator::nextPrime()
+inline void FBB::PrimeFactors::iterator::nextPrime()
 {
     next();
 }

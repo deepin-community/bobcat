@@ -27,11 +27,10 @@ try
 
     cout << "A InetAddress was constructed for port " << ia.port() <<
             endl;
-    cout << "It has the generic `ANY' address: " << 
+    cout << "It has the generic `ANY' address: " <<
             ia.dottedDecimalAddress() << endl;
 }
 catch (exception const &e)
 {
     cout << "Exception: " << e.what() << endl;
 }
-

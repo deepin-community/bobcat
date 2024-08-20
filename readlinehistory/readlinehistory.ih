@@ -1,11 +1,18 @@
 #include "readlinehistory"
 
+#include <iostream>         // TMP
+
 #include <fstream>
 #include <algorithm>
 
 using namespace std;
 using namespace FBB;
 
-#include "opdec.f"
-#include "opdecpost.f"
+//#include "opdec.f"
+//#include "opdecpost.f"
 
+inline ReadLineHistory::const_iterator
+    ReadLineHistory::const_iterator::operator--(int)
+{
+    return const_iterator(d_elements, d_idx--);
+}

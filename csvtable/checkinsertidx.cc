@@ -14,6 +14,6 @@ unsigned CSVTable::checkInsertIdx(unsigned idx)
     if (idx >= d_idx)
         return idx;
 
-    throw Exception{} << "cannot insert values at column index " << idx << 
+    throw Exception{} << "cannot insert values at column index " << idx <<
                          ": first available index is " << d_idx;
 }

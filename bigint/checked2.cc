@@ -1,9 +1,9 @@
 #include "bigint.ih"
 
 BigInt &BigInt::checked2(
-                int (*BN_op)(BIGNUM *, BIGNUM const *, BIGNUM const *, 
+                int (*BN_op)(BIGNUM *, BIGNUM const *, BIGNUM const *,
                              BIGNUM const *, BN_CTX *),
-                BigInt const &rhs, BigInt const &mod, 
+                BigInt const &rhs, BigInt const &mod,
                 char const *op)
 {
     BNCTX ctx;

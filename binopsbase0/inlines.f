@@ -97,4 +97,3 @@ inline void BinopsBase<Derived, ops...>::xorWrap(Derived const &rhs)
         static_cast<Xor<Derived> &>(*this)
     ).xor_(rhs);
 }
-

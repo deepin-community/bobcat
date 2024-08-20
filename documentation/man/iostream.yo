@@ -8,7 +8,7 @@ manpagename(FBB::IOStream)(Combines std::istream and std::ostream features)
 
 manpagesynopsis()
     bf(#include <bobcat/iostream>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 
 manpagedescription()
@@ -49,7 +49,7 @@ available, as bf(FBB::IOStream) inherits from these classes. Furthermore, when
 switching between tt(std::istream) and tt(std::ostream) operations, no
 intermediate tt(seekg()) or tt(seekp()) operation will normally be required,
 since the base classes will normally be associated with physically different
-streams. 
+streams.
     itemization(
     itb(void open(std::istream &in, std::ostream &out))
         This member (re)associates the bf(IOStream) object with a
@@ -71,7 +71,7 @@ manpagefiles()
     em(bobcat/iostream) - defines the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(ifdstream)(3bobcat), bf(iobuf)(3bobcat), 
+    bf(bobcat)(7), bf(ifdstream)(3bobcat), bf(iobuf)(3bobcat),
     bf(ofdstream)(3bobcat), bf(process)(3bobcat)
 
 manpagebugs()

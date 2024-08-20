@@ -7,7 +7,7 @@ void PrimeFactors::iteratorStream::resetPrimes()
     d_mode = STREAM_PRIMES;
 
     readPrimes();
-    
+
     if (not d_streamPrimes.empty())
         checkInitialPrimes(d_streamPrimes);
     else

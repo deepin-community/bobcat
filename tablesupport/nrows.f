@@ -1,4 +1,4 @@
-inline size_t TableSupport::nRows() const
+inline size_t FBB::TableSupport::nRows() const
 {
     return d_nRows;
 }

@@ -1,3 +1,134 @@
+bobcat (6.06.01-1) unstable; urgency=medium
+
+  [ Frank B. Brokken ]
+  * New upstream release (6.06.01) addresses errata in 6.06.00 release.
+  * New upstream release (6.06.00) adds classes Mmapbuf, ImmapStream, 
+    OmmapStream and IOmmapstream using mmap(2) for file I/O.
+  * New upstream release (6.05.00) build-depends on icmake >= 12.00.00
+    to enable single precompiled headers and multi-threaded compilation.
+  * The Standards-Version was updated to 4.7.0.
+
+  [ tony mancill ]
+  * Remove George Danchev from Uploaders (Thank you George!)
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 28 May 2024 10:41:04 +0200
+
+bobcat (6.04.00-1) unstable; urgency=medium
+
+  * New upstream release 6.04.00, adding non-hierarchical logging facilities
+    to the class Log and modifying the default implementation of
+    Milter::close.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 01 Dec 2023 08:51:14 +0100
+
+bobcat (6.03.02-2) unstable; urgency=medium
+
+  * Upload to unstable
+
+ -- tony mancill <tmancill@debian.org>  Sun, 11 Jun 2023 16:12:42 -0700
+
+bobcat (6.03.02-1) experimental; urgency=medium
+
+  * Fixed a bug in the Arg class due to which optional arguments of long+short
+    options were not recognized when the long option alternative was used.
+  * The DateTime class constructors use the UTC time by default.
+  * Several cosmetic changes to man-pages.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 29 May 2023 12:57:34 +0200
+
+bobcat (6.03.01-1) experimental; urgency=medium
+
+  [ Frank B. Brokken ]
+  * New upstream release 6.03.01
+  * New classes 'Proc, IFdBufS' and 'IFdStreamS' were added.
+  * OFdBuf received a new member 'warn'.
+  * 'Pipe' received new members 'reset'.
+  * Several man-pages were updated.
+  * Refer to the upstream's changelog for details.
+
+  [ tony mancill ]
+  * Freshen years in debian/copyright
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 02 Mar 2023 09:25:58 +0100
+
+bobcat (6.02.02-1) unstable; urgency=medium
+
+  * Upstream accidentally included "../arg/arg" instead of <bobcat/arg>
+    in the <bobcat/argconfig> header causing compilation failures. Fixed in
+    the 6.02.02 upstream release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 11 Nov 2022 20:47:45 +0100
+
+bobcat (6.02.01-1) unstable; urgency=medium
+
+  * New upstream release uses std::unique_ptr to return the memory allocated
+    by Singletons to the operating system when their programs end, and updated
+    some man-pages
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 11 Nov 2022 09:39:41 +0100
+
+bobcat (6.02.00-1) unstable; urgency=medium
+
+  * Added new class 'ECDH' implementing Elliptic Curve based Diffie-Hellman
+    key exchange.
+  * Updated the table* and related man-pages
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 15 Oct 2022 11:38:03 +0200
+
+bobcat (6.01.00-2) unstable; urgency=medium
+
+  * Upload to unstable.  Transition tracker bug #1020850.
+
+ -- tony mancill <tmancill@debian.org>  Tue, 27 Sep 2022 19:50:54 -0700
+
+bobcat (6.01.00-1) experimental; urgency=medium
+
+  [ Frank B. Brokken ]
+  * The HMacBuf class was modified, supporting default and move constructors
+    and move assignment.
+  * New major release, primarily because of openssl's upgrade to its version
+    >= 3.0.5. Most classes using openssl functions required significant
+    modifications, resulting in bobcat's next major release. Also, several new
+    classes were added, and EncryptBuf, DecryptBuf are now deactivated, while
+    Cryptbuf is deprecated. See upstream's changelog for a detailed overview
+    of changes implemented in bobcat 6.00.00
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 09 Sep 2022 14:12:35 +0200
+
+bobcat (5.11.01-1) unstable; urgency=medium
+
+  * LDC couldn't process 0-values. Fixed in this release
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 03 Jul 2022 17:27:35 +0200
+
+bobcat (5.11.00-1) unstable; urgency=medium
+
+  [ Frank B. Brokken ]
+  * Upstream added a new class LDC (Large Digital Converter) to convert
+    (large) digital value to (character) representations of freely selectable
+    number systems.
+  * 'debian/rules' specifies CXXFLAGS --std=c++20
+
+  [ tony mancill ]
+  * Build-Depends: Drop versioned constraints on ancient versions
+    of libmilter-dev and libx11-dev.
+  * Add repo and bug-database fields to debian/upstream/metadata
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 21 May 2022 17:48:19 +0200
+
+bobcat (5.10.01-1) unstable; urgency=medium
+
+  * Upstream repaired errors in the newly added reverse(3bobcat) manpage.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 17 Apr 2022 08:32:39 +0200
+
+bobcat (5.10.00-1) UNRELEASED; urgency=medium
+
+  * Upstream added the class template Reverse and 'reverse' support functions
+    to allow reverse-iterations over data in range-based for-loops.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 16 Apr 2022 18:18:52 +0200
+
 bobcat (5.09.01-2) unstable; urgency=medium
 
   * Upload to unstable
@@ -29,13 +160,13 @@ bobcat (5.08.00-1) experimental; urgency=medium
 
   [ tony mancill ]
   * Update debian/gbp.conf for DEP-14 debian/latest branch
- 
+
  -- tony mancill <tmancill@debian.org>  Sun, 16 May 2021 10:57:56 -0700
 
 bobcat (5.07.03-1) experimental; urgency=medium
 
   [ Frank B. Brokken ]
-  * New upstream version 5.07.03 
+  * New upstream version 5.07.03
     Fixes compilation errors and warnings reported by g++-11
     (Closes: #983995).
 
@@ -1083,7 +1214,7 @@ bobcat (2.00.0-1) unstable; urgency=low
   * the dev package no longer strictly depends on libbobcat1/2 since
     dh_makeshlibs -V is meant to handle that automatically.
 
- -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 29 Nov 2008 19:23:13 +0100
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 29 Nov 2008 19:23:13 +0100
 
 bobcat (1.21.1-2) unstable; urgency=low
 

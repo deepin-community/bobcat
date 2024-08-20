@@ -25,5 +25,3 @@ void DateTime::Parse::dateR()
 
     d_format = 3;
 }
-
-

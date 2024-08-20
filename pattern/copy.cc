@@ -1,7 +1,7 @@
 #include "pattern.ih"
 
 void Pattern::copy(Pattern const &other)
-{    
+{
     d_regex = other.d_regex;
     d_regex->d_referenceCount++;
 

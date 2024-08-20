@@ -9,5 +9,5 @@ void Signal::add(size_t signum, SignalHandler &object)
 
     d_signals[signum].push_back(&object);
 
-    signal(signum, handler); 
+    signal(signum, handler);
 }

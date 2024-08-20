@@ -11,12 +11,12 @@ void CGI::upload(string *line)
 
     if (line->find(content_Type) != 0)
     {
-        d_status = "Content-Type not found for file-field " + 
+        d_status = "Content-Type not found for file-field " +
                     d_contentDisposition[1];
         throw false;
     }
 
-    string contentType = line->substr(sizeof(content_Type) - 1); 
+    string contentType = line->substr(sizeof(content_Type) - 1);
 
     string destName;                // try s_nTries times to find an available
                                     // file
@@ -35,7 +35,7 @@ void CGI::upload(string *line)
     }
 
     string previous;
-    unique_ptr<char> buffer(new char[s_uploadBlock]);
+    unique_ptr<char[]> buffer(new char[s_uploadBlock]);
 
     next(line);                         // skip the blank line following the
                                         // content-type
@@ -46,7 +46,7 @@ void CGI::upload(string *line)
         cin.getline(buffer.get(), s_uploadBlock);
         size_t nRead = cin.gcount();    // may include the \n, but the \n is
                                         // then stored as 0, since it is
-                                        // removed from the input and an 
+                                        // removed from the input and an
                                         // \0 is appended to the read line
 
         if (!nRead)                     // none read: shouldn't happen
@@ -54,13 +54,13 @@ void CGI::upload(string *line)
             d_status = "multipart/form-data: no end-boundary found";
             throw false;
         }
-    
+
         if (cin.fail())                 // on fail() no \n was encountered
             cin.clear();
         else                            // no fail: change the \0 into \n
             (buffer.get())[nRead - 1] = '\n';
 
-        // the line that was read contains \r\n characters, so a boundary 
+        // the line that was read contains \r\n characters, so a boundary
         // can only be encountered if nRead exceeds the boundary length
         // if so, and the buffer's boundary length characters are equal to the
         // boundary then a boundary was found.
@@ -69,11 +69,11 @@ void CGI::upload(string *line)
         // the browser's form-handling software which is therefore not
         // included in the uploaded file (hence `- 2', below). Then, the
         // boundary is copied to the line parameter and the function returns.
-        if 
+        if
         (
             nRead > d_boundary.length()
             &&
-            d_boundary.compare(0, d_boundary.length(), 
+            d_boundary.compare(0, d_boundary.length(),
                                buffer.get(), d_boundary.length()) == 0
         )
         {
@@ -84,7 +84,7 @@ void CGI::upload(string *line)
             line->assign(buffer.get(), nRead);
             break;
         }
-        
+
         if (uploadSize <= d_maxUploadSize)
         {
             uploadSize += previous.length();
@@ -99,10 +99,8 @@ void CGI::upload(string *line)
     param.push_back(escape(destName));
     param.push_back(escape(d_contentFile[1]));
     param.push_back(escape(contentType));
-    param.push_back(uploadSize <= d_maxUploadSize ? 
+    param.push_back(uploadSize <= d_maxUploadSize ?
                         "OK"
                     :
                         "truncated");
 }
-
-

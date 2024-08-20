@@ -2,7 +2,9 @@
 
 #include <iomanip>
 
-using namespace std;
-using namespace FBB;
 
 #include "elementat.f"
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

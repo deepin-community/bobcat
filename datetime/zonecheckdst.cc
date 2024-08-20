@@ -29,6 +29,3 @@ catch (...)
     throw Exception{ 1 } << "Zone DST error: `" << dstSpec << "', `" <<
                             dstBegin << "', `" << dstEnd << '\'';
 }
-
-
-

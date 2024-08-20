@@ -1,7 +1,7 @@
 #include "ofdbuf.ih"
 
 // override
-streamsize OFdBuf::xsputn(char const *buffer, streamsize nChars) 
+streamsize OFdBuf::xsputn(char const *buffer, streamsize nChars)
 {
     streamsize pending = nChars;
 
@@ -26,6 +26,3 @@ streamsize OFdBuf::xsputn(char const *buffer, streamsize nChars)
 
     return nChars;
 }
-
-
-

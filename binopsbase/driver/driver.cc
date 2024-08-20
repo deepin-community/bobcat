@@ -16,7 +16,7 @@ class Demo1: public FBB::BinopsBase<Demo1>
         }
 
 //  Explicit definitions take precedence over functions templates
-//  instantiated from definitions in bobcat/binopsbase. 
+//  instantiated from definitions in bobcat/binopsbase.
 //        Demo1 &operator+=(Demo1 const &rhs) &
 //        {
 //            std::cout << "adding (self-defined) two Demo1 objects\n";
@@ -104,9 +104,3 @@ int main()
 
     d2c = d2c | d2b;
 }
-
-
-
-
-
-

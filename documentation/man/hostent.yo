@@ -8,19 +8,19 @@ manpagename(FBB::Hostent)(Wrapper around a bf(struct hostent))
 
 manpagesynopsis()
     bf(#include <bobcat/hostent>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(@CLASS) objects are wrappers around bf(hostent) structs which may be
 used by other objects. A bf(struct hostent) is defined as follows:
         verb(
-    struct hostent 
+    struct hostent
     {
-        char    *h_name;        // official name of host 
-        char    **h_aliases;    // alias list 
+        char    *h_name;        // official name of host
+        char    **h_aliases;    // alias list
         int     h_addrtype;     // host address type (always AF_INET)
-        int     h_length;       // length of address 
-        char    **h_addr_list;  // list of addresses 
+        int     h_length;       // length of address
+        char    **h_addr_list;  // list of addresses
     }
         )
 
@@ -35,7 +35,7 @@ manpagesection(INHERITS FROM)
 
 manpagesection(CONSTRUCTORS)
     itemization(
-    itb(Hostent(hostent const *hostentPtr)) 
+    itb(Hostent(hostent const *hostentPtr))
         This constructor initializes an bf(@CLASS) object from an existing
 bf(hostent) struct. Functions like bf(gethostbyname)(3) and
 bf(gethostbyaddress)(3) return pointers to bf(hostent) structs.
@@ -92,10 +92,10 @@ manpagesection(EXAMPLE)
     #include <algorithm>
     #include <iterator>
     #include <bobcat/hostent>
-    
+
     using namespace std;
     using namespace FBB;
-    
+
     int main(int argc, char **argv)
     {
         Hostent he(gethostbyname("localhost"));
@@ -103,7 +103,7 @@ manpagesection(EXAMPLE)
         cout << "The local hostname = " << he.hostname() << endl;
 
         cout << "All aliases: " << endl;
-        copy(he.beginAlias(), he.endAlias(), 
+        copy(he.beginAlias(), he.endAlias(),
                     ostream_iterator<char const *>(cout, "\n"));
 
         cout << "Addresses:\n";

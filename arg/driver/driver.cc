@@ -30,7 +30,7 @@ void optcheck(char c)
 
         idx = arg.option(&value, c);
         cout << idx << " returned by option() for "
-                        "option " << c << 
+                        "option " << c <<
                         ", which has value `" << value << "'\n";
 
         size_t count = arg.option(&idx, &value, c);
@@ -66,7 +66,7 @@ void longopt(char const *longOpt)
 
 void usage(string  const  &progname)
 {
-    cout <<     
+    cout <<
         "Usage: " << progname << " arg options\n"
         "where:\n"
         "   arg: any argument\n"
@@ -78,9 +78,6 @@ void usage(string  const  &progname)
         "Available long options:\n"
         "    --optional, --extra (+ arg), --file (as -f),\n"
         "    --version (as -v), --add (as -a)\n";
-}
-
-namespace {
 }
 
 int main(int argc, char **argv)
@@ -95,13 +92,12 @@ try
         {"version", 'v'},
         {"add", 'a'}
     };
-    try
-    {    
-        Arg::initialize('t', "+abcd:e:f:hvt", 
-                lo, lo + 6,
-                argc, argv);
 
-        Arg &arg = Arg::instance();
+    try
+    {
+        Arg::initialize('t', "+abcd:e:f::hvt", lo, lo + 6, argc, argv);
+
+        Arg &arg = Arg::instance();   // just to check ::instance()
 
         cout << "dashed options start at index " << arg.beyondDashes() << endl;
 

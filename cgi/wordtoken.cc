@@ -8,12 +8,12 @@ size_t CGIFSA::wordToken()
         d_buffer += d_in.get();
 
     if (!d_buffer.size())               // if none read, return the next char
-        return charToken();             
+        return charToken();
 
                                         // look for a character class name
-    PairCPPFunP const *ret = 
+    PairCPPFunP const *ret =
             find_if(
-                s_charClass, s_charClassEnd, 
+                s_charClass, s_charClassEnd,
                 [&](PairCPPFunP const &cClass)
                 {
                     return d_buffer == cClass.first;
@@ -27,4 +27,3 @@ size_t CGIFSA::wordToken()
 
     return SET;                         // return `set found'
 }
-

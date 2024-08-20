@@ -1,4 +1,4 @@
-inline void OFoldBuf::addNonWs(int c)
+inline void FBB::OFoldBuf::addNonWs(int c)
 {
     d_nonWs += c;
 }

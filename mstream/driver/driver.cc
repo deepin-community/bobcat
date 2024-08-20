@@ -27,7 +27,7 @@ try
     emsg << "Oops, this goes wrong, too" << noid;
 
     imsg.on();
-    imsg << "And another informational msg: " << emsg.count() << 
+    imsg << "And another informational msg: " << emsg.count() <<
             " error messages\n" << flush;
 
     emsg << "Third error" << endl;
@@ -52,7 +52,7 @@ try
             emsg.count() << endl;
 
     cerr << "Beyond\n";
-}            
+}
 catch(exception const &e)
 {
     std::cerr << "Got a std::exception: " << e.what() << '\n';
@@ -61,9 +61,3 @@ catch(...)
 {
     std::cerr << "Got an exception\n";
 }
-
-
-
-
-
-

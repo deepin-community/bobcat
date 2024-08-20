@@ -6,7 +6,7 @@ bool MultiBuf::remove(ostream &os, Mode mode)
 
     while (true)
     {
-        auto iter = find_if(d_os.begin(), d_os.end(), 
+        auto iter = find_if(d_os.begin(), d_os.end(),
             [&](stream &entry)
             {
                 return &entry.ostream() == &os;

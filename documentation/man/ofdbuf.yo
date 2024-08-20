@@ -9,7 +9,7 @@ manpagename(FBB::OFdBuf)
 
 manpagesynopsis()
     bf(#include <bobcat/ofdbuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::OFdBuf) objects may be used as a tt(std::streambuf) of
@@ -37,38 +37,42 @@ the object must not be closed.
 manpagesection(CONSTRUCTORS)
     itemization(
     itb(OFdBuf())
-        This constructor initializes the streambuf, without associating it to
-a file descriptor, and without using buffering. The member tt(reset) can be
-used to associate the object later on with a file descriptor and optionally a
-buffer size.  When the object is destroyed or if the mode-less overloaded
-version of the tt(reset) member is called, the file descriptor is closed.
+       This constructor initializes the streambuf, without associating it to a
+        file descriptor, and without using buffering. The member tt(reset) can
+        be used to associate the object later on with a file descriptor and
+        optionally a buffer size.  When the object is destroyed or if the
+        mode-less overloaded version of the tt(reset) member is called, the
+        file descriptor is closed.
 
     itb(OFdBuf(Mode mode))
-        This constructor initializes the streambuf, without associating it to
-a file descriptor, and without using buffering. The member tt(reset) can be
-used to associate the object later on with a file descriptor and optionally a
-buffer size.  When the object is destroyed or if the mode-less
-overloaded version of the member tt(reset) is called, the tt(Mode) argument
-determines whether the file descriptor will be closed or will remain open.
+       This constructor initializes the streambuf, without associating it to a
+        file descriptor, and without using buffering. The member tt(reset) can
+        be used to associate the object later on with a file descriptor and
+        optionally a buffer size.  When the object is destroyed or if the
+        mode-less overloaded version of the member tt(reset) is called, the
+        tt(Mode) argument determines whether the file descriptor will be
+        closed or will remain open.
 
     itb(OFdBuf(int fd, size_t n = 1))
-        This constructor initializes the streambuf, associating it to file
-descriptor tt(fd), and an optional unget buffer size (by default having size
-1).  When  tt(reset) is called subsequently, or if the object is destroyed
-the provided file descriptor will be closed.
+       This constructor initializes the streambuf, associating it to file
+        descriptor tt(fd), and an optional unget buffer size (by default
+        having size 1).  When tt(reset) is called subsequently, or if the
+        object is destroyed the provided file descriptor will be closed.
 
     itb(OFdBuf(int fd, size_t n = 1))
-        This constructor initializes the streambuf, associating it to file
-descriptor tt(fd), and an optional unget buffer size (by default having size
-1).  When the object is destroyed or if the mode-less overloaded version of
-the member tt(reset) is called, the file descriptor will be closed.
+       This constructor initializes the streambuf, associating it to file
+        descriptor tt(fd), and an optional unget buffer size (by default
+        having size 1).  When the object is destroyed or if the mode-less
+        overloaded version of the member tt(reset) is called, the file
+        descriptor will be closed.
 
     itb(OFdBuf(int fd, Mode mode, size_t n = 1))
-        This constructor initializes the streambuf, associating it to file
-descriptor tt(fd), and an optional unget buffer size (by default having size
-1).  When the object is destroyed or if the mode-less overloaded version of
-the member tt(reset) is called, the tt(Mode) argument determines whether the
-file descriptor will be closed or will remain open.
+       This constructor initializes the streambuf, associating it to file
+        descriptor tt(fd), and an optional unget buffer size (by default
+        having size 1).  When the object is destroyed or if the mode-less
+        overloaded version of the member tt(reset) is called, the tt(Mode)
+        argument determines whether the file descriptor will be closed or will
+        remain open.
     )
 
     Copy and move constructors (and assignment operators) are not available.
@@ -78,38 +82,45 @@ manpagesection(MEMBER FUNCTIONS)
 inherits from this class.
     itemization(
     itb(void eoi())
-        The file descriptor used by the tt(OFdBuf) is closed,
-irrespective of the tt(Mode) that was specified when the tt(OFdBuf)
-object was constructed. Following tt(eoi) the tt(OFdBuf) object can
-no longer be used until one of its tt(reset) members has been called. Instead
-of using this member the tt(eoi) manipulator can also be used.
+       The file descriptor used by the tt(OFdBuf) is closed, irrespective of
+        the tt(Mode) that was specified when the tt(OFdBuf) object was
+        constructed. Following tt(eoi) the tt(OFdBuf) object can no longer be
+        used until one of its tt(reset) members has been called. Instead of
+        using this member the tt(eoi) manipulator can also be used.
 
     itb(int fd() const)
-        The file descriptor used by the tt(OFdBuf) object is returned. 
+        The file descriptor used by the tt(OFdBuf) object is returned.
         If the tt(OFdBuf) is not associated with a file descriptor -1 is
-        returned. 
+        returned.
 
     itb(void reset(int xfd, size_t n = 1))
-        The streambuf is (re)initialized, using file descriptor tt(fd), and an
-optional unget buffer size (by default having size 1). When called repeatedly,
-the tt(Mode) specification used whem the object was constructed determines
-whether the file descriptor will be closed or will remain open.
+       The streambuf is (re)initialized, using file descriptor tt(fd), and an
+        optional unget buffer size (by default having size 1). When called
+        repeatedly, the tt(Mode) specification used whem the object was
+        constructed determines whether the file descriptor will be closed or
+        will remain open.
 
     itb(void reset(int xfd, Mode mode, size_t n = 1))
-        The streambuf is (re)initialized, using file descriptor tt(fd), a file
-descriptor closing parameter and an optional unget buffer size (by default
-having size 1). Depending on the tt(Mode) argument the object's currently used
-file descriptor will be closed or will remain open when the tt(IFdBuf)
-object is destroyed.
+       The streambuf is (re)initialized, using file descriptor tt(fd), a file
+        descriptor closing parameter and an optional unget buffer size (by
+        default having size 1). Depending on the tt(Mode) argument the
+        object's currently used file descriptor will be closed or will remain
+        open when the tt(IFdBuf) object is destroyed.
+
+    itb(void warn(bool on))
+       When tt(on == true) a warning is written to the standard error stream
+        when its tt(sync) member returns -1. If tt(warn) is not explicitly
+        called tt(on == true) is used.
+
     )
 
 manpagesection(MANIPULATOR)
     itemization(
     itb(FBB::eoi)
-        The tt(eoi) manipulator can be inserted into the tt(ostream) instead
-of calling the tt(OFdBuf::end) member. It performs the same actions as
-the tt(eoi) member.  If inserted into a plain tt(std::ostream) nothing
-happens.
+       The tt(eoi) manipulator can be inserted into the tt(ostream) instead of
+        calling the tt(OFdBuf::end) member. It performs the same actions as
+        the tt(eoi) member.  If inserted into a plain tt(std::ostream) nothing
+        happens.
     )
 
 manpagesection(EXAMPLE)
@@ -119,14 +130,10 @@ manpagefiles()
     em(bobcat/ofdbuf) - defines the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(ifdbuf)(3bobcat), bf(ofdstream)(3bobcat), 
+    bf(bobcat)(7), bf(ifdbuf)(3bobcat), bf(ofdstream)(3bobcat),
     bf(std::streambuf)
 
 manpagebugs()
     None reported
 
 includefile(include/trailer)
-
-
-
-

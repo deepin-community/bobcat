@@ -1,11 +1,11 @@
 #include "signal.ih"
 
-// This is required for the hurd-i386 arch, which apparently 
+// This is required for the hurd-i386 arch, which apparently
 // fails to implement the POSIX standard:
 
 #ifndef SIGRTMAX
     #define SIGRTMAX _NSIG
-#endif        
+#endif
 
 void Signal::verify(size_t signum, char const *member)
 {

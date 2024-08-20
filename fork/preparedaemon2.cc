@@ -1,6 +1,6 @@
 #include "fork.ih"
 
-void Fork::prepareDaemon(string const &out, string const &err, 
+void Fork::prepareDaemon(string const &out, string const &err,
                                                     mode_t mode) const
 {
     if (chdir("/") < 0)     // free up mount points

@@ -10,7 +10,7 @@ manpagename(FBB::IQuotedPrintableBuf)
 
 manpagesynopsis()
     bf(#include <bobcat/iquotedprintablebuf>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -94,7 +94,7 @@ manpagesection(EXAMPLE)
 
     The example shows the construction of tt(IQuotedPrintableBuf<ENCODE>)
 objects tt(encode) which are used to initialize a tt(std::istream) object. The
-information read from this tt(istream) is quoted-printable encoded. 
+information read from this tt(istream) is quoted-printable encoded.
 
 tt(IQuotedPrintableBuf<DECODE>) objects read quoted-printable encoded
 information from tt(std::istream) objects, decoding the information.
@@ -118,5 +118,3 @@ manpagebugs()
     None reported.
 
 includefile(include/trailer)
-
-

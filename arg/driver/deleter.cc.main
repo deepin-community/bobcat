@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+struct Class
+{
+    static Class *s_class;
+
+    static Class &initialize()
+    {
+        s_class = new Class;
+        return *s_class;
+    }
+
+    struct Deleter
+    {
+        ~Deleter()
+        {
+            cout << "~Deleter called\n";
+
+            delete s_class;
+            s_class = 0;
+        }
+    };
+
+    void deleter()
+    {
+        static Deleter deleter;
+    }
+
+};
+
+Class *Class::s_class;
+
+int main()
+{
+    Class &obj = Class::initialize();
+
+    obj.deleter();
+}

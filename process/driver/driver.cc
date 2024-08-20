@@ -24,7 +24,7 @@ try
     string line;
 
         // Nota bene: without IOMode you get CIN, COUT and CERR
-    Process p1(Process::CIN, "/bin/cat"); 
+    Process p1(Process::CIN, "/bin/cat");
     Process p2(Process::NONE, "/bin/cat");
     Process p3(Process::NONE, "/bin/cat");
 

@@ -13,4 +13,3 @@ time_t DateTime::utcForZone(std::string const &zoneSpec, TM &tm)
 
     return ret;
 }
-

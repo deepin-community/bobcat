@@ -4,7 +4,7 @@ void TableLines::v_hline(size_t row) const
 {
     if (row == 0 || row == nRows())
         out() << setfill('-') << setw(width()) << "-" << setfill(' ');
-    else  
+    else
     {
         const_iterator iter = begin(row);
         const_iterator beyond = end(row);

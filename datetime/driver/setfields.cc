@@ -7,15 +7,15 @@ using namespace FBB;
 
 void show(DateTime const &dt, char const *label)
 {
-    cout << 
+    cout <<
         label << ": " << dt << "\n"
         "    dst: " << dt.dst() << "\n"
-        "    hh:mm:ss: " << dt.hours() << ':' << dt.minutes() << ':' << 
+        "    hh:mm:ss: " << dt.hours() << ':' << dt.minutes() << ':' <<
                               dt.seconds() << "\n"
-        "    year-month-monthdaynr: " << dt.year() << '-' << 
+        "    year-month-monthdaynr: " << dt.year() << '-' <<
                                 dt.month() << '-' << dt.monthDayNr() << "\n"
-        "    weekday/weeknr/yearday/yeardaynr: " << 
-                  dt.weekday() << '/' << dt.weekNr() << '/' << 
+        "    weekday/weeknr/yearday/yeardaynr: " <<
+                  dt.weekday() << '/' << dt.weekNr() << '/' <<
                   dt.yearDay() << '/' << dt.yearDayNr() << "\n"
         "\n";
 }
@@ -31,7 +31,7 @@ int main()
     cout << "2: utc the next day, 2 hrs later: " << utc << "\n\n";
 
     DateTime dt{ now, DateTime::LOCALTIME };
-    cout << "3: current local time: " << dt << ", zone shift: " << 
+    cout << "3: current local time: " << dt << ", zone shift: " <<
             dt.zone().seconds() << " seconds\n\n";
 
     dt.setSeconds(0);
@@ -49,9 +49,9 @@ int main()
 
 
     utc.setFields(
-                    tm{ 0, 0, 8, 1 }, 
-                    DateTime::SECONDS | 
-                    DateTime::HOURS | 
+                    tm{ 0, 0, 8, 1 },
+                    DateTime::SECONDS |
+                    DateTime::HOURS |
                     DateTime::MONTHDAY
                 );
     show(utc, "7: utc, 1st of the month, 8 hrs, 0 sec.");
@@ -62,9 +62,9 @@ int main()
     cout << "8: current local time: " << dt1 << "\n\n";
 
     dt1.setFields(
-                    tm{ 0, 0, 8, 1 }, 
-                    DateTime::SECONDS | 
-                    DateTime::HOURS | 
+                    tm{ 0, 0, 8, 1 },
+                    DateTime::SECONDS |
+                    DateTime::HOURS |
                     DateTime::MONTHDAY
                 );
     show(dt1, "9: local time for 1st of the month, 8 hrs, zero seconds");
@@ -73,11 +73,3 @@ int main()
     dt2.setDay(dt2.monthDayNr() - 7);
     show(dt2, "10: current local time, one week ago");
 }
-
-
-
-
-
-
-
-

@@ -3,7 +3,7 @@
 /*
     The PerlSetFSA is a Finite State Automaton converting the special
 character set characters as used by Perl to their corresponding
-set-notations. 
+set-notations.
 
     The special perl-set characters may be used inside and outside of
 character classes. When used in a class, it adds the set to the current
@@ -13,8 +13,8 @@ reversed:
             \d <-> \D
 (etc).
 
-    The character sets s, d, and w are currently supported. \b and \B are 
-already part of the standard regex implementation. 
+    The character sets s, d, and w are currently supported. \b and \B are
+already part of the standard regex implementation.
 
 */
 
@@ -24,9 +24,7 @@ already part of the standard regex implementation.
 
 #include "../fswap/fswap"
 #include "../ranger/ranger"
-#include "../exception/exception"
 
-using namespace std;
 
 namespace FBB
 {
@@ -50,7 +48,7 @@ class PerlSetFSA
 
         nStates_
     };
- 
+
     struct TransitionMatrix
     {
         State   d_state;
@@ -64,7 +62,7 @@ class PerlSetFSA
 
     class Validator
     {
-        vector<bool> d_used;
+        std::vector<bool> d_used;
         int     d_last;
         State   d_state;
         bool    d_valid;
@@ -91,23 +89,22 @@ class PerlSetFSA
         // second: points just beyond the last element of corresponding
         //          state in s_transition
 
-    typedef pair<TransitionMatrix *, 
-                      TransitionMatrix *> statePair;
+    using StatePair = std::pair<TransitionMatrix *, TransitionMatrix *>;
 
-    static vector<statePair> s_transition;
+    static std::vector<StatePair> s_transition;
 
-    string d_target;
-    string::iterator d_next;
+    std::string d_target;
+    std::string::iterator d_next;
 
     public:
         //static void setup();
         PerlSetFSA();
-        void convert(string &pattern);
+        void convert(std::string &pattern);
 
     private:
         static void initialize(TransitionMatrix &stateDescription);
 
-        void nop() 
+        void nop()
         {};
         void copy();
         void copybs();
@@ -127,4 +124,7 @@ class PerlSetFSA
 
 } // FBB
 
+#ifndef SPCH_
+using namespace std;
 using namespace FBB;
+#endif

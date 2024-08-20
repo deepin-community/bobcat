@@ -1,7 +1,7 @@
 #include "arg.ih"
 
-void Arg__::versionHelp(void (*usage)(string const &progname), 
-        char const *version, size_t minArgs, int helpFlag, 
+void Arg__::versionHelp(void (*usage)(string const &progname),
+        char const *version, size_t minArgs, int helpFlag,
         int versionFlag) const
 {
     d_usage = usage;
@@ -25,10 +25,9 @@ void Arg__::versionHelp(void (*usage)(string const &progname),
     }
 }
 
-void Arg::versionHelp(void (*usage)(string const &progname), 
-        char const *version, size_t minArgs, int helpFlag, 
+void Arg::versionHelp(void (*usage)(string const &progname),
+        char const *version, size_t minArgs, int helpFlag,
         int versionFlag) const
 {
     return d_ptr->versionHelp(usage, version, minArgs, helpFlag, versionFlag);
 }
-

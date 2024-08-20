@@ -2,8 +2,6 @@
 
 #include <unistd.h>
 
-#include "../exception/exception"
-
+#ifndef SPCH_
 using namespace FBB;
-
-
+#endif

@@ -7,5 +7,3 @@ BigInt &BigInt::rshift()
 
     return *this;
 }
-
-

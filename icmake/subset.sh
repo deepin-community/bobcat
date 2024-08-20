@@ -4,7 +4,7 @@
 
 rm -f CLASSES.$$
 
-for word in $* 
+for word in $*
 do
     required=`grep "^$word" dependencies/required.classes`
 

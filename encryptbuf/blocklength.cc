@@ -2,5 +2,5 @@
 
 size_t EncryptBuf::blockLength() const
 {
-    return EVP_CIPHER_CTX_block_size(d_ctx);
+    return 0;
 }

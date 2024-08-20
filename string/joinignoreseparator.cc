@@ -4,7 +4,7 @@ string String::joinIgnoreSEPARATOR(SplitPairVector const &entries, char sep)
 {
     string ret;
 
-    auto begin = find_if(entries.begin(), entries.end(), 
+    auto begin = find_if(entries.begin(), entries.end(),
         [&](SplitPair const &entry)
         {
             return entry.second != SEPARATOR;
@@ -26,5 +26,3 @@ string String::joinIgnoreSEPARATOR(SplitPairVector const &entries, char sep)
 
     return ret;
 }
-
-

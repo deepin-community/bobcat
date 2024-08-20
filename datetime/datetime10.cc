@@ -10,7 +10,7 @@ DateTime::DateTime(TM const &tm, Zone const &zone)
     DateTime(zone)                  // initialize a LOCALTIME zone
 {
     d_tm = tm;
-    d_tm.tm_year -= 1900;           // -1900: required mktime correction 
+    d_tm.tm_year -= 1900;           // -1900: required mktime correction
 
     d_utcSec = utcFromTM(d_tm);     // update UTC seconds
 

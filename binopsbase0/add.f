@@ -1,7 +1,7 @@
 template <class Derived>
 struct Add
 {
-    Derived &operator+=(Derived const &rhs) &; 
+    Derived &operator+=(Derived const &rhs) &;
     Derived &&operator+=(Derived const &rhs) &&;
 };
 
@@ -43,6 +43,3 @@ class BinopsBase0<Derived, '+', ops...>
     public BinopsBase0<Derived, ops...>,
     public Add<Derived>
 {};
-
-
-

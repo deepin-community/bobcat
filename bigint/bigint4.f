@@ -11,4 +11,4 @@ BigInt::BigInt(Type value)
 
     if (negative)
         negate();
-}    
+}

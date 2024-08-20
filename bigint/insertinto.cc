@@ -14,13 +14,13 @@ ostream &BigInt::insertInto(ostream &out) const
         )(d_bn);
 
     bool isNegative = (*cp == '-');
-    
+
     char *skipZeroes = cp + isNegative;
 
     while (*skipZeroes == '0')              // cut off leading zeros
         ++skipZeroes;
 
-    if ((flags & ios::oct) || *skipZeroes == 0) // if just 1 char or oct: 
+    if ((flags & ios::oct) || *skipZeroes == 0) // if just 1 char or oct:
         --skipZeroes;                           // keep 1 '0'
 
     if (isNegative)

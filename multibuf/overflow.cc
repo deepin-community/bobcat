@@ -4,9 +4,8 @@ int MultiBuf::overflow(int c)
 {
     if (c == EOF)
         sync();
-    else 
+    else
         d_buffer += c;
 
     return c;
 }
-

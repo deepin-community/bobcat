@@ -2,14 +2,17 @@
 #define INCLUDED_BOBCAT_XPOINTER_
 
 #include <X11/Xlib.h>
+
 #include <memory>
+
+#include <bobcat/exception>
 
 namespace FBB
 {
 
 class Xpointer
 {
-    typedef void (*DeleterType)(Display *);
+    using DeleterType =  void (*)(Display *);
 
     static size_t s_counter;
     static Display *s_theDisplay;
@@ -30,6 +33,3 @@ class Xpointer
 }   // FBB
 
 #endif
-
-
-

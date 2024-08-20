@@ -12,15 +12,15 @@ int main(int argc, char **argv)
 //    if (argc == 1)
 //        cout << "arg1: file containing csv lines\n";
 
-//    CSV4180 csv{ "SXS" };    
-//    CSV4180 csv{ "SXS", true };    
+//    CSV4180 csv{ "SXS" };
+//    CSV4180 csv{ "SXS", true };
 //man2
     CSV4180 csv;                    // this processes 'input'
 //=
 //    CSV4180 csv{0, false, ';'};      // uncomment this to process 'semicols'
 
-//    CSV4180 csv{3};    
-//    CSV4180 csv{3, true};    
+//    CSV4180 csv{3};
+//    CSV4180 csv{3, true};
 
 //    cout << "? ";
 //    if (not csv.read1(cin))

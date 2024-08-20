@@ -1,0 +1,4 @@
+#!/bin/bash
+
+g++ -c *.cc
+g++  -o driver *.o -L../tmp -lecdh -lbobcat -lcrypto

@@ -1,4 +1,4 @@
-inline std::ostream &operator<<(std::ostream &out, lm const &idt)
+inline std::ostream &operator<<(std::ostream &out, FBB::lm const &idt)
 {
     return idt.modify(out);
 }

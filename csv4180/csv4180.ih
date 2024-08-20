@@ -1,11 +1,11 @@
 #include "csv4180"
 
-// #include <iostream>
-
 #include <istream>
 #include <sstream>
 
 #include "../exception/exception"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

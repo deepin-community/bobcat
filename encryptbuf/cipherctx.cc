@@ -2,5 +2,5 @@
 
 EVP_CIPHER_CTX *EncryptBuf::cipherCtx()
 {
-    return d_ctx;
+    return 0;
 }

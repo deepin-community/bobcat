@@ -1,4 +1,4 @@
-inline PrimeFactors::iterator &PrimeFactors::iterator::operator++()
+inline FBB::PrimeFactors::iterator &FBB::PrimeFactors::iterator::operator++()
 {
     return operatorPreInc();
 }

@@ -7,4 +7,3 @@ string ConfigFile::findKey(string const &keyPattern, size_t count) const
 {
     return d_ptr->findKey(keyPattern, count);
 }
-

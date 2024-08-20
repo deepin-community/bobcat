@@ -5,7 +5,7 @@ void ConfigFile_::resetVsIter(string const &re)
     d_vsIter.clear();
 
     d_re = re;
-    
+
     d_pattern.setPattern(re, d_caseSensitive);
 
     for(auto start = begin(), stop = end(); start != stop; ++start)

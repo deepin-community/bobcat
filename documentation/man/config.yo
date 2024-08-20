@@ -9,7 +9,7 @@ manpagename(FBB::Config)
 
 manpagesynopsis()
     bf(#include <bobcat/config>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(Config) objects process standard tt(unix)-style configuration
@@ -25,10 +25,10 @@ set two consecutive backslash characters are replaced by a single backslash
 character.
 
 All lines of the configuration file (possibly without comment) are stored in
-the bf(Config) object. Their line numbers can also be retrieved. 
+the bf(Config) object. Their line numbers can also be retrieved.
 
 At construction time comment handling (keep comment / remove comment) and type
-of searching (case sensitive / insensitive) can be specified. 
+of searching (case sensitive / insensitive) can be specified.
 
 In addition to one of the constructors, the tt(load) member can be used to
 processes a configuration file, replacing the object's current content by the
@@ -70,7 +70,7 @@ manpagesection(ENUMERATIONS)
             removed;
 
     itb(Casing)
-        This enumeration also has two values:nl() 
+        This enumeration also has two values:nl()
         bf(Config::UseCase) specifies that specified targets must match
             case-sensitively;nl()
         bf(Config::NoCase) specifies that specified targets are matched
@@ -98,13 +98,13 @@ lines matching their regular expressions (or IDs) is returned. E.g.,
         verb(
     Config cf(...)
     auto pair = cf.beginEndID("scenario");
-    cout << "There are " << (pair.second - pair.first) << 
+    cout << "There are " << (pair.second - pair.first) <<
             " lines starting with the ID `scenario'\n";
         )
 
     bf(Pattern)(3bobcat) objects are used when looking for lines matching
 regular expressions.
-    
+
 manpagesection(CF_Line)
 
     tt(const_iterators) point to objects of the class
@@ -141,31 +141,31 @@ manpagesection(CONSTRUCTORS)
         file; the tt(load) member can be used for that. The parameters
         specify specific handling of comment, and letter-casing;
 
-    itb(Config(std::string const &fname, Casing sType = UseCase, 
-               Comment cType = NoComment)) 
+    itb(Config(std::string const &fname, Casing sType = UseCase,
+               Comment cType = NoComment))
        creates a bf(Config) object, containing the information from the
         configuration file tt(fname). The other parameters are used as
         described with the abovementioned constructor. If the file cannot be
         opened an tt(FBB::Exception) exception is thrown;
 
-    itb(Config(std::istream &stream, Casing sType = UseCase, 
-               Comment cType = NoComment)) 
+    itb(Config(std::istream &stream, Casing sType = UseCase,
+               Comment cType = NoComment))
        same functionality as the previous constructor, but reading the
         configuration information from the tt(std::istream stream);
 
-    itb(Config(std::istream &stream, uint16_t lineNr, Casing sType = UseCase, 
-               Comment cType = NoComment)) 
+    itb(Config(std::istream &stream, uint16_t lineNr, Casing sType = UseCase,
+               Comment cType = NoComment))
        same functionality as the previous constructor, but the line number of
         the first line read from tt(stream) is set to tt(lineNr);
 
-    itb(Config(std::istream &&tmp, Casing sType = UseCase, 
-               Comment cType = NoComment)) 
+    itb(Config(std::istream &&tmp, Casing sType = UseCase,
+               Comment cType = NoComment))
        same functionality as the constructor expecting an tt(istream)
         reference, but this time the configuration information is read from
         the tt(std::istream) rvalue reference tt(tmp);
 
-    itb(Config(std::istream &&tmp, uint16_t lineNr, Casing sType = UseCase, 
-               Comment cType = NoComment)) 
+    itb(Config(std::istream &&tmp, uint16_t lineNr, Casing sType = UseCase,
+               Comment cType = NoComment))
        same functionality as the previous constructor, but the line number of
         the first line read from tt(stream) is set to tt(lineNr).
     )
@@ -207,32 +207,32 @@ manpagesection(MEMBER FUNCTIONS)
        clears the current content of the tt(Config) object. This member is
         automatically called by the tt(load) members;
 
-    itb(const_iterator find(std::string const &target) const) 
+    itb(const_iterator find(std::string const &target) const)
        returns an iterator to the first line containing tt(target), starting
         the search at tt(begin()). Note that tt(target) may appear anywhere
-        within a line. 
+        within a line.
        It returns tt(end()) if no such line was found;
 
-    itb(const_iterator find(std::string const &target, const_iterator from) 
-        const) 
+    itb(const_iterator find(std::string const &target, const_iterator from)
+        const)
        same functionality as the previous member, but searching starts at
         tt(from);
 
-    itb(const_iterator findID(std::string const &id) const) 
+    itb(const_iterator findID(std::string const &id) const)
         returns an iterator of the the first line containing ID tt(id).
        It returns tt(end()) if no such line was found;
 
-    itb(const_iterator findID(std::string const &id, const_iterator from) 
-       const) 
+    itb(const_iterator findID(std::string const &id, const_iterator from)
+       const)
        same functionality as the previous member, but searching starts at
         tt(from);
 
-    itb(const_iterator findKey(std::string const &key) const) 
+    itb(const_iterator findKey(std::string const &key) const)
        returns an iterator of the the first line containing key `tt(key)'.
        It returns tt(end()) if no such line was found;
 
-    itb(const_iterator findKey(std::string const &key, const_iterator from) 
-       const) 
+    itb(const_iterator findKey(std::string const &key, const_iterator from)
+       const)
        same functionality as the previous member, but searching starts at
         tt(from);
 
@@ -286,12 +286,12 @@ noline: this one too
 
 line: this is found
 
-this is not a line containing line: at the beginning \ 
+this is not a line containing line: at the beginning \
                                     of the line
 
 line: this one is
 
-    line: what about this one? \ 
+    line: what about this one? \
         it extends over multiple lines
 
 and there may, of course, be more lines in this file
@@ -306,10 +306,10 @@ and there may, of course, be more lines in this file
 
 using namespace std;
 using namespace FBB;
-    
+
 int main(int argc, char **argv)
 {
-    Config cf(argv[1]);     
+    Config cf(argv[1]);
 
     cout << *cf.find("this one") << '\n'; // find text within a line
 
@@ -330,7 +330,7 @@ manpagefiles()
     em(bobcat/config) - defines the class interface
 
 manpageseealso()
-    bf(argconfig)(3bobcat), bf(bobcat)(7), bf(exception)(3bobcat), 
+    bf(argconfig)(3bobcat), bf(bobcat)(7), bf(exception)(3bobcat),
     bf(pattern)(3bobcat)
 
 manpagebugs()
@@ -338,4 +338,3 @@ manpagebugs()
     None reported
 
 includefile(include/trailer)
-

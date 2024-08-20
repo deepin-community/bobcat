@@ -1,11 +1,11 @@
 #include "signal.ih"
 
-Signal *Signal::s_signal;
+unique_ptr<Signal> Signal::s_signal;
 
 Signal &Signal::instance()
 {
     if (s_signal == 0)
-        s_signal = new Signal;
+        s_signal.reset(new Signal);
 
     return *s_signal;
 }

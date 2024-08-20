@@ -1,6 +1,6 @@
 #include "tablesupport.ih"
 
-TableSupport::const_iterator::const_iterator(TableSupport const &support, 
+TableSupport::const_iterator::const_iterator(TableSupport const &support,
                 size_t row, bool begin)
 :
     d_support(support)
@@ -18,4 +18,3 @@ TableSupport::const_iterator::const_iterator(TableSupport const &support,
         d_iter = s_empty.end();
     }
 }
-

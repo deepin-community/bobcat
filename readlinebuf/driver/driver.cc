@@ -5,13 +5,14 @@
 #include <iomanip>
 
 #include <bobcat/readlinebuf>
+//#include "../readlinebuf"
 
 using namespace std;
 using namespace FBB;
 
 int main()
 {
-    ReadLineBuf &readlineBuf = 
+    ReadLineBuf &readlineBuf =
             ReadLineBuf::initialize("", 10, ReadLineBuf::EXPAND_HISTORY);
 
     istream in(&readlineBuf);
@@ -50,3 +51,4 @@ int main()
         }
     }
 }
+

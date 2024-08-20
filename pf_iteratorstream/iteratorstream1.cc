@@ -1,6 +1,6 @@
 #include "../primefactors/primefactors.ih"
 
-PrimeFactors::iteratorStream::iteratorStream(std::string const &name, 
+PrimeFactors::iteratorStream::iteratorStream(std::string const &name,
                                              size_t blockSize)
 :
     d_name(name),
@@ -13,4 +13,3 @@ PrimeFactors::iteratorStream::iteratorStream(std::string const &name,
 
     resetPrimes();
 }
-

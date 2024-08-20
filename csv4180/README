@@ -83,12 +83,12 @@ Text copied from the rfc4180.txt file:
 
    FIELDSEP = %x2C
 
-   CR = %x0D 
+   CR = %x0D
 
-   DQUOTE =  %x22 
+   DQUOTE =  %x22
 
-   LF = %x0A 
+   LF = %x0A
 
-   CRLF = CR LF 
+   CRLF = CR LF
 
    TEXTDATA =  %x20-21 / %x23-2B / %x2D-7E

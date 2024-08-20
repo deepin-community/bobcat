@@ -53,6 +53,3 @@ int main(int argc, char **argv)
     repeat(argc, obj, &Object::member, argc, argv);
 
 }
-
-
-

@@ -1,0 +1,13 @@
+#include "../xerr/xerr.ih"
+
+#include "omapbuf"
+
+#include <sys/mman.h>
+
+#include <algorithm>
+#include <cstring>
+#include <filesystem>
+
+using namespace std;
+using namespace FBB;
+namespace fs = filesystem;

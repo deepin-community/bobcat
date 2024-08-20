@@ -1,0 +1,34 @@
+#ifndef INCLUDED_BOBCAT_IOMAPBUF_
+#define INCLUDED_BOBCAT_IOMAPBUF_
+
+#include "../imapbuf/imapbuf"
+#include "../omapbuf/omapbuf"
+
+namespace FBB
+{
+
+class IOmapbuf: public Imapbuf, public Omapbuf
+{
+    public:
+        IOmapbuf() = default;
+        IOmapbuf(std::string const &fname,                            // 2.cc
+                 IOS::openmode iosMode = IOS::out,
+                 char const *bufSize = 0, mode_t mode = 0644);
+
+        ~IOmapbuf() override;
+
+        IOmapbuf &operator=(IOmapbuf &&tmp);
+
+    protected:
+        IOS::pos_type seekpos(IOS::pos_type offset, 
+                              IOS::openmode mode = IOS::in | IOS::out) 
+                                                                    override;
+
+        IOS::pos_type seekoff(IOS::off_type pos, IOS::seekdir where,
+                              IOS::openmode mode = IOS::in | IOS::out) 
+                                                                    override;
+};
+
+} // FBB
+        
+#endif

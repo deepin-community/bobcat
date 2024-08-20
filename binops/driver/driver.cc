@@ -14,14 +14,14 @@ class Demo
         :
             d_value(value)
         {}
-    
+
         Demo(Demo const &other)
         :
             d_value(other.d_value)
         {
             std::cout << "Demo CC called\n";
         }
-    
+
         Demo &operator+=(Demo const &rhs)
         {
             d_value += rhs.d_value;

@@ -1,0 +1,119 @@
+#ifndef INCLUDED_BOBCAT_MMAPBUF_
+#define INCLUDED_BOBCAT_MMAPBUF_
+
+#include <streambuf>
+#include <ios>
+#include <string>
+
+namespace FBB
+{
+
+class MmapBuf: public std::streambuf
+{
+    protected:
+        using IOS = std::ios;
+
+    private:
+        std::string d_fname;
+        IOS::openmode d_openMode;
+    
+        char *d_buffer;
+        size_t d_bufSize;
+        size_t d_readBufSize;
+    
+        size_t d_fileSize;      // original file size, increased when writing
+                                // beyond
+        size_t d_enlargedSize;  // the largest used offset + bufSize value,
+                                // used when mapping beyond the current file
+                                // size (in map.cc) to resize the file
+                                // accordingly 
+
+        bool d_activeBuffer;    // under/overflow defined the buffer w. setg/p
+        size_t d_pos;               
+    
+        size_t d_offset;
+
+        char *d_maxPtr;         // used when writing: the max. index used 
+                                // when writing a buffer, allowing d_fileSize
+                                // to be enlarges when unmapping a buffer
+
+        bool d_sync;            // with ios::in | ios::out: sync at underflow
+
+        static size_t s_pageSize;
+
+    public:
+        MmapBuf();                                              // 1
+        MmapBuf(std::string const &fname,                       // 2
+                char const *bufSize = 0, IOS::openmode openMode = IOS::out,
+                mode_t mode = 0644);
+
+        ~MmapBuf() override;
+
+        size_t bufSize() const;
+        size_t fileSize() const;
+        size_t pageSize() const;
+
+    protected:
+        MmapBuf(MmapBuf &&tmp);                                 // 3
+        MmapBuf &operator=(MmapBuf &&tmp);
+
+    private:
+        std::streamsize showmanyc() override;
+
+        int overflow(int ch) override;
+        int underflow() override;
+
+        int sync() override;
+
+        std::streamsize xsgetn(char *dest, std::streamsize request) override;
+        std::streamsize xsputn(char const *buffer, 
+                               std::streamsize nChars)              override;
+        IOS::pos_type seekpos(IOS::pos_type  pos, 
+                              IOS::openmode mode = IOS::in | IOS::out)
+                                                                    override;
+        IOS::pos_type seekoff(IOS::off_type pos, IOS::seekdir where,
+                              IOS::openmode mode = IOS::in | IOS::out) 
+                                                                    override;
+
+        void setFileSize(mode_t mode);
+        void setBufSize(char const *bufSize);
+
+        IOS::pos_type seek(IOS::off_type pos, IOS::seekdir where);
+
+        void sflush();
+
+        bool withinBuffer(size_t bufSize) const;  
+
+        void map(int protection);   // PROT_READ or PROT_READ | PROT_WRITE
+
+        void unmap();               // calls mmap's munmap function
+        void mapBuffer(int protection);
+
+    // see plainimap/imapbuf
+        static void failure(std::string msg);
+
+        int readBuffer();
+        int writeBuffer(int ch);
+
+        size_t readn(char **dest, size_t toRead);
+        size_t writen(char const **bufferPtr, size_t toWrite);
+
+        int resetReadBuffer();
+        int resetWriteBuffer(int ch);
+
+        bool writable() const;                                      // .ih
+};
+
+inline size_t MmapBuf::bufSize() const
+{
+    return d_bufSize;
+}
+
+inline size_t MmapBuf::fileSize() const
+{
+    return d_fileSize;
+}
+
+} // FBB
+
+#endif

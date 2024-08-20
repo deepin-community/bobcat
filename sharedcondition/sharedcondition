@@ -7,6 +7,7 @@
 
 #include <bobcat/sharedmutex>
 #include <bobcat/sharedmemory>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -21,7 +22,7 @@ class SharedCondition
         Condition();
 
         pthread_cond_t d_cond;
-    
+
         using SharedMutex::lock;
         using SharedMutex::unlock;
         using SharedMutex::mutexPtr;
@@ -59,19 +60,19 @@ class SharedCondition
                                                             // 2.f
         template <typename Rep, typename Period, typename Predicate>
         bool wait_for(
-                std::chrono::duration<Rep, Period> const &relTime, 
+                std::chrono::duration<Rep, Period> const &relTime,
                 Predicate pred
         );
 
         template <typename Clock, typename Duration>        // 1.f
-        std::cv_status wait_until(                      
+        std::cv_status wait_until(
             std::chrono::time_point<Clock, Duration> const &absTime
         );
 
                                                             // 2.f
         template <typename Clock, typename Duration, typename Predicate>
         bool wait_until(
-            std::chrono::time_point<Clock, Duration> const &absTime, 
+            std::chrono::time_point<Clock, Duration> const &absTime,
             Predicate pred
         );
 
@@ -99,9 +100,5 @@ class SharedCondition
 #include "waituntil2.f"
 #include "size.f"
 
-} // FBB        
+} // FBB
 #endif
-
-
-
-

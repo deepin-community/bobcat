@@ -415,7 +415,7 @@ function is found. The output is a -D flag for the compiler commandline.
 E.g.: $base libfunction printf HAVE_PRINTF
       -> -DHAVE_PRINTF=1
       $base libfunction foo_bar HAVE_FOOBAR
-      -> (nothing)      
+      -> (nothing)
 ENDHELP
 
     usage() if ($#_ != 1);
@@ -456,7 +456,7 @@ foreach my $d (split (/,/, $opts{L})) {
 }
 foreach my $d (split (/,/, $opts{I})) {
     push (@headerdirs, $d);
-}    
+}
 
 push (@libdirs, @def_libdirs);
 push (@headerdirs, @def_headerdirs);
@@ -494,4 +494,3 @@ if ($#warnings > -1) {
     exit (1);
 }
 exit (0);
-

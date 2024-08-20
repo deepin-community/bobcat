@@ -9,7 +9,7 @@ manpagename(FBB::ClientSocket)
 
 manpagesynopsis()
     bf(#include <bobcat/clientsocket>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     An bf(FBB::ClientSocket) may be constructed to connect to some server
@@ -25,7 +25,7 @@ available a socket does not mean that this defines the communication
 protocol. It is (still) the responsibility of the programmer to comply with an
 existing protocol or to implement a tailor-made protocol. The latter situation
 implies that the sequence of input- and output operations is defined by the
-programmer. 
+programmer.
 
     A Unix Domain client socket can be defined using
 tt(FBB::LocalClientSocket).
@@ -67,10 +67,10 @@ manpagesection(EXAMPLE)
     #include <bobcat/clientsocket>
     #include <bobcat/ifdstream>
     #include <bobcat/ofdstream>
-    
+
     using namespace std;
     using namespace FBB;
-    
+
     int main(int argc, char **argv)
     try
     {
@@ -79,32 +79,32 @@ manpagesection(EXAMPLE)
             cerr << "Provide servername and port number\n";
             return 1;
         }
-    
+
         size_t     port = stoul(argv[2]);
         ClientSocket client(argv[1], port);
         int fd = client.connect();
         string line;
-    
+
         cout << "Connecting to socket " << fd << endl <<
-                "address = " << client.dottedDecimalAddress() << ", " << 
+                "address = " << client.dottedDecimalAddress() << ", " <<
                                                                  endl <<
                 "communication through port " << client.port() << endl;
-    
-        IFdStream in(fd);                 // stream to read from        
+
+        IFdStream in(fd);                 // stream to read from
         OFdStream out(fd);                // stream to write to
-    
+
         while (true)
         {
-                                    // Ask for a textline, stop if 
+                                    // Ask for a textline, stop if
             cout << "? ";           // empty / none
             if (!getline(cin, line) || line.length() == 0)
                 return 0;
             cout << "Line read: " << line << endl;
 
                                     // Return the line to the server
-            out << line.c_str() << endl;    
+            out << line.c_str() << endl;
             cout << "wrote line\n";
-    
+
             getline(in, line);      // Wait for a reply from the server
             cout << "Answer: " << line << endl;
         }
@@ -112,7 +112,7 @@ manpagesection(EXAMPLE)
     catch (Exception const &err)
     {
         cerr << err.what() << "\n" <<
-                "Can't connect to " << argv[1] << ", port " << 
+                "Can't connect to " << argv[1] << ", port " <<
                 argv[2] << endl;
         return 1;
     }

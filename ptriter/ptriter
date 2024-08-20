@@ -6,22 +6,29 @@
 namespace FBB
 {
 template <typename Iterator>
-class PtrIter: public std::iterator<std::input_iterator_tag, 
-                                    decltype(&*Iterator())>
+struct PtrIter
 {
-    Iterator d_iter;
+    using iterator_category = std::input_iterator_tag;
+    using difference_type   = std::ptrdiff_t;
+    using value_type        = decltype(&*Iterator());
+    using pointer           = value_type *;
+    using reference         = value_type &;
+
+
+    private:
+        Iterator d_iter;
 
     public:
-        typedef decltype(&*Iterator()) PtrType;
+        using PtrType = decltype(&*Iterator());
 
         PtrIter(Iterator const &iter);                                  // 1.f
         PtrIter(PtrIter &&tmp)          = default;
         PtrIter(PtrIter const &other)   = default;
 
         PtrType operator*() const;                              //    opstar.f
-    
+
         PtrIter &operator++();                                      // opinc.f
-    
+
         bool operator==(PtrIter const &other) const;                //  opeq.f
         bool operator!=(PtrIter const &other) const;                // opneq.f
 };
@@ -38,5 +45,5 @@ class PtrIter: public std::iterator<std::input_iterator_tag,
 #include "ptriter.f"
 
 
-} // FBB        
+} // FBB
 #endif

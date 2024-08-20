@@ -1,6 +1,6 @@
 #include "tablelines.ih"
 
-void TableLines::outLine(Field const &field,  ostream &out) 
+void TableLines::outLine(Field const &field,  ostream &out)
 {
     if (field.width == 0)
         return;
@@ -12,15 +12,13 @@ void TableLines::outLine(Field const &field,  ostream &out)
     else if (field.type & LEFT_MID)
     {
         out << setw(field.width / 2) << " " <<
-            setfill('-') << 
+            setfill('-') <<
             setw(field.width - field.width / 2) << "-" << setfill(' ');
     }
     else
     {
-        out << setfill('-') << 
+        out << setfill('-') <<
             setw(field.width - field.width / 2) << "-" << setfill(' ') <<
             setw(field.width / 2) << " ";
     }
 }
-
-

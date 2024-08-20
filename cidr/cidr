@@ -5,7 +5,7 @@
 #include <iosfwd>
 #include <vector>
 
-//#include <bobcat/x2a>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -14,8 +14,8 @@ class Pattern;
 
 class Cidr
 {
-    typedef std::pair<size_t, size_t> MaskPair;     // 1st address, mask value
-    typedef std::vector<MaskPair> VectorMaskP;
+    using MaskPair =  std::pair<size_t, size_t>; // 1st address, mask value
+    using VectorMaskP =  std::vector<MaskPair>;
 
     VectorMaskP d_cidr;
     VectorMaskP::const_iterator d_iter;

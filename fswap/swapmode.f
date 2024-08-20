@@ -10,5 +10,3 @@ struct SwapMode
 template <SwapMode::Enum swapMode>
 struct ModeType
 {};
-
-

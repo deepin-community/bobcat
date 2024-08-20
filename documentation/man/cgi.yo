@@ -8,7 +8,7 @@ manpagename(FBB::CGI)(handles GET and POST submitted form data)
 
 manpagesynopsis()
     bf(#include <bobcat/cgi>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -35,7 +35,7 @@ setup:
         cout << "<html><body>\n";
         if (parametersOK(cgi))
         {
-            process(cgi);     
+            process(cgi);
             generateReplyPage();
         }
         else
@@ -55,10 +55,10 @@ manpagesection(INHERITS FROM)
 
 manpagesection(TYPEDEF)
     itemization(
-    itb(CGI::MapStringVector) 
-       A shorthand for tt(std::unordered_map<std::string, 
+    itb(CGI::MapStringVector)
+       A shorthand for tt(std::unordered_map<std::string,
         std::vector<std::string> >),
-        which is the data type in which form-variables are stored. 
+        which is the data type in which form-variables are stored.
     )
 
 
@@ -85,11 +85,11 @@ manpagesection(ENUMERATIONS)
     itb(CGI::CREATE_PATH)
        When uploading files, the destination directory will be created.
     )
-    
+
 manpagesection(CONSTRUCTORS)
     itemization(
-    itb(CGI(bool defaultEscape = true, 
-            char const *header = "Content-type: text/html", 
+    itb(CGI(bool defaultEscape = true,
+            char const *header = "Content-type: text/html",
             std::ostream &out = std::cout))
         The default constructor writes the standard content type header to the
 standard output stream and will use tt(std::cout) for output. Specifying tt(0)
@@ -126,18 +126,18 @@ attempts to modify that set is silently ignored.
         that are escaped in strings returned by tt(param) (see
         below). Depending on the value of the constructor's tt(defaultEscape)
         parameter characters inserted into the tt(CGI) object will or will not
-        be escaped by a backslash. 
+        be escaped by a backslash.
 
         If the constructor's tt(defaultEscape) parameter was specified as
         tt(true) then the insertion operator can be used to define a set of
-        characters that are em(not) escaped. 
+        characters that are em(not) escaped.
 
         If tt(defaultEscape) was specified as tt(false) then the insertion
         operator will define a set of characters that em(will) be
-        escaped. 
+        escaped.
 
         The backlash itself is always escaped and a request to use it
-        unescaped is silently ignored. 
+        unescaped is silently ignored.
 
         The tt(accept) string can be specified as a regular expression
         character set, without the usual surrounding square brackets. E.g., an
@@ -150,13 +150,13 @@ attempts to modify that set is silently ignored.
         [:space:], [:upper:]), and tt([:xdigit:])) can be used to specify a
         set of characters. In addition to these standard character classes the
         class tt([:cgi:]) can be used to define the set consisting of the
-        characters tt(" ' ` ;) and tt(\).  
+        characters tt(" ' ` ;) and tt(\).
 
         Note that standard and tt([:cgi:]) character classes em(do) require
-        square brackets. 
+        square brackets.
 
         When a series of insertions are performed then the union of the sets
-        defined by these insertions are used. 
+        defined by these insertions are used.
 
         bf(Note): using unescaped single quotes, the double quotes, backtick
         characters and semicolons in CGI-programs might be risky and is not
@@ -181,7 +181,7 @@ attempts to modify that set is silently ignored.
 
     itb(std::ostream &std::operator<<(std::ostream &out, CGI const &cgi))
        tt(CGI) objects can be inserted into tt(ostreams) to display the
-        characters that will appear escaped in strings returned by the 
+        characters that will appear escaped in strings returned by the
         tt(param()) member function. Each character for which tt(isprint())
         returns tt(true) will be displayed as character, surrounded by single
         quotes. For all other characters their ASCII values are displayed.
@@ -204,18 +204,18 @@ manpagesection(MEMBER FUNCTIONS)
     itb(unsigned long long maxUploadSize() const)
        Returns the current maximum file upload size in bytes.
 
-    itb(CGI::Method method() const) 
+    itb(CGI::Method method() const)
        Returns the method that was used when the form was submitted (either
         tt(CGI::GET) or tt(CGI::POST)).
 
     itb(std::vector<std::string> const &param(std::string const &variable))
        Returns the value of the form-variable specified by the function's
         argument. An empty vector is returned if the variable was not provided
-        by the form's data. 
+        by the form's data.
 
        If the same variable was specified multiple times or if its value
         extends over multiple lines (only with tt(multipart/form-data)) then
-        the vector contains multiple strings. 
+        the vector contains multiple strings.
 
        With tt(GET) and tt(POST) methods not using tt(multipart/form-data)
         input fields extending over multiple lines are stored in one string,
@@ -235,19 +235,19 @@ manpagesection(MEMBER FUNCTIONS)
        Returns the first element of the tt(vector<string>) returned by the
         tt(param) member or an empty string if tt(variable) was not defined by
         the received form.
-       
 
-    itb(std::string const &query() const) 
+
+    itb(std::string const &query() const)
        Returns the query-string submitted with tt(CGI::GET) or tt(CGI::POST)
         forms (if the tt(POST)ed form specified
-        tt(ENCTYPE="multipart/form-data") the query string is empty). 
+        tt(ENCTYPE="multipart/form-data") the query string is empty).
 
 
     itb(report+CHAR(40)CHAR(41))
         The tt(report) member silently returns if no errors were encountered
         while processing form-data. Otherwise, the tt(html) file generated by
         the tt(CGI) program displays a line starting with tt(FBB::CGI),
-        followed by the status report. 
+        followed by the status report.
 
         The following status report messages are presently defined:
 
@@ -277,7 +277,7 @@ manpagesection(MEMBER FUNCTIONS)
        tt(multipart/form-data: no end-boundary found). This message is shown
         if the end-boundary was missing in a tt(multipart/form-data) form.
 
-    itb(void setFileDestination(std::string const &path, 
+    itb(void setFileDestination(std::string const &path,
                                 std::string const &prefix = "",
                                 Create create = CREATE_PATH))
        This member is used to specify the path and prefix of uploaded
@@ -314,7 +314,7 @@ manpagesection(STATIC MEMBERS)
         all tt(%xx) encoded characters into their corresponding ASCII
         values. Also, tt(+) characters are converted to single blank
         spaces. The converted string is returned.
-    )    
+    )
 
 manpagesection(EXAMPLE)
 
@@ -339,4 +339,3 @@ manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-

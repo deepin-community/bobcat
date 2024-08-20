@@ -1,7 +1,7 @@
 #include "cgi.ih"
 
 void CGIFSA::charClass()       // saw:     [ : charclass : ]
-{   
+{
     while (true)
     {
         char c = d_stack.top();
@@ -18,4 +18,3 @@ void CGIFSA::charClass()       // saw:     [ : charclass : ]
             setEscape(idx);
     }
 }
-

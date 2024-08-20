@@ -1,4 +1,184 @@
-bobcat (5.09.01) 
+bobcat (6.06.01)
+
+  * Repaired the icmake --spch call in icmake/libraries, which didn't use
+    the constructed headers in the ./tmp directory 
+
+  * One cosmetic change (mmapbuf/xsgetn.cc), suppressing a superfluous message
+    to cerr. 
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 28 May 2024 10:37:50 +0200
+
+bobcat (6.06.00)
+
+  * Added the classes MmapBuf, ImmapStream, OmmapStream and IOmmapStream using
+    mmap(2) for file I/O
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Wed, 15 May 2024 14:32:21 +0200
+
+bobcat (6.05.00)
+
+  * Using SPCH en multi-threaded compilation using icmake >= 12.00.00
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Tue, 23 Apr 2024 17:31:19 +0200
+
+bobcat (6.04.00)
+
+  * The class Log offers faciities for non-hierarchical logging.
+
+  * The class Milter by default ends a connection when its virtual 'close'
+    member is called. Starting this version the close member is always called
+    once a connection ends.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 01 Dec 2023 08:45:32 +0100
+
+bobcat (6.03.02)
+
+  * fixed a bug in Arg due to which optional arguments of long+short options
+    were not recognized when the long option alternative was used.
+
+  * changed 'typedef' specifications into 'using' declarations.
+
+  * DateTime constructors defining TimeType parameters use DateTime::UTC by
+    default.
+
+  * Updated several man-pages.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 29 May 2023 11:21:41 +0200
+
+bobcat (6.03.01)
+
+  * Tony Mancill fixed left-over references to libbobcat5 in several files.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 02 Mar 2023 09:20:29 +0100
+
+bobcat (6.03.00)
+
+  * Added new class Proc. In time Proc may replace Process.
+
+  * Added new classes IFdBufS and IFdStreamS using Selector objects to detect
+    available information.
+
+  * The member OFdBuf::sync() returns -1 when the characters in its internal
+    buffer cannot be written to the device causing its using stream to clear
+    its goodbit and to set its badbit and failbit flags.
+
+  * The class OFdBuf has a new member 'warn(bool on)'. When sync returns -1
+    and on == true a warning is written to the standard error stream.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 05 Feb 2023 15:14:35 +0100
+
+bobcat (6.02.02)
+
+  * Accidentally the ArgConfig header file included ../arg/arg instead of
+    <bobcat/arg> causing compilation failures of files including
+    <bobcat/argconfig>. Fixed in this release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 11 Nov 2022 20:44:02 +0100
+
+bobcat (6.02.01)
+
+  * The singleton classes Arg, ArgConfig, ReadLineHistory, and Signal now
+    return their allocated memory when programs using them end.
+
+  * Rewrote ReadLineHistory.
+
+  * Repaired the linking option specifications in the ReadLine* man-pages.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 10 Nov 2022 21:09:55 +0100
+
+bobcat (6.02.00)
+
+  * Added new class 'ECDH' implementing Elliptic Curve based Diffie-Hellman
+    key exchange.
+
+  * Updated the table* and related man-pages
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 10 Oct 2022 11:33:03 +0200
+
+bobcat (6.01.00)
+
+  * The class HMacBuf supports default and move construction and move
+    assignment.
+
+  * The HMacBuf(key, digest, bufsize) constructor does not define default
+    arguments anymore.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 17 Sep 2022 12:06:24 +0200
+
+bobcat (6.00.00)
+
+  * BigInt, DigestBuf, HMacBuf, ISymCryptStream, and ISymCryptStreambuf are
+    now up-to-date with openSSL >= 3.0.3.
+
+  * Added new classes RandomMT, OSymCryptStream, OSymCryptStreamBuf (and IUO
+    classes ISymCryptStream, OSymCryptStream, and SymCryptBase).
+
+  * The classes EncryptBuf and DecryptBuf are now deactivated. Constructing
+    objects of those classes throws exceptions, and these classes will be
+    removed from Bobcat in a future release. Instead of EncryptBuf and
+    DecryptBuf OSymCryptStreamBuf can be used.
+
+  * The class Cryptbuf is deprecated and will be removed from Bobcat in a
+    future release. See its man-page for alternatives.
+
+  * HMacBuf now has a 2nd constructor offering sensible defaults.
+
+  * The class RandBuf now uses RandomMT instead of random(3) and srandom(3).
+
+  * Header files of classes that may throw FBB::Exception objects now include
+    <bobcat/exception>
+
+  * Updated man-pages
+
+  * 'icmconf' files used by Bobcat now specify -Werror.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Fri, 09 Sep 2022 14:04:14 +0200
+
+bobcat (5.11.01)
+
+  * LDC now also accepts 0-values (previously resulting in an exception).
+
+  * Several man-pages were updated.
+
+  * The BigInt, Diffie-Hellman, and HMacBuf classes specify
+    #define OPENSSL_API_COMPAT 0x10100000L in their .ih files, and local
+    definitions of various openSSL functions in their .ih files were
+    removed.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 03 Jul 2022 16:32:58 +0200
+
+bobcat (5.11.00)
+
+  * Added members and constructors to BigInt for processing little-endian
+    coded values;
+
+  * Added class LDC (Large Digital Converter) to convert large digital values
+    (as, e.g., handled by BigInt) to character representations using number
+    systems from 2 through 36 or using number characters in a std::string
+    using the string's length as number system.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 21 May 2022 17:37:31 +0200
+
+bobcat (5.10.01)
+
+  * The reverse(3bobcat) manpage was incomplete. Fixed in this release.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sun, 17 Apr 2022 08:29:02 +0200
+
+bobcat (5.10.00)
+
+  * Added new class Reverse (and 'reverse' support functions) having members
+    begin() and end(), returning reverse iterators for arrays, for classes
+    offering begin() and end() members returning iterators, and for
+    initializer_lists.
+
+  * The const_iterators of ConfigFile, Iterator, MailHeaders, PtrIter,
+    ReadlineHistory and TableSupport are not inheriting from std::iterator
+    anymore as inheriting from std::iterator is deprecated.
+
+ -- Frank B. Brokken <f.b.brokken@rug.nl>  Sat, 16 Apr 2022 13:10:00 +0200
+
+bobcat (5.09.01)
 
   * DateTime::Zone::initialize was called to initialize a static data member
     which is used by DateTime constructors. When a DateTime object is
@@ -11,19 +191,19 @@ bobcat (5.09.01)
 
  -- Frank B. Brokken <f.b.brokken@rug.nl>  Thu, 01 Jul 2021 08:46:33 +0200
 
-bobcat (5.09.00) 
+bobcat (5.09.00)
 
   * unreleased: DateTime fixes (see 5.09.01) were incorrect.
 
  -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 28 Jun 2021 15:32:14 +0200
 
-bobcat (5.08.01) 
+bobcat (5.08.01)
 
   * Fixed missing assignment of argv[0] to Arg__'s d_argv0 data member
 
  -- Frank B. Brokken <f.b.brokken@rug.nl>  Mon, 17 May 2021 10:17:20 +0200
 
-bobcat (5.08.00) 
+bobcat (5.08.00)
 
   * Added new members to Arg and ArgConfig, optionally handling non-options as
     arguments and accessors returning arguments as iterators or as vectors of

@@ -10,4 +10,3 @@ template <typename Key, typename Value>
     Base::push_back(value_type(key, Value()));
     return Base::back().second;
 }
-

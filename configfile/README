@@ -24,12 +24,11 @@ characters into normal characters so findRE can be used fo the matching.
 findRE(target):
 here an RE is used to perform the match. It visits alle stored lines of the
 configuration file returning the first line for which the regular expression
-matched (using the `match' function in configfile.fh). 
+matched (using the `match' function in configfile.fh).
 
-findKey(key, count): 
+findKey(key, count):
 find the value of the `count-th' occurrence of 'key value'. It calls
 searchFor to find the count-th occurrence of key. findKeyTail acts similarly,
 but doesn't allow anything to appear beyond value.
 
 searchfor(key, pattern, count):
- 

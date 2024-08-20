@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <openssl/bn.h>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -21,7 +22,7 @@ class BigInt
     };
 
     public:
-        typedef BN_ULONG Word;
+        using Word =  BN_ULONG;
 
         enum Msb
         {
@@ -29,26 +30,29 @@ class BigInt
             MSB_IS_ONE,
             TOP_TWO_BITS_ONE
         };
- 
+
         enum Lsb
         {
             EVEN,
             ODD,
         };
- 
+
         enum PrimeType
         {
             ANY = false,
             SAFE = true
         };
 
+        enum Little
+        {};
+
         BigInt();                               //                  1
         BigInt(BigInt const &other);            //                  2
         BigInt(BigInt &&tmp);                   //                  3
-                                                
+
         template<typename Type>                 // promotion OK     4.f
-        BigInt(Type value);              
-                                                
+        BigInt(Type value);
+
         explicit BigInt(BIGNUM const &bignum);  //                  5
         explicit BigInt(BIGNUM const *bignum);  //                  6
 
@@ -60,6 +64,14 @@ class BigInt
                                                             //      8
         explicit BigInt(std::string const &bigEndian, bool negative = false);
                                                             //      9
+
+        BigInt(size_t length, char const *littleEndian, bool negative = false);
+                                                            //      10
+
+        BigInt(Little endian,  std::string littleEndian,
+                       bool negative = false);              //      11
+
+
         ~BigInt();
 
         BigInt &operator=(BigInt const &other); // opis.cc
@@ -94,13 +106,13 @@ class BigInt
                                                 //  non-const BigInts:
                                                 //  distinguishes lhs/rhs
 
-        int operator[](size_t idx) const;       // opindexc.f 
+        int operator[](size_t idx) const;       // opindexc.f
                                                 //  only rhs for const BigInts
 
         class Bit
         {
             friend Bit BigInt::operator[](size_t idx);
-            friend std::ostream &operator<<(std::ostream &out, 
+            friend std::ostream &operator<<(std::ostream &out,
                                                             Bit const &bit);
             BigInt &d_bi;
             size_t d_idx;
@@ -117,7 +129,8 @@ class BigInt
         };
 
         char *bigEndian() const;
-        
+        char *littleEndian() const;
+
         BigInt &operator+=(BigInt const &rhs);                  // opaddis.f
         BigInt &addMod(BigInt const &rhs, BigInt const &mod);   // .f
         BigInt addModc(BigInt const &rhs, BigInt const &mod) const;
@@ -181,24 +194,24 @@ class BigInt
         BigInt &isqrt();
         BigInt isqrtc() const;
 
-        static long long diophantus(long long *factor1, long long *factor2, 
-                                    long long const &value1, 
+        static long long diophantus(long long *factor1, long long *factor2,
+                                    long long const &value1,
                                     long long const &value2);
-        static BigInt diophantus(BigInt *factor1, BigInt *factor2, 
+        static BigInt diophantus(BigInt *factor1, BigInt *factor2,
                                  BigInt const &value1, BigInt const &value2);
 
-        static BigInt rand(size_t bitsSize, 
+        static BigInt rand(size_t bitsSize,
                            Msb msb = MSB_IS_ONE, Lsb lsb = ODD);
 
         static BigInt randRange(BigInt const &max);
 
         static BigInt setBigEndian(std::string const &bytes);
 
-        static BigInt pseudoRand(size_t bitsSize, 
+        static BigInt pseudoRand(size_t bitsSize,                   // .f
                            Msb msb = MSB_IS_ONE, Lsb lsb = ODD);
-        static BigInt pseudoRandRange(BigInt const &max);
+        static BigInt pseudoRandRange(BigInt const &max);           // .f
 
-        static BigInt prime(size_t nBits, 
+        static BigInt prime(size_t nBits,
                             BigInt const *add = 0, BigInt const *rem = 0,
                             PrimeType primeType = ANY);
 
@@ -248,27 +261,27 @@ class BigInt
         void nWordsCheck(size_t index) const;
 
         BigInt &checked1(
-                int (*BN_op)(BIGNUM *, 
-                             BIGNUM const *, BIGNUM const *), 
+                int (*BN_op)(BIGNUM *,
+                             BIGNUM const *, BIGNUM const *),
                 BigInt const &rhs, char const *op);
 
-        BigInt &checked2(int (*BN_op)(BIGNUM *, 
-                                           BIGNUM const *, BIGNUM const *, 
-                                           BIGNUM const *, 
+        BigInt &checked2(int (*BN_op)(BIGNUM *,
+                                           BIGNUM const *, BIGNUM const *,
+                                           BIGNUM const *,
                                            BN_CTX *),
-                              BigInt const &rhs, BigInt const &mod, 
+                              BigInt const &rhs, BigInt const &mod,
                               char const *op);
 
-        void checked3(BIGNUM *div, BIGNUM *rem, 
+        void checked3(BIGNUM *div, BIGNUM *rem,
                                    BigInt const &rhs, char const *op) const;
 
-        BigInt &checked4(int (*BN_op)(BIGNUM *, 
-                                     BIGNUM const *, BIGNUM const *, 
-                                     BN_CTX *), 
+        BigInt &checked4(int (*BN_op)(BIGNUM *,
+                                     BIGNUM const *, BIGNUM const *,
+                                     BN_CTX *),
                         BigInt const &rhs, char const *op);
 
         static void primeCallback(int reason, int primeNr, void *primeBase);
-        static bool addDigit(char ch, BigInt &ret, BigInt const &radix, 
+        static bool addDigit(char ch, BigInt &ret, BigInt const &radix,
                                                    int (*pConv)(int));
 };
 
@@ -295,6 +308,8 @@ class BigInt
 #include "opshlis.f"
 #include "opshris.f"
 #include "opsubis.f"
+#include "pseudorand.f"
+#include "pseudorandrange.f"
 #include "size.f"
 #include "sizeinbytes.f"
 #include "sizeofword.f"
@@ -339,5 +354,3 @@ int isoctdigit(int ch);
 
 
 #endif
-
-

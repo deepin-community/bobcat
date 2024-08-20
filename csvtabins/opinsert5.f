@@ -7,4 +7,3 @@ inline CSVTabIns &operator<<(CSVTabIns &&tab, Sep const &sep)
 {
     return tab << sep;
 }
-

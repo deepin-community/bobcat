@@ -14,7 +14,7 @@ PerlSetFSA::TransitionMatrix PerlSetFSA::s_stateTransitions[] =
     {Start,             '\\',   Bs,                 &PerlSetFSA::nop    },
     {Start,             '[',    Set,                &PerlSetFSA::copy   },
     {Start,             0,      Start,              &PerlSetFSA::copy   },
-                                                    
+
     {Bs,                'd',    Start,              &PerlSetFSA::d_Set  },
     {Bs,                's',    Start,              &PerlSetFSA::s_Set  },
     {Bs,                'w',    Start,              &PerlSetFSA::w_Set  },
@@ -37,12 +37,12 @@ PerlSetFSA::TransitionMatrix PerlSetFSA::s_stateTransitions[] =
     {InsideASet,        0,      InsideASet,         &PerlSetFSA::copy   },
 };
 
-PerlSetFSA::TransitionMatrix *PerlSetFSA::s_stateTransitions_end = 
+PerlSetFSA::TransitionMatrix *PerlSetFSA::s_stateTransitions_end =
     PerlSetFSA::s_stateTransitions +
-        sizeof(PerlSetFSA::s_stateTransitions) 
-        / 
+        sizeof(PerlSetFSA::s_stateTransitions)
+        /
         sizeof(PerlSetFSA::TransitionMatrix);
 
-vector<PerlSetFSA::statePair> PerlSetFSA::s_transition;
+vector<PerlSetFSA::StatePair> PerlSetFSA::s_transition;
 
 string Pattern::Regex::s_converted;

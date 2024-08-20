@@ -6,4 +6,3 @@ bool String::eosDq(FSAData &data)
     data.entries->push_back(data.entry);
     return false;
 }
-

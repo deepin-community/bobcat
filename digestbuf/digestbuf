@@ -4,19 +4,21 @@
 #include <openssl/evp.h>
 #include <bobcat/eoibuf>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
 class DigestBuf: public EoiBuf
 {
-    friend std::ostream &operator<<(std::ostream &out, 
+    friend std::ostream &operator<<(std::ostream &out,
                                     DigestBuf const &digestbuf);
     EVP_MD_CTX   *d_ctx;
     EVP_MD const *d_md;
     std::string   d_digest;
 
     public:
-        explicit DigestBuf(char const *type, size_t bufsize = 1024);
+        explicit DigestBuf(char const *digestName, size_t bufsize = 1024);
 
         void reset();
         void eoi();
@@ -33,8 +35,5 @@ class DigestBuf: public EoiBuf
 std::ostream &operator<<(std::ostream &out, DigestBuf const &digestbuf);
 
 }   // FBB
-        
+
 #endif
-
-
-

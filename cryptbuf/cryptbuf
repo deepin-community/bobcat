@@ -1,8 +1,9 @@
 #ifndef INCLUDED_BOBCAT_CRYPTBUF_
 #define INCLUDED_BOBCAT_CRYPTBUF_
 
-#include <openssl/ossl_typ.h>
+#include <openssl/evp.h>
 
+#include <bobcat/exception>
 #include <bobcat/eoibuf>
 
 namespace FBB
@@ -20,5 +21,5 @@ class CryptBuf: public EoiBuf
 
 #include "md.f"
 
-} // FBB        
+} // FBB
 #endif

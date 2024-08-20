@@ -4,7 +4,7 @@
 
 void String::tok(SplitPairVector *entries)
 {
-    auto end = remove_if(entries->begin(), entries->end(), 
+    auto end = remove_if(entries->begin(), entries->end(),
         [&](SplitPair const &entry)
         {
             return entry.second == SEPARATOR || entry.first.empty();
@@ -13,4 +13,3 @@ void String::tok(SplitPairVector *entries)
 
     entries->resize(end - entries->begin());
 }
-    

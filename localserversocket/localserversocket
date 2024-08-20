@@ -4,13 +4,14 @@
 #include <string>
 
 #include <bobcat/localsocketbase>
+#include <bobcat/exception>
 
 namespace FBB
 {
 
 class LocalServerSocket: public LocalSocketBase
 {
-    bool        d_unlink;
+    bool        d_unlink = false;
     std::string d_name;
 
     public:

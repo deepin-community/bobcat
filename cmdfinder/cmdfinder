@@ -16,12 +16,12 @@ class CmdFinder: public CmdFinderBase
     size_t d_count;
 
     protected:
-        typedef FP FunctionPtr;                 // define template type 
+        using FunctionPtr =  FP;                // define template type
                                                 // as a named type
 
                                                 // elements of the array
                                                 // of keys/f-ptrs
-        typedef std::pair<char const *, FP> Entry;
+        using Entry =  std::pair<char const *, FP>;
 
     private:
         Entry const *d_begin;
@@ -29,7 +29,7 @@ class CmdFinder: public CmdFinderBase
 
     protected:
         CmdFinder(Entry const *begin, Entry const *end,                 // 1
-                                                    size_t mode = 0);   
+                                                    size_t mode = 0);
         CmdFinder(CmdFinder &&tmp);                                     // 2
 
         CmdFinder &operator=(CmdFinder const &rhs)  = default;
@@ -68,9 +68,5 @@ class CmdFinder: public CmdFinderBase
 #include "opfun.f"
 
 } // FBB
-        
+
 #endif
-
-
-
-

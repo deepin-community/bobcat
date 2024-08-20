@@ -1,0 +1,11 @@
+#!/bin/bash
+
+CMD="g++ ${ICMAKE_CPPSTD}  -Wall main.cc -L../tmp \
+                                        -lmmapbuf -lbobcat -s"
+
+# CMD="g++ ${ICMAKE_CPPSTD}  -Wall main.cc ../*.o -lbobcat -s"
+# CMD="g++ ${ICMAKE_CPPSTD}  -Wall main.cc -lbobcat -s"
+
+
+echo $CMD
+$CMD

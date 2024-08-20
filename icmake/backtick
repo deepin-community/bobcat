@@ -12,4 +12,3 @@ list backtick(string arg)
     echo(g_echo);
     return ret;
 }
-

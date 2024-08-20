@@ -1,4 +1,4 @@
-inline Manipulator TableBase::columnManip(size_t col) const
+inline Manipulator FBB::TableBase::columnManip(size_t col) const
 {
     Manipulator manip = d_align[col].manip();
     return manip ? manip : std::right;

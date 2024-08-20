@@ -8,7 +8,7 @@ manpagename(FBB::SharedCondition)(Shared Memory Condition Variable)
 
 manpagesynopsis()
     bf(#include <bobcat/sharedcondition>)nl()
-    Linking option: tt(-lpthread, -lbobcat ) 
+    Linking option: tt(-lpthread, -lbobcat )
 
 manpagedescription()
 
@@ -30,10 +30,10 @@ multi-threaded.
     Condition variables are used in situations like these:
     itemization(
     it() There exists a thread which should be suspended until a certain
-        condition has been met. 
+        condition has been met.
     it() This thread locks a mutex (or waits until the lock has been obtained)
     it() While the condition hasn't been met, the thread is suspended (i.e.,
-        waits), automatically releasing the mutex's lock. 
+        waits), automatically releasing the mutex's lock.
     it() Somehow (see below) the thread is resumed, at which point the thread
         has automatically reacquired the lock.
     it() Once the condition has been met, the while loop ends, and the mutex's
@@ -45,7 +45,7 @@ multi-threaded.
     it() The second thread modifies the variables that are involved, and if
         the required condition has been met, it notifies the first thread.
     it() The second thread releases the mutex's lock, allowing the first
-        thread to obtain the mutex's lock. 
+        thread to obtain the mutex's lock.
     )
 
 While the first thread is waiting, it is suspended. It may be resumed when it
@@ -85,7 +85,7 @@ manpagesection(CONSTRUCTORS, DESTRUCTOR)
 
     Default, copy, and move constructors as well as the copy and move
     assignment operators are available.
-    
+
 manpagesection(MEMBER FUNCTIONS)
 
 Returning from bf(SharedCondition) member functions the offset of the
@@ -112,7 +112,7 @@ tt(SharedMemory)'s current offset.
     sharedCondition.lock();     // lock the mutex
     ...                         // operate on the condition's variables
     if (conditionWasMet)        // ready to notify
-        sharedCondition.notify(); 
+        sharedCondition.notify();
     sharedCondition.unlock();   // release the lock
        )
        As the tt(sharedCondition.lock ... sharedCondition.unlock) sequence
@@ -138,7 +138,7 @@ tt(SharedMemory)'s current offset.
 
     itb(void wait())
        Before calling tt(wait) the current thread should have obtained a lock
-        on the bf(SharedCondition) object. 
+        on the bf(SharedCondition) object.
 
        When calling tt(wait) the running thread suspends its activities and
         waits until being notified. Once notified, it reacquires the lock and
@@ -148,7 +148,7 @@ tt(SharedMemory)'s current offset.
        verb(
     sharedCondition.lock();         // lock the mutex
     while (conditionWasNotYetMet)   // waiting required
-        sharedCondition.wait(); 
+        sharedCondition.wait();
     ...                             // do something: we have the lock
     sharedCondition.unlock();       // release the lock
        )
@@ -169,7 +169,7 @@ tt(SharedMemory)'s current offset.
         code for using tt(wait) (albeit that tt(pred) has to be passed to
         tt(wait), of course).
 
-    itb(std::cv_status wait_for(std::chrono::duration<Type, Unit> 
+    itb(std::cv_status wait_for(std::chrono::duration<Type, Unit>
         const &relTime))
        This member was implemented as a member template. tt(Type) defines the
         type of the variable holding the amount of time (usually tt(int64_t)),
@@ -193,9 +193,9 @@ tt(SharedMemory)'s current offset.
     sharedCondition.lock();         // lock the mutex
     while (conditionWasNotYetMet)   // waiting required
     {
-        while (sharedCondition.wait_for(someTime) 
+        while (sharedCondition.wait_for(someTime)
                == std::cv_status::timeout)
-            handle_timeout 
+            handle_timeout
 
         do_something
     }
@@ -206,14 +206,14 @@ tt(SharedMemory)'s current offset.
         verified by inspecting tt(wait_for's) return value, and an appropriate
         action can be selected.
 
-    itb(bool wait_for(std::chrono::duration<Type, Unit> 
+    itb(bool wait_for(std::chrono::duration<Type, Unit>
         const &relTime, Predicate pred))
        This member was implemented as a member template. tt(Type) defines the
         type of the variable holding the amount of time (usually tt(int64_t)),
         specified in time unit tt(Unit). tt(Predicate) either is a predicate
         function or a predicate function object.  The predicate function or
         the predicate function object's function call operators may not
-        require arguments. 
+        require arguments.
 
         The running thread should have obtained a lock on bf(SharedCondition)
         prior to calling this member, and should release the lock after this
@@ -228,7 +228,7 @@ tt(SharedMemory)'s current offset.
         for using the abovementioned tt(wait_for) member (albeit that tt(pred)
         must also be passed to tt(wait_for), of course).
 
-    itb(std::cv_status wait_until(std::chrono::time_point<Clock, Duration> 
+    itb(std::cv_status wait_until(std::chrono::time_point<Clock, Duration>
         const &absTime))
        This member has been implemented as a member template. tt(Clock)
         defines the clock-type to use (usually tt(std::chrono::system_clock)),
@@ -252,7 +252,7 @@ tt(SharedMemory)'s current offset.
         for using the abovementioned tt(wait_for(relative-time)) member
         (albeit that absolute time must be specified).
 
-    itb(bool wait_until(std::chrono::time_point<Clock, Duration> 
+    itb(bool wait_until(std::chrono::time_point<Clock, Duration>
         const &absTime, Predicate pred))
        This member was implemented as a member template. tt(Clock) and
         tt(Duration) define identical types as mentioned at the previous
@@ -281,15 +281,15 @@ manpagesection(STATIC MEMBER FUNCTIONS)
                         std::ios::seekdir origin = std::ios::beg))
        The tt(SharedCondition) object interfacing to the shared condition
         variable located at tt(offset) (relative to tt(origin)) in tt(shmem)
-        is returned. 
+        is returned.
 
         An tt(FBB::Exception) is thrown if the requested offset is invalid
         (i.e., smaller than 0 or exceeding tt(shmem.maxOffset())).
 
-    itb(FBB::SharedCondition create(SharedMemory &shmem)) 
+    itb(FBB::SharedCondition create(SharedMemory &shmem))
        A shared condition variable is initialized at the current offset of
         the tt(SharedMemory) object referred to by tt(shmem), or at the first
-        offset of the next physical shared data segment. 
+        offset of the next physical shared data segment.
 
         A bf(SharedCondition) object interfacing to the initialized shared
         condition variable is returned.
@@ -303,7 +303,7 @@ manpagesection(STATIC MEMBER FUNCTIONS)
     )
 
 manpagesection(EXAMPLE)
-    
+
     verbinclude(../../sharedcondition/driver/driver.cc)
 
 
@@ -314,12 +314,12 @@ manpageseealso()
     bf(bobcat)(7)
         bf(isharedstream)(3bobcat),
         bf(osharedstream)(3bobcat),
-        bf(sharedblock)(3bobcat), 
+        bf(sharedblock)(3bobcat),
         bf(sharedmemory)(3bobcat),
-        bf(sharedpos)(3bobcat), 
-        bf(sharedreadme)(7bobcat), 
-        bf(sharedsegment)(3bobcat), 
-        bf(sharedstream)(3bobcat), 
+        bf(sharedpos)(3bobcat),
+        bf(sharedreadme)(7bobcat),
+        bf(sharedsegment)(3bobcat),
+        bf(sharedstream)(3bobcat),
         bf(sharedbuf)(3bobcat)
 
 manpagebugs()

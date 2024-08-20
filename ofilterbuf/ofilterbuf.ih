@@ -1,4 +1,6 @@
 #include "ofilterbuf"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

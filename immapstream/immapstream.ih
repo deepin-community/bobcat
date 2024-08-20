@@ -1,0 +1,6 @@
+#include "immapstream"
+
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

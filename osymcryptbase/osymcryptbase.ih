@@ -1,0 +1,7 @@
+#include "osymcryptbase"
+
+#include <fstream>
+
+using namespace std;
+using namespace FBB;
+using namespace IUO;

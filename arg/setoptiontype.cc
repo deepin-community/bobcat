@@ -7,10 +7,11 @@ int Arg__::setOptionType(string const &optString,
 
     if (pos == string::npos)
         throw Exception(EINVAL) << "Arg__::setOptionType()" <<
-                                ": short option `" << 
-                                static_cast<char>(longOption.d_optionChar) << 
+                                ": short option `" <<
+                                static_cast<char>(longOption.d_optionChar) <<
                                 "' not found";
 
-    return optString[pos + 1] == ':' ? Required : None;
+    return optString[pos + 1] != ':' ? None     :       // no :  -> no arg
+           optString[pos + 2] != ':' ? Required :       // no :: -> required
+                                       Optional;        //    else: optional
 }
-

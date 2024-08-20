@@ -5,5 +5,7 @@
 #include <unordered_map>
 #include "../string/string"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

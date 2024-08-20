@@ -1,19 +1,16 @@
 #include "diffiehellman.ih"
 
-string DiffieHellman::key(istream &peerPublicStream)
+BigInt const &DiffieHellman::key(istream &peerPublicStream)
 {
-    skip(peerPublicStream, 2);
-    
-    BIGNUM *otherPubKey = BN_new();
+    BigInt prime;
+    BigInt generator;
 
-    if (not (otherPubKey && read(peerPublicStream, &otherPubKey)))
-        throw Exception{} << s_header << 
-                                "could not read the peer's public key";
-        
-    BN_free(d_otherPubKey);
-    d_otherPubKey = otherPubKey;
+    if (not(peerPublicStream >> hex >> prime >> generator >> d_peerPubKey))
+        throw exception() << "could not read the peer's public key";
 
+    if (prime != d_prime || generator != d_generator)
+        throw exception() <<
+            "the peer's prime and/or generator differ from "
+                                                    "the current values";
     return key();
 }
-
-

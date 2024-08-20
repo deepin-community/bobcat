@@ -5,7 +5,7 @@
 #include <bobcat/ifdbuf>
 
 namespace FBB
-{    
+{
 
 class IFdStream: private IFdBuf, public std::istream
 {

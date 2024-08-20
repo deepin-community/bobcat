@@ -7,7 +7,7 @@
 
 #include <ostream>
 #include <syslog.h>
-                        
+
 namespace FBB
 {
 
@@ -28,9 +28,9 @@ class SyslogStream: private SyslogBuf, public std::ostream
             int option = 0);
         void close();                                           // .f
 
-        static  Priority stoP(std::string const &name, 
+        static  Priority stoP(std::string const &name,
                                                 Priority priority = NOTICE);
-        static  Facility stoF(std::string const &name, 
+        static  Facility stoF(std::string const &name,
                                                 Facility facility = USER);
 
         static int setMask(Priority p1, PriorityType upTo);     // 1.f
@@ -51,7 +51,7 @@ class SyslogStream: private SyslogBuf, public std::ostream
         static std::ostream &strerrno(std::ostream &str);       // .f
 
     private:
-        static std::ostream &setPriority(std::ostream &str, 
+        static std::ostream &setPriority(std::ostream &str,
                                         Priority priority);
 
         static int maskValue(Priority p1);                          // 1.f
@@ -173,9 +173,3 @@ class SyslogStream: private SyslogBuf, public std::ostream
 } // FBB
 
 #endif
-
-
-
-
-
-

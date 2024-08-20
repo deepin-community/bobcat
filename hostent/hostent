@@ -17,7 +17,7 @@ class Hostent: private hostent
 
     size_t d_nAliases;
     size_t d_nAddresses;
-            
+
     public:
         Hostent();
         Hostent(Hostent const &other);                      // hostent1.f
@@ -47,13 +47,13 @@ class Hostent: private hostent
     private:
         static char *xstrdup(char const *src);
 
-        void copy(hostent const *other, size_t n_aliases, 
+        void copy(hostent const *other, size_t n_aliases,
                                          size_t n_addresses);
         void destroy();
                                             // the count functions also count
                                             // the final 0-values.
         size_t countAliases(char const * const *alias) const;
-        size_t countAddresses(char const * const *addresses, 
+        size_t countAddresses(char const * const *addresses,
                                             size_t length) const;
 };
 

@@ -5,13 +5,13 @@
 //   name shift =
 //   name shift dstshift
 //   name shift dstshift mon, wkspec day until mon, wkspec day
-//   name shift dstshift mon, wkspec day until mon, wkspec day [hh:mm] 
+//   name shift dstshift mon, wkspec day until mon, wkspec day [hh:mm]
 //   name shift dstshift mon, wkspec day [hh:mm] until mon, wkspec day
-//   name shift dstshift mon, wkspec day [hh:mm] until mon, wkspec day [hh:mm] 
+//   name shift dstshift mon, wkspec day [hh:mm] until mon, wkspec day [hh:mm]
 
 //   dstShift may be =, meaning "1"     (standard dst shift)
 
-void DateTime::Zone::addZone(string const &line, 
+void DateTime::Zone::addZone(string const &line,
                               string const &fname, unsigned lineNr)
 try
 {
@@ -37,7 +37,7 @@ try
 
 
     store(vs[0], vs[1], vs[2], dstBegin, dstEnd);
-    
+
     if (redefining)
         cerr << "Warning: " << fname << " line " << lineNr <<
             ": redefining zone `" << vs[0] << "'\n";
@@ -45,7 +45,5 @@ try
 catch (...)
 {
     cerr << fname << " line " << lineNr <<
-            ": format error in line `" << line << "'\n";    
+            ": format error in line `" << line << "'\n";
 }
-
-

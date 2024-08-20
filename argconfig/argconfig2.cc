@@ -1,8 +1,8 @@
 #include "argconfig.ih"
 
-ArgConfig::ArgConfig(int accept, char const *optstring, 
-                   LongOption const *begin, LongOption const *const end, 
-                   int argc, char **argv, 
+ArgConfig::ArgConfig(int accept, char const *optstring,
+                   LongOption const *begin, LongOption const *const end,
+                   int argc, char **argv,
                    string const &fname,
                    Comment cType, SearchCasing sType, Indices iType)
 :
@@ -10,5 +10,3 @@ ArgConfig::ArgConfig(int accept, char const *optstring,
     ConfigFile(fname, cType, sType, iType),
     d_ptr(new ArgConfig__(begin, end))
 {}
-
-

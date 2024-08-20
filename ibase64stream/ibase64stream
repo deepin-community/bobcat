@@ -18,5 +18,5 @@ struct IBase64Stream: private IBase64Buf<type>, public std::istream
 
 #include "ibase64stream1.f"
 
-} // FBB        
+} // FBB
 #endif

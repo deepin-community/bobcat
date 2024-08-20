@@ -7,7 +7,7 @@ namespace
 
     size_t handleOctal(string *dest, string const &src, size_t pos)
     {
-        size_t pos2 = min(src.length(), 
+        size_t pos2 = min(src.length(),
                           src.find_first_not_of("01234567", pos));
 
         if (pos2 == pos + 1 && src[pos] == '0') // saw \0
@@ -37,7 +37,7 @@ namespace
         size_t const nHex = 2;                // need exactly 2 hex digits
 
         ++pos;                                  // skip the 'x'
-        size_t pos2 = min(pos + nHex, 
+        size_t pos2 = min(pos + nHex,
                             src.find_first_not_of(
                                 "0123456789abcdefABCDEF", pos));
 
@@ -89,8 +89,8 @@ string String::unescape(string const &str)
         else if (next == 'x')               // handle hex values
             pos = handleHex(&ret, str, pos);
         else                                // handle lone characters
-            ret += str[pos++];     
+            ret += str[pos++];
 
-        prefix = pos; 
+        prefix = pos;
     }
 }

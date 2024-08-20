@@ -1,4 +1,6 @@
 #include "align"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

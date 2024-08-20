@@ -13,14 +13,14 @@ manpagedescription()
     The standard tt(operator>>(std::istream &, std::string &)) string
 extracion operator extracts the first `word' from a stream. In cases where the
 intent it to extract lines from the stream this operator cannot be used, but
-tt(getline(std::istream &, std::string &)) is usually called. 
+tt(getline(std::istream &, std::string &)) is usually called.
 
     However, tt(getline) is not called by many tools of generic algorithms,
-like the tt(istream_iterator). 
+like the tt(istream_iterator).
 
     The class (actually: struct) tt(StringLine) was simply derived from
 tt(std::string), and defines its own tt(operator>>), reading the next line
-from the specified tt(std::istream). 
+from the specified tt(std::istream).
 
 includefile(include/namespace)
 
@@ -29,12 +29,12 @@ manpagesection(INHERITS FROM)
 
 manpagesection(CONSTRUCTORS)
     tt(StringLine) is an empty shell around tt(std::string). It does not
-explicitly define constructors. 
+explicitly define constructors.
 
     Copy and move constructors (and assignment operators) are available.
 
 manpagesection(OVERLOADED OPERATOR)
-    itemization(    
+    itemization(
     itb(std::istream &operator>>(std::istream &in, StringLine &str))
         The extraction operator returns the next line on tt(in) in tt(str),
         calling tt(getline(std::istream &, std::string &)).
@@ -61,9 +61,9 @@ using namespace FBB;
 int main()
 {
     vector<string> lines;
-    
+
     copy(
-        istream_iterator<StringLine>(cin), istream_iterator<StringLine>(), 
+        istream_iterator<StringLine>(cin), istream_iterator<StringLine>(),
         back_inserter(lines)
     );
 }
@@ -71,7 +71,7 @@ int main()
 
 manpagefiles()
     em(bobcat/stringline) - defines the class interface and
-tt(operator>>). 
+tt(operator>>).
 
     There are tt(StringLine) object files in the Bobcat library,
 so linking to Bobcat when using tt(StringLine) is not necessary.
@@ -83,4 +83,3 @@ manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-

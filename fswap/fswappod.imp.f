@@ -9,7 +9,7 @@ FSwapPOD<Type>::FSwapPOD(char *buffer, char *from, Type &lhs, Type &rhs)
 {}
 
 template <typename Type>
-inline FSwapPOD<Type> PODfactory(char *buffer, char *from, 
+inline FSwapPOD<Type> PODfactory(char *buffer, char *from,
                                  Type &lhs, Type &rhs)
 {
     return FSwapPOD<Type>(buffer, from, lhs, rhs);

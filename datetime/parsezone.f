@@ -1,4 +1,4 @@
-inline DateTime::Zone const &DateTime::Parse::zone() const
+inline FBB::DateTime::Zone const &FBB::DateTime::Parse::zone() const
 {
     return d_zone;
 }

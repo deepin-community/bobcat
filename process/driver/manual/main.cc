@@ -8,21 +8,21 @@ try
     {
 // start.cc
         newPipes();
-        
+
     // forking.cc
 
         if ((pid = fork()) < 0)
             return 1;
-    
+
         if (pid == 0)                       // child
         {
             redirectChild();
             childSha1();
         }
-    
+
         parentRedirections();
         parentCloseIn();
-    
+
         finalization();
     }
 
@@ -34,23 +34,23 @@ try
             while (true)
             {
                 newPipes();
-                
+
                 if ((pid = fork()) < 0)
                     return 1;
-            
+
                 if (pid == 0)                       // child
                 {
                     redirectChild();
-        
+
                     childEchoes();
-        
+
                     return 0;
-                }    
-        
+                }
+
                 parentRedirections();
                 parentCat();
-        
-        
+
+
                 finalization();
             }
         }
@@ -62,19 +62,19 @@ try
     if (getline(cin, line))
     {
         newPipes();
-        
+
         if ((pid = fork()) < 0)
             return 1;
-    
+
         if (pid == 0)                       // child
         {
             redirectChild();
             childLs();
         }
-    
+
         parentRedirections();
         parentOut();
-    
+
         finalization();
     }
 }
@@ -82,19 +82,3 @@ catch (...)
 {
     return 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

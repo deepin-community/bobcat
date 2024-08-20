@@ -16,7 +16,3 @@ void PrimeFactors::iteratorStream::next()
 
     d_newPrimes.push_back(d_lastPrime = candidate);
 }
-
-
-
-

@@ -25,7 +25,7 @@ string Process::dquotedString(ConstIter &begin, ConstIter const &end)
 
                 if (begin + 1 == end)   // the \ was the last character
                     break;              // causing an error at the loop's top
-                
+
                 dquoted += *++begin;    // add the char beyond the \-char
             break;
 

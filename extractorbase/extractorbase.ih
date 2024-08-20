@@ -2,6 +2,8 @@
 
 #include <unistd.h>
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
 using namespace IUO;
+#endif

@@ -10,8 +10,8 @@ int SharedSegment::newSegment(size_t requestedSize, size_t access)
     size_t actualSize = size(id);
 
     if (actualSize != requestedSize)
-        throw Exception{} << "Incorrect size (" << actualSize << 
-                            ", should be: " << requestedSize << 
+        throw Exception{} << "Incorrect size (" << actualSize <<
+                            ", should be: " << requestedSize <<
                             ") of shared segment";
 
     return id;

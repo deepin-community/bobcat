@@ -1,0 +1,177 @@
+#ifndef INCLUDED_BOBCAT_ECDH_
+#define INCLUDED_BOBCAT_ECDH_
+
+#include <openssl/evp.h>
+#include <openssl/param_build.h>
+
+#include <memory>
+#include <map>
+#include <string>
+#include <tuple>
+
+namespace FBB
+{
+
+class BigInt;
+class Table;
+
+class ECDH
+{
+    friend std::ostream &operator<<(std::ostream &out, ECDH const &ecdh);
+
+    enum
+    {
+        MIN_PWD_LENGTH = 5
+    };
+
+    using ptrEVP_PKEY =
+            std::unique_ptr<EVP_PKEY, decltype(EVP_PKEY_free) *>;
+    using ptrEVP_PKEY_CTX = 
+            std::unique_ptr<EVP_PKEY_CTX, decltype(EVP_PKEY_CTX_free) *>;
+    using ptrOSSL_PARAM = 
+            std::unique_ptr<OSSL_PARAM, decltype(OSSL_PARAM_free) *>;
+    using ptrOSSL_PARAM_BLD = 
+            std::unique_ptr<OSSL_PARAM_BLD, decltype(OSSL_PARAM_BLD_free) *>;
+
+    struct CurveInfo
+    {
+        int internalID = 0;         // EC_builtin_curve.nid is an int
+        std::string name;
+        std::string comment;
+    };
+            
+    using CurveMap = std::map<std::string, CurveInfo>;
+
+    std::string d_curveName;
+    ptrEVP_PKEY d_keyPair{ 0, EVP_PKEY_free };
+
+    std::string d_pubKey;                   // hex representation
+    std::string d_privKey;                  // hex representation
+    std::string d_otherPubKey;              // hex representation
+    std::string d_sharedKey;                // hex representation
+
+    static CurveMap s_curves;
+    static std::string const s_digits;
+    static std::string const s_cipherName;
+
+    public:
+        enum TheInitiator
+        {
+            Initiator
+        };
+        enum ThePeer
+        {
+            Peer
+        };
+
+        ECDH();                                                         // 1
+
+        ECDH(ECDH &&tmp) = default;
+
+        ECDH(TheInitiator init, std::string const &curveName,           // 2
+                                std::string const &initPubFname);
+
+        ECDH(ThePeer peer, std::string const &initPubFname,             // 3
+                           std::string const &peerPubFname);
+
+            // called by the initiator after receiving the peer's 
+            // public key
+        ECDH(std::string const &curveName,                              // 4
+                std::string const &peerPubFname,
+                std::string const &initSecFname,
+                std::string const &password = "");
+
+        ECDH &operator=(ECDH &&tmp) = default;
+
+        std::string const &curve() const;           // the used EC 
+
+                                                        // private key:
+                                                        // hex-formatted, 
+                                                        // prefixed by
+        std::string privKey() const;                    // 'hex\n'        .f
+
+                                                        // encrypted, 
+        void privKey(std::string const &privKeyFname,   // prefixed by
+                     std::string passwd) const;         // 'encrypted\n'
+
+
+        std::string const &pubKey() const;          // hex-formatted    // .f
+
+        void set(TheInitiator init, std::string const &curveName,       // 1
+                                    std::string const &initPubFname); 
+
+        void set(ThePeer peer, std::string const &initPubFname,         // 2
+                               std::string const &peerPubFname);
+
+            // may be called by the initiator after receiving the peer's 
+            // public key
+        void set(std::string const &curveName,                          // 3
+                std::string const &peerPubFname,
+                std::string const &initSecFname,
+                std::string const &password = "");
+
+        std::string const &sharedKey() const;       // hex-formatted    // .f
+
+                                                    // idem, but called by the
+                                                    // initiator using 
+                                                    // ECDH(TheInitiator)   
+        std::string const &sharedKey(std::string const &peerPubFname);  // 2
+        
+    private:
+        static size_t           checkHex(char hexDigit);
+        static void             checkPassword(std::string &passwd);
+
+        ptrEVP_PKEY_CTX         cptDerivationCtx() const;
+        static ptrEVP_PKEY_CTX  cptEvpPkeyCtx();
+        void                    cptKeys();
+        ptrOSSL_PARAM_BLD       cptParamBuild() const;
+        static ptrOSSL_PARAM    cptParams(ptrOSSL_PARAM_BLD const &pBuild);
+
+        void                    cptPrivKey();        // assigns d_privKey
+        void                    cptSharedKey();     // assigns d_sharedKey
+        void                    cptPubKey();        // assigns d_pubKey
+
+        static void             curveInfo(Table &table,
+                                          CurveInfo const &info);
+
+        ptrEVP_PKEY_CTX         keyGenContext() const;
+
+        static std::tuple<unsigned long, std::string> 
+                                lastError(); 
+
+        static std::string      lastErrorString();
+
+        ptrEVP_PKEY             otherPkey() const;
+        ptrEVP_PKEY             otherPubKey() const;
+
+        static ptrEVP_PKEY      pkeyFromCtx(ptrEVP_PKEY_CTX &ctx, 
+                                        ptrOSSL_PARAM &params, size_t type);
+        static EVP_PKEY_CTX    *pkeyCtxFromName();
+        static void             pkeyInit(EVP_PKEY_CTX *ctx);
+        static EVP_PKEY        *pkeyGenerate(EVP_PKEY_CTX *ctx);
+
+        static BigInt           privateKey(std::string const &initSecFname,
+                                           std::string password);
+
+        static void             setPeerPubKey(
+                                    ptrOSSL_PARAM_BLD const &paramBuild,
+                                    std::string const &otherPubKey);
+
+        static ptrOSSL_PARAM    setPrivKey(ptrOSSL_PARAM_BLD &paramBuild,
+                                          std::string const &initSecFname,
+                                          std::string password);
+
+        static std::ostream &showCurves(std::ostream &out);
+
+        static CurveMap const  &supportedCurves(); 
+
+        static std::string      toData(std::string const &hexStr);
+        static std::string      toHex(std::string const &data);
+};
+
+#include "ecdh.f"
+
+}   // FBB
+
+#endif
+

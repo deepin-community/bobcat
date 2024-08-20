@@ -29,6 +29,4 @@ int main(int argc, char **argv)
         cout << prime << ' ';
 
     cout << '\n';
-}    
-
-
+}

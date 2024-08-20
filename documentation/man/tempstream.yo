@@ -37,7 +37,7 @@ tt(TempStream) could not be constructed an tt(FBB::Exception) is thrown.
 
 manpagesection(MEMBER FUNCTIONS)
      All bf(std::fstream) members are available, as bf(FBB::TempStream)
-inherits from this class. In addition, tt(TempStream) itself offers 
+inherits from this class. In addition, tt(TempStream) itself offers
     itemization(
     itb(std::string const &fileName() const)
         The name of the created temporary file.
@@ -47,22 +47,22 @@ manpagesection(EXAMPLE)
         verb(
     #include <iostream>
     #include <bobcat/tempstream>
-    
+
     using namespace std;
     using namespace FBB;
-    
+
     int main()
     {
         TempStream ts("/tmp/demo");
-    
+
         ts << "Hello world\n";
-    
+
         ts.seekg(0);
         string line;
         getline(ts, line);
         cout << line << ", removed: " << ts.fileName() << '\n';
     }
-        )    
+        )
 
 manpagefiles()
     em(bobcat/tempstream) - defines the class interface

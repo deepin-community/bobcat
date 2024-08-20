@@ -6,4 +6,3 @@ BigInt &BigInt::tildeInt()
 {
     return --negate();
 }
-

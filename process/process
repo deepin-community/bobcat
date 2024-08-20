@@ -18,6 +18,7 @@
 #include <bobcat/iostream>
 #include <bobcat/processenums>
 #include <bobcat/signal>
+#include <bobcat/exception>
 
 #if defined(__FreeBSD_kernel__) || defined(__FreeBSD__)
     #ifndef BOBCAT_DIY_CLOEXEC_
@@ -46,33 +47,33 @@ struct Process: private Fork, private SignalHandler,
         size_t          d_timeLimit;      // seconds allowed to child-process
         ProcessType     d_processType;
 
-        size_t          d_setMode;          // these values are set by the 
-        size_t          d_setTimeLimit;   // set members and used as 
+        size_t          d_setMode;          // these values are set by the
+        size_t          d_setTimeLimit;   // set members and used as
         ProcessType     d_setProcessType;   // defaults unless overridden by
                                             // actual values
-                                            // Constructors set these values 
+                                            // Constructors set these values
                                             // too.
         std::string     d_command;
 
         Pipe d_oChildInPipe;    // cin read by the CHILD
         Pipe d_iChildOutPipe;   // cout written by the CHILD
-        Pipe d_iChildErrPipe;   // cerr written by the CHILD    
+        Pipe d_iChildErrPipe;   // cerr written by the CHILD
 
-        OFdBuf    d_oChildInbuf;      // Child extracts,  
+        OFdBuf    d_oChildInbuf;      // Child extracts,
         IFdBuf    d_iChildOutbuf;     // Child inserts,
         IFdBuf    d_iChildErrbuf;     // Child inserts
-    
+
         std::ostream   d_oChildIn;          // Parent inserts to child's cin
         std::istream   d_iChildOut;         // Parent extracts child's cout
         std::istream   d_iChildErr;         // Parent extracts child's cerr
-    
+
         Selector        d_selector;         // senses activities on Child's
                                             // out/err streams
         struct RetPid
         {
             int     ret;
             pid_t   pid;
-            
+
             RetPid();                       //  1.f
         };
 
@@ -83,7 +84,7 @@ struct Process: private Fork, private SignalHandler,
         std::mutex d_mutex;
         std::condition_variable d_condition;
         size_t d_bufSize;
-    
+
         int d_exitStatus;
 
 #ifdef BOBCAT_DIY_CLOEXEC_
@@ -128,7 +129,7 @@ struct Process: private Fork, private SignalHandler,
 
         Process &operator+=(std::string const &text);   //       opaddis.f
                                                         // adds to the command
-        
+
         void start();                                   // 1.f
         void start(IOMode mode);                        // 2.f
         void start(IOMode mode, ProcessType type);      // 3.f
@@ -143,12 +144,12 @@ struct Process: private Fork, private SignalHandler,
         void system(IOMode mode);                                   //  2.f
         void system(IOMode mode, size_t timeLimit);                 //  3.f
         void system(IOMode mode, size_t timeLimit, size_t bufSize); //  4.f
-    
+
 
         int operator=(std::string const &cmd);  // sets and starts a command
 
 
-        std::string const &str() const; // current command              .f    
+        std::string const &str() const; // current command              .f
 
         template <typename Type>
         Process &operator<<(Type const &value);                 // opinsert.f
@@ -165,7 +166,7 @@ struct Process: private Fork, private SignalHandler,
                                                 // the child to end
         using Fork::waitForChild;
         int exitStatus() const;                                 //      .f
-                                
+
         bool active();
 
         Process &operator()(IOMode mode);                       // opfun1.f
@@ -173,7 +174,7 @@ struct Process: private Fork, private SignalHandler,
 
                                                             // operatorfun1.cc
         Process &operator()(IOMode mode, ProcessType type, size_t timeLimit);
-                                                            
+
         Process &operator()(IOMode mode, ProcessType type,  // operatorfun2.cc
                             size_t timeLimit, size_t bufSize);
 
@@ -204,7 +205,7 @@ struct Process: private Fork, private SignalHandler,
         void eoi_() override;
 
         void newPipe(Pipe &pipe);           // close and reopen pipe.
-        void newPipes();                    // close and reopen all necessary 
+        void newPipes();                    // close and reopen all necessary
                                             // pipes
 
         pid_t discontinue(RetPid &proc);
@@ -221,7 +222,7 @@ struct Process: private Fork, private SignalHandler,
         IOMode sanitizeIOMode(IOMode mode);
         void closeChildInputOnExec();
 
-        typedef std::string::const_iterator ConstIter;
+        using ConstIter =  std::string::const_iterator;
         struct ExecContext;
         ExecContext analyzeCommand();
 
@@ -254,8 +255,6 @@ struct Process: private Fork, private SignalHandler,
 #include "timelimit.f"
 
 
-} // FBB        
+} // FBB
 
 #endif
-
-

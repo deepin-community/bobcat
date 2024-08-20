@@ -1,6 +1,6 @@
 #include "syslogstream.ih"
 
-namespace 
+namespace
 {
     unordered_map<string, FBB::Priority> priorityMap =
     {

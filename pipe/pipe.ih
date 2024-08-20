@@ -2,7 +2,7 @@
 
 #include <unistd.h>
 #include "../redirector/redirector"
-#include "../exception/exception"
 
-
+#ifndef SPCH_
 using namespace FBB;
+#endif

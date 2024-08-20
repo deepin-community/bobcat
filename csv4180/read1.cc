@@ -11,5 +11,5 @@ istream &CSV4180::read1(istream &in)
     while ((this->*s_fsa[d_state][peek()])())
         ;
 
-    return in;    
+    return in;
 }

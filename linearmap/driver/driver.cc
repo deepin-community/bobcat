@@ -13,15 +13,15 @@ int main()
 
     // constructors:
     LM lm;
-    LM lm2 = 
+    LM lm2 =
     {
         {"one", "value 1"},
         {"two", "value 2"}
     };
     LM lm3(lm2);
-        
+
     LM lm4(lm3.begin(), lm3.end());
-    
+
     // assignment:
     lm = lm2;
 
@@ -31,7 +31,7 @@ int main()
     cout << lm.find("key")->second << '\n';
 
     for (auto value: lm)
-        cout << "For loop: " << value.first << ", " << 
+        cout << "For loop: " << value.first << ", " <<
                                                 value.second << '\n';
 
     cerr << "# times 'key' is stored: " << lm.count("key") << "\n"

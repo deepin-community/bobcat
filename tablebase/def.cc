@@ -2,7 +2,7 @@
 
 void TableBase::def()
 {
-    if (d_tabulated || !d_string.size())    // no elements or already 
+    if (d_tabulated || !d_string.size())    // no elements or already
         return;                             // tabulated then do nothing
 
     d_nRows = (d_string.size() + d_nColumns - 1) / d_nColumns;
@@ -11,7 +11,7 @@ void TableBase::def()
                                             // determine max width per column,
                                             // max column width, and alignment
     size_t maxWidth = 0;
-    
+
     for (size_t col = 0; col < d_nColumns; ++col)
     {
         size_t maxColWidth = 0;
@@ -38,9 +38,3 @@ void TableBase::def()
 
     d_tabulated = true;
 }
-
-
-
-
-
-

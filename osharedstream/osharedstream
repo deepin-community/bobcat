@@ -8,7 +8,7 @@
 namespace FBB
 {
 
-struct OSharedStream: private SharedBuf, public std::ostream, 
+struct OSharedStream: private SharedBuf, public std::ostream,
                       public virtual SharedEnum__
 {
     OSharedStream();
@@ -19,7 +19,7 @@ struct OSharedStream: private SharedBuf, public std::ostream,
             size_t access = 0600);
 
     OSharedStream(
-            size_t id, 
+            size_t id,
             std::ios::openmode openMode = std::ios::out | std::ios::in);
 
     using SharedBuf::attachSharedCondition;
@@ -50,10 +50,5 @@ struct OSharedStream: private SharedBuf, public std::ostream,
 
 #include "truncate.f"
 
-} // FBB        
+} // FBB
 #endif
-
-
-
-
-

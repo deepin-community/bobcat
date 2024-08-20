@@ -25,8 +25,8 @@ try
     cout << "opened: " << argv[1] << '\n';
 
     cout << "Got " << cf.size() << " lines\n\n";
-  
-#if 0  
+
+#if 0
     cf.open(argv[1]);
 
     cout << "opened again: " << argv[1] << "\n"
@@ -40,7 +40,7 @@ try
     copy(cf.begin(), cf.end(), ostream_iterator<CF_Line>(cout, "\n"));
 #endif
 
-    
+
 #if 0
     while (true)
     {
@@ -53,12 +53,12 @@ try
 
         if (it != cf.end())
             cout << *it << ": at index " << cf.index(it) << '\n';
-        else        
+        else
             cout << " < not found > " << '\n';
     }
     cout.put('\n');
 #endif
-    
+
 #if 0
     while (true)
     {
@@ -71,7 +71,7 @@ try
 
         if (it != cf.end())
             cout << *it << ": at index " << cf.index(it) << '\n';
-        else        
+        else
             cout << " < not found > " << '\n';
     }
     cout.put('\n');
@@ -89,10 +89,10 @@ try
 
         if (it == cf.end())
             cout << " < not found > " << '\n';
-        else        
+        else
             cout << *it << ": at index " << cf.index(it) << "\n"
-                    "parts:\n" 
-                    "   line nr: " << it->lineNr() << "\n" 
+                    "parts:\n"
+                    "   line nr: " << it->lineNr() << "\n"
                     "   key:     " << it->key() << "\n"
                     "   value:   " << it->value() << "\n"
                     "   tail:    " << it->tail() << "\n"
@@ -109,17 +109,17 @@ try
         string param;
         if (!getline(cin, param) || !param.length())
             return 0;
-    
+
         auto [begin, end] = cf.beginEndID(param);
-    
+
         cout << "Counting: " << (end - begin) << " matches\n";
         while (begin != end)
         {
             auto it = *begin++;
 
             cout << *it << ":\n"
-                    "parts:\n" 
-                    "   line nr: " << it->lineNr() << "\n" 
+                    "parts:\n"
+                    "   line nr: " << it->lineNr() << "\n"
                     "   key:     " << it->key() << "\n"
                     "   value:   " << it->value() << "\n"
                     "   tail:    " << it->tail() << "\n";
@@ -135,17 +135,17 @@ try
         string param;
         if (!getline(cin, param) || !param.length())
             return 0;
-    
+
         auto [begin, end] = cf.beginEndRE(param);
-    
+
         cout << "Counting: " << (end - begin) << " matches\n";
         while (begin != end)
         {
             auto it = *begin++;
 
             cout << *it << ": at index " << cf.index(it) << "\n"
-                    "parts:\n" 
-                    "   line nr: " << it->lineNr() << "\n" 
+                    "parts:\n"
+                    "   line nr: " << it->lineNr() << "\n"
                     "   key:     " << it->key() << "\n"
                     "   value:   " << it->value() << "\n"
                     "   tail:    " << it->tail() << "\n";
@@ -158,4 +158,3 @@ catch (exception const &e)
     cout << "Fatal: " << e.what() << '\n';
     return 1;
 }
-

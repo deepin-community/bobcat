@@ -14,7 +14,7 @@ case $1 in
     ;;
     (*)
     echo "
-Usage: 
+Usage:
     build loc   - build the driver using the shared library created in
                   ../../tmp/lib
     build lib   - build the driver using the shared bobcat library installed

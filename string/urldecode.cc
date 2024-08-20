@@ -1,7 +1,7 @@
 #include "string.ih"
 
 // static
-string String::urlDecode(string const &encoded) 
+string String::urlDecode(string const &encoded)
 {
     string ret;
 
@@ -14,11 +14,8 @@ string String::urlDecode(string const &encoded)
             string convert{begin + 1, begin + 3};
             begin += 2;
             ret += stoi(convert, 0, 16);
-        }            
+        }
     }
 
     return ret;
 }
-
-
-

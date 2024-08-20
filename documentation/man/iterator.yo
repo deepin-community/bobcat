@@ -20,7 +20,7 @@ of type bf(Type), e.g., tt(char) or tt(int). This iterator comes in handy in
 case you need to initialize an objects with a range of values, which are of
 some basic type (see also the bf(EXAMPLE) section).
 
-bf(FBB::ReverseIterator) implements a reverse iterator for bf(FBB::Iterator). 
+bf(FBB::ReverseIterator) implements a reverse iterator for bf(FBB::Iterator).
 
 includefile(include/namespace)
 
@@ -34,9 +34,9 @@ manpagesection(CONSTRUCTORS)
     itb(explicit Iterator(Tye const &value))
        This constructor initializes the bf(Iterator) object with an initial
         tt(Type) value. When dereferencing this iterator, tt(value) is
-        returned. 
+        returned.
     )
-        
+
 The bf(Iterator<Type>)'s default, copy, and
 move constructors (and its copy and move assignment operators) are available.
 
@@ -55,7 +55,7 @@ move constructors (and its copy and move assignment operators) are available.
         tt(value) is returned (without modifying the tt(Type
         value) that is stored inside the bf(Iterator)).
     )
-        
+
 The bf(ReverseIterator<Type>)'s default, copy, and
 move constructors (and its copy and move assignment operators) are available.
 
@@ -100,7 +100,7 @@ bf(FBB::Iterator) and bf(FBB::ReverseIterator) inherit from this class.
     )
 
 manpagesection(STATIC MEMBER FUNCTIONS)
-        
+
     Static members of bf(Iterator<Type>):
     itemization(
     itb(Iterator<Type> last(Type value))
@@ -114,9 +114,9 @@ manpagesection(STATIC MEMBER FUNCTIONS)
 
     itb(Iterator<Type> min())
        An bf(Iterator<Type>) object is returned initialized with the value
-        returned by tt(std::numeric_limits<Type>::min()) 
+        returned by tt(std::numeric_limits<Type>::min())
     )
-        
+
     Static member of bf(ReverseIterator<Type>):
     itemization(
     itb(ReverseIterator<Type> last(Type const &value))

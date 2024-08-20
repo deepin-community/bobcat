@@ -92,7 +92,7 @@ generated when the function is used.
 
     itb(fswap<SwapMode::SWAPMEMBER>(Type &lhs, Type &rhs, member, ...))
         This function acts identically as the previous function, but
-explicitly specifies its default swapping method. 
+explicitly specifies its default swapping method.
 
     Each of the members specified in the list of members can be specified by
 their names, in which case the specified swapping method is
@@ -109,10 +109,10 @@ tt(stdswap(member)) or tt(swapmember(member)) can be used;
 
     itb(fswap[swapMode](&firstMember, Type &lhs, Type &rhs [, member, ...]))
         This function's first argument is the address of tt(Type's) first data
-member (usually specified as tt(&d_first)) inside tt(Type's) own tt(swap)
+member (usually specified as tt(&d_first) inside tt(Type's) own tt(swap)
 member). It is used when tt(Type) is derived from a base class that itself
 does not support fast swapping. This function may optionally be provided with
-a tt(SwapMode) template non-type argument (by default SWAPMEMBER) is used),
+a tt(SwapMode) template non-type argument (by default SWAPMEMBER is used),
 and may also be provided with a list of members (optionally using tt(stdswap)
 and tt(swapmember)).
     )
@@ -143,7 +143,7 @@ a list of four objects like:
         )
     However, classes implementing a data structure like a linked-list might
 still benefit from fast swapping operations: by implementing their own swap
-member they could first use fast swapping to swap the objects, followed by 
+member they could first use fast swapping to swap the objects, followed by
 another fast swap to unswap their `next' pointers.
 
     The tt(fswap) function should also not be used for objects defining
@@ -151,9 +151,9 @@ another fast swap to unswap their `next' pointers.
 pointers to data and (back-)pointers to the original objects:
         verb(
     Before fswapping:
-        A                                  B                          
-       +--------+   +-----------+         +--------+   +-----------+  
-       |        |   |           |         |        |   |           |  
+        A                                  B
+       +--------+   +-----------+         +--------+   +-----------+
+       |        |   |           |         |        |   |           |
      +--> *Aimp------> *A (back)--+     +--> *Bimp------> *B (back)--+
      | |        |   |           | |     | |        |   |           | |
      +--**Aimp  |   +-----------+ |     +--**Bimp  |   +-----------+ |
@@ -161,11 +161,11 @@ pointers to data and (back-)pointers to the original objects:
 
     After fswapping:
                      +-------------------------------+
-                  +--|-------------------------------|-+                
-    +-------------|--|-----------------+             | |                
-    |   A         |  v                 |   B         | v              
-    |  +--------+ | +-----------+      |  +--------+ | +-----------+  
-    |  |        | | |           |      |  |        | | |           |  
+                  +--|-------------------------------|-+
+    +-------------|--|-----------------+             | |
+    |   A         |  v                 |   B         | v
+    |  +--------+ | +-----------+      |  +--------+ | +-----------+
+    |  |        | | |           |      |  |        | | |           |
   +-----> *Bimp---+ |  *A (back)--+    +---> *Aimp---+ |  *B (back)--+
   | |  |        |   |           | |       |        |   |           | |
   | +---**Bimp  |   +-----------+ |    +---**Aimp  |   +-----------+ |
@@ -175,7 +175,7 @@ pointers to data and (back-)pointers to the original objects:
     After the swap tt(**Bimp) should point to tt(Bimp)'s address (now at A),
 but in fact it points to tt(Aimp)'s address (now at B). Likewise, the back
 pointers still point at their original objects rather than at their swapped
-objects. 
+objects.
 
 All tt(stream) classes define such pointers and can therefore not be swapped
 using tt(fswap).
@@ -185,5 +185,3 @@ classes for which it can be proven that fast-swapping does not corrupt the
 values of its pointer data.
 
 includefile(include/trailer)
-
-

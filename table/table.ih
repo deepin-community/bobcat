@@ -3,6 +3,7 @@
 #include <iomanip>
 #include "../string/string"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
-
+#endif

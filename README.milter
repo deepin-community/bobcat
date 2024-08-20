@@ -3,7 +3,7 @@ library is passed to the linker before the bobcat library is specified.
 
 E.g., use -lmilter -lbobcat
 
-If the bobcat library is specified before the milter library the following 
+If the bobcat library is specified before the milter library the following
 stand-in function defined in the bobcat library will be used:
 
 	`smfi_register'
@@ -25,11 +25,8 @@ error.
 
 Although the error could be prevented by specifying the option
 
-    -Wl,--allow-shlib-undefined 
+    -Wl,--allow-shlib-undefined
 
 requiring this option seems like a more complex instruction than requiring
 that when using the milter library it must be specified before the bobcat
 library.
-
-
-

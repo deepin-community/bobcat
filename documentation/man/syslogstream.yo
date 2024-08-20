@@ -8,11 +8,11 @@ manpagename(FBB::SyslogStream)(An output stream inserting syslog messages)
 
 manpagesynopsis()
     bf(#include <bobcat/syslogstream>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::SyslogStream) objects may be used as a tt(std::ostream) to write
-syslog messages using stream facilities. 
+syslog messages using stream facilities.
 
 Multiple separate insertions can be used to create a single syslog message:
 the message is only sent to the syslog daemon after receiving a tt(flush)
@@ -20,7 +20,7 @@ command (e.g., after inserting tt(std::flush) or tt(std::endl)). Non-printable
 characters (like tt('\n')) show up in the syslog message as octal values,
 preceded by tt(#) (e.g., tt(#012) for tt('\n')). The newline normally inserted
 by tt(std::endl) is ignored: bf(SyslogStream) objects interpret tt(std::endl)
-like tt(std::flush). 
+like tt(std::flush).
 
 One series of insertions may contain multiple tt(std::endl) or tt(std::flush)
 manipulators. At each of these manipulators a new message is sent to the
@@ -75,7 +75,7 @@ processed by the syslog daemon;
 tt(setMask) call are processed by the syslog daemon;
     )
     By default, the syslog daemon processes all messages it receives.
-    
+
 
     bf(Facility):
 
@@ -90,7 +90,7 @@ tt(LOG_xxx) values used with bf(syslog)(3):
         other system daemons
     itb(KERN)
         kernel messages
-    itb(LOCAL0) 
+    itb(LOCAL0)
         reserved for local use. bf(LOCAL1) through bf(LOCAL7) are
         available as well.
     itb(LPR)
@@ -110,12 +110,12 @@ tt(LOG_xxx) values used with bf(syslog)(3):
 manpagesection(CONSTRUCTORS)
     itemization(
     itb(SyslogStream(string const &ident = "",
-                FBB::Priority priority = FBB::NOTICE, 
+                FBB::Priority priority = FBB::NOTICE,
                 FBB::Facility facility = FBB::USER,
                 int option = 0))
         This constructor initializes a bf(SyslogStream) object.  The
 tt(ident) parameter is usually the name of the program. Its content are
-prepended to syslog messages. 
+prepended to syslog messages.
 
 The tt(priority) parameter determines the default importance of the message
 sent to the syslog daemon. By default messages are sent to the syslog daemon
@@ -163,7 +163,7 @@ inherits from this class.
        Returns the current default priority. I.e., the priority that will be
         used for the messages after inserting tt(endl) or tt(flush).
     itb(void open(string const &ident,
-                FBB::Priority priority = FBB::NOTICE, 
+                FBB::Priority priority = FBB::NOTICE,
                 FBB::Facility facility = FBB::USER,
                 int option = 0))
        Redefines the current identifier, priority, facility and options that
@@ -192,7 +192,7 @@ manpagesection(STATIC MEMBER FUNCTIONS)
     itb(Priority setMask(Priority priority, PriorityMask upTo))
        Syslog messages of (if tt(upTo) equals tt(SINGLE)) or up to (if
         tt(upTo) equals tt(UPTO)) the indicated priority are processed by the
-        syslog daemon. 
+        syslog daemon.
     itb(Priority setMask(Priority priority, Priority ...priorities))
        Syslog messages of the priorities passed to tt(setMask) are processed
         by the syslog daemon. At least one priority must be specified.
@@ -233,19 +233,19 @@ then they perform no action.
 
     Here are the available manipulators:
     itemization(
-    itb(SyslogStream::alert) 
+    itb(SyslogStream::alert)
         Messages are inserted with priority bf(FBB::ALERT).
-    itb(SyslogStream::crit) 
+    itb(SyslogStream::crit)
         Message are inserted with priority bf(FBB::CRIT).
-    itb(SyslogStream::debug) 
+    itb(SyslogStream::debug)
         Messages are inserted with priority bf(FBB::DEBUG).
     itb(SyslogStream::emerg)
         Messages are inserted with priority bf(FBB::EMERG).
     itb(SyslogStream::err)
         Messages are inserted with priority bf(FBB::ERR).
-    itb(SyslogStream::info) 
+    itb(SyslogStream::info)
         Messages are inserted with priority bf(FBB::INFO).
-    itb(SyslogStream::notice) 
+    itb(SyslogStream::notice)
         Messages are inserted with priority bf(FBB::NOTICE).
     itb(SyslogStream::strerrno)
        This manipulator inserts the textual interpretation of tt(std::errno)'s
@@ -276,8 +276,8 @@ manpagefiles()
     em(bobcat/syslogstream) - defines the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(closelog)(3), bf(openlog)(3), bf(rsyslogd)(8),
-        bf(syslog)(3), bf(syslogbuf)(3bobcat)
+    bf(bobcat)(7), bf(closelog)(3), bf(log)(3bobcat), bf(openlog)(3), 
+    bf(rsyslogd)(8), bf(syslog)(3), bf(syslogbuf)(3bobcat)
 
 manpagebugs()
     The constructor's tt(option) parameter is an tt(int). Because of this,

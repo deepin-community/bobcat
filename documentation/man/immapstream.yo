@@ -1,0 +1,82 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::ImmapStream)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+       (std::istream using FBB::MmapBuf as streambuf)
+
+manpagename(FBB::ImmapStream)(Input Stream using mmap(2) through FBB::MmapBuf)
+
+manpagesynopsis()
+    bf(#include <bobcat/immapstream>)nl()
+
+    Linking option: tt(-lbobcat)
+
+manpagedescription()
+    bf(FBB::ImmapStream) objects are used to extract information from files
+which are made available in the virtual address space of the calling
+process. Using the virtual address space is handled by the class's privately
+inherited bf(FBB::MmapBuf) (tt(std::streambuf) class.
+
+By mapping files in the process's virtual address space the time required for
+processing such files is usually dramatically reduced.
+
+An tt(std::exception) is thrown, and an error message is written to tt(cerr)
+if the bf(FBB::MmapBuf) base class cannot determine the size of the specified
+file, or when the (un)mapping cannot be performed.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    bf(std::istream), privately from bf(FBB::MmapBuf).
+
+manpagesection(CONSTRUCTORS)
+    itb(ImmapStream())
+        The default constructor merely constructs an empty bf(ImmapStream)
+object. To change it to a usable object use move assignment;
+
+    itb(IOmmapStream(std::string const &fname, char const *bufSize = 0))
+        The constructor initializes the tt(ImmapStream) object for a file named
+tt(fname). 
+
+By default bfImmapStream) uses a mapping buffer size of 10 times the standard
+page size, (cf. bf(sysconf)(3), and the member tt(pageSize) below). The size
+of the mapping buffer can also be specified using the tt(bufSize)
+parameter. To specify it use a value followed by tt(K, M,) or tt(G),
+representing, resp. 1024, 1024 * 1024, and 1024 * 1024 * 1024 bytes. The final
+buffer size is at least equal to the standard page size. When a larger value
+is specified the used buffer size is set to tt(specified / pageSize *
+pageSize).
+    )
+
+    The move constructor and move assignment operator are available.nl()
+    The copy constructor and copy assignment operator are not available.
+
+manpagesection(MEMBER FUNCTIONS)
+     All members of bf(std::istream) are available, as bf(FBB::ImmapStream)
+inherits from that class. 
+    itemization(
+    itb(size_t bufSize() const)
+        returns the used t(mmap) buffer size;
+
+    itb(size_t fileSize() const)
+        returns the size of the specified file.
+
+    itb(size_t pageSize() const)
+        returns the smallest page size used by t(mmap).
+    )
+
+manpagesection(EXAMPLE)
+    An example is provided in bobcat's source archive and gitlab repository at
+tt(bobcat/immapstream/demo). 
+
+manpagefiles()
+    em(bobcat/immapstream) - defines the class interface
+
+manpageseealso() 
+    bf(bobcat)(7), bf(iommapstream)(3bobcat), bf(ommapstream)(3bobcat),
+    bf(mmap)(2), bf(mmapbuf)(3bobcat) bf(sysconf)(3)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

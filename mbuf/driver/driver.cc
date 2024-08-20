@@ -39,12 +39,3 @@ int main()
     cout << "leaving " << ms.bad() << "\n";
 
 }
-
-
-
-
-
-
-
-
-

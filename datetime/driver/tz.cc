@@ -10,14 +10,14 @@ using namespace FBB;
 //
 //         std offset[dst[offset][,start[/time],end[/time]]]
 //
-//   There  are no spaces in the specification.  
+//   There  are no spaces in the specification.
 //
 //  The std string specifies an abbreviation for the timezone and must be
-//  three or more alphabetic characters.  
+//  three or more alphabetic characters.
 //
 //  When enclosed between the less-than (<) and greater-than (>) signs, the
 //  characters set is expanded to include the plus (+) sign, the minus (-)
-//  sign, and digits.  
+//  sign, and digits.
 //
 //  The offset string immediately follows std and specifies the time value to
 //  be **added** to the local time to get Coordinated Universal Time (UTC).
@@ -75,18 +75,18 @@ using namespace FBB;
 //  --------------------------------------------------------------------------
 //  The SECOND FORMAT specifies that the  timezone  information  should  be
 //  read from a file:
-//  
+//
 //      :[filespec]
-//  
+//
 //  If  the  file specification filespec is omitted, or its value cannot be
 //  interpreted, then Coordinated Universal Time (UTC) is used.   If  file‐
 //  spec  is  given, it specifies another tzfile(5)-format file to read the
 //  timezone information from.  If filespec does not begin with a '/',  the
 //  file  specification  is  relative to the system timezone directory.  If
 //  the colon is omitted each of the above TZ formats will be tried.
-//  
+//
 //  Here's an example, once more for New Zealand:
-//  
+//
 //      TZ=":Pacific/Auckland"
 
 //      std offset[dst[offset][,start[/time],end[/time]]]
@@ -115,8 +115,8 @@ using namespace FBB;
 //                      dst at the end of the dst) when the dst starts/ends
 //  An optional initial string defines the name of the time zone
 //  No zone specification means: the computer's currently defined time zone is
-//  used. 
-//      
+//  used.
+//
 
 
 time_t utcSec(struct tm *tm, char const *tzSpec)
@@ -139,7 +139,7 @@ time_t utcSec(struct tm *tm, char const *tzSpec)
         ret -= 3600;            // for now: assume std 1 hour positive shift
 
     if (tzStr.empty())
-        unsetenv("TZ");    
+        unsetenv("TZ");
     else
         setenv("TZ", tzStr.c_str(), 1);
 
@@ -162,7 +162,7 @@ tm *local_r(time_t *utcSec, struct tm *tm, char const *tzSpec)
     localtime_r(utcSec, tm);
 
     if (tzStr.empty())
-        unsetenv("TZ");    
+        unsetenv("TZ");
     else
         setenv("TZ", tzStr.c_str(), 1);
 
@@ -190,7 +190,7 @@ time_t zoneShift()
     ret = mktime(&ts);
 
     if (tzStr.empty())
-        unsetenv("TZ");    
+        unsetenv("TZ");
     else
         setenv("TZ", tzStr.c_str(), 1);
 
@@ -207,7 +207,7 @@ int main()
             19,         // hour -> current zone = CET -> UTC = 18
                         //         (not considering DST)
             4,          // month-day
-            3,          // month 
+            3,          // month
             2019 - 1900,   // year
          };
 
@@ -280,15 +280,14 @@ time_t my_timegm(struct tm *tm)
     tzset();
 
     ret = mktime(tm);           // compute the UTC time fm localtime in tm
-    if (tz) 
+    if (tz)
     {
          setenv("TZ", tz, 1);
          free(tz);
-    } 
+    }
     else
         unsetenv("TZ");
     tzset();
     return ret;
 }
 */
-

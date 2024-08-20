@@ -1,4 +1,4 @@
-inline std::string const &DateTime::Zone::defaultTZ()
+inline std::string const &FBB::DateTime::Zone::defaultTZ()
 {
     return s_defaultTZ;
 }

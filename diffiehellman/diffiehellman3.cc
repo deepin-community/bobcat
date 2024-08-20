@@ -1,23 +1,8 @@
 #include "diffiehellman.ih"
 
-DiffieHellman::DiffieHellman(istream &initiatorPublicStream)
+DiffieHellman::DiffieHellman(string const &publicFileName,
+                             string const &privateFileName)
 :
-    d_dh(DH_new())
-{
-    if (not (initiatorPublicStream 
-             and load(initiatorPublicStream, &d_otherPubKey))
-    )
-        throw Exception{} << s_header << "could not load public values";
-
-    checkDHparameters();
-}
-
-
-
-
-
-
-
-
-
-
+    DiffieHellman(*unique_ptr<istream>(new ifstream(publicFileName)),
+                  *unique_ptr<istream>(new ifstream(privateFileName)))
+{}

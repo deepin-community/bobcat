@@ -1,0 +1,52 @@
+#ifndef INCLUDED_BOBCAT_NPIPE_
+#define INCLUDED_BOBCAT_NPIPE_
+
+#include <bobcat/pipe>
+
+namespace FBB
+{
+
+struct NPipe: public Pipe
+{
+    NPipe() = default;
+    NPipe(NPipe const &other) = delete;
+    NPipe(NPipe &&tmp);                                             // 2.f
+    explicit NPipe(int const *fd);         // fd: must be 2 FDs        3.f
+    explicit NPipe(bool initialize);                                // 4.cc
+
+    // void close();                                                // Pipe
+    // void closeReadFd();                                          // Pipe
+    // void closeWriteFd();                                         // Pipe
+
+    // int readFd() const;                                          // Pipe
+    // void readFrom(int filedescriptor);                           // Pipe
+    // void readFrom(int const *filedescriptor, size_t nSwallow);   // Pipe
+    // int readOnly();                                              // Pipe    
+    // int readOnlyFd();                                            // Pipe
+
+                                            // closes the npipes
+    void reset();                           // and reopens them         1.cc
+
+                                            // closes the npipes and reopens 
+                                            // them with the provided 2
+    void reset(int const *fds);             // read/write file descr.   2.cc
+
+    void swap(NPipe &other);                                        // .f
+
+    // int writeFd() const;                                         // Pipe
+    // void writtenBy(int filedescriptor);                          // Pipe
+    // void writtenBy(int const *filedescr, size_t nSwallow = 2);   // Pipe
+    // int writeOnly();                                             // Pipe
+    // int writeOnlyFd();                                           // Pipe
+
+    private:
+        void setDefault();
+};
+
+#include "npipe2.f"
+#include "npipe3.f"
+#include "swap.f"
+
+} // FBB
+
+#endif

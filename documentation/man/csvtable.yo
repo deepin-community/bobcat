@@ -1,16 +1,14 @@
 includefile(include/header)
 
-COMMENT(replace 'classname' by the name of the new class)
-
 COMMENT(manpage, section, releasedate, archive, short name)
 manpage(FBB::CSVTable)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
                     (Table Construction)
 
-manpagename(FBB::CSVTable)(sequentially fills tables row-wise)
+manpagename(FBB::CSVTable)(Sequentially fills tables row-wise)
 
 manpagesynopsis()
     bf(#include <bobcat/csvtable>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
 
@@ -28,33 +26,39 @@ than the current widths of the columns receiving those values then those
 larger widths take precedence over the defined column widths.
 
 Different from tables defined by bf(FBB::Table)(3bobcat) all data inserted
-into bf(CSVTables) do not have to be completely available before the table
+into tt(CSVTables) do not have to be completely available before the table
 is inserted into a destination tt(std::ostream). As the table's column formats
-are known before entering the data the bf(CSVTable) knows which format to use
+are known before entering the data the tt(CSVTable) knows which format to use
 for which column. These column format specifications may be defined in
-multiple ways, e.g., by using text labels and values. bf(CSVTable) objects
+multiple ways, e.g., by using text labels and values. tt(CSVTable) objects
 always use the widest column specifications and alignment types that were
 specified last.
 
-When inserting elements into bf(CSVTables) the standard bf(C++) IO
+When inserting elements into tt(CSVTables) the standard bf(C++) IO
 manipulators can also be used. Table rows do not automatically end after the
 table's last column has been filled. But when inserting elements beyond the
 last column they are inserted as-is (but then the standard I/O format
-specifications can optionally be used). 
+specifications can still be used).
 
 Table column definitions and table rows end at the end of insertion
 statements (see below at the descriptions of the various tt(operator<<)
-functions). 
+functions). E.g.,
+        verb(
+    CSVTable tab;
+    ...
+    tab << 1 << 2;              // two elements in this row
+    tab << "one" << "two" << 3; // three elements in this row
+        )
 
-bf(CSVTable) uses two support classes handling, respectively, the definitions
+tt(CSVTable) uses two support classes handling, respectively, the definitions
 of the characteristics of the table's columns and inserting values into the
-table's elements. bf(CSVTabDef) handles the table's column definitions,
-bf(CSVTabIns) handles insertions into the table elements. Their main
-characteristics are various insertion operators which are described below.
+table's elements. tt(CSVTabDef) handles the table's column definitions,
+tt(CSVTabIns) handles insertions into the table elements. They offer various
+insertion operators which are described below.
 
 Constructing tables normally consists of two steps: first the characteristics
 of the columns are defined, then values are inserted into the table's
-elements. This sequence is not enforced by bf(CSVTable): after inserting
+elements. This sequence is not enforced by tt(CSVTable): after inserting
 values into the table column definitions may be updated, whereafter
 additional values may be inserted into the table which then use the updated
 column definitions.
@@ -66,16 +70,16 @@ manpagesection(INHERITS FROM)
 
 manpagesection(FMT)
 
-bf(FMT) objects are returned by several free functions (like bf(left),
-described below in section bf(FREE FUNCTIONS)), and bf(FMT) defines the
+bf(FBB::FMT) objects are returned by several free functions (like tt(left),
+described below in section bf(FREE FUNCTIONS)), and tt(FMT) defines the
 enumeration tt(Align) (see the next section) specifying alignment
-types. bf(FMT) objects are internally used by bf(CSVTable) objects. A bf(FMT)
+types. tt(FMT) objects are internally used by tt(CSVTable) objects. A tt(FMT)
 object specifies the width, the precision when floating point numbers are
 inserted, the column's alignment type (left, right or centered), and the
 number of table columns to use.
 
-bf(FMT) objects can be inserted into tt(std::ostream) objects showing its
-characteristics. In addition it offers the following (const) accessors:
+tt(FMT) objects can be inserted into tt(std::ostream) objects showing its
+characteristics. tt(FMT) provides the following (const) accessors:
     itemization(
     itb(FMT::Align align())
         the alignment value;
@@ -86,48 +90,47 @@ characteristics. In addition it offers the following (const) accessors:
         as tt(int)) is returned if tt(precision) is not used). The insertion
         operator shows tt(precision: -1) when precision is tt(~0U);
     itb(unsigned width())
-        the width in number of characters;
+        the field width in number of characters;
     )
 
-    The static member bf(char const *FMT::align(FMT::Align value)) returns the
+    The static member tt(char const *FMT::align(FMT::Align value)) returns the
 textual label corresponding to tt(value).
 
 manpagesection(ALIGN ENUM)
 
-The tt(enum FMT::Align) defines the following values indicating the alignment
-types of the columns of the table:
+The tt(enum FMT::Align) defines values indicating the alignment types of the
+table's columns:
     itemization(
     itb(FMT::Align::CENTER)
-        The information inserted in the column is centered;
+        The inserted information in the column is centered;
     itb(FMT::Align::LEFT)
-        The information inserted in the column is left-aligned;
+        The inserted information is left-aligned;
     itb(FMT::Align::RIGHT)
-        The information inserted in the column is right-aligned (this is the
-        alignment used by default);
+        The inserted information is right-aligned (used by default);
     )
 
     In addition, when inserting horizontal lines, the value
-    bf(FMT::Align::HLINE) is used.
+    tt(FMT::Align::HLINE) is used.
 
 manpagesection(CONSTRUCTORS)
     itemization(
-    itb(CSVTable(std::ostream &out = std::cout, 
+    itb(CSVTable(std::ostream &out = std::cout,
                  std::string const &sep = ", "))
        This constructor by default writes its table to tt(std::cout) and uses
         a comma followed by a space character as column separator. During the
-        table's construction the stream to write the table to can be altered
-        using the tt(stream) members, and the separator can be changed using
-        the tt(sep) member, but the separator can also be changed while
-        filling the table's elements (see below). When the bf(CSVTable) object
-        goes out of scope the stream's original configuration is restored;
+        table's construction the stream receiving the table can be altered
+        using tt(stream) members, and the separator can be changed using the
+        tt(sep) member, but the separator can also be changed while filling
+        the table's elements (see below). When the tt(CSVTable) object goes
+        out of scope the stream's original configuration is restored;
 
     itb(CSVTable(std::ofstream &&tmp, std::string const &sep = ", "))
        This constructor by default uses the same separator to separate the
         column's elements as the first constructor, but writes the table to
-        the tt(ofstream tmp), which is grabbed by tt(CSVTable);
+        tt(ofstream tmp), which is grabbed by tt(CSVTable);
 
-    itb(CSVTable(std::string const &fname, 
-                 std::string const &sep = ", "), 
+    itb(CSVTable(std::string const &fname,
+                 std::string const &sep = ", "),
                  std::ios::openmode mode = ios::out)
        This constructor by default uses the same separator to separate the
         column's elements as the first constructor, but writes the table to
@@ -137,54 +140,41 @@ manpagesection(CONSTRUCTORS)
         thrown if the specified file cannot be opened.
     )
 
-The move constructor and assignment operator are available; the copy
+The move constructor and move assignment operator are available; the copy
 constructor and assignment operator are not available.
 
 manpagesection(OVERLOADED OPERATORS)
 
-In the provided examples tt(tab) refers to an existing bf(CSVTable)
+In the provided examples tt(tab) refers to an existing tt(CSVTable)
 object. Each insertion statement (note: not insertion em(expression)) either
 defines or updates the table columns' definitions or fills the next row of the
-table with data. 
+table with data.
 
 bf(Defining column characteristics)
 
 The return types and left-hand side operands of the following insertion
-operators are specified as bf(CSVTabDef). The member bf(fmt()) (cf. section
-bf(MEMBER FUNCTIONS)) returns a bf(CSVTabDef) object which is then used in
+operators are specified as tt(CSVTabDef). The member tt(fmt()) (cf. section
+bf(MEMBER FUNCTIONS)) returns a tt(CSVTabDef) object which is then used in
 combination with the following insertion operators to define the
 characteristics of the table's columns.
 
     itemization(
     itb(CSVTabDef &operator<<(CSVTabDef &tab, FMT const &fmt))
        This insertion operator defines the characteristics of the next table
-        column. bf(FMT) objects inserted into bf(CSVTabDef) objects must have
-        been returned by bf(center, left) or bf(right) (see section bf(FREE
+        column. tt(FMT) objects inserted into tt(CSVTabDef) objects must have
+        been returned by tt(center, left) or tt(right) (see section bf(FREE
         FUNCTIONS), below), or an exception will be thrown. When redefining
-        column specifications (e.g., when inserting bf(FMT) objects for
+        column specifications (e.g., when inserting tt(FMT) objects for
         previously defined columns) then the width of the wider column is
         used. Example:
     verb(
                 // left align using 10 char. positions:
-    tab.fmt() << FBB::left(10); 
-                // 1st col now right aligned, but its 
+    tab.fmt() << FBB::left(10);
+                // 1st col now right aligned, but its
                 // width remains 10
-    tab.fmr() << FBB::right(4); 
+    tab.fmr() << FBB::right(4);
     )
 
-COMMENT(
-    itb(CSVTabDef &operator<<(CSVTabDef &tab, Insertable const &value))
-       This operator is defined for the template type tt(Insertable) parameter
-        tt(value), where tt(value's) type must be insertable in
-        tt(std::ostreams). The (trimmed) width of tt(value) when inserted into
-        an tt(ostream) defines the width of the next column, which is
-        right-aligned. As width the previous insertion operator: if a previous
-        definition specified a larger width, then that width is kept. Example:
-       verb(
-                // 2 columns, having widths 2 and 5:
-    tab.fmt() << 12 << "hello"; 
-       )
-END)
     itb(CSVTabDef &operator<<(CSVTabDef &tab, Type const &value))
        This operator is defined for the template type tt(Type) parameter
         tt(value), where tt(Type) values must be insertable in
@@ -194,11 +184,11 @@ END)
         definition specified a larger width, then that width is kept. Example:
        verb(
                 // 2 columns, having widths 2 and 5:
-    tab.fmt() << 12 << "hello"; 
+    tab.fmt() << 12 << "hello";
        )
     )
 
-bf(Inserting the table's elements)
+bf(Inserting table elements)
 
 In addition to the insertion operator actually inserting a value into the next
 table's column(s) several format modifying insertion operators are
@@ -209,12 +199,11 @@ specifications other than those provided by the standard I/O manipulators are
 ignored when used beyond the table's last column.
 
 The return types and left-hand side operands of the following insertion
-operators use bf(CSVTabIns) objects. bf(CSVTable's) conversion operator
-tt(operator CSVTabIns()) described below returns a bf(CSVTabIns) object which
+operators use tt(CSVTabIns) objects. tt(CSVTable's) conversion operator
+tt(operator CSVTabIns()) described below returns a tt(CSVTabIns) object which
 is used by the following insertion operators to insert values into the table.
 
     itemization(
-
     itb(CSVTabIns &operator<<(CSVTabIns &tab, FMT::hline))
        This operator inserts a horizontal line in the table's next column
         element. It is ignored when used beyond the table's last column;
@@ -229,16 +218,6 @@ is used by the following insertion operators to insert values into the table.
         line is used instead. The horizontal line is never written beyond the
         table's last column.
 
-COMMENT(
-    itb(CSVTabIns &operator<<(CSVTabIns &tab, Insertable const &value))
-       This operator is defined for the template type tt(Insertable) parameter
-        tt(value), where tt(value's) type must be insertable in
-        tt(std::ostreams). The value is inserted into the next table column,
-        using the format specification that's active for that column. However,
-        the specifications may be altered just before inserting the
-        value. Values inserted beyond the table's last column are inserted
-        as-is (although standard tt(I/O) manipulators can still be used);
-END)
     itb(CSVTabIns &operator<<(CSVTabIns &tab, Type const &value))
        This operator is defined for the template type tt(Type) parameter
         tt(value), where tt(Type) values must be insertable in
@@ -249,25 +228,25 @@ END)
         as-is (although standard tt(I/O) manipulators can still be used);
 
     itb(CSVTabIns &operator<<(CSVTabIns &tab, FMT const &fmt))
-       bf(FMT) objects are returned by several free functions defined in the
-        tt(FBB) namespace (i.e., bf(center, left,) or bf(right), described
+       tt(FMT) objects are returned by several free functions defined in the
+        tt(FBB) namespace (i.e., tt(center, left,) or tt(right), described
         below in section bf(FREE FUNCTIONS)). Example:
     verb(
             // left align using precision 2. E.g.,
             // e.g., '12.13     '
-    tab << left(2) << 12.1278;  
+    tab << left(2) << 12.1278;
     )
 
     itb(CSVTabIns &operator<<(CSVTabIns &tab, FMT::Align align))
        The alignment argument can be tt(FMT::CENTER, FMT::LEFT) or
         tt(FMT::RIGHT). Example:
     verb(
-            // centers '12' in its column, 
+            // centers '12' in its column,
             // e.g., '    12    '
-    tab << FMT::CENTER << 12;   
+    tab << FMT::CENTER << 12;
     )
 
-    itb(void operator<<(CSVTabIns &tab, 
+    itb(void operator<<(CSVTabIns &tab,
                         std::ios_base &(*func)(std::ios_base &)))
        This insertion operator accepts manipulators like tt(std::left) and
         tt(std::right). When inserting these manipulators the next value to
@@ -276,7 +255,7 @@ END)
        verb(
             // 'hi' is left-aligned, using the
             // using the default width and precision
-    tab << std::left << "hi";   
+    tab << std::left << "hi";
        )
 
     itb(CSVTabIns &operator<<(CSVTabIns &tab, Sep const &sep))
@@ -286,51 +265,50 @@ END)
         the table's last column. Example:
        verb(
             // writes, e.g., 'one, hi  there'
-    tab << "one" << FMT::Sep{" "} << "hi" << "there";   
+    tab << "one" << FMT::Sep{" "} << "hi" << "there";
        )
 
     itb(operator CSVTabIns())
-       The conversion operator returns a bf(CSVTabIns) object which is used in
+       The conversion operator returns a tt(CSVTabIns) object which is used in
         combination with the above insertion operators to insert values into
         the next row of the table. Normally insertions start at column 1, but
         when called after calling tt(tab.more) (see below) then insertions
         continue after the last element that was inserted into
-        bf(tab.more). Each time this conversion operator is used another row
+        tt(tab.more). Each time this conversion operator is used another row
         is added to the table. Insertions beyond the table's last column are
-        processed, but bf(CSVTabIns's) insertion operators are ignored,
+        processed, but tt(CSVTabIns's) insertion operators are ignored,
         inserting values as-is. However, in that case the standard
-        tt(std::ostream) manipulators can also be used.
+        tt(std::ostream) manipulators can also be used;
 
     itb(void operator()(std::string const &text))
-       Calls bf(row(text, 0)) to insert the trimmed comma-separated elements
+       Calls tt(row(text, 0)) to insert the trimmed comma-separated elements
         of tt(text) into the table's next row;
 
     itb(FMT const &operator[](unsigned idx) const)
-       Returns the default bf(FMT) specification of column tt(idx) (see also
-        the description of the member bf(size()) below). 
+       Returns the default tt(FMT) specification of column tt(idx) (see also
+        the description of the member tt(size()) below).
     )
 
 manpagesection(MEMBER FUNCTIONS)
 
-    In the provided examples tt(tab) refers to an existing bf(CSVTable)
-    object.  
+    In the provided examples tt(tab) refers to an existing tt(CSVTable)
+    object.
 
     itemization(
-
     itb(std::vector<FMT> const &columns() const)
        Returns a reference to the vector containing the format specifications
-        of the table managed by bf(CSVTable);
+        of the table managed by tt(CSVTable);
 
     itb(CSVTabDef &fmt(unsigned idx = 0))
-       The elements inserted into the bf(CSVTabDef) object returned by
-        bf(fmt()) define the specifications of the table's columns.
+       The elements inserted into the tt(CSVTabDef) object returned by
+        tt(fmt()) define the specifications of the table's columns.
         Specifications start at column offset tt(idx), using 0 if not
         specified (its argument may not exceed the number of already defined
         columns or an exception is thrown). When called repeatedly for already
         specified columns then the widths of existing columns are kept if they
-        exceed the widths of the corresponding inserted bf(FMT)
-        elements. Repeated bf(fmt) calls may specify more columns than
-        previous calls, in which case new columns are added to the table.
+        exceed the widths of the corresponding inserted tt(FMT)
+        elements. Repeated tt(fmt) calls may specify more columns than
+        previous calls, in which case new columns are added to the table;
 
     itb(void fmt(std::string const &colSpecs, unsigned idx = 0))
        The comma-separated space-trimmed words of tt(colSpecs) define the
@@ -343,8 +321,8 @@ manpagesection(MEMBER FUNCTIONS)
         than previous calls, in which case additional columns are added to the
         table. Example:
        verb(
-            // Define three right-aligned columns, 
-            // having widths of 3, 3 and 5. 
+            // Define three right-aligned columns,
+            // having widths of 3, 3 and 5.
     tab.fmt("one, two, three");
             // add columns 4 thru 6
     tab.fmt("one, two, three", 3);
@@ -357,19 +335,19 @@ manpagesection(MEMBER FUNCTIONS)
 
     itb(CSVTabIns more(unsigned idx = ~0U))
        When the default tt(idx) argument is used then values that are inserted
-        into the returned bf(CSVTabIns) object are inserted beyond the
+        into the returned tt(CSVTabIns) object are inserted beyond the
         last-used column of the table's current row (which may be the row's
         first element).
 
        When using another argument then insertions start in column tt(idx). If
         tt(dx) exceeds the last-used column index then intermediate columns
-        remain empty. 
+        remain empty.
 
        If tt(idx) is less than the column index that is used at the next
         insertion an exception is thrown.
 
        Insertions beyond the table's last column are processed, but then
-        bf(CSVTabIns's) insertion operators are ignored, inserting values
+        tt(CSVTabIns's) insertion operators are ignored, inserting values
         as-is. However, in that case the standard tt(std::ostream)
         manipulators can also be used;
 
@@ -389,19 +367,19 @@ manpagesection(MEMBER FUNCTIONS)
        )
 
        Following tt(more) calls the current row ends at the next tt(tab.row)
-        call. If following tt(more) calls the current row should merely end 
+        call. If following tt(more) calls the current row should merely end
         then simply use tt(tab.row+nop()());
 
     itb(void more(std::string const &text, unsigned idx = ~0U))
        This member's tt(idx) parameter is handled as described at the previous
-        member. 
+        member.
 
        The trimmed comma-separated elements of tt(text) are inserted into the
         current row, without ending the current row;
 
     itb(CSVTabIns row+nop()(unsigned idx = ~0U))
        This member's tt(idx) parameter and insertions into the returned
-        bf(CSVTabIns) object are handled as described at the first tt(more)
+        tt(CSVTabIns) object are handled as described at the first tt(more)
         member, but the current row ends at the end of the statement. Example:
        verb(
             // a row containing one element:
@@ -415,7 +393,7 @@ manpagesection(MEMBER FUNCTIONS)
 
     itb(void row+nop()(std::string const &text, unsigned idx = ~0U))
        This member's tt(idx) parameter is handled as described at the first
-        tt(more) member. 
+        tt(more) member.
 
        The trimmed comma-separated elements of tt(text) are inserted into the
         current row, whereafter the row ends;
@@ -428,7 +406,7 @@ manpagesection(MEMBER FUNCTIONS)
        After calling this member the table's construction continues at the
         next row using the tt(ofstream tmp), whih is grabbed by tt(CSVTable);
 
-    itb(void stream(std::string const &fname, 
+    itb(void stream(std::string const &fname,
                     std::ios::openmode mode = std::ios::out))
        After calling this member the table's construction continues at the
         next row using the (path)name tt(fname), by default (re)writing the
@@ -443,21 +421,16 @@ manpagesection(MEMBER FUNCTIONS)
        Returns the currently used default column separator;
 
     itb(void sep(std::string const &separator))
-       Changes the currently used default column separator to 
-        tt(separator). 
+       Changes the currently used default column separator to
+        tt(separator);
 
     itb(unsigned size() const)
-       The number of defined columns is returned;
-
+       The number of defined columns is returned.
     )
 
 manpagesection(FREE FUNCTIONS)
 
-In the following examples tt(tab.fmt()) refers to a bf(CSVTabDef) object.
-
-next examples tt(tab) refers to a bf(CSVTable) object (using its
-conversion to a bf(CSVTabIns) object) and 
-
+In the following examples tt(tab.fmt()) refers to a tt(CSVTabDef) object.
 
 bf(Defining Column Characteristics)
 
@@ -468,16 +441,15 @@ precision (used when inserting floating point values). The precision is only
 used if its value is less than the column's width.
 
     itemization(
-
     itb(FMT center+nop()(unsigned width, unsigned precision = ~0U))
        When inserting this function's return value into tt(tab.fmt()) the
         values inserted into its column are centered in fields of tt(width)
         characters wide. Example:
        verb(
-            // values are centered in fields of 10 
-            // characters wide, floating point values 
+            // values are centered in fields of 10
+            // characters wide, floating point values
             // use 3 digit behind the decimal point:
-    tab.fmt() << center(10, 3); 
+    tab.fmt() << center(10, 3);
        )
 
     itb(FMT center+nop()(std::string const &str, unsigned precision = ~0U))
@@ -488,9 +460,9 @@ used if its value is less than the column's width.
         values inserted into its column are left-aligned in fields of
         tt(width) characters wide. Example:
        verb(
-            // values are left-aligned in fields 
+            // values are left-aligned in fields
             // of 5 characters wide.
-    tab.fmt() << left(5);   
+    tab.fmt() << left(5);
        )
     itb(FMT left(std::string const &str, unsigned precision = ~0U))
        A convenience function calling tt(left(str.length(), precision));
@@ -500,21 +472,21 @@ used if its value is less than the column's width.
         values inserted into its column are right-aligned in fields of
         tt(width) characters wide. Example:
        verb(
-            // values are right-aligned in fields 
+            // values are right-aligned in fields
             // of 5 characters wide.
-    tab.fmt() << right(5);  
+    tab.fmt() << right(5);
        )
-       Right-alignment is also used when using bf(CSVTab's fmt(std::string))
-        member or when directly inserting values into bf(CSVTabDef) objects.
+       Right-alignment is also used when using tt(CSVTab's fmt(std::string))
+        member or when directly inserting values into tt(CSVTabDef) objects;
 
     itb(FMT right(std::string const &str, unsigned precision = ~0U))
-       A convenience function calling tt(right(str.length(), precision));
+       A convenience function calling tt(right(str.length(), precision)).
     )
 
 bf(Inserting Table Elements)
 
-In the following examples tt(tab) refers to a bf(CSVTable) object returning a 
-bf(CSVTabIns) object using its conversion operator.
+In the following examples tt(tab) refers to a tt(CSVTable) object returning a
+tt(CSVTabIns) object using its conversion operator.
 
 Except for the function tt(hline) the following functions are used to alter
 the column's default alignment and precision. The precision is only used if
@@ -534,7 +506,6 @@ Altering the default alignment of individual columns:
     tab << center(2) << 9.876";
        )
 
-
     itb(FMT left(precision))
        After inserting this function's return value into tt(tab) the value
         inserted next is left-aligned, using tt(precision) when inserting
@@ -553,10 +524,10 @@ Altering the default alignment of individual columns:
             // right-aligns 9.87 in column 1
     tab << right(2) << 9.876";
        )
-       By default bf(CSVTable) uses right-alignment.
+       By default tt(CSVTable) uses right-alignment.
     )
 
-Joining columns:
+bf(Joining columns:)
 
 Alignments specifications may span multiple columns. This is realized through
 the tt(join) functions. When inserting a value after inserting the return
@@ -565,20 +536,20 @@ columns and using the alignment type specified when calling tt(join).  If
 necessary the number of columns is reduced to avoid exceeding the table's last
 column.
 
-    itemization(        
+    itemization(
     itb(FMT join(unsigned nCols, FMT::Align align, unsigned precision = ~0U))
        A value that's inserted into the table after inserting tt(join's)
         return value occupies tt(nCols) columns, using alignment type
         tt(align), and optionally using tt(precision) when inserting floating
         point values. The alignment specification must be tt(FMT::CENTER,
-        FMT::LEFT) or tt(FMT::RIGHT). Example: 
+        FMT::LEFT) or tt(FMT::RIGHT). Example:
     verb(
-            // writes (assuming columns 2 and 3 occupy 
+            // writes (assuming columns 2 and 3 occupy
             // 10 characters):
             //      left,    mid    , right
     tab << "left" << join(2, FMT::CENTER) << "mid" << "right"";
     )
-    
+
     itb(FMT join(FMT::Align align, unsigned precision = ~0U))
        Same effect as the previous tt(join) function, but this function
         occupies all remaining columns of the table's current row (this can
@@ -586,24 +557,24 @@ column.
         tt(~0U) as its first argument).
     )
 
-Inserting horizontal lines:
-    
+bf(Inserting horizontal lines:)
+
 If a single table element should contain a horizontal line then simply
 inserting tt(Align::HLINE) works fine. The tt(hline) functions
 are used to insert horizontal lines spanning one or more table columns.
 
     itemization(
     itb(FMT hline(unsigned nCols = ~0U))
-       When inserting this function's return value into a bf(CSVTabIns) object
+       When inserting this function's return value into a tt(CSVTabIns) object
         a horizontal line spanning tt(nCols) columns is inserted into the
         table. If necessary tt(nCols) is reduced so that the horizontal line
         does not exceed the table's last column. When spanning multiple
         columns no column separated are used between the spanned columns: a
         single uninterrupted horizontal line is inserted. Example:
        verb(
-            // columns 1 and 2: a horizontal line, column 3: 
+            // columns 1 and 2: a horizontal line, column 3:
             // contains 'hi' (preceded by the column separator)
-    tab << hline(2) << "hi";    
+    tab << hline(2) << "hi";
         )
     )
 
@@ -625,7 +596,7 @@ int main()
     tab << "" << join(4, FMT::CENTER) << "Gender";
     tab << "" << hline();
 
-    tab << "" << join(2, FMT::CENTER) << "Female" << 
+    tab << "" << join(2, FMT::CENTER) << "Female" <<
                  join(2, FMT::CENTER) << "Male";
     tab << "" << hline(2) << hline(2);
 
@@ -643,9 +614,9 @@ int main()
     This program writes the following table to tt(std::cout):
     verb(
 ------------------------------------
-                  Gender            
+                  Gender
       ------------------------------
-          Female           Male     
+          Female           Male
       --------------  --------------
 Case  Length  Weight  Length  Weight
 ------------------------------------

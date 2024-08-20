@@ -7,15 +7,15 @@ using namespace FBB;
 
 void show(DateTime const &dt, char const *label)
 {
-    cout << 
+    cout <<
         label << ": " << dt << "\n"
         "dst: " << dt.dst() << "\n"
-        "hh:mm:ss: " << dt.hours() << ':' << dt.minutes() << ':' << 
+        "hh:mm:ss: " << dt.hours() << ':' << dt.minutes() << ':' <<
                         dt.seconds() << "\n"
         "year-month-monthdaynr: " << dt.year() << '-' << dt.month() << '-' <<
                                      dt.monthDayNr() << "\n"
-        "weekday/weeknr/yearday/yeardaynr: " << 
-            dt.weekday() << '/' << dt.weekNr() << '/' << 
+        "weekday/weeknr/yearday/yeardaynr: " <<
+            dt.weekday() << '/' << dt.weekNr() << '/' <<
             dt.yearDay() << '/' << dt.yearDayNr() << "\n"
         "\n";
 }
@@ -44,5 +44,3 @@ int main()
     cout << "\nOptionally rerun specifying another time zone specification\n"
             "\n";
 }
-
-

@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+extern bool read;
+
+extern size_t fileSize;
+extern size_t bufSize;
+extern size_t offset;
+extern size_t currentPos;
+extern size_t realSize;
+extern size_t nToDo;
+extern size_t realSize;
+
+extern char const *what;
+extern char const *fromTo;
+extern char const *seek;
+
+extern void (*file)();
+extern void (*eofCheck)();
+
+void nop();
+bool boolNop();
+
+void prepare(int argc, char **argv);
+
+bool get(size_t &var, char const *prompt);
+void map();
+
+extern bool (*checkFit)();
+bool readFit();
+bool writeFit();
+
+void process();
+
+extern void (*setRW)();
+void setRead();
+void setWrite();
+
+void checkResize();
+
+void atEOF();
+
+void run();
+
+
+
+

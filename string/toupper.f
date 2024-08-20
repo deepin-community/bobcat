@@ -1,4 +1,4 @@
-inline void String::toupper(char &chr)
+inline void FBB::String::toupper(char &chr)
 {
     chr = ::toupper(chr);
 }

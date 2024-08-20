@@ -1,116 +1,130 @@
 a2x 
 align 
-arg 
-argconfig arg configfile 
-base64bufbase ifilterbuf 
-bigint 
+arg exception 
+argconfig arg configfile exception 
+base64bufbase exception ifilterbuf 
+bigint exception 
 binarysearch 
 binops typetrait 
 binopsbase 
-cerrextractor exec extractorbase ifdbuf pipe 
-cgi pattern 
-cidr 
-cininserter exec ofdbuf pipe 
-clientsocket inetaddress socketbase 
-cmdfinder cmdfinderbase fswap 
-cmdfinderbase 
-configfile 
-coutextractor exec extractorbase ifdbuf pipe 
+cerrextractor exception exec extractorbase fswap ifdbuf pipe 
+cgi exception pattern 
+cidr exception 
+cininserter exception exec fswap ofdbuf pipe 
+clientsocket exception inetaddress socketbase 
+cmdfinder cmdfinderbase exception fswap 
+cmdfinderbase exception 
+config exception pattern string 
+configfile exception 
+coutextractor exception exec extractorbase fswap ifdbuf pipe 
 cryptbuf 
-csv4180 
-datetime 
+csv4180 exception 
+csvtabdef 
+csvtabins exception fmt sep string 
+csvtable csvtabdef csvtabins exception fmt sep string 
+datetime exception 
 decryptbuf 
-diffiehellman bigint 
+diffiehellman bigint exception 
 digestbuf 
 encryptbuf 
 eoi 
 eoibuf 
 exception 
 exec 
-extractorbase exec ifdbuf pipe 
+extractorbase exception exec fswap ifdbuf pipe 
 fbb 
-fork 
+field 
+fmt exception 
+fork exception 
 fswap 
-gethostent 
-glob gs 
+gethostent exception 
+glob exception gs 
 gs 
 hash string 
 hmacbuf 
 hostent 
-hostname hostent 
-ibase64stream ibase64buf 
+hostname exception hostent 
 ibase64buf 
-ifdstream ifdbuf 
+ibase64stream ibase64buf 
 ifdbuf 
+ifdstream ifdbuf 
 ifilterbuf 
 indent 
 inetaddress 
-iostream iobuf 
 iobuf 
-iquotedprintablestream iquotedprintablebuf 
+iostream iobuf 
 iquotedprintablebuf 
+iquotedprintablestream iquotedprintablebuf 
 irandstream randbuf 
 isharedstream sharedbuf 
+isymcryptbase exception symcryptbase 
 isymcryptstream isymcryptstreambuf 
 isymcryptstreambuf 
 iterator 
 iuo 
-level log logbuf 
+ldc 
+level exception log logbuf 
 linearmap 
-localclientsocket localsocketbase 
-localserversocket localsocketbase 
-localsocketbase 
-log logbuf 
+localclientsocket exception localsocketbase 
+localserversocket exception localsocketbase 
+localsocketbase exception 
+log exception logbuf 
 logbuf 
-mailheaders string 
+mailheaders exception string 
 mbuf 
-milter 
-mstream mbuf 
+milter exception 
+mstream exception mbuf 
 multibuf 
-ofdstream ofdbuf 
 ofdbuf 
+ofdstream ofdbuf 
 ofilterbuf 
-ofoldstream ofoldbuf 
 ofoldbuf 
+ofoldstream ofoldbuf 
 ohexbuf 
 omutexstream 
-onekey 
+onekey exception 
 osharedstream sharedbuf 
-pattern 
+osymcryptbase eoibuf exception symcryptbase 
+osymcryptstream osymcryptstreambuf 
+osymcryptstreambuf 
+pattern exception 
 pf_iterator 
 pf_iteratorstream 
-pipe 
-primefactors bigint 
-process fork ifdbuf iostream iobuf ofdbuf pipe processenums selector string 
-processdata 
+pipe exception fswap 
+poller exception 
+primefactors bigint exception 
+process exception fork fswap ifdbuf iobuf iostream ofdbuf pipe processenums selector signal string 
 processenums 
 ptriter 
-qpbufbase ifilterbuf 
+qpbufbase exception ifilterbuf 
 randbuf 
+randommt exception 
 ranger 
 readlinebuf 
 readlinehistory 
 readlinestream readlinebuf 
-redirector 
+redirector exception 
 repeat typetrait 
-selector 
+reverse 
+selector exception 
 semaphore 
-serversocket inetaddress socketbase 
-sharedblock sharedmutex 
+sep 
+serversocket exception inetaddress socketbase 
+sharedblock exception sharedmutex 
+sharedbuf 
 sharedcondition exception fswap sharedblock sharedmemory sharedmutex sharedpos sharedsegment 
 sharedmemory exception fswap sharedblock sharedmutex sharedpos sharedsegment 
-sharedmutex 
-sharedpos sharedblock sharedmutex sharedsegment 
-sharedsegment sharedblock sharedmutex 
+sharedmutex exception 
+sharedpos exception sharedblock sharedmutex sharedsegment 
+sharedsegment exception sharedblock sharedmutex 
 sharedstream sharedbuf 
-sharedbuf 
-signal 
-socketbase inetaddress 
-stat datetime gs 
-stdextractor exec extractorbase ifdbuf pipe 
+signal exception 
+socketbase exception inetaddress 
+stat datetime exception gs 
+stdextractor exception exec extractorbase fswap ifdbuf pipe 
 string 
 stringline 
-symcryptstreambufbase ifilterbuf 
+symcryptbase exception 
 syslogbuf 
 syslogstream syslogbuf 
 table align tablebase tablesupport 
@@ -118,9 +132,9 @@ tablebase align tablesupport
 tablebuf 
 tablelines align tablesupport 
 tablesupport align 
-tempstream 
-tty 
+tempstream exception 
+tty exception 
 typetrait 
-user 
+user exception 
 x2a 
-xpointer 
+xpointer exception 

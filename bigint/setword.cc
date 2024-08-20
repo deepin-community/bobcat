@@ -4,7 +4,7 @@ void BigInt::setWord(size_t index, BigInt::Word word)
 {
     nWordsCheck(index);
 
-    BigInt dest{rshiftc((index + 1) * BN_BYTES)};   // keep the most 
+    BigInt dest{rshiftc((index + 1) * BN_BYTES)};   // keep the most
                                                     // significant part
     dest.rshift(8 * BN_BYTES);                      // make room for 'word'
     dest |= BigInt(word);                           // put 'word' at [0]

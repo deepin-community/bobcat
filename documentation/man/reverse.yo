@@ -1,0 +1,71 @@
+includefile(include/header)
+
+COMMENT(replace 'classname' by the name of the new class)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::Reverse)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+                    (for-loop reverse iterators)
+
+manpagename(FBB::Reverse)(A class template offering reverse iterators)
+
+manpagesynopsis()
+    bf(#include <bobcat/reverse>)nl()
+
+manpagedescription()
+
+    Not all data types offering (or implicitly providing) iterators also offer
+tt(reverse_iterators). Arrays don't, and neither do
+tt(initalizer_lists). Pointers to array elements can be used instead of
+iterators, but arrays cannot be used in range-based for-loops. The tt(Ranger)
+class (cf. bf(ranger)(3bobcat)) can be used for defining tt(begin) and tt(end)
+members allowing the use of arrays in range-based for-loops. Using bf(Reverse)
+objects and data structures can be used in range-based for-loops and/or to
+obtain reverse-iterators to visit data elements in reversed order.
+
+    The class template tt(Reverse, ReverseArray,) and tt(ReverseSize) are
+normally not directly used, but are returned by the various tt(reverse)
+support functions. These three classes offer two members tt(begin), returning
+a tt(reverse_iterator) to the end of the data range of the object passed to
+tt(reverse) and tt(end) returning a tt(reverse_iterator) to the beginning of
+the data range of the object passed to tt(reverse).
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    -
+
+manpagesection(REVERSE FUNCTIONS)
+    itemization(
+    itb(reverse(Type &object))
+        returns a tt(Reverse) object offering reverse iterators to the data
+range of tt(object), which must support tt(begin) and tt(end)
+members. If tt(Type) is a constant type, then tt(Reverse's begin) and tt(end)
+members return tt(const_reverse_iterators), otherwise tt(reverse_iterators)
+are returned;
+
+    itb(reverse(Type (&array)[size]))
+        returns a tt(Reverse) object offering reverse iterators to the
+reversed range of elements of tt(array). If tt(Type) is a constant type, then
+tt(Reverse's begin) and tt(end) members return tt(const_reverse_iterators),
+otherwise tt(reverse_iterators) are returned;
+
+    itb(reverse(Type *array, size_t size))
+        returns a tt(Reverse) object offering reverse iterators to the
+reversed range of elements of tt(array) to tt(array + size). If tt(Type) is a
+constant type, then tt(Reverse's begin) and tt(end) members return
+tt(const_reverse_iterators), otherwise tt(reverse_iterators) are returned.
+    )
+manpagesection(EXAMPLE)
+    verbinclude(../../reverse/driver/main.cc)
+
+manpagefiles()
+    em(bobcat/reverse) - defines the class interfaces and declares the
+                         tt(reverse) functions.
+
+manpageseealso()
+    bf(bobcat)(7), bf(ranger)(3bobcat)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

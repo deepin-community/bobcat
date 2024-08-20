@@ -1,44 +1,53 @@
 #ifndef INCLUDED_HMACBUF_
 #define INCLUDED_HMACBUF_
 
-#include <openssl/hmac.h>
-
+#include <string>
+#include <openssl/evp.h>
 #include <bobcat/eoibuf>
+#include <bobcat/exception>
 
 namespace FBB
 {
 
 class HMacBuf: public EoiBuf
 {
-    friend std::ostream &operator<<(std::ostream &out, 
+    friend std::ostream &operator<<(std::ostream &out,
                                     HMacBuf const &hmacbuf);
 
-    HMAC_CTX     *d_ctx = 0;
-    EVP_MD const *d_md;
-    std::string   d_digest;
+    std::string d_key;
+    std::string d_cipher;
+    std::string d_digest;
 
-    std::string   d_key;
+    EVP_MAC_CTX *d_ctx = 0;
 
     public:
-        HMacBuf(std::string const &key, 
-                char const *type, size_t bufsize = 1024);
+        HMacBuf() = default;
+
+        HMacBuf(HMacBuf &&) = default;
+                                            // uses cipher aes-128-cbc
+                                            // 16-byte key for aes-128-cbc
+        HMacBuf(std::string const &key,                                 // 1
+                char const *digest, size_t bufsize = 1024);
+
+        HMacBuf(std::string const &key,                                 // 2
+                char const *cipher = "aes-128-cbc",
+                char const *digest = "sha256",
+                size_t bufSize = 1024);
+
+        HMacBuf &operator=(HMacBuf &&rhs) = default;
 
         void reset();
-        void eoi();
-
         std::string const &hash() const;
 
     private:
         int overflow(int c) override;
-        void eoi_() override;                       // .cc
+        void eoi_()         override;
 
+        void call(int retValue, char const *fName);     // throws on failure
 };
 
 std::ostream &operator<<(std::ostream &out, HMacBuf const &hmacbuf);
 
 }   // FBB
-        
+
 #endif
-
-
-

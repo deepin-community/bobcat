@@ -10,7 +10,7 @@ using namespace FBB;
 // command-function associations. Command is derived from CmdFinder,
 // specifying the prototype of the member functions to be called
 
-class Command: public CmdFinder<bool (Command::*)() const> 
+class Command: public CmdFinder<bool (Command::*)() const>
 {
     static Entry s_action[];
 
@@ -18,7 +18,7 @@ class Command: public CmdFinder<bool (Command::*)() const>
     {
         cout << "add called: command was `" << cmd() << "'\n";
         if (beyond().length())
-            cout << "Beyond " << cmd() << " `" << beyond() << "'\n"; 
+            cout << "Beyond " << cmd() << " `" << beyond() << "'\n";
         return true;
     }
     bool error() const
@@ -39,7 +39,7 @@ class Command: public CmdFinder<bool (Command::*)() const>
         bool run(std::string const &cmd)    // run a command
         {
             return (this->*findCmd(cmd))(); // execute the command matching
-                                            // 'cmd' 
+                                            // 'cmd'
         }
 };
 
@@ -57,7 +57,7 @@ Command::Entry Command::s_action[] =
 // Define the default constructor
 Command::Command()                       // Define the default constructor
 :                               // Note the use of `FunctionPtr'
-    CmdFinder<FunctionPtr>(s_action, s_action + 
+    CmdFinder<FunctionPtr>(s_action, s_action +
                                     sizeof(s_action) / sizeof(Entry))
 {}
 
@@ -84,19 +84,11 @@ int main()
                                 // enter 5 commands using the default mode
     run (cmd, "the default mode");
     run (cmd, "abbreviated commands", Command::UNIQUE);
-    run (cmd, "abbreviated case-insensitive commands", 
+    run (cmd, "abbreviated case-insensitive commands",
                                    Command::UNIQUE | Command::INSENSITIVE);
-    run (cmd, "abbreviated command lines", 
+    run (cmd, "abbreviated command lines",
                                    Command::USE_FIRST | Command::UNIQUE);
-    run (cmd, "abbreviated case-insensitive command lines", 
+    run (cmd, "abbreviated case-insensitive command lines",
                                    Command::USE_FIRST | Command::UNIQUE |
                                                         Command::INSENSITIVE);
 }
-
-
-
-
-
-
-
-

@@ -6,14 +6,14 @@
         three = three;
     }
 
-    try 
+    try
     {
         Pattern pattern("aap|noot|mies");
 
         {
             Pattern extra(Pattern(pattern));
         }
-    
+
         if (pattern << "noot")
             cout << "noot matches\n";
         else
@@ -23,4 +23,3 @@
     {
         cout << e.what() << ": compilation failed" << endl;
     }
-        

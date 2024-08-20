@@ -16,8 +16,7 @@ int IFilterBuf::underflow()
     setg(0, size);                              // set the buffer ptrs.
 
     d_srcBegin += size;                         // consumed `size' source
-                                                // bytes 
+                                                // bytes
 
     return static_cast<unsigned char>(*gptr());
 }
-

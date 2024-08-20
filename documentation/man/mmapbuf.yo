@@ -1,0 +1,99 @@
+includefile(include/header)
+
+COMMENT(manpage, section, releasedate, archive, short name)
+manpage(FBB::MmapBuf)(3bobcat)(_CurYrs_)(libbobcat-dev__CurVers_)
+       (std::streambuf using mmap(2))
+
+manpagename(FBB::MmapBuf)(a std::streambuf using mmap(2) for file I/O)
+
+manpagesynopsis()
+    bf(#include <bobcat/mmapbuf>)nl()
+
+    Linking option: tt(-lbobcat)
+
+manpagedescription()
+    The bf(mmap)(2) functions map files in the virtual address space of the
+calling process. Using tt(mmap) in bf(C++) is doable, but complex. The
+bf(MmapBuf) tt(std::streambuf) class embeds the features of bf(mmap)(2),
+allowing the use of bf(C++)'s streams instead of using the raw tt(mmap)
+calls. the bf(FBB::Mmapbase) class defines a tt(std::streambuf) which can be
+used by tt(istream, ostream,) and tt(iostream) objects.
+
+An tt(std::exception) is thrown, and an error message is written to tt(cerr)
+if the details about the specified filename (cf. section bf(CONSTRUCORS)
+cannot be determined, or when tt(mmap) or tt(munmap) return errors.
+
+includefile(include/namespace)
+
+manpagesection(INHERITS FROM)
+    bf(std::streambuf)
+
+manpagesection(CONSTRUCTORS)
+    itemization(
+    itb(MmapBuf())
+        The default constructor merely constructs an empty bf(MmapBuf)
+object. To change it to a usable object use move assignment;
+
+    itb(MmapBuf(std::string const &fname, 
+                std::ios::openmode openMode,
+                char const *bufSize = 0, mode_t mode = 0644))
+        The constructor initializes the tt(MmapBuf) object for a file named
+tt(fname). The tt(openmode) can be any combination of the
+tt(std::ios::openmode) values. The required values are usually provided when
+constructing tt(ImapStream, OmapStream,) or tt(IOmapStream) objects
+(cf. section bf(SEE ALSO) below).
+
+The tt(opnemMode) parameter specifies how tt(fname) is used. The
+standard tt(ios::in, ios::out, ios::trunc, ios::app,) and tt(ios::ate) modes
+are supported.
+
+By default bfMmapBuf) uses a mapping buffer size of 10 times the standard page
+size, (cf. bf(sysconf)(3), and the member tt(pageSize) below). The size of the
+mapping buffer can also be specified using the tt(bufSize) parameter. To
+specify it use a value followed by tt(K, M,) or tt(G), representing,
+resp. 1024, 1024 * 1024, and 1024 * 1024 * 1024 bytes. The final buffer size
+is at least equal to the standard page size. When a larger value is specified
+the used buffer size is set to tt(specified / pageSize * pageSize).
+
+The tt(mode) parameter specifies the user/group/other access mode which is
+used when the file is created by tt(MmapBuf). Its default value specifies
+read/write access by the user, and  read access by others.
+    )
+
+    The move constructor and move assignment operator are available.nl()
+    The copy constructor and copy assignment operator are not available.
+
+manpagesection(MEMBER FUNCTIONS)
+     All members of bf(std::stringstream) are available, as bf(FBB::MmapBuf)
+inherits from that class.
+
+    itemization(
+    itb(size_t bufSize() const)
+        returns the used t(mmap) buffer size;
+
+    itb(size_t fileSize() const)
+        returns the size of the used file. The size is updated to a larger
+size when writing beyond the current file size. Once bf(MmapBuf) objects
+cease to exist the used file's size is modified to the current tt(fileSize)
+value. The size of a file that can only be read is never altered.
+
+    itb(size_t pageSize() const)
+        returns the smallest page size used by t(mmap).
+    )
+
+manpagesection(EXAMPLE)
+    An example is provided in bobcat's source archive and gitlab repository at
+tt(bobcat/mmapbuf/demo).
+
+manpagefiles()
+    em(bobcat/mmapbuf) - defines the class interface
+
+manpageseealso()
+    bf(bobcat)(7), bf(chmod)(2), bf(immapstream)(3bobcat),
+    bf(iommapstream)(3bobcat), bf(ommapstream)(3bobcat), bf(mmap)(2),
+    bf(sysconf)(3)
+
+manpagebugs()
+    None Reported.
+
+includefile(include/trailer)

@@ -52,8 +52,5 @@ class BinopsBase: public BinopsBase0<Derived, ops...>
 
 #include "inlines.f"
 
-} // FBB        
+} // FBB
 #endif
-
-
-

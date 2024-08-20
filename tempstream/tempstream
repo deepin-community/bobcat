@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
@@ -21,7 +23,5 @@ class TempStream: public std::fstream
 #include "filename.f"
 
 }   // FBB
-        
+
 #endif
-
-

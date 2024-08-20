@@ -1,0 +1,15 @@
+#include "ifdbufs"
+
+//#include <iostream>
+//#define CERRX std::cerr << __FILE__": "
+
+#include <cstring>
+#include <cstdio>
+
+#include <unistd.h>
+
+
+#ifndef SPCH_
+using namespace FBB;
+using namespace std;
+#endif

@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include <bobcat/exception>
+
 struct passwd;
 
 namespace FBB
@@ -20,7 +22,7 @@ class User
     public:
         User();                         // 1.cc
         User(std::string const &name);  // 2.cc details of user 'name'
-        User(size_t uid);               // 3.cc details of user whose ID is 
+        User(size_t uid);               // 3.cc details of user whose ID is
                                         //      uid
 
         User(User const &other) = default;

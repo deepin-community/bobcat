@@ -3,8 +3,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include "../exception/exception"
 #include "../string/string"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
+#endif

@@ -1,0 +1,40 @@
+#include "proc"
+
+#include "../xerr/xerr.ih"
+
+#include <chrono>
+
+#include <bobcat/exception>
+#include <bobcat/ifdbufs>
+#include <bobcat/ofdstream>
+#include <bobcat/fswap>
+
+
+struct FBB::Proc::ExecContext
+{
+    size_t argc;            // must eventually be at least 1
+    char const **argv;      // 0-terminated array of pointers to the 
+                            // arguments
+};
+
+inline FBB::Proc::RetPid::RetPid(int rt, pid_t pd)
+:
+    ret(rt),
+    pid(pd)
+{}
+
+inline void FBB::Proc::closePipe(size_t idx)
+{
+    (*d_pipesPtr)[idx].close();
+}
+
+inline bool FBB::Proc::localPipes() const
+{
+    return d_admin & LOCAL_PIPES;
+}
+
+
+#ifndef SPCH_
+using namespace std;
+using namespace FBB;
+#endif

@@ -1,6 +1,6 @@
 #include "iobuf.ih"
 
-std::ios::pos_type IOBuf::pSeekoff(off_type offset, 
+std::ios::pos_type IOBuf::pSeekoff(off_type offset,
                             std::ios::seekdir way, std::ios::openmode mode)
 {
     if (mode == std::ios::in)

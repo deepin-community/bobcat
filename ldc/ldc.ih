@@ -1,0 +1,20 @@
+#include "ldc"
+
+#include <iostream>
+
+#include <cctype>
+
+#include <iomanip>
+#include <algorithm>
+
+#include "../fswap/fswap"
+#include "../bigint/bigint"
+#include "../string/string"
+
+using namespace std;
+using namespace FBB;
+
+inline int LDC::idx(CHAR *ptr, bool bufIdx) const
+{
+    return ptr - d_buffer[bufIdx];
+}

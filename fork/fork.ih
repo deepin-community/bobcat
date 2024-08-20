@@ -3,15 +3,15 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <cstdlib>
+#include <csignal>
+
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-#include <cstdlib>
 #include <string>
 
-#include "../exception/exception"
-
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
-
-
+#endif

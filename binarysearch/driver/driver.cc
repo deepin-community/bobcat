@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string words[] = 
+string words[] =
 {
     "eight",                // alphabetically sorted number-names
     "five",
@@ -33,7 +33,7 @@ int main()
     if (ret == words + 10)
         cout << "grandpa is not the name of a number\n";
 
-    ret = FBB::binary_search(words, words + 10, "five", 
+    ret = FBB::binary_search(words, words + 10, "five",
         [&](string const &element, string const &value)
         {
             return element < value;
@@ -43,17 +43,8 @@ int main()
     if (ret != words + 10)
         cout << "five is at offset " << (ret - words) << endl;
 
-    ret = FBB::binary_search(words, words + 10, "grandpa", compFun); 
+    ret = FBB::binary_search(words, words + 10, "grandpa", compFun);
                                                    // or use: Comparator()
     if (ret == words + 10)
         cout << "grandpa is not the name of a number\n";
 }
-
-
-
-
-
-
-
-
-

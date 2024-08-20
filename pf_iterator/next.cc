@@ -11,7 +11,3 @@ void PrimeFactors::iterator::next()
 
     d_primes->push_back(d_lastPrime);
 }
-
-
-
-

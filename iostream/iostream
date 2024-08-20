@@ -23,4 +23,3 @@ class IOStream: private IOBuf, public std::istream, public std::ostream
 } // namespace FBB
 
 #endif
-

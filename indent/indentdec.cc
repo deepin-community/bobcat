@@ -7,8 +7,3 @@ ostream &FBB::indentdec(ostream &out)
     Indent::dec();
     return out;
 }
-
-
-
-
-

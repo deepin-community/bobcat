@@ -2,5 +2,5 @@
 
 size_t EncryptBuf::keyLength() const
 {
-    return EVP_CIPHER_CTX_key_length(d_ctx);
+    return 0;
 }

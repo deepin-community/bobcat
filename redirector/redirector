@@ -1,6 +1,8 @@
 #ifndef INCLUDED_BOBCAT_REDIRECTOR_
 #define INCLUDED_BOBCAT_REDIRECTOR_
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
@@ -21,7 +23,7 @@ class Redirector
         void accessVia(int alternateFd) const;                  // .f
         void swallow(int alternateFd) const;
         void through(int alternateFd) const;
-};            
+};
 
 #include "redirector1.f"
 #include "accessvia.f"

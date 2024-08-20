@@ -8,14 +8,3 @@ StreamType Exception::factory(std::string const &name)
 
     return stream;
 }
-
-
-
-
-
-
-
-
-
-
-

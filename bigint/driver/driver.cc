@@ -16,28 +16,30 @@ void binary(BigInt const &bi)
     cerr << '\n';
 }
 
+#include <sstream>
+
 int main(int argc, char **argv)
 try
-{   
+{
     if (argc == 1)
-        throw Exception(1) << "Provide h (hex), o (oct), or d (dec) argument";
+        throw Exception(1) << "Provide h (hex), o (oct), or d (dec) "
+                              "and read the value frm stdin";
 
-//    BigInt value;
-//
-//    int mode = argv[1][0];
-//
-//    cin >>
-//        (mode == 'h' ? hex : mode == 'o' ? oct : dec) >>
-//        value;
-//
-//    if (cin.fail())
-//        cerr << "Input failed\n";
-//    else
-//        cerr << '\n' <<
-//                   value << '\n' <<
-//            oct << value << '\n' <<
-//            hex << value << '\n';
+    BigInt value;
 
+    int mode = argv[1][0];
+
+    cin >>
+        (mode == 'h' ? hex : mode == 'o' ? oct : dec) >>
+        value;
+
+    if (cin.fail())
+        cerr << "Input failed\n";
+    else
+        cerr << '\n' <<
+                   value << '\n' <<
+            oct << value << '\n' <<
+            hex << value << '\n';
 
     BigInt zero;        // default construction of a BigInt
     cerr << "Defaults to zero: " << zero << '\n';
@@ -54,7 +56,7 @@ try
     cerr << "five.isNegative(): " << five.isNegative() << '\n';
 
     five.setNegative(false);
-    cerr << "five.setNegative(false): negative? " << five.isNegative() << 
+    cerr << "five.setNegative(false): negative? " << five.isNegative() <<
                                                                         '\n';
 
     cerr << "five: " << five << ". ";
@@ -63,10 +65,10 @@ try
     cerr << "five.tildeBits(): " << five.tildeBits() << ". ";
     binary(five);
     five = 5;
-    
+
     cerr << "five.tildeInt(): " << five.tildeInt() << ". ";
     binary(five);
-    
+
     cerr << "++ --zero: " << ++ --zero << " (zero = " << zero << ")\n";
     BigInt zeroOrg(zero--);
     cerr << "zeroOrg(zero--): zeroOrg: " << zeroOrg << ", zero: " << zero <<
@@ -96,11 +98,11 @@ try
     cerr << hex << "0x" << large << '\n';
     char *bigEndian = large.bigEndian();
     for (size_t idx = 0; idx < large.sizeInBytes(); ++idx)
-        cerr << "byte[" << idx << "]: 0x" << 
+        cerr << "byte[" << idx << "]: 0x" <<
             static_cast<int>(static_cast<unsigned char>(bigEndian[idx])) <<
             '\n';
     swap(bigEndian[0], bigEndian[large.sizeInBytes()-1]);
-    
+
     string newValue(bigEndian, bigEndian + large.sizeInBytes());
     delete[] bigEndian;
 
@@ -114,7 +116,7 @@ try
     cerr << "large.addMod(five, 13) : " << large.addMod(five, 13) << '\n';
 
     large = 123456789;
-    
+
     cerr << "large (= 123456789) / 1234 = " << (large /= 1234) << '\n';
 
     large = 123456789;
@@ -135,13 +137,13 @@ try
     binary(large ^ 0x111);
     binary(large & 0x111);
 
-    cerr << large << " == " << large << "? " << (large == large) << '\n';    
-    cerr << large << " != " << large << "? " << (large != large) << '\n';    
+    cerr << large << " == " << large << "? " << (large == large) << '\n';
+    cerr << large << " != " << large << "? " << (large != large) << '\n';
 
-    cerr << large << " < " << five << "? " << (large < five) << '\n';    
-    cerr << large << " <= " << five << "? " << (large <= five) << '\n';    
-    cerr << large << " > " << five << "? " << (large > five) << '\n';    
-    cerr << large << " >= " << five << "? " << (large >= five) << '\n';    
+    cerr << large << " < " << five << "? " << (large < five) << '\n';
+    cerr << large << " <= " << five << "? " << (large <= five) << '\n';
+    cerr << large << " > " << five << "? " << (large > five) << '\n';
+    cerr << large << " >= " << five << "? " << (large >= five) << '\n';
 
     large = 123456789;
     cerr << large << ".exp(4) = ";
@@ -163,7 +165,7 @@ try
     BigInt origNr;
     origNr = BigInt::setBigEndian(orig);
     BigInt randnr(BigInt::rand(origNr.size()));
-    
+
     cerr << "orig text in hex:      " << hex << origNr << dec << '\n';
     cerr << "same nr of random nrs: " << hex << randnr << dec << '\n';
 
@@ -180,5 +182,3 @@ catch(exception const &err)
     cerr << err.what() << '\n';
     return 1;
 }
-
-

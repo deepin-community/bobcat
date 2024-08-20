@@ -8,6 +8,7 @@
 
 #include "../fswap/fswap"
 
+#ifndef SPCH_
 using namespace std;
 using namespace FBB;
-
+#endif

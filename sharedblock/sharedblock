@@ -23,5 +23,5 @@ class SharedBlock
 #include "lock.f"
 #include "unlock.f"
 
-} // FBB        
+} // FBB
 #endif

@@ -1,0 +1,11 @@
+--- a/mmapbuf/xsgetn.cc
++++ b/mmapbuf/xsgetn.cc
+@@ -4,8 +4,6 @@
+ // override
+ std::streamsize MmapBuf::xsgetn(char *dest, std::streamsize req)
+ {
+-xerr("XSGETN");
+-
+     if (req <= 0)
+         return 0;
+ 

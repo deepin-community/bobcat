@@ -4,7 +4,7 @@ String::CharType String::peek(FSAData &data)
 {
     if (data.begin == data.end)
         return CharType::EOS;
-        
+
     if (data.separators.find(*data.begin) != string::npos)
         return CharType::SEPARATOR;
 
@@ -16,4 +16,3 @@ String::CharType String::peek(FSAData &data)
         default:    return CharType::CHAR;
     }
 }
-

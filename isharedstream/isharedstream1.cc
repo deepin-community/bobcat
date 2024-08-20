@@ -4,4 +4,3 @@ ISharedStream::ISharedStream()
 :
     istream(this)
 {}
- 

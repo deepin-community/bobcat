@@ -8,7 +8,7 @@ manpagename(FBB::IRandStream)(Istream producing random numbers)
 
 manpagesynopsis()
     bf(#include <bobcat/irandstream>)nl()
-    Linking option: tt(-lbobcat) 
+    Linking option: tt(-lbobcat)
 
 manpagedescription()
     bf(FBB::IRandStream) objects may be used to extract random numbers in a
@@ -18,8 +18,8 @@ includefile(include/namespace)
 
 manpagesection(INHERITS FROM)
     bf(std::istream), nl()
-    bf(FBB::RandBuffer) (private) 
-    
+    bf(FBB::RandBuffer) (private)
+
 
 manpagesection(CONSTRUCTORS)
     itemization(
@@ -60,11 +60,9 @@ manpagefiles()
     em(bobcat/irandstream) - defines the class interface
 
 manpageseealso()
-    bf(bobcat)(7), bf(randbuf)(3bobcat)
+    bf(bobcat)(7), bf(randbuf)(3bobcat), bf(randommt)(3bobcat)
 
 manpagebugs()
     None Reported.
 
 includefile(include/trailer)
-
-

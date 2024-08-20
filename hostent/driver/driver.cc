@@ -21,7 +21,7 @@ int main(int argc, char **argv)
         cout << "The local hostname = " << he2.hostname() << endl;
 
         cout << "All aliases: " << endl;
-        copy(he2.beginAlias(), he2.endAlias(), 
+        copy(he2.beginAlias(), he2.endAlias(),
                     ostream_iterator<char const *>(cout, "\n"));
 
 
@@ -32,7 +32,3 @@ int main(int argc, char **argv)
         cout << "he2 destroyed\n";
     }
 }
-
-
-
-

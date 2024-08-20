@@ -25,8 +25,7 @@ void usage(std::string  const  &progname)
     "   to-escape           - RE defining characters to escape.\n"
     "                         (e.g., '[:cgi:]')\n"
     "   < arg.cin           - file to read, simulating form-output\n"
-    "                         (e.g., post1.cin)\n" 
+    "                         (e.g., post1.cin)\n"
     "   For the 'get' method the input redirection is not used/required\n"
     "\n";
 }
-

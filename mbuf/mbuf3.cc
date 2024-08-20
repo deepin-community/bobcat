@@ -1,6 +1,6 @@
 #include "mbuf.ih"
 
-Mbuf::Mbuf(string const &name, size_t maxCount, string const &tag, 
+Mbuf::Mbuf(string const &name, size_t maxCount, string const &tag,
                             bool throwing)
 :
     d_ofstr(new ofstream(name)),

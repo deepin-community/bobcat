@@ -1,7 +1,7 @@
 template <class Derived>
 struct Sub
 {
-    Derived &operator-=(Derived const &rhs) &; 
+    Derived &operator-=(Derived const &rhs) &;
     Derived &&operator-=(Derived const &rhs) &&;
 };
 
@@ -42,8 +42,3 @@ class BinopsBase0<Derived, '-', ops...>
     public BinopsBase0<Derived, ops...>,
     public Sub<Derived>
 {};
-
-
-
-
-

@@ -6,6 +6,7 @@
 #include <glob.h>
 
 #include <bobcat/gs>
+#include <bobcat/exception>
 
 namespace FBB
 {
@@ -39,7 +40,7 @@ class Glob: public GS__
             FIRST,
             DEFAULT
         };
-            
+
         Glob(std::string const &pattern = "*", int flags = PERIOD,  // 1
              Dots dots = FIRST);
         Glob(Type type, std::string const &pattern = "*",           // 2
@@ -47,7 +48,7 @@ class Glob: public GS__
         Glob(Glob &&tmp);                                           // 3
         Glob(Glob const &other);                                    // 4
         Glob(std::unordered_set<Type> const &type,                  // 5
-                std::string const &pattern = "*",           
+                std::string const &pattern = "*",
                 int flags = PERIOD, Dots dots = FIRST);
 
         ~Glob();
@@ -73,9 +74,5 @@ class Glob: public GS__
 };
 
 } // FBB
-        
+
 #endif
-
-
-
-

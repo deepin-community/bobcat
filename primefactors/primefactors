@@ -19,12 +19,12 @@ struct PrimeFactors
         size_t power;
     };
 
-    typedef std::vector<PrimePower> Factors;
+    using Factors = std::vector<PrimePower>;
 
     private:
-        typedef std::vector<BigInt> BigIntVector;
-        typedef BigIntVector::const_iterator ConstIterator;
-    
+        using BigIntVector = std::vector<BigInt>;
+        using ConstIterator = BigIntVector::const_iterator;
+
         class iterator
         {
             protected:
@@ -39,7 +39,7 @@ struct PrimeFactors
                 ConstIterator d_iterator;
                 BigInt d_lastPrime;
                 BigIntVector d_sentinel;
-                    
+
             public:
                 virtual ~iterator();
                 iterator();
@@ -55,7 +55,7 @@ struct PrimeFactors
             protected:
                 void checkInitialPrimes(BigIntVector const &primes) const;
                 bool isComposite(BigInt const &candidate);
-    
+
             private:
                 virtual iterator &operatorPreInc();
                 virtual void next();
@@ -67,7 +67,7 @@ struct PrimeFactors
         BigInt d_last;
 
         std::shared_ptr<iterator> d_iterator;
-    
+
         Factors d_factors;
 
     public:
@@ -83,14 +83,5 @@ struct PrimeFactors
         void addPrimes();
 };
 
-} // FBB        
+} // FBB
 #endif
-
-
-
-
-
-
-
-
-

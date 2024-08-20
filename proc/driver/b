@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# -eq 0 ] ; then
+    echo Provide 1st argument: ls.cc, limit.cc
+    exit 0;
+fi
+
+g++ `cat ../../c++std` -Wall $1 -lbobcat -s | exit 1
+
+echo a.out available

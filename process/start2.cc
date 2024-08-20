@@ -1,7 +1,7 @@
 #include "process.ih"
 
-void Process::start(IOMode mode, ProcessType type, size_t timeLimit, 
-                    size_t bufferSize) 
+void Process::start(IOMode mode, ProcessType type, size_t timeLimit,
+                    size_t bufferSize)
 {
     if (d_active)
         stop();
@@ -24,14 +24,8 @@ void Process::start(IOMode mode, ProcessType type, size_t timeLimit,
 
     setBufSize(savedBufSize);
     d_mode = static_cast<IOMode>(d_setMode);    // revert to the default
-                                                // process 
+                                                // process
 
     d_processType = d_setProcessType;       // parameters for a next run
     d_timeLimit = d_setTimeLimit;
 }
-
-
-
-
-
-

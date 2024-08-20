@@ -1,4 +1,4 @@
-inline std::ostream &TableSupport::out() const
+inline std::ostream &FBB::TableSupport::out() const
 {
     return *d_streamPtr;
 }

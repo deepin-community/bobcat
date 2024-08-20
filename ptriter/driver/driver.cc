@@ -15,7 +15,7 @@ int main()
                                             "^D when done.\n";
 
     string key;
-    string line;                    
+    string line;
     unordered_map<string, string> map;
     while (cin >> key && getline(cin, line))    // fill the map
         map[key] = line;
@@ -27,7 +27,7 @@ int main()
 
                                         // sort 'support'
     typedef unordered_map<string, string>::value_type VT;
-    sort(support.begin(), support.end(), 
+    sort(support.begin(), support.end(),
         [&](VT const *p1, VT const *p2)
         {
             return strcasecmp(p1->first.c_str(), p2->first.c_str()) < 0;
@@ -37,9 +37,3 @@ int main()
     for(auto &element: support)         // display sorted by key
         cout << element->first << ' ' << element->second << '\n';
 }
-
-
-
-
-
-

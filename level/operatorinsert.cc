@@ -12,5 +12,5 @@ std::ostream &operator<<(std::ostream &str, level const &lv)
             :
                 lv.insertInto(*lp);
 }
-        
+
 }   // FBB

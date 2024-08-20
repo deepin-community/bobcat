@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# rm main.o
+
+if [ "main.cc" -nt "main.o" ] ; then
+    g++ ${ICMAKE_CPPSTD}  -c -Wall -fdiagnostics-color=never main.cc || exit 1
+fi
+
+CMD="g++ ${ICMAKE_CPPSTD}  -Wall -fdiagnostics-color=never main.o \
+     -L../tmp -L../../mmapbuf/tmp -liommapstream -lmmapbuf -lbobcat -s"
+
+# CMD="g++ ${ICMAKE_CPPSTD}  -Wall main.cc ../*.o -lbobcat -s"
+# CMD="g++ ${ICMAKE_CPPSTD}  -Wall main.cc -lbobcat -s"
+
+
+echo $CMD
+$CMD

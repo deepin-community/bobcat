@@ -8,6 +8,8 @@
 #include <iosfwd>
 #include <limits>
 
+#include <bobcat/exception>
+
 namespace FBB
 {
 
@@ -36,15 +38,15 @@ class Mbuf: public std::streambuf
                         std::string const &tag = "", bool throwing = false);
 
                                                                 // 3
-        explicit Mbuf(std::string const &name, size_t maxCount = 
-                    std::numeric_limits<size_t>::max(), 
+        explicit Mbuf(std::string const &name, size_t maxCount =
+                    std::numeric_limits<size_t>::max(),
                      std::string const &tag = "", bool throwing = false);
 
-        void reset(Mbuf const &mbuf);               // 1: initialize from 
-                                                        // mbuf. Shares 
+        void reset(Mbuf const &mbuf);               // 1: initialize from
+                                                        // mbuf. Shares
                                                         // d_ofstr and uses
                                                         // d_ostr's rdbuf
-                                                    
+
         void reset(std::streambuf *strbuf, size_t maxCount,     // 2
                     std::string const &tag, bool throwing);
 
@@ -52,7 +54,7 @@ class Mbuf: public std::streambuf
                     std::string const &tag, bool throwing);
 
         bool throws() const;                                    // .f
-        void throwing(bool ifTrue);                             // .f    
+        void throwing(bool ifTrue);                             // .f
         size_t count() const;                                   // .f
         size_t maxCount() const;                                // .f
         std::string const &tag() const;                         // .f
@@ -70,28 +72,24 @@ class Mbuf: public std::streambuf
         bool firstChar() const;
         void showTag();
         void inspectOfstr(std::string const &name) const;
-        
+
         int overflow(int c) override;
         std::streamsize xsputn(char const *buf, std::streamsize n) override;
         int sync() override;
 };
 
 #include "count.f"
-#include "lineexcess.f"        
+#include "lineexcess.f"
 #include "linetag.f"
 #include "maxcount.f"
 #include "nolinenr.f"
 #include "setcount.f"
 #include "setlinetag.f"
 #include "setmaxcount.f"
-#include "tag.f"        
+#include "tag.f"
 #include "throwing.f"
 #include "throws.f"
 
 } // FBB
 
 #endif
-
-
-
-
